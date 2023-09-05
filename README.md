@@ -1,29 +1,22 @@
-# BlueWallet - A Bitcoin & Lightning Wallet
+# Cobalt - A Bitcoin & Lightning Wallet
 
-[![GitHub tag](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/BlueWallet/BlueWallet/master/package.json&query=$.version&label=Version)](https://github.com/BlueWallet/BlueWallet)
-[![CircleCI](https://circleci.com/gh/BlueWallet/BlueWallet.svg?style=svg)](https://circleci.com/gh/BlueWallet/BlueWallet)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![GitHub tag](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/BlueWallet/BlueWallet/master/package.json&query=$.version&label=Version)](https://github.com/CobaltApp/Cobalt)
 ![](https://img.shields.io/github/license/BlueWallet/BlueWallet.svg)
 
 Thin Bitcoin Wallet.
 Built with React Native and Electrum.
 
-[![Appstore](https://bluewallet.io/uploads/app-store-badge-blue.svg)](https://itunes.apple.com/us/app/bluewallet-bitcoin-wallet/id1376878040?l=ru&ls=1&mt=8)
-[![Playstore](https://bluewallet.io/uploads/play-store-badge-blue.svg)](https://play.google.com/store/apps/details?id=io.bluewallet.bluewallet)
+Website: [cobaltapp.com](https://cobalt-pay.com)
 
-Website: [bluewallet.io](https://bluewallet.io)
+Community: [Telegram Group](https://t.me/cobaltapp)
 
-Community: [telegram group](https://t.me/bluewallet)
-
-* Private keys never leave your device
-* Lightning Network supported
-* SegWit-first. Replace-By-Fee support
-* Encryption. Plausible deniability
-* And many more [features...](https://bluewallet.io/features)
-
-
-<img src="https://i.imgur.com/hHYJnMj.png" width="100%">
-
+* Private Keys never leave your device
+* Lightning Network Support
+* SegWit Wallets
+* Encryption
+* Custom Fee Support
+* Plausible Deniability
+* And many more [features...](https://cobalt-pay.com/features)
 
 ## BUILD & RUN IT
 
@@ -38,8 +31,8 @@ node --version && npm --version
 * In your console:
 
 ```
-git clone https://github.com/BlueWallet/BlueWallet.git
-cd BlueWallet
+git clone https://github.com/CobaltApp/Cobalt.git
+cd CobaltApp
 npm install
 ```
 
@@ -51,7 +44,7 @@ You will now need to either connect an Android device to your computer or run an
 
 1. Download and run Android Studio
 2. Click on "Open an existing Android Studio Project"
-3. Open `build.gradle` file under `BlueWallet/android/` folder
+3. Open `build.gradle` file under `Cobalt/android/` folder
 4. Android Studio will take some time to set things up. Once everything is set up, go to `Tools` -> `AVD Manager`.
     * 📝 This option [may take some time to appear in the menu](https://stackoverflow.com/questions/47173708/why-avd-manager-options-are-not-showing-in-android-studio) if you're opening the project in a freshly-installed version of Android Studio.
 5. Click on "Create Virtual Device..." and go through the steps to create a virtual device
@@ -72,7 +65,7 @@ npx pod-install
 npm start
 ```
 
-In another terminal window within the BlueWallet folder:
+In another terminal window within the Cobalt folder:
 ```
 npx react-native run-ios
 ```
@@ -98,21 +91,7 @@ MIT
 
 ## WANT TO CONTRIBUTE?
 
-Grab an issue from [the backlog](https://github.com/BlueWallet/BlueWallet/projects/1), try to start or submit a PR, any doubts we will try to guide you. Contributors have a private telegram group, request access by email bluewallet@bluewallet.io
-
-## Translations
-
-We accept translations via [Transifex](https://www.transifex.com/bluewallet/bluewallet/)
-
-To participate you need to:
-1. Sign up to Transifex
-2. Find BlueWallet project
-3. Send join request
-4. After we accept your request you will be able to start translating! That's it!
-
-Please note the values in curly braces should not be translated. These are the names of the variables that will be inserted into the translated string. For example, the original string `"{number} of {total}"` in Russian will be `"{number} из {total}"`.
-
-Transifex automatically creates Pull Request when language reaches 100% translation. We also trigger this by hand before each release, so don't worry if you can't translate everything, every word counts.
+Grab an issue from [the backlog](https://github.com/CobaltApp/Cobalt/projects/), try to start or submit a PR, any doubts we will try to guide you. Contributors have a private telegram group, request access by email help@cobaltapp.com
 
 ## Q&A
 
@@ -127,5 +106,5 @@ Bugs reported via BugSnag
 
 ## RESPONSIBLE DISCLOSURE
 
-Found critical bugs/vulnerabilities? Please email them bluewallet@bluewallet.io
+Found critical bugs/vulnerabilities? Please email them help@cobaltapp.com
 Thanks!
