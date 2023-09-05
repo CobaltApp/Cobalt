@@ -84,7 +84,6 @@ Once the patches are applied, open Xcode and select "My Mac" as destination.
 npm run test
 ```
 
-
 ## LICENSE
 
 MIT
@@ -95,14 +94,9 @@ Grab an issue from [the backlog](https://github.com/CobaltApp/Cobalt/projects/),
 
 ## Q&A
 
-Builds automated and tested with BrowserStack
+Builds automated and tested with [BrowserStack](https://www.browserstack.com)
 
-<a href="https://www.browserstack.com/"><img src="https://i.imgur.com/syscHCN.png" width="160px"></a>
-
-Bugs reported via BugSnag
-
-<a href="https://www.bugsnag.com"><img src="https://images.typeform.com/images/QKuaAssrFCq7/image/default" width="160px"></a>
-
+Bugs reported via [BugSnag](https://www.bugsnag.com)
 
 ## RESPONSIBLE DISCLOSURE
 
