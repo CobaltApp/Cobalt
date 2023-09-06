@@ -1,14 +1,11 @@
 # Cobalt - A Bitcoin & Lightning Wallet
 
-[![GitHub tag](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/BlueWallet/BlueWallet/master/package.json&query=$.version&label=Version)](https://github.com/CobaltApp/Cobalt)
-![](https://img.shields.io/github/license/BlueWallet/BlueWallet.svg)
+[![GitHub tag](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/CobaltApp/Cobalt/master/package.json&query=$.version&label=Version)](https://github.com/CobaltApp/Cobalt)
+![](https://img.shields.io/github/license/CobaltApp/Cobalt)
 
-Thin Bitcoin Wallet.
-Built with React Native and Electrum.
+Thin Bitcoin wallet built with React Native and Electrum.
 
-Website: [cobaltapp.com](https://cobalt-pay.com)
-
-Community: [Telegram Group](https://t.me/cobaltapp)
+## 🌟 Features
 
 * Private Keys never leave your device
 * Lightning Network Support
@@ -18,7 +15,7 @@ Community: [Telegram Group](https://t.me/cobaltapp)
 * Plausible Deniability
 * And many more [features...](https://cobalt-pay.com/features)
 
-## BUILD & RUN IT
+## 🧑‍💻 Developing
 
 Please refer to the engines field in package.json file for the minimum required versions of Node and npm. It is preferred that you use an even-numbered version of Node as these are LTS versions.
 
@@ -78,27 +75,23 @@ npm run maccatalystpatches
 
 Once the patches are applied, open Xcode and select "My Mac" as destination.
 
-## TESTS
+### Testing
 
 ```bash
 npm run test
 ```
 
-## LICENSE
+## 🤝 Community
 
-MIT
+Our community is the 💙 of the project. To chat with other community members in real-time, join our [Telegram channel](https://t.me/cobaltapp).
 
-## WANT TO CONTRIBUTE?
+## 📜 License
 
-Grab an issue from [the backlog](https://github.com/CobaltApp/Cobalt/projects/), try to start or submit a PR, any doubts we will try to guide you. Contributors have a private telegram group, request access by email help@cobaltapp.com
+Cobalt Pay software is provided under the [MIT License](https://github.com/CobaltApp/CobaltPay/blob/master/LICENSE).
 
-## Q&A
+## ❓ FAQ
 
+Report a bug [here](https://github.com/CobaltApp/CobaltPay/issues/new/choose)
 Builds automated and tested with [BrowserStack](https://www.browserstack.com)
-
 Bugs reported via [BugSnag](https://www.bugsnag.com)
-
-## RESPONSIBLE DISCLOSURE
-
-Found critical bugs/vulnerabilities? Please email them help@cobaltapp.com
-Thanks!
+If you'd like to support the project, please visit the [donation page](https://cobalt-pay.com/donate/).
