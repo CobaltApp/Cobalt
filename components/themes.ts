@@ -27,15 +27,15 @@ export const BlueDefaultTheme = {
   scanImage: require('../img/scan.png'),
   colors: {
     ...DefaultTheme.colors,
-    inverseForegroundColor: '#FCFCFD',
     lnbackgroundColor: '#F4F5F6',
     buttonDisabledTextColor: '#777E90',
     inputBorderColor: '#B1B5C3',
 
     background: '#FCFCFD',
 
-    inputBackgroundColor: '#F4F5F6',
-    formBorder: '#F4F5F6',
+    inputBackgroundColor: '#FCFCFD',
+    formBorder: '#E6E8EC',
+
     modal: '#F4F5F6',
     redBG: '#F4F5F6',
     receiveBackground: '#F4F5F6',
@@ -66,14 +66,9 @@ export const BlueDefaultTheme = {
     positive: '#58BD7D',
     negative: '#FF6838',
     lightning: '#FFD166',
-    shadowColor: '#000000',
   
     ballReceive: '#d2f8d6',
     ballOutgoing: '#f8d2d2',
-
-    redText: '#FF6838',
-    changeText: '#FFD166',
-    receiveText: '#58BD7D',
   },
 };
 

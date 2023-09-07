@@ -107,12 +107,9 @@ const ReorderWallets = () => {
           disabled={isActive}
           onLongPress={drag}
           onPress={() => navigateToWallet(item)}
-          shadowOpacity={40 / 100}
-          shadowOffset={{ width: 0, height: 0 }}
-          shadowRadius={5}
           style={styles.itemRoot}
         >
-          <LinearGradient shadowColor="#000000" colors={WalletGradient.gradientsFor(item.type)} style={styles.gradient}>
+          <LinearGradient colors={WalletGradient.gradientsFor(item.type)} style={styles.gradient}>
             <Image
               source={(() => {
                 switch (item.type) {

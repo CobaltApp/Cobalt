@@ -51,7 +51,7 @@ const LNDCreateInvoice = () => {
       backgroundColor: colors.scanLabel,
     },
     scanClick: {
-      color: colors.inverseForegroundColor,
+      color: colors.background,
     },
     walletNameText: {
       color: colors.foreground,

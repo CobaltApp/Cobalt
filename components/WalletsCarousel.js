@@ -25,8 +25,8 @@ import { isHandset, isTablet, isDesktop } from '../blue_modules/environment';
 
 const nStyles = StyleSheet.create({
   container: {
-    borderRadius: 10,
-    minHeight: Platform.OS === 'ios' ? 164 : 181,
+    borderRadius: 12,
+    minHeight: Platform.OS === 'ios' ? 194 : 194,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
@@ -99,7 +99,7 @@ const iStyles = StyleSheet.create({
   grad: {
     padding: 15,
     borderRadius: 12,
-    minHeight: 164,
+    minHeight: 194,
     elevation: 5,
   },
   image: {
@@ -188,9 +188,6 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
         isLargeScreen ? iStyles.rootLargeDevice : { ...iStyles.root, width: itemWidth },
         { opacity, transform: [{ scale: scaleValue }] },
       ]}
-      shadowOpacity={25 / 100}
-      shadowOffset={{ width: 0, height: 3 }}
-      shadowRadius={8}
     >
       <Pressable
         accessibilityRole="button"
@@ -204,10 +201,10 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
           onPressedOut();
         }}
       >
-        <LinearGradient shadowColor={colors.shadowColor} colors={WalletGradient.gradientsFor(item.type)} style={iStyles.grad}>
+        <LinearGradient colors={WalletGradient.gradientsFor(item.type)} style={iStyles.grad}>
           <Image source={image} style={iStyles.image} />
           <Text style={iStyles.br} />
-          <Text numberOfLines={1} style={[iStyles.label, { color: colors.inverseForegroundColor }]}>
+          <Text numberOfLines={1} style={[iStyles.label, { color: colors.background }]}>
             {item.getLabel()}
           </Text>
           {item.hideBalance ? (
@@ -217,17 +214,17 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
               numberOfLines={1}
               key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
               adjustsFontSizeToFit
-              style={[iStyles.balance, { color: colors.inverseForegroundColor }]}
+              style={[iStyles.balance, { color: colors.background }]}
             >
               {balance}
             </Text>
           )}
           <Text style={iStyles.br} />
-          <Text numberOfLines={1} style={[iStyles.latestTx, { color: colors.inverseForegroundColor }]}>
+          <Text numberOfLines={1} style={[iStyles.latestTx, { color: colors.background }]}>
             {loc.wallets.list_latest_transaction}
           </Text>
 
-          <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: colors.inverseForegroundColor }]}>
+          <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: colors.background }]}>
             {latestTransactionText}
           </Text>
         </LinearGradient>

@@ -1049,7 +1049,7 @@ const SendDetails = () => {
       backgroundColor: colors.positive,
     },
     feeModalLabel: {
-      color: colors.positive,
+      color: colors.foreground,
     },
     feeModalTime: {
       backgroundColor: colors.positive,
@@ -1553,14 +1553,14 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     padding: 22,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     minHeight: 200,
   },
   optionsContent: {
     padding: 22,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
     minHeight: 130,
   },
   feeModalItem: {
@@ -1578,10 +1578,10 @@ const styles = StyleSheet.create({
   },
   feeModalLabel: {
     fontSize: 22,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   feeModalTime: {
-    borderRadius: 5,
+    borderRadius: 12,
     paddingHorizontal: 6,
     paddingVertical: 3,
   },
@@ -1592,13 +1592,13 @@ const styles = StyleSheet.create({
   },
   feeModalCustomText: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   createButton: {
     marginVertical: 16,
-    marginHorizontal: 16,
+    marginHorizontal: 20,
     alignContent: 'center',
-    minHeight: 44,
+    minHeight: 48,
   },
   select: {
     marginBottom: 24,
@@ -1610,7 +1610,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selectText: {
-    color: '#9aa0aa',
+    color: '#23262F',
     fontSize: 14,
     marginRight: 8,
   },
@@ -1620,7 +1620,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   selectLabel: {
-    fontSize: 14,
+    fontSize: 12,
   },
   of: {
     alignSelf: 'flex-end',
@@ -1629,20 +1629,18 @@ const styles = StyleSheet.create({
   },
   memo: {
     flexDirection: 'row',
-    borderWidth: 1,
-    borderBottomWidth: 0.5,
-    minHeight: 44,
-    height: 44,
+    borderWidth: 2,
+    height: 48,
     marginHorizontal: 20,
     alignItems: 'center',
     marginVertical: 8,
-    borderRadius: 4,
+    borderRadius: 12,
   },
   memoText: {
     flex: 1,
     marginHorizontal: 8,
     minHeight: 33,
-    color: '#81868e',
+    color: '#23262F',
   },
   fee: {
     flexDirection: 'row',
@@ -1651,7 +1649,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   feeLabel: {
-    fontSize: 14,
+    fontSize: 12,
   },
   feeRow: {
     minWidth: 40,

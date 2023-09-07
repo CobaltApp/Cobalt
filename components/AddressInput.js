@@ -38,7 +38,7 @@ const AddressInput = ({
       backgroundColor: colors.scanLabel,
     },
     scanText: {
-      color: colors.inverseForegroundColor,
+      color: colors.background,
     },
   });
 
@@ -103,27 +103,26 @@ const AddressInput = ({
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'row',
-    borderWidth: 1.0,
-    borderBottomWidth: 0.5,
-    minHeight: 44,
-    height: 44,
+    borderWidth: 2,
+    minHeight: 48,
+    height: 48,
     marginHorizontal: 20,
     alignItems: 'center',
     marginVertical: 8,
-    borderRadius: 4,
+    borderRadius: 12,
   },
   input: {
     flex: 1,
-    marginHorizontal: 8,
-    minHeight: 33,
-    color: '#81868e',
+    marginHorizontal: 14,
+    minHeight: 48,
+    color: '#23262F',
   },
   scan: {
     height: 36,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderRadius: 4,
+    borderRadius: 12,
     paddingVertical: 4,
     paddingHorizontal: 8,
     marginHorizontal: 4,

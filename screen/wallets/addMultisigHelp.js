@@ -18,10 +18,10 @@ const WalletsAddMultisigHelp = () => {
       borderBottomColor: colors.inputBorderColor,
     },
     introTitle: {
-      color: colors.inverseForegroundColor,
+      color: colors.background,
     },
     introText: {
-      color: colors.inverseForegroundColor,
+      color: colors.background,
     },
     tipsTitle: {
       color: colors.foreground,

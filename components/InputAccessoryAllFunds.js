@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     flexDirection: 'row',
-    maxHeight: 44,
+    maxHeight: 48,
     justifyContent: 'space-between',
     alignItems: 'center',
   },

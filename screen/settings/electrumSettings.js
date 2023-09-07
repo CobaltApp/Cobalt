@@ -495,7 +495,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   textDisconnected: {
-    color: BlueCurrentTheme.colors.redText,
+    color: BlueCurrentTheme.colors.negative,
     fontWeight: 'bold',
   },
   hostname: {

@@ -513,12 +513,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
   },
   amount: {
-    fontWeight: '600',
+    fontWeight: '500',
     fontSize: 36,
     textAlign: 'center',
   },
   label: {
-    fontWeight: '600',
+    fontWeight: '700',
     textAlign: 'center',
     paddingBottom: 24,
   },

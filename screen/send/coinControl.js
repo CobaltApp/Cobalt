@@ -32,7 +32,7 @@ const FrozenBadge = () => {
   const { colors } = useTheme();
   const oStyles = StyleSheet.create({
     freeze: { backgroundColor: colors.redBG, borderWidth: 0 },
-    freezeText: { color: colors.redText },
+    freezeText: { color: colors.negative },
   });
   return <Badge value={loc.cc.freeze} badgeStyle={oStyles.freeze} textStyle={oStyles.freezeText} />;
 };

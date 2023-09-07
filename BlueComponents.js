@@ -462,7 +462,7 @@ export const BlueFormLabel = props => {
       {...props}
       style={{
         color: colors.foreground,
-        fontWeight: '400',
+        fontWeight: '700',
         marginHorizontal: 20,
         writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
       }}
@@ -479,16 +479,14 @@ export const BlueFormMultiInput = props => {
       underlineColorAndroid="transparent"
       numberOfLines={4}
       style={{
-        paddingHorizontal: 8,
-        paddingVertical: 16,
+        paddingHorizontal: 14,
+        paddingVertical: 14,
         flex: 1,
         marginTop: 5,
         marginHorizontal: 20,
         borderColor: colors.formBorder,
-        borderBottomColor: colors.formBorder,
-        borderWidth: 1,
-        borderBottomWidth: 0.5,
-        borderRadius: 4,
+        borderWidth: 2,
+        borderRadius: 12,
         backgroundColor: colors.inputBackgroundColor,
         color: colors.foreground,
         textAlignVertical: 'top',
@@ -601,7 +599,7 @@ export const BlueDismissKeyboardInputAccessory = () => {
       <View
         style={{
           backgroundColor: colors.inputBackgroundColor,
-          height: 44,
+          height: 48,
           flex: 1,
           flexDirection: 'row',
           justifyContent: 'flex-end',
@@ -630,7 +628,7 @@ export const BlueDoneAndDismissKeyboardInputAccessory = props => {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        maxHeight: 44,
+        maxHeight: 48,
       }}
     >
       <BlueButtonLink title={loc.send.input_clear} onPress={props.onClearTapped} />
