@@ -52,17 +52,17 @@ const LdkInfo = () => {
       backgroundColor: colors.background,
     },
     listHeaderText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
       backgroundColor: colors.background,
     },
     listHeaderBack: {
       backgroundColor: colors.background,
     },
     detailsText: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     modalContent: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     separator: {
       backgroundColor: colors.inputBorderColor,
@@ -142,7 +142,7 @@ const LdkInfo = () => {
   useEffect(() => {
     setOptions({
       headerStyle: {
-        backgroundColor: colors.customHeader,
+        backgroundColor: colors.background,
         borderBottomWidth: 0,
         elevation: 0,
         shadowOpacity: 0,

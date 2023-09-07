@@ -17,11 +17,11 @@ const AddressTypeTabs = ({ currentTab, setCurrentTab }) => {
     },
     activeText: {
       fontWeight: 'bold',
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     inactiveTab: {
       fontWeight: 'normal',
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     backTabs: {
       backgroundColor: colors.buttonDisabledBackgroundColor,

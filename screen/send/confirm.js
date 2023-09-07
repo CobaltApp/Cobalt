@@ -36,25 +36,25 @@ const Confirm = () => {
   const { colors } = useTheme();
   const stylesHook = StyleSheet.create({
     transactionDetailsTitle: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     transactionDetailsSubtitle: {
-      color: colors.feeText,
+      color: colors.border,
     },
     transactionAmountFiat: {
-      color: colors.feeText,
+      color: colors.border,
     },
     txDetails: {
       backgroundColor: colors.lightButton,
     },
     valueValue: {
-      color: colors.alternativeTextColor2,
+      color: colors.foreground,
     },
     valueUnit: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     payjoinWrapper: {
       backgroundColor: colors.buttonDisabledBackgroundColor,

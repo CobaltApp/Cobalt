@@ -35,7 +35,7 @@ const BottomModal = ({
   const { colors } = useTheme();
   const stylesHook = StyleSheet.create({
     hasDoneButton: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
   });
   return (

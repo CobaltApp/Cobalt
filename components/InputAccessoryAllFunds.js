@@ -16,10 +16,10 @@ const InputAccessoryAllFunds = ({ balance, canUseAll, onUseAllPressed }) => {
       backgroundColor: colors.inputBackgroundColor,
     },
     totalLabel: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     totalCanNot: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
   });
 

@@ -78,7 +78,7 @@ const ReorderWallets = () => {
   const { navigate } = useNavigation();
   const stylesHook = {
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     tip: {
       backgroundColor: colors.ballOutgoingExpired,
@@ -175,7 +175,7 @@ const ReorderWallets = () => {
 
   const ListHeaderComponent = (
     <View style={[styles.tip, stylesHook.tip]}>
-      <Text style={{ color: colors.foregroundColor }}>{loc.wallets.reorder_instructions}</Text>
+      <Text style={{ color: colors.foreground }}>{loc.wallets.reorder_instructions}</Text>
     </View>
   );
   return (

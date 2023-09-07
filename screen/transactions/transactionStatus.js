@@ -38,16 +38,16 @@ const TransactionsStatus = () => {
   const [eta, setEta] = useState('');
   const stylesHook = StyleSheet.create({
     value: {
-      color: colors.alternativeTextColor2,
+      color: colors.foreground,
     },
     valueUnit: {
-      color: colors.alternativeTextColor2,
+      color: colors.foreground,
     },
     iconRoot: {
       backgroundColor: colors.success,
     },
     detailsText: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
     details: {
       backgroundColor: colors.lightButton,
@@ -377,7 +377,7 @@ const TransactionsStatus = () => {
 
           <View style={[styles.iconRoot, stylesHook.iconRoot]}>
             <View>
-              <Icon name="check" size={50} type="font-awesome" color={colors.successCheck} />
+              <Icon name="check" size={50} type="font-awesome" color={colors.primary} />
             </View>
             <View style={[styles.iconWrap, styles.margin]}>
               {(() => {
@@ -544,7 +544,7 @@ TransactionsStatus.navigationOptions = navigationStyle(
   (options, { theme }) => ({
     ...options,
     headerStyle: {
-      backgroundColor: theme.colors.customHeader,
+      backgroundColor: theme.colors.background,
       borderBottomWidth: 0,
       elevation: 0,
       shadowOpacity: 0,

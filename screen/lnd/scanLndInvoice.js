@@ -47,16 +47,16 @@ const ScanLndInvoice = () => {
   const [expiresIn, setExpiresIn] = useState();
   const stylesHook = StyleSheet.create({
     walletWrapLabel: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     walletWrapBalance: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     walletWrapSats: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
   });
 

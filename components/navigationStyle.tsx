@@ -78,11 +78,11 @@ const navigationStyle = (
         },
         headerTitleStyle: {
           fontWeight: '600',
-          color: theme.colors.foregroundColor,
+          color: theme.colors.foreground,
         },
         headerRight,
         headerBackTitleVisible: false,
-        headerTintColor: theme.colors.foregroundColor,
+        headerTintColor: theme.colors.foreground,
         ...opts,
       };
 
@@ -107,11 +107,11 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
         },
         headerTitleStyle: {
           fontWeight: '600',
-          color: theme.colors.foregroundColor,
+          color: theme.colors.foreground,
         },
         // headerBackTitle: null,
         headerBackTitleVisible: false,
-        headerTintColor: theme.colors.foregroundColor,
+        headerTintColor: theme.colors.foreground,
         headerLeft: () => (
           <TouchableOpacity
             accessibilityRole="button"

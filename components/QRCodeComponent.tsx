@@ -109,7 +109,7 @@ const QRCodeComponent: React.FC<QRCodeComponentProps> = ({
       logoSize={logoSize}
       color="#000000"
       // @ts-ignore: logoBackgroundColor is not in the type definition
-      logoBackgroundColor={colors.brandingColor}
+      logoBackgroundColor={colors.background}
       backgroundColor="#FFFFFF"
       ecl={ecl}
       getRef={(c: any) => (qrCode.current = c)}

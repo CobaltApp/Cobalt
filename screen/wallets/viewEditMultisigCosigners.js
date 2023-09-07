@@ -73,32 +73,32 @@ const ViewEditMultisigCosigners = () => {
   const data = useRef();
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     textDestination: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     modalContent: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     exportButton: {
       backgroundColor: colors.buttonDisabledBackgroundColor,
     },
     vaultKeyText: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     vaultKeyCircleSuccess: {
-      backgroundColor: colors.msSuccessBG,
+      backgroundColor: colors.positive,
     },
     tipKeys: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     tipLabel: {
       backgroundColor: colors.inputBackgroundColor,
       borderColor: colors.inputBackgroundColor,
     },
     tipLabelText: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
   });
 
@@ -184,7 +184,7 @@ const ViewEditMultisigCosigners = () => {
         <View style={[styles.newKeyModalContent, stylesHook.modalContent]}>
           <View style={styles.itemKeyUnprovidedWrapper}>
             <View style={[styles.vaultKeyCircleSuccess, stylesHook.vaultKeyCircleSuccess]}>
-              <Icon size={24} name="check" type="ionicons" color={colors.msSuccessCheck} />
+              <Icon size={24} name="check" type="ionicons" color={colors.background} />
             </View>
             <View style={styles.vaultKeyTextWrapper}>
               <Text style={[styles.vaultKeyText, stylesHook.vaultKeyText]}>

@@ -38,14 +38,14 @@ const WalletExport = () => {
 
   const stylesHook = {
     loading: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
-    type: { color: colors.foregroundColor },
-    secret: { color: colors.foregroundColor },
-    warning: { color: colors.failedColor },
+    type: { color: colors.foreground },
+    secret: { color: colors.foreground },
+    warning: { color: colors.negative },
   };
 
   useFocusEffect(

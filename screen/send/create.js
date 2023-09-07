@@ -27,19 +27,19 @@ const SendCreate = () => {
 
   const styleHooks = StyleSheet.create({
     transactionDetailsTitle: {
-      color: colors.feeText,
+      color: colors.border,
     },
     transactionDetailsSubtitle: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     separator: {
       backgroundColor: colors.inputBorderColor,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     cardText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   });
 
@@ -107,7 +107,7 @@ const SendCreate = () => {
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity accessibilityRole="button" onPress={exportTXN}>
-          <Icon size={22} name="share-alternative" type="entypo" color={colors.foregroundColor} />
+          <Icon size={22} name="share-alternative" type="entypo" color={colors.foreground} />
         </TouchableOpacity>
       ),
     });

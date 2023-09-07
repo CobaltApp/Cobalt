@@ -125,10 +125,10 @@ const Dice = ({ push, sides }) => {
       borderColor: colors.buttonBackgroundColor,
     },
     diceText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     diceContainer: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
   });
   const diceIcon = i => {
@@ -183,7 +183,7 @@ const Buttons = ({ pop, save, colors }) => (
       onPress={pop}
       icon={
         <View style={styles.buttonsIcon}>
-          <Icon name="undo" size={buttonFontSize} type="font-awesome" color={colors.buttonAlternativeTextColor} />
+          <Icon name="undo" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
         </View>
       }
       text={loc.entropy.undo}
@@ -192,7 +192,7 @@ const Buttons = ({ pop, save, colors }) => (
       onPress={save}
       icon={
         <View style={styles.buttonsIcon}>
-          <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.buttonAlternativeTextColor} />
+          <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
         </View>
       }
       text={loc.entropy.save}
@@ -218,7 +218,7 @@ const Entropy = () => {
       backgroundColor: colors.inputBackgroundColor,
     },
     entropyText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   });
 
@@ -249,15 +249,15 @@ const Entropy = () => {
         tabs={[
           // eslint-disable-next-line react/no-unstable-nested-components
           ({ active }) => (
-            <Icon name="toll" type="material" color={active ? colors.buttonAlternativeTextColor : colors.buttonBackgroundColor} />
+            <Icon name="toll" type="material" color={active ? colors.foreground : colors.buttonBackgroundColor} />
           ),
           // eslint-disable-next-line react/no-unstable-nested-components
           ({ active }) => (
-            <Icon name="dice" type="font-awesome-5" color={active ? colors.buttonAlternativeTextColor : colors.buttonBackgroundColor} />
+            <Icon name="dice" type="font-awesome-5" color={active ? colors.foreground : colors.buttonBackgroundColor} />
           ),
           // eslint-disable-next-line react/no-unstable-nested-components
           ({ active }) => (
-            <Icon name="dice-d20" type="font-awesome-5" color={active ? colors.buttonAlternativeTextColor : colors.buttonBackgroundColor} />
+            <Icon name="dice-d20" type="font-awesome-5" color={active ? colors.foreground : colors.buttonBackgroundColor} />
           ),
         ]}
       />

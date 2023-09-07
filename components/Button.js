@@ -12,7 +12,7 @@ const Button = props => {
       backgroundColor: colors.lightButton,
     },
     textGray: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
   });
   const textStyles = () => {

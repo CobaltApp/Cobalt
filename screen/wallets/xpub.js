@@ -36,7 +36,7 @@ const WalletXpub = () => {
   const { goBack, setParams } = useNavigation();
   const { colors } = useTheme();
   const [qrCodeSize, setQRCodeSize] = useState(90);
-  const stylesHook = StyleSheet.create({ root: { backgroundColor: colors.elevated } });
+  const stylesHook = StyleSheet.create({ root: { backgroundColor: colors.background } });
 
   useFocusEffect(
     useCallback(() => {

@@ -50,7 +50,7 @@ const About = () => {
     textBackup: {
       maxWidth: 260,
       marginBottom: 40,
-      color: colors.foregroundColor,
+      color: colors.foreground,
       fontSize: 15,
       textAlign: 'center',
       fontWeight: '500',
@@ -69,7 +69,7 @@ const About = () => {
       flexDirection: 'row',
     },
     textLink: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
       marginLeft: 8,
       fontWeight: '600',
     },
@@ -173,7 +173,7 @@ const About = () => {
           <BlueSpacing20 />
 
           <TouchableOpacity accessibilityRole="button" onPress={handleOnGithubPress} style={styles.buttonLink}>
-            <Icon size={22} name="github" type="font-awesome-5" color={colors.foregroundColor} />
+            <Icon size={22} name="github" type="font-awesome-5" color={colors.foreground} />
             <Text style={styles.textLink}>{formatStringAddTwoWhiteSpaces(loc.settings.about_sm_github)}</Text>
           </TouchableOpacity>
         </View>
@@ -192,7 +192,7 @@ const About = () => {
         leftIcon={{
           name: 'balance-scale',
           type: 'font-awesome',
-          color: colors.foregroundColor,
+          color: colors.foreground,
         }}
         chevron
         onPress={handleOnLicensingPress}

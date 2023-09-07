@@ -45,13 +45,13 @@ const TransactionsDetails = () => {
       backgroundColor: colors.lightButton,
     },
     Link: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
     save: {
       backgroundColor: colors.lightButton,
     },
     saveText: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
   });
 
@@ -413,7 +413,7 @@ TransactionsDetails.navigationOptions = navigationStyle({ headerTitle: loc.trans
   return {
     ...options,
     headerStyle: {
-      backgroundColor: theme.colors.customHeader,
+      backgroundColor: theme.colors.background,
       borderBottomWidth: 0,
       elevation: 0,
       shadowOpacity: 0,

@@ -34,12 +34,12 @@ const WalletsImport = () => {
   const styles = StyleSheet.create({
     root: {
       paddingTop: 10,
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     center: {
       flex: 1,
       marginHorizontal: 16,
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     row: {
       flexDirection: 'row',

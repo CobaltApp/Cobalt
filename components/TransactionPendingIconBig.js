@@ -24,7 +24,7 @@ export const TransactionPendingIconBig = props => {
     <View {...props}>
       <View style={stylesBlueIconHooks.boxIncoming}>
         <View style={[stylesBlueIconHooks.ball2, stylesBlueIconHooks.ball]}>
-          <Icon {...props} name="more-horiz" type="material" size={100} color={colors.foregroundColor} iconStyle={{ left: 0, top: 25 }} />
+          <Icon {...props} name="more-horiz" type="material" size={100} color={colors.foreground} iconStyle={{ left: 0, top: 25 }} />
         </View>
       </View>
     </View>

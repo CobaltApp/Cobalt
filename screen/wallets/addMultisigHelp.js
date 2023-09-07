@@ -11,10 +11,10 @@ const WalletsAddMultisigHelp = () => {
 
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     intro: {
-      backgroundColor: colors.newBlue,
+      backgroundColor: colors.primary,
       borderBottomColor: colors.inputBorderColor,
     },
     introTitle: {
@@ -24,10 +24,10 @@ const WalletsAddMultisigHelp = () => {
       color: colors.inverseForegroundColor,
     },
     tipsTitle: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     tipsText: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
   });
 

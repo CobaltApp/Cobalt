@@ -29,40 +29,40 @@ const PsbtMultisig = () => {
   const data = new Array(wallet.getM());
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     whitespace: {
-      color: colors.elevated,
+      color: colors.background,
     },
     textBtc: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     textBtcUnitValue: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     textFiat: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     provideSignatureButton: {
       backgroundColor: colors.buttonDisabledBackgroundColor,
     },
     provideSignatureButtonText: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
     vaultKeyCircle: {
       backgroundColor: colors.buttonDisabledBackgroundColor,
     },
     vaultKeyText: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     feeFiatText: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     vaultKeyCircleSuccess: {
-      backgroundColor: colors.msSuccessBG,
+      backgroundColor: colors.positive,
     },
     vaultKeyTextSigned: {
-      color: colors.msSuccessBG,
+      color: colors.positive,
     },
   });
 
@@ -130,7 +130,7 @@ const PsbtMultisig = () => {
     return (
       <View style={styles.flexDirectionRow} testID="ItemSigned">
         <View style={[styles.vaultKeyCircleSuccess, stylesHook.vaultKeyCircleSuccess]}>
-          <Icon size={24} name="check" type="ionicons" color={colors.msSuccessCheck} />
+          <Icon size={24} name="check" type="ionicons" color={colors.background} />
         </View>
         <View style={styles.vaultKeyTextSignedWrapper}>
           <Text style={[styles.vaultKeyTextSigned, stylesHook.vaultKeyTextSigned]}>

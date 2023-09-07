@@ -18,7 +18,7 @@ const DrawerList = props => {
   const isFocused = useIsFocused();
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
   });
 

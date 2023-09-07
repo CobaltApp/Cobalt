@@ -26,27 +26,27 @@ const WalletsAddMultisig = () => {
 
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
       justifyContent: 'space-between',
       flex: 1,
     },
     textdesc: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     modalContentShort: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     textSubtitle: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     selectedItem: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     deSelectedItem: {
       backgroundColor: 'transparent',
     },
     textHeader: {
-      color: colors.outputValue,
+      color: colors.foreground,
     },
   });
 
@@ -230,7 +230,7 @@ const WalletsAddMultisig = () => {
         </View>
       )}
       <View style={styles.buttonContainer}>
-        <BlueButton buttonTextColor={colors.buttonAlternativeTextColor} title={loc.multisig.lets_start} onPress={onLetsStartPress} />
+        <BlueButton buttonTextColor={colors.foreground} title={loc.multisig.lets_start} onPress={onLetsStartPress} />
       </View>
       {renderModal()}
     </SafeAreaView>

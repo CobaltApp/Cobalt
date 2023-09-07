@@ -81,10 +81,10 @@ const WalletsAddMultisigStep2 = () => {
 
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     textDestination: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     modalContent: {
       backgroundColor: colors.modal,
@@ -93,10 +93,10 @@ const WalletsAddMultisigStep2 = () => {
       backgroundColor: colors.buttonDisabledBackgroundColor,
     },
     vaultKeyText: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     vaultKeyCircleSuccess: {
-      backgroundColor: colors.msSuccessBG,
+      backgroundColor: colors.positive,
     },
     word: {
       backgroundColor: colors.inputBackgroundColor,
@@ -108,7 +108,7 @@ const WalletsAddMultisigStep2 = () => {
       backgroundColor: colors.buttonDisabledBackgroundColor,
     },
     helpButtonText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   });
 
@@ -543,7 +543,7 @@ const WalletsAddMultisigStep2 = () => {
         <View style={[styles.newKeyModalContent, stylesHook.modalContent]}>
           <View style={styles.itemKeyUnprovidedWrapper}>
             <View style={[styles.vaultKeyCircleSuccess, stylesHook.vaultKeyCircleSuccess]}>
-              <Icon size={24} name="check" type="ionicons" color={colors.msSuccessCheck} />
+              <Icon size={24} name="check" type="ionicons" color={colors.background} />
             </View>
             <View style={styles.vaultKeyTextWrapper}>
               <Text style={[styles.vaultKeyText, stylesHook.vaultKeyText]}>
@@ -641,7 +641,7 @@ const WalletsAddMultisigStep2 = () => {
     return (
       <View style={styles.helpButtonWrapper}>
         <TouchableOpacity accessibilityRole="button" style={[styles.helpButton, stylesHook.helpButton]} onPress={handleOnHelpPress}>
-          <Icon size={20} name="help" type="octaicon" color={colors.foregroundColor} />
+          <Icon size={20} name="help" type="octaicon" color={colors.foreground} />
           <Text style={[styles.helpButtonText, stylesHook.helpButtonText]}>{loc.multisig.ms_help}</Text>
         </TouchableOpacity>
       </View>

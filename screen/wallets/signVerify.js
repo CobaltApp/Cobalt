@@ -48,13 +48,13 @@ const SignVerify = () => {
 
   const stylesHooks = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     text: {
       borderColor: colors.formBorder,
       borderBottomColor: colors.formBorder,
       backgroundColor: colors.inputBackgroundColor,
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   });
 
@@ -184,7 +184,7 @@ const SignVerify = () => {
                   text={loc.multisig.share}
                   icon={
                     <View style={styles.buttonsIcon}>
-                      <Icon name="external-link" size={16} type="font-awesome" color={colors.buttonAlternativeTextColor} />
+                      <Icon name="external-link" size={16} type="font-awesome" color={colors.foreground} />
                     </View>
                   }
                 />

@@ -53,13 +53,13 @@ const WalletsList = () => {
 
   const stylesHook = StyleSheet.create({
     walletsListWrapper: {
-      backgroundColor: colors.brandingColor,
+      backgroundColor: colors.background,
     },
     listHeaderBack: {
       backgroundColor: colors.background,
     },
     listHeaderText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   });
 
@@ -95,7 +95,7 @@ const WalletsList = () => {
     setOptions({
       headerShown: !isDesktop,
       headerStyle: {
-        backgroundColor: colors.customHeader,
+        backgroundColor: colors.background,
         borderBottomWidth: 0,
         elevation: 0,
         shadowOpacity: 0,
@@ -111,7 +111,7 @@ const WalletsList = () => {
             style={styles.headerTouch}
             onPress={navigateToSettings}
           >
-            <Icon size={22} name="more-horiz" type="material" color={colors.foregroundColor} />
+            <Icon size={22} name="more-horiz" type="material" color={colors.foreground} />
           </TouchableOpacity>
         ),
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -124,7 +124,7 @@ const WalletsList = () => {
             style={styles.headerTouch}
             onPress={navigateToSettings}
           >
-            <Icon size={22} name="more-horiz" type="material" color={colors.foregroundColor} />
+            <Icon size={22} name="more-horiz" type="material" color={colors.foreground} />
           </TouchableOpacity>
         ) : null,
     });

@@ -79,7 +79,7 @@ export const TransactionListItem = React.memo(({ item, itemPriceUnit = BitcoinUn
   }, [item, itemPriceUnit, preferredFiatCurrency]);
 
   const rowTitleStyle = useMemo(() => {
-    let color = colors.successColor;
+    let color = colors.positive;
 
     if (item.type === 'user_invoice' || item.type === 'payment_request') {
       const currentDate = new Date();
@@ -87,16 +87,16 @@ export const TransactionListItem = React.memo(({ item, itemPriceUnit = BitcoinUn
       const invoiceExpiration = item.timestamp + item.expire_time;
 
       if (invoiceExpiration > now) {
-        color = colors.successColor;
+        color = colors.positive;
       } else if (invoiceExpiration < now) {
         if (item.ispaid) {
-          color = colors.successColor;
+          color = colors.positive;
         } else {
           color = '#9AA0AA';
         }
       }
     } else if (item.value / 100000000 < 0) {
-      color = colors.foregroundColor;
+      color = colors.foreground;
     }
 
     return {
@@ -106,7 +106,7 @@ export const TransactionListItem = React.memo(({ item, itemPriceUnit = BitcoinUn
       textAlign: 'right',
       width: 96,
     };
-  }, [item, colors.foregroundColor, colors.successColor]);
+  }, [item, colors.foreground, colors.positive]);
 
   const avatar = useMemo(() => {
     // is it lightning refill tx?

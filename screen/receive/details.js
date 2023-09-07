@@ -64,7 +64,7 @@ const ReceiveDetails = () => {
   const stylesHook = StyleSheet.create({
     modalContent: {
       backgroundColor: colors.modal,
-      borderTopColor: colors.foregroundColor,
+      borderTopColor: colors.foreground,
       borderWidth: colors.borderWidth,
     },
     customAmount: {
@@ -73,19 +73,19 @@ const ReceiveDetails = () => {
       backgroundColor: colors.inputBackgroundColor,
     },
     customAmountText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     rootBackgroundColor: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     amount: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     label: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     modalButton: {
       backgroundColor: colors.modalButton,

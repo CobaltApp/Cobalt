@@ -34,24 +34,24 @@ const PsbtWithHardwareWallet = () => {
 
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     rootPadding: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     hexWrap: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     hexLabel: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     hexInput: {
       borderColor: colors.formBorder,
       backgroundColor: colors.inputBackgroundColor,
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     hexText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   });
 
@@ -241,7 +241,7 @@ const PsbtWithHardwareWallet = () => {
               icon={{
                 name: 'qrcode',
                 type: 'font-awesome',
-                color: colors.buttonTextColor,
+                color: colors.foreground,
               }}
               onPress={openScanner}
               ref={openScannerButton}
@@ -252,7 +252,7 @@ const PsbtWithHardwareWallet = () => {
               icon={{
                 name: 'login',
                 type: 'entypo',
-                color: colors.buttonTextColor,
+                color: colors.foreground,
               }}
               onPress={openSignedTransaction}
               title={loc.send.psbt_tx_open}
@@ -262,7 +262,7 @@ const PsbtWithHardwareWallet = () => {
               icon={{
                 name: 'share-alternative',
                 type: 'entypo',
-                color: colors.buttonTextColor,
+                color: colors.foreground,
               }}
               onPress={exportPSBT}
               title={loc.send.psbt_tx_export}

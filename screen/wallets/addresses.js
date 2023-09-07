@@ -81,7 +81,7 @@ const WalletAddresses = () => {
 
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
   });
 

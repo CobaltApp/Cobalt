@@ -467,7 +467,7 @@ ElectrumSettings.navigationOptions = navigationStyle({}, opts => ({ ...opts, tit
 const styles = StyleSheet.create({
   status: {
     textAlign: 'center',
-    color: BlueCurrentTheme.colors.feeText,
+    color: BlueCurrentTheme.colors.border,
     marginBottom: 4,
   },
   connectWrap: {
@@ -485,13 +485,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   containerConnected: {
-    backgroundColor: BlueCurrentTheme.colors.feeLabel,
+    backgroundColor: BlueCurrentTheme.colors.positive,
   },
   containerDisconnected: {
     backgroundColor: BlueCurrentTheme.colors.redBG,
   },
   textConnected: {
-    color: BlueCurrentTheme.colors.feeValue,
+    color: BlueCurrentTheme.colors.background,
     fontWeight: 'bold',
   },
   textDisconnected: {
@@ -500,15 +500,15 @@ const styles = StyleSheet.create({
   },
   hostname: {
     textAlign: 'center',
-    color: BlueCurrentTheme.colors.foregroundColor,
+    color: BlueCurrentTheme.colors.foreground,
   },
   usePort: {
     textAlign: 'center',
-    color: BlueCurrentTheme.colors.foregroundColor,
+    color: BlueCurrentTheme.colors.foreground,
     marginHorizontal: 8,
   },
   explain: {
-    color: BlueCurrentTheme.colors.feeText,
+    color: BlueCurrentTheme.colors.border,
     marginBottom: -24,
     flexShrink: 1,
   },
@@ -558,7 +558,7 @@ const styles = StyleSheet.create({
   serverRow: {
     flexGrow: 2,
     maxWidth: '80%',
-    color: BlueCurrentTheme.colors.foregroundColor,
+    color: BlueCurrentTheme.colors.foreground,
   },
   selectButton: {
     flexGrow: 1,

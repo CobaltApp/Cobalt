@@ -19,13 +19,13 @@ const Success = () => {
   const { amount, fee, amountUnit = BitcoinUnit.BTC, invoiceDescription = '', onDonePressed = pop } = useRoute().params;
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     amountValue: {
-      color: colors.alternativeTextColor2,
+      color: colors.foreground,
     },
     amountUnit: {
-      color: colors.alternativeTextColor2,
+      color: colors.foreground,
     },
   });
   useEffect(() => {
@@ -56,10 +56,10 @@ export const SuccessView = ({ amount, amountUnit, fee, invoiceDescription, shoul
 
   const stylesHook = StyleSheet.create({
     amountValue: {
-      color: colors.alternativeTextColor2,
+      color: colors.foreground,
     },
     amountUnit: {
-      color: colors.alternativeTextColor2,
+      color: colors.foreground,
     },
   });
 
@@ -118,7 +118,7 @@ export const SuccessView = ({ amount, amountUnit, fee, invoiceDescription, shoul
             },
             {
               keypath: 'Oval',
-              color: colors.successCheck,
+              color: colors.primary,
             },
           ]}
           resizeMode="center"

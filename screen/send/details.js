@@ -948,7 +948,7 @@ const SendDetails = () => {
             onPressMenuItem={headerRightOnPress}
             actions={headerRightActions()}
           >
-            <Icon size={22} name="more-horiz" type="material" color={colors.foregroundColor} style={styles.advancedOptions} />
+            <Icon size={22} name="more-horiz" type="material" color={colors.foreground} style={styles.advancedOptions} />
           </ToolTipMenu>
         ),
         // eslint-disable-next-line react/no-unstable-nested-components
@@ -964,7 +964,7 @@ const SendDetails = () => {
             }}
             testID="advancedOptionsMenuButton"
           >
-            <Icon size={22} name="more-horiz" type="material" color={colors.foregroundColor} />
+            <Icon size={22} name="more-horiz" type="material" color={colors.foreground} />
           </TouchableOpacity>
         ),
       }),
@@ -1033,41 +1033,41 @@ const SendDetails = () => {
       backgroundColor: colors.background,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     modalContent: {
       backgroundColor: colors.modal,
-      borderTopColor: colors.borderTopColor,
+      borderTopColor: colors.border,
       borderWidth: colors.borderWidth,
     },
     optionsContent: {
       backgroundColor: colors.modal,
-      borderTopColor: colors.borderTopColor,
+      borderTopColor: colors.border,
       borderWidth: colors.borderWidth,
     },
     feeModalItemActive: {
-      backgroundColor: colors.feeActive,
+      backgroundColor: colors.positive,
     },
     feeModalLabel: {
-      color: colors.successColor,
+      color: colors.positive,
     },
     feeModalTime: {
-      backgroundColor: colors.successColor,
+      backgroundColor: colors.positive,
     },
     feeModalTimeText: {
       color: colors.background,
     },
     feeModalValue: {
-      color: colors.successColor,
+      color: colors.positive,
     },
     feeModalCustomText: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     selectLabel: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
     of: {
-      color: colors.feeText,
+      color: colors.border,
     },
     memo: {
       borderColor: colors.formBorder,
@@ -1075,7 +1075,7 @@ const SendDetails = () => {
       backgroundColor: colors.inputBackgroundColor,
     },
     feeLabel: {
-      color: colors.feeText,
+      color: colors.border,
     },
     feeModalItemDisabled: {
       backgroundColor: colors.buttonDisabledBackgroundColor,
@@ -1084,10 +1084,10 @@ const SendDetails = () => {
       color: colors.buttonDisabledTextColor,
     },
     feeRow: {
-      backgroundColor: colors.feeLabel,
+      backgroundColor: colors.positive,
     },
     feeValue: {
-      color: colors.feeValue,
+      color: colors.background,
     },
   });
 

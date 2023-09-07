@@ -110,12 +110,12 @@ const NotificationSettings = () => {
         icon={{
           name: 'github',
           type: 'font-awesome',
-          color: colors.foregroundColor,
+          color: colors.foreground,
         }}
         onPress={() => Linking.openURL('https://github.com/BlueWallet/GroundControl')}
-        titleStyle={{ color: colors.buttonAlternativeTextColor }}
+        titleStyle={{ color: colors.foreground }}
         title="github.com/BlueWallet/GroundControl"
-        color={colors.buttonTextColor}
+        color={colors.foreground}
         buttonStyle={styles.buttonStyle}
       />
 

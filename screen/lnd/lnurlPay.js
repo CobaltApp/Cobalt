@@ -51,13 +51,13 @@ const LnurlPay = () => {
     },
 
     walletWrapLabel: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     walletWrapBalance: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     walletWrapSats: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
   });
 

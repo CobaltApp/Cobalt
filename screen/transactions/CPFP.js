@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   hex: {
-    color: BlueCurrentTheme.colors.buttonAlternativeTextColor,
+    color: BlueCurrentTheme.colors.foreground,
     fontWeight: '500',
   },
   hexInput: {

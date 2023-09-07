@@ -17,7 +17,7 @@ const PleaseBackup = () => {
   const { colors } = useTheme();
   const stylesHook = StyleSheet.create({
     flex: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     word: {
       backgroundColor: colors.inputBackgroundColor,
@@ -27,10 +27,10 @@ const PleaseBackup = () => {
     },
 
     successText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     pleaseText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   });
 

@@ -24,7 +24,7 @@ const LdkViewLogs = () => {
   const refreshDataInterval = useRef();
   const stylesHooks = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
   });
 
@@ -46,7 +46,7 @@ const LdkViewLogs = () => {
               style={styles.reloadLogs}
               onPress={getLogs}
             >
-              <Icon name="redo" type="font-awesome-5" size={22} color={colors.foregroundColor} />
+              <Icon name="redo" type="font-awesome-5" size={22} color={colors.foreground} />
             </TouchableOpacity>
           ),
         });

@@ -102,7 +102,7 @@ export const FButton = ({ text, icon, width, first, last, ...props }) => {
       backgroundColor: colors.buttonBackgroundColor,
     },
     text: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     textDisabled: {
       color: colors.formBorder,

@@ -96,14 +96,14 @@ const ScanQRCode = () => {
   const [cameraStatus, setCameraStatus] = useState(false);
   const stylesHook = StyleSheet.create({
     openSettingsContainer: {
-      backgroundColor: colors.brandingColor,
+      backgroundColor: colors.background,
     },
-    progressWrapper: { backgroundColor: colors.brandingColor, borderColor: colors.foregroundColor, borderWidth: 4 },
+    progressWrapper: { backgroundColor: colors.background, borderColor: colors.foreground, borderWidth: 4 },
     backdoorInput: {
       borderColor: colors.formBorder,
       borderBottomColor: colors.formBorder,
       backgroundColor: colors.inputBackgroundColor,
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   });
 

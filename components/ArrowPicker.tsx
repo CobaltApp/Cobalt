@@ -24,7 +24,7 @@ export const ArrowPicker = (props: ArrowPickerProps) => {
   const stylesHook = {
     text: {
       // @ts-ignore: Ignore theme typescript error
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
   };
   return (

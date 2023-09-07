@@ -24,13 +24,13 @@ const ExportMultisigCoordinationSetup = () => {
   const { colors } = useTheme();
   const stylesHook = StyleSheet.create({
     loading: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
-    type: { color: colors.foregroundColor },
-    secret: { color: colors.foregroundColor },
+    type: { color: colors.foreground },
+    secret: { color: colors.foreground },
     exportButton: {
       backgroundColor: colors.buttonDisabledBackgroundColor,
     },

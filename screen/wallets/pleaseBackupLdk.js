@@ -24,11 +24,11 @@ const PleaseBackupLdk = () => {
   const styles = StyleSheet.create({
     root: {
       flex: 1,
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     scrollViewContent: {
       flexGrow: 1,
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
       justifyContent: 'center',
 
       alignItems: 'center',
@@ -62,7 +62,7 @@ const PleaseBackupLdk = () => {
             logoSize={90}
             size={height > width ? width - 40 : width / 2}
             color="#000000"
-            logoBackgroundColor={colors.brandingColor}
+            logoBackgroundColor={colors.background}
             backgroundColor="#FFFFFF"
             ecl="H"
           />

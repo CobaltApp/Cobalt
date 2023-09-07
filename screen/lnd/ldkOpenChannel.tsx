@@ -53,7 +53,7 @@ const LdkOpenChannel = (props: any) => {
 
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
   });
 

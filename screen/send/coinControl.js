@@ -41,7 +41,7 @@ const ChangeBadge = () => {
   const { colors } = useTheme();
   const oStyles = StyleSheet.create({
     change: { backgroundColor: colors.buttonDisabledBackgroundColor, borderWidth: 0 },
-    changeText: { color: colors.alternativeTextColor },
+    changeText: { color: colors.border },
   });
   return <Badge value={loc.cc.change} badgeStyle={oStyles.change} textStyle={oStyles.changeText} />;
 };
@@ -65,14 +65,14 @@ const OutputList = ({
   const amount = formatBalance(value, balanceUnit, true);
 
   const oStyles = StyleSheet.create({
-    container: { borderBottomColor: colors.lightBorder, backgroundColor: colors.elevated },
+    container: { borderBottomColor: colors.lightBorder, backgroundColor: colors.background },
     containerSelected: {
       backgroundColor: colors.ballOutgoingExpired,
       borderBottomColor: 'rgba(0, 0, 0, 0)',
     },
     avatar: { borderColor: 'white', borderWidth: 1, backgroundColor: color },
-    amount: { fontWeight: 'bold', color: colors.foregroundColor },
-    memo: { fontSize: 13, marginTop: 3, color: colors.alternativeTextColor },
+    amount: { fontWeight: 'bold', color: colors.foreground },
+    memo: { fontSize: 13, marginTop: 3, color: colors.border },
   });
 
   let onPress = onOpen;
@@ -128,12 +128,12 @@ const OutputModal = ({ item: { address, txid, value, vout, confirmations = 0 }, 
   const amount = formatBalance(value, balanceUnit, true);
 
   const oStyles = StyleSheet.create({
-    container: { paddingHorizontal: 0, borderBottomColor: colors.lightBorder, backgroundColor: colors.elevated },
+    container: { paddingHorizontal: 0, borderBottomColor: colors.lightBorder, backgroundColor: colors.background },
     avatar: { borderColor: 'white', borderWidth: 1, backgroundColor: color },
-    amount: { fontWeight: 'bold', color: colors.foregroundColor },
+    amount: { fontWeight: 'bold', color: colors.foreground },
     tranContainer: { paddingLeft: 20 },
-    tranText: { fontWeight: 'normal', fontSize: 13, color: colors.alternativeTextColor },
-    memo: { fontSize: 13, marginTop: 3, color: colors.alternativeTextColor },
+    tranText: { fontWeight: 'normal', fontSize: 13, color: colors.border },
+    memo: { fontSize: 13, marginTop: 3, color: colors.border },
   });
   const confirmationsFormatted = new Intl.NumberFormat(RNLocalize.getLocales()[0].languageCode, { maximumSignificantDigits: 3 }).format(
     confirmations,
@@ -312,7 +312,7 @@ const CoinControl = () => {
 
     return (
       <View style={[styles.tip, stylesHook.tip]}>
-        <Text style={{ color: colors.foregroundColor }}>{text}</Text>
+        <Text style={{ color: colors.foreground }}>{text}</Text>
       </View>
     );
   };
@@ -384,17 +384,17 @@ const CoinControl = () => {
 
   if (loading) {
     return (
-      <SafeBlueArea style={[styles.center, { backgroundColor: colors.elevated }]}>
+      <SafeBlueArea style={[styles.center, { backgroundColor: colors.background }]}>
         <ActivityIndicator testID="Loading" />
       </SafeBlueArea>
     );
   }
 
   return (
-    <View style={[styles.root, { backgroundColor: colors.elevated }]}>
+    <View style={[styles.root, { backgroundColor: colors.background }]}>
       {utxo.length === 0 && (
         <View style={styles.empty}>
-          <Text style={{ color: colors.foregroundColor }}>{loc.cc.empty}</Text>
+          <Text style={{ color: colors.foreground }}>{loc.cc.empty}</Text>
         </View>
       )}
 
@@ -406,7 +406,7 @@ const CoinControl = () => {
         }}
       >
         <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
-          <View style={[styles.modalContent, { backgroundColor: colors.elevated }]}>{output && renderOutputModalContent()}</View>
+          <View style={[styles.modalContent, { backgroundColor: colors.background }]}>{output && renderOutputModalContent()}</View>
         </KeyboardAvoidingView>
       </BottomModal>
 
@@ -423,14 +423,14 @@ const CoinControl = () => {
           <FButton
             onPress={handleMassFreeze}
             text={allFrozen ? loc.cc.freezeLabel_un : loc.cc.freezeLabel}
-            icon={<Icon name="snowflake" size={buttonFontSize} type="font-awesome-5" color={colors.buttonAlternativeTextColor} />}
+            icon={<Icon name="snowflake" size={buttonFontSize} type="font-awesome-5" color={colors.foreground} />}
           />
           <FButton
             onPress={handleMassUse}
             text={selected.length > 1 ? loc.cc.use_coins : loc.cc.use_coin}
             icon={
               <View style={styles.sendIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.buttonAlternativeTextColor} />
+                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
               </View>
             }
           />

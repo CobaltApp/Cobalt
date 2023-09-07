@@ -20,19 +20,19 @@ const MultipleStepsListItem = props => {
       backgroundColor: colors.buttonDisabledBackgroundColor,
     },
     provideKeyButtonText: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
     vaultKeyCircle: {
       backgroundColor: colors.buttonDisabledBackgroundColor,
     },
     vaultKeyText: {
-      color: colors.alternativeTextColor,
+      color: colors.foreground,
     },
     vaultKeyCircleSuccess: {
-      backgroundColor: colors.msSuccessBG,
+      backgroundColor: colors.positive,
     },
     rowPartialLeftText: {
-      color: colors.alternativeTextColor,
+      color: colors.foreground,
     },
   });
 
@@ -84,7 +84,7 @@ const MultipleStepsListItem = props => {
         <View style={styles.itemKeyUnprovidedWrapper}>
           {checked ? (
             <View style={[styles.vaultKeyCircleSuccess, stylesHook.vaultKeyCircleSuccess]}>
-              <Icon size={24} name="check" type="ionicons" color={colors.msSuccessCheck} />
+              <Icon size={24} name="check" type="ionicons" color={colors.background} />
             </View>
           ) : circledText.length > 0 ? (
             <View style={styles.itemKeyUnprovidedWrapper}>

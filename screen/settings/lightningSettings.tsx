@@ -136,13 +136,13 @@ const LightningSettings: React.FC & { navigationOptions: NavigationOptionsGetter
         icon={{
           name: 'github',
           type: 'font-awesome',
-          color: colors.foregroundColor,
+          color: colors.foreground,
         }}
         onPress={() => Linking.openURL('https://github.com/BlueWallet/LndHub')}
-        titleStyle={{ color: colors.buttonAlternativeTextColor }}
+        titleStyle={{ color: colors.foreground }}
         title="github.com/BlueWallet/LndHub"
         // TODO: looks like there's no `color` prop on `Button`, does this make any sense?
-        // color={colors.buttonTextColor}
+        // color={colors.foreground}
         buttonStyle={styles.buttonStyle}
       />
 

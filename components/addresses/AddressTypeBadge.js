@@ -26,7 +26,7 @@ const AddressTypeBadge = ({ isInternal, hasTransactions }) => {
     usedBadge: { backgroundColor: colors.buttonDisabledBackgroundColor },
     changeText: { color: colors.changeText },
     receiveText: { color: colors.receiveText },
-    usedText: { color: colors.alternativeTextColor },
+    usedText: { color: colors.border },
   });
 
   const badgeLabel = hasTransactions

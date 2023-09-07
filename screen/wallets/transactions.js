@@ -61,13 +61,13 @@ const WalletTransactions = ({ navigation }) => {
 
   const stylesHook = StyleSheet.create({
     listHeaderText: {
-      color: colors.foregroundColor,
+      color: colors.foreground,
     },
     browserButton2: {
       backgroundColor: colors.lightButton,
     },
     marketpalceText1: {
-      color: colors.cta2,
+      color: colors.foreground,
     },
     list: {
       backgroundColor: colors.background,
@@ -253,7 +253,7 @@ const WalletTransactions = ({ navigation }) => {
             onPress={refreshTransactions}
             disabled={isLoading}
           >
-            <Icon name="refresh" type="font-awesome" color={colors.feeText} />
+            <Icon name="refresh" type="font-awesome" color={colors.border} />
           </TouchableOpacity>
         </View>
       </View>
@@ -565,7 +565,7 @@ const WalletTransactions = ({ navigation }) => {
             }}
             icon={
               <View style={styles.receiveIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.buttonAlternativeTextColor} />
+                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
               </View>
             }
           />
@@ -578,7 +578,7 @@ const WalletTransactions = ({ navigation }) => {
             testID="SendButton"
             icon={
               <View style={styles.sendIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.buttonAlternativeTextColor} />
+                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
               </View>
             }
           />

@@ -40,7 +40,7 @@ const LnurlAuth = () => {
       backgroundColor: colors.background,
     },
     walletWrapLabel: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
   });
 

@@ -54,19 +54,19 @@ const LNDCreateInvoice = () => {
       color: colors.inverseForegroundColor,
     },
     walletNameText: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     walletNameBalance: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     walletNameSats: {
-      color: colors.buttonAlternativeTextColor,
+      color: colors.foreground,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     amount: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     fiat: {
       borderColor: colors.formBorder,

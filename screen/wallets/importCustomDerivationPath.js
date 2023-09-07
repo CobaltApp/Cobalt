@@ -76,10 +76,10 @@ const ImportCustomDerivationPath = () => {
 
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     center: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     pathInput: {
       borderColor: colors.formBorder,

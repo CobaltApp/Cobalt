@@ -23,7 +23,7 @@ const PlusIcon = props => {
     <Avatar
       rounded
       containerStyle={[styles.ball, stylesHook.ball]}
-      icon={{ name: 'add', size: 22, type: 'ionicons', color: colors.foregroundColor }}
+      icon={{ name: 'add', size: 22, type: 'ionicons', color: colors.foreground }}
       {...props}
     />
   );

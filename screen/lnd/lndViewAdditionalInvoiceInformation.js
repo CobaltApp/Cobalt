@@ -18,10 +18,10 @@ const LNDViewAdditionalInvoiceInformation = () => {
   const { goBack } = useNavigation();
   const stylesHook = StyleSheet.create({
     loading: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
   });
 
@@ -64,7 +64,7 @@ const LNDViewAdditionalInvoiceInformation = () => {
             icon={{
               name: 'share-alternative',
               type: 'entypo',
-              color: colors.buttonTextColor,
+              color: colors.foreground,
             }}
             onPress={async () => {
               Share.share({

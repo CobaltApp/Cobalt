@@ -39,13 +39,13 @@ const LNDViewInvoice = () => {
       backgroundColor: colors.background,
     },
     detailsText: {
-      color: colors.alternativeTextColor,
+      color: colors.border,
     },
     expired: {
       backgroundColor: colors.success,
     },
     additionalInfo: {
-      backgroundColor: colors.brandingColor,
+      backgroundColor: colors.background,
     },
   });
 
@@ -66,7 +66,7 @@ const LNDViewInvoice = () => {
         ? {
             headerStyle: {
               borderBottomWidth: 0,
-              backgroundColor: colors.customHeader,
+              backgroundColor: colors.background,
               elevation: 0,
               shadowOpacity: 0,
               shadowOffset: { height: 0, width: 0 },
@@ -91,7 +91,7 @@ const LNDViewInvoice = () => {
         : {
             headerRight: () => {},
             headerStyle: {
-              backgroundColor: colors.customHeader,
+              backgroundColor: colors.background,
 
               borderBottomWidth: 0,
               elevation: 0,
@@ -232,7 +232,7 @@ const LNDViewInvoice = () => {
                     name={I18nManager.isRTL ? 'angle-left' : 'angle-right'}
                     size={18}
                     type="font-awesome"
-                    color={colors.alternativeTextColor}
+                    color={colors.border}
                   />
                 </TouchableOpacity>
               ) : undefined}
@@ -244,7 +244,7 @@ const LNDViewInvoice = () => {
         return (
           <View style={[styles.root, stylesHook.root, styles.justifyContentCenter]}>
             <View style={[styles.expired, stylesHook.expired]}>
-              <Icon name="times" size={50} type="font-awesome" color={colors.successCheck} />
+              <Icon name="times" size={50} type="font-awesome" color={colors.primary} />
             </View>
             <BlueTextCentered>{loc.lndViewInvoice.wasnt_paid_and_expired}</BlueTextCentered>
           </View>
@@ -336,7 +336,7 @@ LNDViewInvoice.navigationOptions = navigationStyle({}, (options, { theme }) => {
     ...options,
     headerTitle: loc.lndViewInvoice.lightning_invoice,
     headerStyle: {
-      backgroundColor: theme.colors.customHeader,
+      backgroundColor: theme.colors.background,
     },
   };
 });

@@ -191,7 +191,7 @@ const animatedQRCodeStyle = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    color: BlueCurrentTheme.colors.foregroundColor,
+    color: BlueCurrentTheme.colors.foreground,
     fontWeight: 'bold',
   },
 });

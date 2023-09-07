@@ -41,8 +41,8 @@ if (aspectRatio > 1.6) {
 export const BlueButton = props => {
   const { colors } = useTheme();
 
-  let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.mainColor || BlueCurrentTheme.colors.mainColor;
-  let fontColor = props.buttonTextColor || colors.buttonTextColor;
+  let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.primary || BlueCurrentTheme.colors.primary;
+  let fontColor = props.buttonTextColor || colors.background;
   if (props.disabled === true) {
     backgroundColor = colors.buttonDisabledBackgroundColor;
     fontColor = colors.buttonDisabledTextColor;
@@ -77,7 +77,7 @@ export const BlueButton = props => {
 export const SecondButton = forwardRef((props, ref) => {
   const { colors } = useTheme();
   let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.buttonBlueBackgroundColor;
-  let fontColor = colors.buttonTextColor;
+  let fontColor = colors.foreground;
   if (props.disabled === true) {
     backgroundColor = colors.buttonDisabledBackgroundColor;
     fontColor = colors.buttonDisabledTextColor;
@@ -116,7 +116,7 @@ export const BitcoinButton = props => {
     <TouchableOpacity accessibilityRole="button" testID={props.testID} onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.newBlue) || colors.buttonDisabledBackgroundColor,
+          borderColor: (props.active && colors.primary) || colors.buttonDisabledBackgroundColor,
           borderWidth: 1.5,
           borderRadius: 8,
           backgroundColor: colors.buttonDisabledBackgroundColor,
@@ -132,12 +132,12 @@ export const BitcoinButton = props => {
             <Image style={{ width: 34, height: 34, marginRight: 8 }} source={require('./img/addWallet/bitcoin.png')} />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={{ color: colors.newBlue, fontWeight: 'bold', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}>
+            <Text style={{ color: colors.primary, fontWeight: 'bold', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}>
               {loc.wallets.add_bitcoin}
             </Text>
             <Text
               style={{
-                color: colors.alternativeTextColor,
+                color: colors.foreground,
                 fontSize: 13,
                 fontWeight: '500',
                 writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
@@ -158,7 +158,7 @@ export const VaultButton = props => {
     <TouchableOpacity accessibilityRole="button" testID={props.testID} onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.foregroundColor) || colors.buttonDisabledBackgroundColor,
+          borderColor: (props.active && colors.foreground) || colors.buttonDisabledBackgroundColor,
           borderWidth: 1.5,
           borderRadius: 8,
           backgroundColor: colors.buttonDisabledBackgroundColor,
@@ -175,7 +175,7 @@ export const VaultButton = props => {
           <View style={{ flex: 1 }}>
             <Text
               style={{
-                color: colors.foregroundColor,
+                color: colors.foreground,
                 fontWeight: 'bold',
                 fontSize: 18,
                 writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
@@ -185,7 +185,7 @@ export const VaultButton = props => {
             </Text>
             <Text
               style={{
-                color: colors.alternativeTextColor,
+                color: colors.foreground,
                 fontSize: 13,
                 fontWeight: '500',
                 writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
@@ -206,7 +206,7 @@ export const LightningButton = props => {
     <TouchableOpacity accessibilityRole="button" onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.lnborderColor) || colors.buttonDisabledBackgroundColor,
+          borderColor: (props.active && colors.lightning) || colors.buttonDisabledBackgroundColor,
           borderWidth: 1.5,
           borderRadius: 8,
           backgroundColor: colors.buttonDisabledBackgroundColor,
@@ -223,13 +223,13 @@ export const LightningButton = props => {
           </View>
           <View style={{ flex: 1 }}>
             <Text
-              style={{ color: colors.lnborderColor, fontWeight: 'bold', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}
+              style={{ color: colors.lightning, fontWeight: 'bold', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}
             >
               {loc.wallets.add_lightning}
             </Text>
             <Text
               style={{
-                color: colors.alternativeTextColor,
+                color: colors.foreground,
                 fontSize: 13,
                 fontWeight: '500',
                 writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
@@ -262,7 +262,7 @@ export const BlueButtonLink = forwardRef((props, ref) => {
       {...props}
       ref={ref}
     >
-      <Text style={{ color: colors.foregroundColor, textAlign: 'center', fontSize: 16 }}>{props.title}</Text>
+      <Text style={{ color: colors.foreground, textAlign: 'center', fontSize: 16 }}>{props.title}</Text>
     </TouchableOpacity>
   );
 });
@@ -378,13 +378,13 @@ export const BlueCard = props => {
 
 export const BlueText = props => {
   const { colors } = useTheme();
-  const style = StyleSheet.compose({ color: colors.foregroundColor, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }, props.style);
+  const style = StyleSheet.compose({ color: colors.foreground, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }, props.style);
   return <Text {...props} style={style} />;
 };
 
 export const BlueTextCentered = props => {
   const { colors } = useTheme();
-  return <Text {...props} style={{ color: colors.foregroundColor, textAlign: 'center' }} />;
+  return <Text {...props} style={{ color: colors.foreground, textAlign: 'center' }} />;
 };
 
 export const BlueListItem = React.memo(props => {
@@ -407,7 +407,7 @@ export const BlueListItem = React.memo(props => {
       <ListItem.Content>
         <ListItem.Title
           style={{
-            color: props.disabled ? colors.buttonDisabledTextColor : colors.foregroundColor,
+            color: props.disabled ? colors.buttonDisabledTextColor : colors.foreground,
             fontSize: 16,
             fontWeight: '500',
             writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
@@ -424,7 +424,7 @@ export const BlueListItem = React.memo(props => {
             style={{
               flexWrap: 'wrap',
               writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-              color: colors.alternativeTextColor,
+              color: colors.border,
               fontWeight: '400',
               fontSize: 14,
             }}
@@ -461,7 +461,7 @@ export const BlueFormLabel = props => {
     <Text
       {...props}
       style={{
-        color: colors.foregroundColor,
+        color: colors.foreground,
         fontWeight: '400',
         marginHorizontal: 20,
         writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
@@ -490,7 +490,7 @@ export const BlueFormMultiInput = props => {
         borderBottomWidth: 0.5,
         borderRadius: 4,
         backgroundColor: colors.inputBackgroundColor,
-        color: colors.foregroundColor,
+        color: colors.foreground,
         textAlignVertical: 'top',
       }}
       autoCorrect={false}
@@ -521,7 +521,7 @@ export const BlueHeaderDefaultSub = props => {
             style={{
               fontWeight: 'bold',
               fontSize: 30,
-              color: colors.foregroundColor,
+              color: colors.foreground,
             }}
           >
             {props.leftText}
@@ -542,10 +542,10 @@ export const BlueHeaderDefaultMain = props => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: isDrawerList ? colors.elevated : colors.background,
+        backgroundColor: isDrawerList ? colors.background : colors.background,
         paddingHorizontal: 16,
-        borderTopColor: isDrawerList ? colors.elevated : colors.background,
-        borderBottomColor: isDrawerList ? colors.elevated : colors.background,
+        borderTopColor: isDrawerList ? colors.background : colors.background,
+        borderBottomColor: isDrawerList ? colors.background : colors.background,
         marginBottom: 8,
       }}
     >
@@ -554,7 +554,7 @@ export const BlueHeaderDefaultMain = props => {
           textAlign: 'left',
           fontWeight: 'bold',
           fontSize: 34,
-          color: colors.foregroundColor,
+          color: colors.foreground,
         }}
       >
         {props.leftText}
@@ -742,10 +742,10 @@ export class BlueReplaceFeeSuggestions extends Component {
               ]}
             >
               <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 22, color: BlueCurrentTheme.colors.successColor, fontWeight: '600' }}>{label}</Text>
+                <Text style={{ fontSize: 22, color: BlueCurrentTheme.colors.positive, fontWeight: '600' }}>{label}</Text>
                 <View
                   style={{
-                    backgroundColor: BlueCurrentTheme.colors.successColor,
+                    backgroundColor: BlueCurrentTheme.colors.positive,
                     borderRadius: 5,
                     paddingHorizontal: 6,
                     paddingVertical: 3,
@@ -755,7 +755,7 @@ export class BlueReplaceFeeSuggestions extends Component {
                 </View>
               </View>
               <View style={{ justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: BlueCurrentTheme.colors.successColor }}>{rate} sat/byte</Text>
+                <Text style={{ color: BlueCurrentTheme.colors.positive }}>{rate} sat/byte</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -771,7 +771,7 @@ export class BlueReplaceFeeSuggestions extends Component {
           ]}
         >
           <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ fontSize: 22, color: BlueCurrentTheme.colors.successColor, fontWeight: '600' }}>
+            <Text style={{ fontSize: 22, color: BlueCurrentTheme.colors.positive, fontWeight: '600' }}>
               {formatStringAddTwoWhiteSpaces(loc.send.fee_custom)}
             </Text>
           </View>
@@ -802,10 +802,10 @@ export class BlueReplaceFeeSuggestions extends Component {
               placeholderTextColor="#81868e"
               inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
             />
-            <Text style={{ color: BlueCurrentTheme.colors.successColor }}>sat/byte</Text>
+            <Text style={{ color: BlueCurrentTheme.colors.positive }}>sat/byte</Text>
           </View>
         </TouchableOpacity>
-        <BlueText style={{ color: BlueCurrentTheme.colors.alternativeTextColor }}>
+        <BlueText style={{ color: BlueCurrentTheme.colors.foreground }}>
           {loc.formatString(loc.send.fee_replace_minvb, { min: this.props.transactionMinimum })}
         </BlueText>
       </View>
@@ -858,7 +858,7 @@ export const BlueTabs = ({ active, onSwitch, tabs }) => (
         style={[
           tabsStyles.tabRoot,
           active === i && {
-            borderColor: BlueCurrentTheme.colors.buttonAlternativeTextColor,
+            borderColor: BlueCurrentTheme.colors.foreground,
             borderBottomWidth: 2,
           },
         ]}

@@ -27,10 +27,10 @@ const PsbtMultisigQRCode = () => {
   const psbt = bitcoin.Psbt.fromBase64(psbtBase64);
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     modalContentShort: {
-      backgroundColor: colors.elevated,
+      backgroundColor: colors.background,
     },
     exportButton: {
       backgroundColor: colors.buttonDisabledBackgroundColor,

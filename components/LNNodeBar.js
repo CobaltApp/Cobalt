@@ -14,7 +14,7 @@ export const LNNodeBar = props => {
   };
   const stylesHook = StyleSheet.create({
     nodeAlias: {
-      color: colors.alternativeTextColor2,
+      color: colors.foreground,
     },
   });
   return (

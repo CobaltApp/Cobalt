@@ -232,9 +232,9 @@ class AmountInput extends Component {
 
     const stylesHook = StyleSheet.create({
       center: { padding: amount === BitcoinUnit.MAX ? 0 : 15 },
-      localCurrency: { color: disabled ? colors.buttonDisabledTextColor : colors.alternativeTextColor2 },
-      input: { color: disabled ? colors.buttonDisabledTextColor : colors.alternativeTextColor2, fontSize: amount.length > 10 ? 20 : 36 },
-      cryptoCurrency: { color: disabled ? colors.buttonDisabledTextColor : colors.alternativeTextColor2 },
+      localCurrency: { color: disabled ? colors.buttonDisabledTextColor : colors.foreground },
+      input: { color: disabled ? colors.buttonDisabledTextColor : colors.foreground, fontSize: amount.length > 10 ? 20 : 36 },
+      cryptoCurrency: { color: disabled ? colors.buttonDisabledTextColor : colors.foreground },
     });
 
     return (
@@ -270,7 +270,7 @@ class AmountInput extends Component {
                     ref={textInput => (this.textInput = textInput)}
                     editable={!this.props.isLoading && !disabled}
                     value={amount === BitcoinUnit.MAX ? loc.units.MAX : parseFloat(amount) >= 0 ? String(amount) : undefined}
-                    placeholderTextColor={disabled ? colors.buttonDisabledTextColor : colors.alternativeTextColor2}
+                    placeholderTextColor={disabled ? colors.buttonDisabledTextColor : colors.foreground}
                     style={[styles.input, stylesHook.input]}
                   />
                 ) : (
@@ -318,7 +318,7 @@ class AmountInput extends Component {
                 disabled={this.state.isRateBeingUpdated}
                 style={this.state.isRateBeingUpdated ? styles.disabledButton : styles.enabledButon}
               >
-                <Icon name="sync" type="font-awesome-5" size={16} color={colors.buttonAlternativeTextColor} />
+                <Icon name="sync" type="font-awesome-5" size={16} color={colors.foreground} />
               </TouchableOpacity>
             </View>
           )}

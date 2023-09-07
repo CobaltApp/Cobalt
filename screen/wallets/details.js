@@ -154,13 +154,13 @@ const WalletDetails = () => {
   }, [isAdvancedModeEnabledRender, wallet]);
   const stylesHook = StyleSheet.create({
     textLabel1: {
-      color: colors.feeText,
+      color: colors.border,
     },
     textLabel2: {
-      color: colors.feeText,
+      color: colors.border,
     },
     textValue: {
-      color: colors.outputValue,
+      color: colors.foreground,
     },
     input: {
       borderColor: colors.formBorder,
@@ -172,7 +172,7 @@ const WalletDetails = () => {
       backgroundColor: colors.lightButton,
     },
     saveText: {
-      color: colors.buttonTextColor,
+      color: colors.foreground,
     },
   });
   useEffect(() => {
