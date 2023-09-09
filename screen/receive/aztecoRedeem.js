@@ -121,7 +121,7 @@ export default class AztecoRedeem extends Component {
             }
           >
             <Text style={styles.selectText}>{loc.azteco.redeem}</Text>
-            <Icon name={I18nManager.isRTL ? 'angle-left' : 'angle-right'} size={18} type="font-awesome" color="#9aa0aa" />
+            <Icon name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'} size={18} type="feather" color="#9aa0aa" />
           </TouchableOpacity>
         )}
         <View style={styles.selectWallet2}>

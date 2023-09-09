@@ -109,7 +109,7 @@ const ReorderWallets = () => {
           onPress={() => navigateToWallet(item)}
           style={styles.itemRoot}
         >
-          <LinearGradient colors={WalletGradient.gradientsFor(item.type)} style={styles.gradient}>
+          <View backgroundColor={WalletGradient.gradientsFor(item.type)} style={styles.gradient}>
             <Image
               source={(() => {
                 switch (item.type) {
@@ -145,7 +145,7 @@ const ReorderWallets = () => {
                 ? loc.transactions.pending.toLowerCase()
                 : transactionTimeToReadable(item.getLatestTransactionTime())}
             </Text>
-          </LinearGradient>
+          </View>
         </Pressable>
       </ScaleDecorator>
     );

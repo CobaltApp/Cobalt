@@ -115,7 +115,7 @@ const WalletTransactions = ({ navigation }) => {
     setDataSource(wallet.getTransactions(15));
     setOptions({
       headerStyle: {
-        backgroundColor: WalletGradient.headerColorFor(wallet.type),
+        backgroundColor: colors.primary,
         borderBottomWidth: 0,
         elevation: 0,
         // shadowRadius: 0,
@@ -253,7 +253,7 @@ const WalletTransactions = ({ navigation }) => {
             onPress={refreshTransactions}
             disabled={isLoading}
           >
-            <Icon name="refresh" type="font-awesome" color={colors.border} />
+            <Icon name="refresh-cw" type="feather" color={colors.border} />
           </TouchableOpacity>
         </View>
       </View>
@@ -565,7 +565,7 @@ const WalletTransactions = ({ navigation }) => {
             }}
             icon={
               <View style={styles.receiveIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
+                <Icon name="arrow-down" size={buttonFontSize} type="feather" color={colors.foreground} />
               </View>
             }
           />
@@ -578,7 +578,7 @@ const WalletTransactions = ({ navigation }) => {
             testID="SendButton"
             icon={
               <View style={styles.sendIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
+                <Icon name="arrow-down" size={buttonFontSize} type="feather" color={colors.foreground} />
               </View>
             }
           />
@@ -604,7 +604,7 @@ WalletTransactions.navigationOptions = navigationStyle({}, (options, { theme, na
           })
         }
       >
-        <Icon name="more-horiz" type="material" size={22} color="#FFFFFF" />
+        <Icon name="settings" type="feather" size={22} color="#FFFFFF" />
       </TouchableOpacity>
     ),
     title: '',

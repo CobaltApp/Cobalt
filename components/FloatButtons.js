@@ -2,16 +2,17 @@ import React, { useState, useRef, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, PixelRatio } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import { Icon } from 'react-native-elements';
 
 const BORDER_RADIUS = 30;
-const PADDINGS = 8;
-const ICON_MARGIN = 7;
+const PADDINGS = 0;
+const ICON_MARGIN = 0;
 
 const cStyles = StyleSheet.create({
   root: {
     alignSelf: 'center',
     height: '6.3%',
-    minHeight: 44,
+    minHeight: 50,
   },
   rootAbsolute: {
     position: 'absolute',
@@ -99,7 +100,7 @@ export const FButton = ({ text, icon, width, first, last, ...props }) => {
   const { colors } = useTheme();
   const bStylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.buttonBackgroundColor,
+      backgroundColor: colors.primary,
     },
     text: {
       color: colors.foreground,
@@ -111,16 +112,18 @@ export const FButton = ({ text, icon, width, first, last, ...props }) => {
   const style = {};
 
   if (width) {
-    const paddingLeft = first ? BORDER_RADIUS / 2 : PADDINGS;
-    const paddingRight = last ? BORDER_RADIUS / 2 : PADDINGS;
+    const paddingLeft = PADDINGS;
+    const paddingRight = PADDINGS;
     style.paddingRight = paddingRight;
     style.paddingLeft = paddingLeft;
-    style.width = width + paddingRight + paddingLeft;
+    style.width = 50;
   }
 
   return (
     <TouchableOpacity accessibilityRole="button" style={[bStyles.root, bStylesHook.root, style]} {...props}>
-      <View style={bStyles.icon}>{icon}</View>
+      <View style={bStyles.icon}>
+        <Icon name="repeat" type="feather" size={24} color={colors.background} />
+      </View>
       <Text numberOfLines={1} style={[bStyles.text, props.disabled ? bStylesHook.textDisabled : bStylesHook.text]}>
         {text}
       </Text>

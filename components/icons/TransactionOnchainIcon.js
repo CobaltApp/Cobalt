@@ -32,7 +32,7 @@ const TransactionOnchainIcon = props => {
   return (
     <View style={styles.boxIncoming}>
       <View style={[styles.ballIncoming, stylesBlueIconHooks.ballIncoming]}>
-        <Icon name="link" size={16} type="font-awesome" color={colors.incomingForegroundColor} iconStyle={styles.icon} />
+        <Icon name="zap-off" size={16} type="feather" color={colors.incomingForegroundColor} iconStyle={styles.icon} />
       </View>
     </View>
   );

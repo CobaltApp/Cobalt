@@ -29,7 +29,7 @@ const TransactionOffchainIncomingIcon = props => {
   return (
     <View style={styles.boxIncoming}>
       <View style={[styles.ballIncomingWithoutRotate, stylesHooks.ballIncomingWithoutRotate]}>
-        <Icon name="bolt" size={16} type="font-awesome" color={colors.incomingForegroundColor} iconStyle={styles.icon} />
+        <Icon name="zap" size={16} type="feather" color={colors.incomingForegroundColor} iconStyle={styles.icon} />
       </View>
     </View>
   );

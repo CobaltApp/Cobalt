@@ -183,7 +183,7 @@ const Buttons = ({ pop, save, colors }) => (
       onPress={pop}
       icon={
         <View style={styles.buttonsIcon}>
-          <Icon name="undo" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
+          <Icon name="corner-down-left" size={buttonFontSize} type="feather" color={colors.foreground} />
         </View>
       }
       text={loc.entropy.undo}
@@ -192,7 +192,7 @@ const Buttons = ({ pop, save, colors }) => (
       onPress={save}
       icon={
         <View style={styles.buttonsIcon}>
-          <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
+          <Icon name="arrow-down" size={buttonFontSize} type="feather" color={colors.foreground} />
         </View>
       }
       text={loc.entropy.save}
@@ -249,7 +249,7 @@ const Entropy = () => {
         tabs={[
           // eslint-disable-next-line react/no-unstable-nested-components
           ({ active }) => (
-            <Icon name="toll" type="material" color={active ? colors.foreground : colors.buttonBackgroundColor} />
+            <Icon name="dollar-sign" type="feather" color={active ? colors.foreground : colors.buttonBackgroundColor} />
           ),
           // eslint-disable-next-line react/no-unstable-nested-components
           ({ active }) => (

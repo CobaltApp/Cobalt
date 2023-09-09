@@ -68,7 +68,7 @@ export const BlueButton = props => {
     >
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         {props.icon && <Icon name={props.icon.name} type={props.icon.type} color={props.icon.color} />}
-        {props.title && <Text style={{ marginHorizontal: 8, fontSize: 16, color: fontColor, fontWeight: '500' }}>{props.title}</Text>}
+        {props.title && <Text style={{ marginHorizontal: 8, fontSize: 16, color: fontColor, fontWeight: '700' }}>{props.title}</Text>}
       </View>
     </TouchableOpacity>
   );
@@ -132,7 +132,7 @@ export const BitcoinButton = props => {
             <Image style={{ width: 34, height: 34, marginRight: 8 }} source={require('./img/addWallet/bitcoin.png')} />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={{ color: colors.primary, fontWeight: 'bold', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}>
+            <Text style={{ color: colors.primary, fontWeight: '700', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}>
               {loc.wallets.add_bitcoin}
             </Text>
             <Text
@@ -176,7 +176,7 @@ export const VaultButton = props => {
             <Text
               style={{
                 color: colors.foreground,
-                fontWeight: 'bold',
+                fontWeight: '700',
                 fontSize: 18,
                 writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
               }}
@@ -223,7 +223,7 @@ export const LightningButton = props => {
           </View>
           <View style={{ flex: 1 }}>
             <Text
-              style={{ color: colors.lightning, fontWeight: 'bold', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}
+              style={{ color: colors.lightning, fontWeight: '700', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}
             >
               {loc.wallets.add_lightning}
             </Text>
@@ -286,7 +286,7 @@ export const BluePrivateBalance = () => {
         blurRadius={6}
         style={{ backgroundColor: '#FFFFFF', opacity: 0.5, height: 30, width: 110, marginRight: 8, borderRadius: 9 }}
       />
-      <Icon name="eye-slash" type="font-awesome" color="#FFFFFF" />
+      <Icon name="eye" type="feather" color="#FFFFFF" />
     </View>
   );
 };
@@ -517,8 +517,8 @@ export const BlueHeaderDefaultSub = props => {
           <Text
             adjustsFontSizeToFit
             style={{
-              fontWeight: 'bold',
-              fontSize: 30,
+              fontWeight: '500',
+              fontSize: 18,
               color: colors.foreground,
             }}
           >
@@ -550,8 +550,8 @@ export const BlueHeaderDefaultMain = props => {
       <Text
         style={{
           textAlign: 'left',
-          fontWeight: 'bold',
-          fontSize: 34,
+          fontWeight: '500',
+          fontSize: 36,
           color: colors.foreground,
         }}
       >
@@ -825,7 +825,7 @@ export function BlueBigCheckmark({ style }) {
   const mergedStyles = { ...defaultStyles, ...style };
   return (
     <View style={mergedStyles}>
-      <Icon name="check" size={50} type="font-awesome" color="#0f5cc0" />
+      <Icon name="check" size={50} type="feather" color="#0f5cc0" />
     </View>
   );
 }

@@ -360,7 +360,7 @@ const LNDCreateInvoice = () => {
         accessibilityLabel={loc.send.details_scan}
         accessibilityHint={loc.send.details_scan_hint}
       >
-        <Image style={{}} source={require('../../img/scan-white.png')} />
+        <Icon name="camera" type="feather" size={24} color={colors.background} />
         <Text style={[styles.scanClick, styleHooks.scanClick]}>{loc.send.details_scan}</Text>
       </TouchableOpacity>
     );
@@ -377,7 +377,7 @@ const LNDCreateInvoice = () => {
         {!isLoading && (
           <TouchableOpacity accessibilityRole="button" style={styles.walletChooseWrap} onPress={navigateToSelectWallet}>
             <Text style={styles.walletChooseText}>{loc.wallets.select_wallet.toLowerCase()}</Text>
-            <Icon name={I18nManager.isRTL ? 'angle-left' : 'angle-right'} size={18} type="font-awesome" color="#9aa0aa" />
+            <Icon name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'} size={18} type="feather" color="#9aa0aa" />
           </TouchableOpacity>
         )}
         <View style={styles.walletNameWrap}>

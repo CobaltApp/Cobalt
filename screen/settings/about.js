@@ -173,7 +173,7 @@ const About = () => {
           <BlueSpacing20 />
 
           <TouchableOpacity accessibilityRole="button" onPress={handleOnGithubPress} style={styles.buttonLink}>
-            <Icon size={22} name="github" type="font-awesome-5" color={colors.foreground} />
+            <Icon size={22} name="github" type="feather" color={colors.foreground} />
             <Text style={styles.textLink}>{formatStringAddTwoWhiteSpaces(loc.settings.about_sm_github)}</Text>
           </TouchableOpacity>
         </View>

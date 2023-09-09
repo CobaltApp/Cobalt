@@ -15,11 +15,11 @@ import { SLIP39LegacyP2PKHWallet, SLIP39SegwitP2SHWallet, SLIP39SegwitBech32Wall
 import { useTheme } from '@react-navigation/native';
 
 export default class WalletGradient {
-  static watchonly = ['#353945', '#353945'];
-  static legacy = ['#58BD7D', '#58BD7D'];
-  static multisig = ['#9757D7', '#9757D7'];
-  static default = ['#3772FF', '#3772FF'];
-  static lightning = ['#FFD166', '#FFD166'];
+  static watchonly = '#353945';
+  static legacy = '#58BD7D';
+  static multisig = '#9757D7';
+  static default = '#3772FF';
+  static lightning = '#FFD166';
 
   static createWallet = () => {
     const { colors } = useTheme();
@@ -27,17 +27,18 @@ export default class WalletGradient {
   };
 
   static gradientsFor(type) {
-    let gradient;
+    const { colors } = useTheme();
+    let color;
     switch (type) {
       case WatchOnlyWallet.type:
-        gradient = WalletGradient.watchonly;
+        color = '#353945';
         break;
       case LegacyWallet.type:
       case HDLegacyP2PKHWallet.type:
       case HDLegacyElectrumSeedP2PKHWallet.type:
       case SLIP39LegacyP2PKHWallet.type:
       case HDLegacyBreadwalletWallet.type:
-        gradient = WalletGradient.legacy;
+        color = '#58BD7D';
         break;
       case HDSegwitP2SHWallet.type:
       case SLIP39SegwitP2SHWallet.type:
@@ -46,49 +47,35 @@ export default class WalletGradient {
       case SLIP39SegwitBech32Wallet.type:
       case SegwitBech32Wallet.type:
       case HDAezeedWallet.type:
-        gradient = WalletGradient.default;
+        color = colors.primary;
         break;
       case LightningCustodianWallet.type:
       case LightningLdkWallet.type:
-        gradient = WalletGradient.lightning;
+        color = colors.lightning;
         break;
       case MultisigHDWallet.type:
-        gradient = WalletGradient.multisig;
+        color = '#9757D7';
         break;
       default:
-        gradient = WalletGradient.default;
+        color = colors.primary;
         break;
     }
-    return gradient;
-  }
-
-  static linearGradientProps(type) {
-    let props;
-    switch (type) {
-      case MultisigHDWallet.type:
-        /* Example
-        props = { start: { x: 0, y: 0 } };
-        https://github.com/react-native-linear-gradient/react-native-linear-gradient
-        */
-        break;
-      default:
-        break;
-    }
-    return props;
+    return color;
   }
 
   static headerColorFor(type) {
-    let gradient;
+    const { colors } = useTheme();
+    let color;
     switch (type) {
       case WatchOnlyWallet.type:
-        gradient = WalletGradient.watchonly;
+        color = '#353945';
         break;
       case LegacyWallet.type:
       case HDLegacyP2PKHWallet.type:
       case HDLegacyElectrumSeedP2PKHWallet.type:
       case SLIP39LegacyP2PKHWallet.type:
       case HDLegacyBreadwalletWallet.type:
-        gradient = WalletGradient.legacy;
+        color = '#58BD7D';
         break;
       case HDSegwitP2SHWallet.type:
       case SLIP39SegwitP2SHWallet.type:
@@ -97,19 +84,19 @@ export default class WalletGradient {
       case SLIP39SegwitBech32Wallet.type:
       case SegwitBech32Wallet.type:
       case HDAezeedWallet.type:
-        gradient = WalletGradient.default;
+        color = colors.primary;
         break;
       case MultisigHDWallet.type:
-        gradient = WalletGradient.multisig;
+        color = '#9757D7';
         break;
       case LightningCustodianWallet.type:
       case LightningLdkWallet.type:
-        gradient = WalletGradient.lightning;
+        color = colors.lightning;
         break;
       default:
-        gradient = WalletGradient.default;
+        color = colors.primary;
         break;
     }
-    return gradient[0];
+    return color;
   }
 }

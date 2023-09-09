@@ -948,7 +948,7 @@ const SendDetails = () => {
             onPressMenuItem={headerRightOnPress}
             actions={headerRightActions()}
           >
-            <Icon size={22} name="more-horiz" type="material" color={colors.foreground} style={styles.advancedOptions} />
+            <Icon size={22} name="more-horizontal" type="feather" color={colors.foreground} style={styles.advancedOptions} />
           </ToolTipMenu>
         ),
         // eslint-disable-next-line react/no-unstable-nested-components
@@ -964,7 +964,7 @@ const SendDetails = () => {
             }}
             testID="advancedOptionsMenuButton"
           >
-            <Icon size={22} name="more-horiz" type="material" color={colors.foreground} />
+            <Icon size={22} name="more-horizontal" type="feather" color={colors.foreground} />
           </TouchableOpacity>
         ),
       }),
@@ -1316,7 +1316,7 @@ const SendDetails = () => {
             onPress={() => navigation.navigate('SelectWallet', { onWalletSelect, chainType: Chain.ONCHAIN })}
           >
             <Text style={styles.selectText}>{loc.wallets.select_wallet.toLowerCase()}</Text>
-            <Icon name={I18nManager.isRTL ? 'angle-left' : 'angle-right'} size={18} type="font-awesome" color="#9aa0aa" />
+            <Icon name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'} size={18} type="feather" color="#9aa0aa" />
           </TouchableOpacity>
         )}
         <View style={styles.selectWrap}>

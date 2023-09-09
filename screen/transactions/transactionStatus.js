@@ -377,7 +377,7 @@ const TransactionsStatus = () => {
 
           <View style={[styles.iconRoot, stylesHook.iconRoot]}>
             <View>
-              <Icon name="check" size={50} type="font-awesome" color={colors.primary} />
+              <Icon name="check" size={50} type="feather" color={colors.primary} />
             </View>
             <View style={[styles.iconWrap, styles.margin]}>
               {(() => {

@@ -46,7 +46,7 @@ const LdkViewLogs = () => {
               style={styles.reloadLogs}
               onPress={getLogs}
             >
-              <Icon name="redo" type="font-awesome-5" size={22} color={colors.foreground} />
+              <Icon name="corner-down-right" type="feather" size={22} color={colors.foreground} />
             </TouchableOpacity>
           ),
         });

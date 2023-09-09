@@ -56,6 +56,7 @@ export const BlueDefaultTheme = {
     labelText: '#353945',
 
     foreground: '#23262F',
+    foregroundInactive: '#B1B5C3',
     
     incomingBackgroundColor: '#d2f8d6',
     incomingForegroundColor: '#58BD7D',

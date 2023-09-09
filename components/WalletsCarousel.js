@@ -26,13 +26,15 @@ import { isHandset, isTablet, isDesktop } from '../blue_modules/environment';
 const nStyles = StyleSheet.create({
   container: {
     borderRadius: 12,
+    borderWidth: 2,
+    borderStyle: 'dashed',
     minHeight: Platform.OS === 'ios' ? 194 : 194,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   addAWAllet: {
-    fontWeight: '600',
-    fontSize: 24,
+    fontWeight: '200',
+    fontSize: 48,
     marginBottom: 4,
   },
   addLine: {
@@ -53,16 +55,8 @@ const nStyles = StyleSheet.create({
 const NewWalletPanel = ({ onPress }) => {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
-  const itemWidth = width * 0.82 > 375 ? 375 : width * 0.82;
+  const itemWidth = width * 0.82 > 375 ? 375 : 307; //65
   const isLargeScreen = Platform.OS === 'android' ? isTablet() : (width >= Dimensions.get('screen').width / 2 && isTablet()) || isDesktop;
-  const nStylesHooks = StyleSheet.create({
-    container: isLargeScreen
-      ? {
-          paddingHorizontal: 24,
-          marginVertical: 16,
-        }
-      : { paddingVertical: 16, paddingHorizontal: 24 },
-  });
 
   return (
     <TouchableOpacity
@@ -74,16 +68,15 @@ const NewWalletPanel = ({ onPress }) => {
       <View
         style={[
           nStyles.container,
-          nStylesHooks.container,
-          { backgroundColor: WalletGradient.createWallet() },
+          { 
+          backgroundColor: colors.background,
+          borderColor: colors.border,
+          },
           isLargeScreen ? {} : { width: itemWidth },
         ]}
       >
-        <Text style={[nStyles.addAWAllet, { color: colors.foreground }]}>{loc.wallets.list_create_a_wallet}</Text>
-        <Text style={[nStyles.addLine, { color: colors.foreground }]}>{loc.wallets.list_create_a_wallet_text}</Text>
-        <View style={nStyles.button}>
-          <Text style={[nStyles.buttonText, { color: colors.background }]}>{loc.wallets.list_create_a_button}</Text>
-        </View>
+        <Text style={[nStyles.addAWAllet, { color: colors.foreground }]}>+</Text>
+        
       </View>
     </TouchableOpacity>
   );
@@ -201,7 +194,7 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
           onPressedOut();
         }}
       >
-        <LinearGradient colors={WalletGradient.gradientsFor(item.type)} style={iStyles.grad}>
+        <View backgroundColor={WalletGradient.gradientsFor(item.type)} style={iStyles.grad}>
           <Image source={image} style={iStyles.image} />
           <Text style={iStyles.br} />
           <Text numberOfLines={1} style={[iStyles.label, { color: colors.background }]}>
@@ -227,7 +220,7 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
           <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: colors.background }]}>
             {latestTransactionText}
           </Text>
-        </LinearGradient>
+        </View>
       </Pressable>
     </Animated.View>
   );

@@ -423,14 +423,14 @@ const CoinControl = () => {
           <FButton
             onPress={handleMassFreeze}
             text={allFrozen ? loc.cc.freezeLabel_un : loc.cc.freezeLabel}
-            icon={<Icon name="snowflake" size={buttonFontSize} type="font-awesome-5" color={colors.foreground} />}
+            icon={<Icon name="cloud-snow" size={buttonFontSize} type="feather" color={colors.foreground} />}
           />
           <FButton
             onPress={handleMassUse}
             text={selected.length > 1 ? loc.cc.use_coins : loc.cc.use_coin}
             icon={
               <View style={styles.sendIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="font-awesome" color={colors.foreground} />
+                <Icon name="arrow-down" size={buttonFontSize} type="feather" color={colors.foreground} />
               </View>
             }
           />

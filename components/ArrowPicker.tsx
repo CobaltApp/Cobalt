@@ -52,7 +52,7 @@ export const ArrowPicker = (props: ArrowPickerProps) => {
       >
         {/* 
 // @ts-ignore: Ignore */}
-        <Icon size={24} name="chevron-left" type="ionicons" tvParallaxProperties={undefined} />
+        <Icon size={24} name="chevron-left" type="feather" tvParallaxProperties={undefined} />
       </Pressable>
       <View style={{ width: 200 }}>
         <Text style={[styles.text, stylesHook.text]}>{props.isItemUnknown ? loc.send.fee_custom : keys[keyIndex]}</Text>
@@ -80,7 +80,7 @@ export const ArrowPicker = (props: ArrowPickerProps) => {
       >
         {/* 
 // @ts-ignore: Ignore */}
-        <Icon size={24} name="chevron-right" type="ionicons" tvParallaxProperties={undefined} />
+        <Icon size={24} name="chevron-right" type="feather" tvParallaxProperties={undefined} />
       </Pressable>
     </View>
   );

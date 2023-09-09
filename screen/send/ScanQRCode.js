@@ -350,7 +350,7 @@ const ScanQRCode = () => {
         style={styles.imagePickerTouch}
         onPress={showImagePicker}
       >
-        <Icon name="image" type="font-awesome" color="#ffffff" />
+        <Icon name="image" type="feather" color="#ffffff" />
       </TouchableOpacity>
       {showFileImportButton && (
         <TouchableOpacity
@@ -359,7 +359,7 @@ const ScanQRCode = () => {
           style={styles.filePickerTouch}
           onPress={showFilePicker}
         >
-          <Icon name="file-import" type="font-awesome-5" color="#ffffff" />
+          <Icon name="file" type="feather" color="#ffffff" />
         </TouchableOpacity>
       )}
       {urTotal > 0 && (

@@ -135,11 +135,11 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
   }, [wallet.hideBalance, wallet.getPreferredBalanceUnit()]);
 
   return (
-    <LinearGradient
-      colors={WalletGradient.gradientsFor(wallet.type)}
+    <View
+      //{WalletGradient.gradientsFor(wallet.type)}
       style={styles.lineaderGradient}
       // @ts-ignore: Ugh
-      {...WalletGradient.linearGradientProps(wallet.type)}
+      //{...WalletGradient.linearGradientProps(wallet.type)}
     >
       <Image
         source={(() => {
@@ -255,12 +255,13 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
           </View>
         </TouchableOpacity>
       )}
-    </LinearGradient>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   lineaderGradient: {
+    backgroundColor: '#3772FF',
     padding: 15,
     minHeight: 140,
     justifyContent: 'center',

@@ -30,7 +30,7 @@ const TransactionExpiredIcon = props => {
   return (
     <View style={styles.boxIncoming}>
       <View style={[styles.ballOutgoingExpired, stylesHooks.ballOutgoingExpired]}>
-        <Icon name="clock" size={16} type="octicon" color="#9AA0AA" iconStyle={styles.icon} />
+        <Icon name="clock" size={16} type="feather" color="#9AA0AA" iconStyle={styles.icon} />
       </View>
     </View>
   );

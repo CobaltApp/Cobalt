@@ -543,7 +543,7 @@ const WalletsAddMultisigStep2 = () => {
         <View style={[styles.newKeyModalContent, stylesHook.modalContent]}>
           <View style={styles.itemKeyUnprovidedWrapper}>
             <View style={[styles.vaultKeyCircleSuccess, stylesHook.vaultKeyCircleSuccess]}>
-              <Icon size={24} name="check" type="ionicons" color={colors.background} />
+              <Icon size={24} name="check" type="feather" color={colors.background} />
             </View>
             <View style={styles.vaultKeyTextWrapper}>
               <Text style={[styles.vaultKeyText, stylesHook.vaultKeyText]}>
@@ -641,7 +641,7 @@ const WalletsAddMultisigStep2 = () => {
     return (
       <View style={styles.helpButtonWrapper}>
         <TouchableOpacity accessibilityRole="button" style={[styles.helpButton, stylesHook.helpButton]} onPress={handleOnHelpPress}>
-          <Icon size={20} name="help" type="octaicon" color={colors.foreground} />
+          <Icon size={20} name="help-circle" type="feather" color={colors.foreground} />
           <Text style={[styles.helpButtonText, stylesHook.helpButtonText]}>{loc.multisig.ms_help}</Text>
         </TouchableOpacity>
       </View>

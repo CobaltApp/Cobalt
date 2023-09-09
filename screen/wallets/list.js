@@ -13,7 +13,7 @@ import {
   findNodeHandle,
   I18nManager,
 } from 'react-native';
-import { BlueHeaderDefaultMain } from '../../BlueComponents';
+import { BlueHeaderDefaultMain, BlueHeaderDefaultSub } from '../../BlueComponents';
 import WalletsCarousel from '../../components/WalletsCarousel';
 import { Icon } from 'react-native-elements';
 import DeeplinkSchemaMatch from '../../class/deeplink-schema-match';
@@ -31,7 +31,7 @@ import { TransactionListItem } from '../../components/TransactionListItem';
 const scanqrHelper = require('../../helpers/scan-qr');
 const A = require('../../blue_modules/analytics');
 const fs = require('../../blue_modules/fs');
-const WalletsListSections = { CAROUSEL: 'CAROUSEL', TRANSACTIONS: 'TRANSACTIONS' };
+const WalletsListSections = { BALANCE: 'BALANCE', CAROUSEL: 'CAROUSEL', TRANSACTIONS: 'TRANSACTIONS' };
 
 const WalletsList = () => {
   const walletsCarousel = useRef();
@@ -111,7 +111,7 @@ const WalletsList = () => {
             style={styles.headerTouch}
             onPress={navigateToSettings}
           >
-            <Icon size={22} name="more-horiz" type="material" color={colors.foreground} />
+            <Icon size={22} name="menu" type="feather" color={colors.foreground} />
           </TouchableOpacity>
         ),
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -124,7 +124,7 @@ const WalletsList = () => {
             style={styles.headerTouch}
             onPress={navigateToSettings}
           >
-            <Icon size={22} name="more-horiz" type="material" color={colors.foreground} />
+            <Icon size={22} name="menu" type="feather" color={colors.foreground} />
           </TouchableOpacity>
         ) : null,
     });
@@ -225,6 +225,8 @@ const WalletsList = () => {
 
   const renderSectionItem = item => {
     switch (item.section.key) {
+      case WalletsListSections.BALANCE:
+        return null;
       case WalletsListSections.CAROUSEL:
         return isLargeScreen ? null : renderWalletsCarousel();
       case WalletsListSections.TRANSACTIONS:
@@ -236,6 +238,10 @@ const WalletsList = () => {
 
   const renderSectionHeader = section => {
     switch (section.section.key) {
+      case WalletsListSections.BALANCE:
+        return isLargeScreen ? null : (
+          <BlueHeaderDefaultSub leftText={loc.wallets.balance_title} />
+        );
       case WalletsListSections.CAROUSEL:
         return isLargeScreen ? null : (
           <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
@@ -272,8 +278,8 @@ const WalletsList = () => {
           <FButton
             onPress={onScanButtonPressed}
             onLongPress={sendButtonLongPress}
-            icon={<Image resizeMode="stretch" source={scanImage} />}
-            text={loc.send.details_scan}
+            //icon={<Icon name="camera" type="feather" size={24} color={colors.foreground} />}
+            //text={loc.send.details_scan}
           />
         </FContainer>
       );
@@ -376,6 +382,7 @@ const WalletsList = () => {
           contentInset={styles.scrollContent}
           renderSectionFooter={renderSectionFooter}
           sections={[
+            { key: WalletsListSections.BALANCE, data: [WalletsListSections.BALANCE] },
             { key: WalletsListSections.CAROUSEL, data: [WalletsListSections.CAROUSEL] },
             { key: WalletsListSections.TRANSACTIONS, data: dataSource },
           ]}
@@ -413,7 +420,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   listHeaderText: {
-    fontWeight: 'bold',
+    fontWeight: '500',
     fontSize: 24,
     marginVertical: 16,
   },

@@ -299,7 +299,7 @@ class AmountInput extends Component {
                 style={styles.changeAmountUnit}
                 onPress={this.changeAmountUnit}
               >
-                <Image source={require('../img/round-compare-arrows-24-px.png')} />
+                <Icon name="repeat" type="feather" size={24} color={colors.foreground} />
               </TouchableOpacity>
             )}
           </View>
@@ -318,7 +318,7 @@ class AmountInput extends Component {
                 disabled={this.state.isRateBeingUpdated}
                 style={this.state.isRateBeingUpdated ? styles.disabledButton : styles.enabledButon}
               >
-                <Icon name="sync" type="font-awesome-5" size={16} color={colors.foreground} />
+                <Icon name="refresh-cw" type="feather" size={16} color={colors.foreground} />
               </TouchableOpacity>
             </View>
           )}
@@ -360,6 +360,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 16,
     paddingBottom: 2,
+    paddingLeft: 24,
   },
   localCurrency: {
     fontSize: 18,
@@ -381,6 +382,7 @@ const styles = StyleSheet.create({
   secondaryRoot: {
     alignItems: 'center',
     marginBottom: 22,
+    paddingLeft: 24,
   },
   secondaryText: {
     fontSize: 16,
@@ -390,7 +392,6 @@ const styles = StyleSheet.create({
   changeAmountUnit: {
     alignSelf: 'center',
     marginRight: 16,
-    paddingLeft: 16,
     paddingVertical: 16,
   },
 });

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Text } from 'react-native-elements';
+import { Text, Icon } from 'react-native-elements';
 import { findNodeHandle, Image, Keyboard, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { getSystemName } from 'react-native-device-info';
 import { useTheme } from '@react-navigation/native';
@@ -35,7 +35,7 @@ const AddressInput = ({
       backgroundColor: colors.inputBackgroundColor,
     },
     scan: {
-      backgroundColor: colors.scanLabel,
+      backgroundColor: colors.background,
     },
     scanText: {
       color: colors.background,
@@ -90,10 +90,10 @@ const AddressInput = ({
           accessibilityLabel={loc.send.details_scan}
           accessibilityHint={loc.send.details_scan_hint}
         >
-          <Image source={require('../img/scan-white.png')} accessible={false} />
-          <Text style={[styles.scanText, stylesHook.scanText]} accessible={false}>
+          <Icon name="camera" type="feather" size={24} color={colors.foregroundInactive} />
+          {/* <Text style={[styles.scanText, stylesHook.scanText]} accessible={false}>
             {loc.send.details_scan}
-          </Text>
+          </Text> */}
         </TouchableOpacity>
       ) : null}
     </View>

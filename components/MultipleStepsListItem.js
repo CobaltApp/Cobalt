@@ -84,7 +84,7 @@ const MultipleStepsListItem = props => {
         <View style={styles.itemKeyUnprovidedWrapper}>
           {checked ? (
             <View style={[styles.vaultKeyCircleSuccess, stylesHook.vaultKeyCircleSuccess]}>
-              <Icon size={24} name="check" type="ionicons" color={colors.background} />
+              <Icon size={24} name="check" type="feather" color={colors.background} />
             </View>
           ) : circledText.length > 0 ? (
             <View style={styles.itemKeyUnprovidedWrapper}>

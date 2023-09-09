@@ -108,7 +108,7 @@ const UnlockWith = () => {
       } else if (isStorageEncryptedEnabled) {
         return (
           <TouchableOpacity accessibilityRole="button" disabled={isAuthenticating} onPress={unlockWithKey}>
-            <Icon name="lock" size={64} type="font-awesome5" color={color} />
+            <Icon name="lock" size={64} type="feather" color={color} />
           </TouchableOpacity>
         );
       }

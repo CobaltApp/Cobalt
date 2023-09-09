@@ -133,7 +133,7 @@ const SelectWallet = () => {
         accessibilityRole="button"
       >
         <View style={styles.itemRoot}>
-          <LinearGradient colors={WalletGradient.gradientsFor(item.type)} style={styles.gradient}>
+          <View backgroundColor={WalletGradient.gradientsFor(item.type)} style={styles.gradient}>
             <Image
               source={(() => {
                 switch (item.type) {
@@ -167,7 +167,7 @@ const SelectWallet = () => {
             <Text numberOfLines={1} style={styles.latestTxValue}>
               {transactionTimeToReadable(item.getLatestTransactionTime())}
             </Text>
-          </LinearGradient>
+          </View>
         </View>
       </TouchableOpacity>
     );

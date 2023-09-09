@@ -27,7 +27,7 @@ const TransactionIncomingIcon = props => {
   return (
     <View style={styles.boxIncoming}>
       <View style={[styles.ballIncoming, stylesHooks.ballIncoming]}>
-        <Icon name="arrow-down" size={16} type="font-awesome" color={colors.incomingForegroundColor} />
+        <Icon name="arrow-down" size={16} type="feather" color={colors.incomingForegroundColor} />
       </View>
     </View>
   );

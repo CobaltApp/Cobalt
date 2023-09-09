@@ -229,9 +229,9 @@ const LNDViewInvoice = () => {
                 <TouchableOpacity accessibilityRole="button" style={styles.detailsTouch} onPress={navigateToPreImageScreen}>
                   <Text style={[styles.detailsText, stylesHook.detailsText]}>{loc.send.create_details}</Text>
                   <Icon
-                    name={I18nManager.isRTL ? 'angle-left' : 'angle-right'}
+                    name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'}
                     size={18}
-                    type="font-awesome"
+                    type="feather"
                     color={colors.border}
                   />
                 </TouchableOpacity>
@@ -244,7 +244,7 @@ const LNDViewInvoice = () => {
         return (
           <View style={[styles.root, stylesHook.root, styles.justifyContentCenter]}>
             <View style={[styles.expired, stylesHook.expired]}>
-              <Icon name="times" size={50} type="font-awesome" color={colors.primary} />
+              <Icon name="x" size={50} type="feather" color={colors.primary} />
             </View>
             <BlueTextCentered>{loc.lndViewInvoice.wasnt_paid_and_expired}</BlueTextCentered>
           </View>
