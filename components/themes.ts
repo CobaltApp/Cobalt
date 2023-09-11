@@ -25,6 +25,7 @@ export const BlueDefaultTheme = {
   closeImage: require('../img/close.png'),
   barStyle: 'dark-content',
   scanImage: require('../img/scan.png'),
+  logoImage: require('../img/logolight-2048x1024.png'),
   colors: {
     ...DefaultTheme.colors,
     lnbackgroundColor: '#F4F5F6',
@@ -79,6 +80,7 @@ export const BlueDarkTheme: Theme = {
   ...DarkTheme,
   closeImage: require('../img/close-white.png'),
   scanImage: require('../img/scan-white.png'),
+  logoImage: require('../img/logodark-2048x1024.png'),
   barStyle: 'light-content',
   colors: {
     ...BlueDefaultTheme.colors,

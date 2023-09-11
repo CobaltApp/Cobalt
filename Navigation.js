@@ -1,8 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Platform, useWindowDimensions, Dimensions, I18nManager } from 'react-native';
+import { Platform, useWindowDimensions, Dimensions, I18nManager, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import { createBottomTabNavigator, useBottomTabBarHeight, BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
+import { Icon } from 'react-native-elements';
+import { FContainer, FButton } from './components/FloatButtons';
 
 import Settings from './screen/settings/settings';
 import About from './screen/settings/about';
@@ -86,14 +89,176 @@ import LdkViewLogs from './screen/wallets/ldkViewLogs';
 import PaymentCode from './screen/wallets/paymentCode';
 import PaymentCodesList from './screen/wallets/paymentCodesList';
 import loc from './loc';
+import Notifications from './screen/Notifications';
 
 const WalletsStack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const scanqrHelper = require('./helpers/scan-qr');
+
+function TabNavigator(props) {
+  const { theme, colors, scanImage, barStyle } = useTheme();
+  const { navigation, route } = props;
+  const walletActionButtonsRef = useRef();
+
+  return (
+    <Tab.Navigator 
+      initialRouteName="Home" 
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false, 
+        tabBarStyle: { position: 'absolute', height: 78, borderTopWidth: 0}, 
+      }}
+      tabBarOptions={{
+        activeTintColor: colors.foreground,
+        inactiveTintColor: colors.foregroundInactive,
+      }}
+    >
+      <Tab.Screen 
+        name="Home"
+        component={WalletsList}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              focused={focused}
+              name="home"
+              type="feather" 
+              width={24}
+              height={24}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Discover"
+        component={AddWallet}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              focused={focused}
+              name="search"
+              type="feather" 
+              width={24}
+              height={24}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Pay"
+        component={ScanQRCodeRoot}
+        options={{
+          headerShown: false,
+          tabBarButton: () => (
+            <View style={{ flex: 1, marginBottom: -16}}>
+            <FContainer ref={walletActionButtonsRef}>
+              <FButton
+                onPress={onScanButtonPressed}
+                onLongPress={sendButtonLongPress}
+                icon={<Icon name="zap" type="feather" size={24} color={colors.background} />}
+                //text={loc.send.details_scan}
+              />
+            </FContainer>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Activity"
+        component={Notifications}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              focused={focused}
+              name="activity"
+              type="feather" 
+              width={24}
+              height={24}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              focused={focused}
+              name="user"
+              type="feather" 
+              width={24}
+              height={24}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+const onScanButtonPressed = () => {
+  scanqrHelper(navigate, routeName, false).then(onBarScanned);
+};
+
+const sendButtonLongPress = async () => {
+  const isClipboardEmpty = (await BlueClipboard().getClipboardContent()).trim().length === 0;
+  if (Platform.OS === 'ios') {
+    const options = [loc._.cancel, loc.wallets.list_long_choose, loc.wallets.list_long_scan];
+    if (!isClipboardEmpty) {
+      options.push(loc.wallets.list_long_clipboard);
+    }
+    ActionSheet.showActionSheetWithOptions(
+      { options, cancelButtonIndex: 0, anchor: findNodeHandle(walletActionButtonsRef.current) },
+      buttonIndex => {
+        if (buttonIndex === 1) {
+          fs.showImagePickerAndReadImage().then(onBarScanned);
+        } else if (buttonIndex === 2) {
+          scanqrHelper(navigate, routeName, false).then(onBarScanned);
+        } else if (buttonIndex === 3) {
+          copyFromClipboard();
+        }
+      },
+    );
+  } else if (Platform.OS === 'android') {
+    const buttons = [
+      {
+        text: loc._.cancel,
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: loc.wallets.list_long_choose,
+        onPress: () => fs.showImagePickerAndReadImage().then(onBarScanned),
+      },
+      {
+        text: loc.wallets.list_long_scan,
+        onPress: () => scanqrHelper(navigate, routeName, false).then(onBarScanned),
+      },
+    ];
+    if (!isClipboardEmpty) {
+      buttons.push({
+        text: loc.wallets.list_long_clipboard,
+        onPress: copyFromClipboard,
+      });
+    }
+    ActionSheet.showActionSheetWithOptions({
+      title: '',
+      message: '',
+      buttons,
+    });
+  }
+};
 
 const WalletsRoot = () => {
   const theme = useTheme();
 
   return (
-    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true }}>
+    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: false, }}>
       <WalletsStack.Screen name="WalletsList" component={WalletsList} options={WalletsList.navigationOptions(theme)} />
       <WalletsStack.Screen name="WalletTransactions" component={WalletTransactions} options={WalletTransactions.navigationOptions(theme)} />
       <WalletsStack.Screen name="LdkOpenChannel" component={LdkOpenChannel} options={LdkOpenChannel.navigationOptions(theme)} />
@@ -490,6 +655,7 @@ const Navigation = () => {
   return (
     <RootStack.Navigator initialRouteName="UnlockWithScreenRoot" screenOptions={{ headerHideShadow: true }}>
       {/* stacks */}
+      <RootStack.Screen name="Home" component={TabNavigator} options={NavigationDefaultOptions}/>
       <RootStack.Screen name="WalletsRoot" component={WalletsRoot} options={{ headerShown: false, translucent: false }} />
       <RootStack.Screen name="AddWalletRoot" component={AddWalletRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="SendDetailsRoot" component={SendDetailsRoot} options={NavigationDefaultOptions} />

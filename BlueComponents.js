@@ -507,7 +507,7 @@ export const BlueHeaderDefaultSub = props => {
   return (
     <SafeAreaView>
       <Header
-        backgroundColor={colors.background}
+        //backgroundColor={colors.background}
         leftContainerStyle={{ minWidth: '100%' }}
         outerContainerStyles={{
           borderBottomColor: 'transparent',
@@ -517,9 +517,10 @@ export const BlueHeaderDefaultSub = props => {
           <Text
             adjustsFontSizeToFit
             style={{
-              fontWeight: '500',
-              fontSize: 18,
+              fontWeight: '400',
+              fontSize: 24,
               color: colors.foreground,
+              marginLeft: 38,
             }}
           >
             {props.leftText}

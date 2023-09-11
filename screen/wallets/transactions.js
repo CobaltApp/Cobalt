@@ -41,7 +41,7 @@ const BlueElectrum = require('../../blue_modules/BlueElectrum');
 const buttonFontSize =
   PixelRatio.roundToNearestPixel(Dimensions.get('window').width / 26) > 22
     ? 22
-    : PixelRatio.roundToNearestPixel(Dimensions.get('window').width / 26);
+    : PixelRatio.roundToNearestPixel(Dimensions.get('window').width / 13);
 
 const WalletTransactions = ({ navigation }) => {
   const { wallets, saveToDisk, setSelectedWallet, walletTransactionUpdateStatus, isElectrumDisabled } = useContext(BlueStorageContext);
@@ -565,7 +565,7 @@ const WalletTransactions = ({ navigation }) => {
             }}
             icon={
               <View style={styles.receiveIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="feather" color={colors.foreground} />
+                <Icon name="arrow-down" size={buttonFontSize} type="feather" color={colors.background} />
               </View>
             }
           />
@@ -578,7 +578,7 @@ const WalletTransactions = ({ navigation }) => {
             testID="SendButton"
             icon={
               <View style={styles.sendIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="feather" color={colors.foreground} />
+                <Icon name="arrow-up" size={buttonFontSize} type="feather" color={colors.background} />
               </View>
             }
           />
@@ -697,9 +697,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   sendIcon: {
-    transform: [{ rotate: I18nManager.isRTL ? '-225deg' : '225deg' }],
+    //transform: [{ rotate: I18nManager.isRTL ? '-225deg' : '225deg' }],
   },
   receiveIcon: {
-    transform: [{ rotate: I18nManager.isRTL ? '45deg' : '-45deg' }],
+    //transform: [{ rotate: I18nManager.isRTL ? '45deg' : '-45deg' }],
   },
 });

@@ -34,6 +34,7 @@ const fs = require('../../blue_modules/fs');
 const WalletsListSections = { BALANCE: 'BALANCE', CAROUSEL: 'CAROUSEL', TRANSACTIONS: 'TRANSACTIONS' };
 
 const WalletsList = () => {
+  const { logoImage } = useTheme();
   const walletsCarousel = useRef();
   const currentWalletIndex = useRef(0);
   const { wallets, getTransactions, getBalance, refreshAllWalletTransactions, setSelectedWallet, isElectrumDisabled } =
@@ -93,7 +94,7 @@ const WalletsList = () => {
 
   useLayoutEffect(() => {
     setOptions({
-      headerShown: !isDesktop,
+      headerShown: false,
       headerStyle: {
         backgroundColor: colors.background,
         borderBottomWidth: 0,
@@ -111,7 +112,7 @@ const WalletsList = () => {
             style={styles.headerTouch}
             onPress={navigateToSettings}
           >
-            <Icon size={22} name="menu" type="feather" color={colors.foreground} />
+            <Icon size={22} name="menu" type="feather" color={colors.foreground} style={{marginHorizontal: 16}}/>
           </TouchableOpacity>
         ),
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -240,12 +241,91 @@ const WalletsList = () => {
     switch (section.section.key) {
       case WalletsListSections.BALANCE:
         return isLargeScreen ? null : (
-          <BlueHeaderDefaultSub leftText={loc.wallets.balance_title} />
+          <View
+            style={{
+              backgroundColor: colors.primary,
+              borderWidth: 0,
+              borderBottomRightRadius: 40,
+              borderBottomLeftRadius: 40,
+              paddingTop: 24,
+              paddingBottom: 36,
+            }}
+          >
+            <Image 
+              source={require('../../img/logodark-2048x1024.png')} 
+              style={{
+                width: 2048,
+                height: 1024,
+                position: 'absolute',
+                bottom: -170,
+                left: 10,
+                opacity: 0.25,
+              }} 
+            />
+            <View 
+              style={{
+                flexDirection: 'row',
+                marginLeft: 48, 
+                marginBottom: 40,
+              }}
+            >
+              <Image 
+                source={require('../../img/avatar-01.png')}
+                style={{ width: 40, height: 40, borderRadius: 15, backgroundColor: colors.background}}
+              />
+              <Text
+                style={{
+                  marginTop: 8,
+                  marginLeft: 10,
+                  color: colors.background,
+                  fontSize: 16,
+                  fontWeight: '400',
+                  writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+                }}
+              >Cobalt Technologies</Text>
+              <TouchableOpacity
+                accessibilityRole="button"
+                accessibilityLabel={loc._.more}
+                testID="SettingsButton"
+                style={{
+                  position: 'absolute',
+                  right: 20,
+                  marginRight: 20,
+                  height: 40,
+                  width: 40,
+                  backgroundColor: "#6694FF",
+                  borderRadius: 15,
+                }}
+                onPress={navigateToSettings}
+              >
+                <Icon size={22} name="bell" type="feather" color={colors.background} style={{marginTop: 8}}/>
+              </TouchableOpacity>
+            </View>
+            <Text
+              style={{
+                color: colors.background,
+                fontSize: 24,
+                fontWeight: '400',
+                marginHorizontal: 48,
+                writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+              }}
+            >Total Balance</Text>
+            <Text
+              style={{
+                color: colors.background,
+                fontSize: 32,
+                fontWeight: '700',
+                marginHorizontal: 48,
+                writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+              }}
+            >$2,385.60</Text>
+          </View>
         );
       case WalletsListSections.CAROUSEL:
-        return isLargeScreen ? null : (
-          <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
-        );
+        return null;
+        // isLargeScreen ? null : (
+        //   <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
+        // );
       case WalletsListSections.TRANSACTIONS:
         return renderListHeaderComponent();
       default:
@@ -387,7 +467,7 @@ const WalletsList = () => {
             { key: WalletsListSections.TRANSACTIONS, data: dataSource },
           ]}
         />
-        {renderScanButton()}
+        {/* {renderScanButton()} */}
       </View>
     </View>
   );
