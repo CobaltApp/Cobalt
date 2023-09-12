@@ -132,8 +132,8 @@ const WalletsList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
 
-  const navigateToSettings = () => {
-    navigate('Settings');
+  const navigateToNotifications = () => {
+    navigate('Notifications');
   };
 
   /**
@@ -282,7 +282,7 @@ const WalletsList = () => {
                   fontWeight: '400',
                   writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
                 }}
-              >Cobalt Technologies</Text>
+              >Clifford Hale</Text>
               <TouchableOpacity
                 accessibilityRole="button"
                 accessibilityLabel={loc._.more}
@@ -296,7 +296,7 @@ const WalletsList = () => {
                   backgroundColor: "#6694FF",
                   borderRadius: 15,
                 }}
-                onPress={navigateToSettings}
+                onPress={navigateToNotifications}
               >
                 <Icon size={22} name="bell" type="feather" color={colors.background} style={{marginTop: 8}}/>
               </TouchableOpacity>

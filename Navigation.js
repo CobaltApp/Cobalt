@@ -89,7 +89,10 @@ import LdkViewLogs from './screen/wallets/ldkViewLogs';
 import PaymentCode from './screen/wallets/paymentCode';
 import PaymentCodesList from './screen/wallets/paymentCodesList';
 import loc from './loc';
+
 import Notifications from './screen/Notifications';
+
+import Discover from './screen/Discover';
 
 const WalletsStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -132,7 +135,7 @@ function TabNavigator(props) {
       />
       <Tab.Screen
         name="Discover"
-        component={AddWallet}
+        component={Discover}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
