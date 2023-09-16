@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions, PixelRatio } from
 import { useTheme } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-const BORDER_RADIUS = 30;
+const BORDER_RADIUS = 20;
 const PADDINGS = 0;
 const ICON_MARGIN = 0;
 

@@ -93,6 +93,7 @@ import loc from './loc';
 import Notifications from './screen/Notifications';
 
 import Discover from './screen/Discover';
+import Chart from './screen/chart';
 
 const WalletsStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,11 +111,11 @@ function TabNavigator(props) {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false, 
-        tabBarStyle: { position: 'absolute', height: 78, borderTopWidth: 0}, 
-      }}
-      tabBarOptions={{
-        activeTintColor: colors.foreground,
-        inactiveTintColor: colors.foregroundInactive,
+        tabBarStyle: { position: 'absolute', height: 100, borderTopWidth: 0, borderTopLeftRadius: 40, borderTopRightRadius: 40}, 
+        //activeTintColor: colors.foreground,
+        //inactiveTintColor: '#ffffff',
+        tabBarActiveTintColor: colors.foreground,
+        tabBarInactiveTintColor: '#ffffff',
       }}
     >
       <Tab.Screen 
@@ -135,7 +136,7 @@ function TabNavigator(props) {
       />
       <Tab.Screen
         name="Discover"
-        component={Discover}
+        component={Chart}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -155,15 +156,15 @@ function TabNavigator(props) {
         options={{
           headerShown: false,
           tabBarButton: () => (
-            <View style={{ flex: 1, marginBottom: -16}}>
-            <FContainer ref={walletActionButtonsRef}>
-              <FButton
-                onPress={onScanButtonPressed}
-                onLongPress={sendButtonLongPress}
-                icon={<Icon name="zap" type="feather" size={24} color={colors.background} />}
-                //text={loc.send.details_scan}
-              />
-            </FContainer>
+            <View style={{ flex: 1, marginBottom: -5}}>
+              <FContainer ref={walletActionButtonsRef}>
+                <FButton
+                  onPress={onScanButtonPressed}
+                  onLongPress={sendButtonLongPress}
+                  icon={<Icon name="plus" type="feather" size={32} color={colors.background} />}
+                  //text={loc.send.details_scan}
+                />
+              </FContainer>
             </View>
           ),
         }}

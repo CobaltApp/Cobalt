@@ -1,6 +1,7 @@
 import { DefaultTheme, DarkTheme, useTheme as useThemeBase } from '@react-navigation/native';
 import { Appearance } from 'react-native';
 
+// Bitcloud
 // Crayola Blue (Primary) #3772FF
 // Giants Orange #FF6838
 // Emerald #58BD7D
@@ -10,7 +11,6 @@ import { Appearance } from 'react-native';
 // Champagne Pink (remove) #E4D7CF
 // Thistle (remove) #CDB4DB
 // White #FFFFFF
-
 // Night #141416
 // Raisin Black #23262F
 // Onyx #353945
@@ -19,6 +19,15 @@ import { Appearance } from 'react-native';
 // Anti-Flash White #E6E8EC
 // Anti-Flash White #F4F5F6
 // White #FCFCFD
+
+//Crypto Whale
+//Background: '#F4F9FE',
+//Primary: '#0059E7',
+//Secondary: '#E0E4F5',
+//textPrimary: '#FFFFFF',
+//textSecondary: '#5A6274',
+//Green: '#06B966',
+//Red: '#FC3044',
 
 export const BlueDefaultTheme = {
   ...DefaultTheme,
@@ -64,7 +73,7 @@ export const BlueDefaultTheme = {
     outgoingBackgroundColor: '#f8d2d2',
     outgoingForegroundColor: '#FF6838',
 
-    primary: '#3772FF',
+    primary: '#0059E7',
     positive: '#58BD7D',
     negative: '#FF6838',
     lightning: '#FFD166',

@@ -8,15 +8,18 @@ import { BlueLoading, BlueButton, SafeBlueArea, BlueCard, BlueText, BlueSpacing2
 import loc from '../loc';
 const prompt = require('../helpers/prompt');
 
-const Notifications = () => {
+const Discover = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState();
   const { navigate } = useNavigation();
   const { colors } = useTheme();
-  const search = '';
   const editable = true;
 
   const navigateHome = () => {
     navigate('Home');
+  };
+  const navigateToChart = () => {
+    navigate('Chart');
   };
 
   return isLoading ? (
@@ -60,7 +63,10 @@ const Notifications = () => {
             </View>
             <TextInput
                 testID="SearchInput"
-                //onChangeText={onChangeText}
+                onChangeText={text => {
+                    text = text.trim();
+                    setSearch(text);
+                  }}
                 placeholder="Search Anything..."
                 placeholderTextColor={colors.border}
                 value={search}
@@ -107,14 +113,14 @@ const Notifications = () => {
                         borderWidth: 1,
                         borderRadius: 20,
                         marginTop: 16,
-                        paddingLeft: 17,
-                        paddingTop: 17,
+                        paddingHorizontal: 17,
+                        paddingVertical: 14,
                       }}
                 >
                     <View>
                         <Image 
                             source={require('../img/addWallet/bitcoin.png')}
-                            style={{ width: 40, height: 40, borderRadius: 15, backgroundColor: colors.background}}
+                            style={{ width: 40, height: 40, borderRadius: 20}}
                         />
                     </View>
                     <View
@@ -145,19 +151,19 @@ const Notifications = () => {
                         }}
                     >
                         <TouchableOpacity
-                        accessibilityRole="button"
-                        accessibilityLabel={loc._.more}
-                        testID="HomeButton"
-                        style={{
-                            position: 'absolute',
-                            right: 0,
-                            marginRight: 14,
-                            height: 40,
-                            width: 40,
-                            backgroundColor: colors.lightButton,
-                            borderRadius: 15,
-                        }}
-                        onPress={navigateHome}
+                            accessibilityRole="button"
+                            accessibilityLabel={loc._.more}
+                            testID="HomeButton"
+                            style={{
+                                position: 'absolute',
+                                right: 0,
+                                marginRight: 14,
+                                height: 40,
+                                width: 40,
+                                backgroundColor: colors.lightButton,
+                                borderRadius: 15,
+                            }}
+                            onPress={navigateToChart}
                         >
                             <Icon size={24} name="chevron-right" type="feather" color={colors.border} style={{marginTop: 8}}/>
                         </TouchableOpacity>
@@ -170,8 +176,8 @@ const Notifications = () => {
   );
 };
 
-export default Notifications;
+export default Discover;
 
-Notifications.navigationOptions = navigationStyle({
-  title: loc.plausibledeniability.title,
+Discover.navigationOptions = navigationStyle({
+  title: "Discover",
 });

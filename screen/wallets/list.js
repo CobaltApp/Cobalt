@@ -136,6 +136,10 @@ const WalletsList = () => {
     navigate('Notifications');
   };
 
+  const navigateToSettings = () => {
+    navigate('Settings');
+  };
+
   /**
    * Forcefully fetches TXs and balance for ALL wallets.
    * Triggered manually by user on pull-to-refresh.
@@ -298,7 +302,7 @@ const WalletsList = () => {
                 }}
                 onPress={navigateToNotifications}
               >
-                <Icon size={22} name="bell" type="feather" color={colors.background} style={{marginTop: 8}}/>
+                <Icon size={22} name="bell" type="feather" color={"#C0C9EA"} style={{marginTop: 8}}/>
               </TouchableOpacity>
             </View>
             <Text
