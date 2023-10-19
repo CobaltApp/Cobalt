@@ -17,7 +17,7 @@
                BlueprintIdentifier = "B40D4E2F225841EC00428FCC"
                BuildableName = "BlueWalletWatch.app"
                BlueprintName = "BlueWalletWatch"
-               ReferencedContainer = "container:BlueWallet.xcodeproj">
+               ReferencedContainer = "container:Cobalt.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "BlueWallet.app"
                BlueprintName = "BlueWallet"
-               ReferencedContainer = "container:BlueWallet.xcodeproj">
+               ReferencedContainer = "container:Cobalt.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "B40D4E2F225841EC00428FCC"
             BuildableName = "BlueWalletWatch.app"
             BlueprintName = "BlueWalletWatch"
-            ReferencedContainer = "container:BlueWallet.xcodeproj">
+            ReferencedContainer = "container:Cobalt.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "B40D4E2F225841EC00428FCC"
             BuildableName = "BlueWalletWatch.app"
             BlueprintName = "BlueWalletWatch"
-            ReferencedContainer = "container:BlueWallet.xcodeproj">
+            ReferencedContainer = "container:Cobalt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -91,7 +91,7 @@
             BlueprintIdentifier = "B40D4E2F225841EC00428FCC"
             BuildableName = "BlueWalletWatch.app"
             BlueprintName = "BlueWalletWatch"
-            ReferencedContainer = "container:BlueWallet.xcodeproj">
+            ReferencedContainer = "container:Cobalt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

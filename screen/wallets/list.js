@@ -274,7 +274,7 @@ const WalletsList = () => {
               }}
             >
               <Image
-                source={require('../../img/avatar-01.png')}
+                source={require('../../img/icons/profile_picture.png')}
                 style={{ width: 52, height: 52, borderRadius: 20, backgroundColor: colors.secondary}}
               />
               <Text

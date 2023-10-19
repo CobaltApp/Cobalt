@@ -51,10 +51,10 @@
 		906451CAD44154C2950030EC /* libPods-BlueWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 731973BA0AC6EA78962CE5B6 /* libPods-BlueWallet.a */; };
 		B40D4E34225841EC00428FCC /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B40D4E32225841EC00428FCC /* Interface.storyboard */; };
 		B40D4E36225841ED00428FCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B40D4E35225841ED00428FCC /* Assets.xcassets */; };
-		B40D4E3D225841ED00428FCC /* BlueWalletWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B40D4E3C225841ED00428FCC /* BlueWalletWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B40D4E3D225841ED00428FCC /* CobaltWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B40D4E3C225841ED00428FCC /* CobaltWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B40D4E44225841ED00428FCC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D4E43225841ED00428FCC /* ExtensionDelegate.swift */; };
 		B40D4E46225841ED00428FCC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D4E45225841ED00428FCC /* NotificationController.swift */; };
-		B40D4E4D225841ED00428FCC /* BlueWalletWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B40D4E30225841EC00428FCC /* BlueWalletWatch.app */; platformFilter = ios; };
+		B40D4E4D225841ED00428FCC /* CobaltWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B40D4E30225841EC00428FCC /* CobaltWatch.app */; platformFilter = ios; };
 		B40D4E5D2258425500428FCC /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D4E552258425400428FCC /* InterfaceController.swift */; };
 		B40D4E5E2258425500428FCC /* NumericKeypadInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D4E562258425400428FCC /* NumericKeypadInterfaceController.swift */; };
 		B40D4E602258425500428FCC /* SpecifyInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D4E582258425400428FCC /* SpecifyInterfaceController.swift */; };
@@ -131,7 +131,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				B40D4E4D225841ED00428FCC /* BlueWalletWatch.app in Embed Watch Content */,
+				B40D4E4D225841ED00428FCC /* CobaltWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,7 +142,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				B40D4E3D225841ED00428FCC /* BlueWalletWatch Extension.appex in Embed App Extensions */,
+				B40D4E3D225841ED00428FCC /* CobaltWatch Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,7 +154,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BlueWalletTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueWalletTests.m; sourceTree = "<group>"; };
 		04466491BA2D4876A71222FC /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* BlueWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Cobalt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cobalt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BlueWallet/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BlueWallet/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BlueWallet/main.m; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FCC2CD6FF4448229D0CE0F3 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		3271B0AA236E2E0700DA766F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		32B5A3282334450100F8D608 /* BlueWallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlueWallet-Bridging-Header.h"; sourceTree = "<group>"; };
+		32B5A3282334450100F8D608 /* Cobalt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cobalt-Bridging-Header.h"; sourceTree = "<group>"; };
 		32B5A3292334450100F8D608 /* Bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridge.swift; sourceTree = "<group>"; };
 		32C7944323B8879D00BE2AFA /* BlueWalletRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BlueWalletRelease.entitlements; path = BlueWallet/BlueWalletRelease.entitlements; sourceTree = "<group>"; };
 		32F0A24F2310B0700095C559 /* BlueWalletWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BlueWalletWatch Extension.entitlements"; sourceTree = "<group>"; };
@@ -258,11 +258,11 @@
 		A9166D490AEF4938BD6621CF /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		AA7DCFB2C7887DF26EDB5710 /* Pods-WalletInformationAndMarketWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalletInformationAndMarketWidgetExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WalletInformationAndMarketWidgetExtension/Pods-WalletInformationAndMarketWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		AB2325650CE04F018697ACFE /* libRNReactNativeHapticFeedback.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNReactNativeHapticFeedback.a; sourceTree = "<group>"; };
-		B40D4E30225841EC00428FCC /* BlueWalletWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueWalletWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B40D4E30225841EC00428FCC /* CobaltWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CobaltWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B40D4E33225841EC00428FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		B40D4E35225841ED00428FCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B40D4E37225841ED00428FCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B40D4E3C225841ED00428FCC /* BlueWalletWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BlueWalletWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B40D4E3C225841ED00428FCC /* CobaltWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "CobaltWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B40D4E43225841ED00428FCC /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		B40D4E45225841ED00428FCC /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		B40D4E49225841ED00428FCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -367,7 +367,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* BlueWallet */ = {
+		13B07FAE1A68108700A75B9A /* Cobalt */ = {
 			isa = PBXGroup;
 			children = (
 				B461B850299599F800E431AA /* AppDelegate.h */,
@@ -379,13 +379,13 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				32B5A3292334450100F8D608 /* Bridge.swift */,
-				32B5A3282334450100F8D608 /* BlueWallet-Bridging-Header.h */,
+				32B5A3282334450100F8D608 /* Cobalt-Bridging-Header.h */,
 				6DF25A9E249DB97E001D06F5 /* LaunchScreen.storyboard */,
 				6D32C5C42596CE2F008C077C /* EventEmitter.h */,
 				6D32C5C52596CE3A008C077C /* EventEmitter.m */,
 				84E05A832721191B001A0D3A /* Settings.bundle */,
 			);
-			name = BlueWallet;
+			name = Cobalt;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -532,7 +532,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* BlueWallet */,
+				13B07FAE1A68108700A75B9A /* Cobalt */,
 				00E356EF1AD99517003FC87E /* BlueWalletTests */,
 				B40D4E31225841EC00428FCC /* BlueWalletWatch */,
 				B40D4E40225841ED00428FCC /* BlueWalletWatch Extension */,
@@ -552,9 +552,9 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* BlueWallet.app */,
-				B40D4E30225841EC00428FCC /* BlueWalletWatch.app */,
-				B40D4E3C225841ED00428FCC /* BlueWalletWatch Extension.appex */,
+				13B07F961A680F5B00A75B9A /* Cobalt.app */,
+				B40D4E30225841EC00428FCC /* CobaltWatch.app */,
+				B40D4E3C225841ED00428FCC /* CobaltWatch Extension.appex */,
 				6D2A6461258BA92C0092292B /* Stickers.appex */,
 				6DD4109C266CADF10087DE03 /* WidgetsExtension.appex */,
 			);
@@ -654,9 +654,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* BlueWallet */ = {
+		13B07F861A680F5B00A75B9A /* Cobalt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BlueWallet" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Cobalt" */;
 			buildPhases = (
 				6F7747C31A9EE6DDC5108476 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -678,9 +678,9 @@
 				6D2A6467258BA92D0092292B /* PBXTargetDependency */,
 				6DD410A6266CADF40087DE03 /* PBXTargetDependency */,
 			);
-			name = BlueWallet;
+			name = Cobalt;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* BlueWallet.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Cobalt.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6D2A6460258BA92C0092292B /* Stickers */ = {
@@ -717,9 +717,9 @@
 			productReference = 6DD4109C266CADF10087DE03 /* WidgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		B40D4E2F225841EC00428FCC /* BlueWalletWatch */ = {
+		B40D4E2F225841EC00428FCC /* CobaltWatch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B40D4E52225841ED00428FCC /* Build configuration list for PBXNativeTarget "BlueWalletWatch" */;
+			buildConfigurationList = B40D4E52225841ED00428FCC /* Build configuration list for PBXNativeTarget "CobaltWatch" */;
 			buildPhases = (
 				B40D4E2E225841EC00428FCC /* Resources */,
 				B40D4E51225841ED00428FCC /* Embed App Extensions */,
@@ -730,14 +730,14 @@
 			dependencies = (
 				B40D4E3F225841ED00428FCC /* PBXTargetDependency */,
 			);
-			name = BlueWalletWatch;
+			name = CobaltWatch;
 			productName = BlueWalletWatch;
-			productReference = B40D4E30225841EC00428FCC /* BlueWalletWatch.app */;
+			productReference = B40D4E30225841EC00428FCC /* CobaltWatch.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		B40D4E3B225841ED00428FCC /* BlueWalletWatch Extension */ = {
+		B40D4E3B225841ED00428FCC /* CobaltWatch Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B40D4E4E225841ED00428FCC /* Build configuration list for PBXNativeTarget "BlueWalletWatch Extension" */;
+			buildConfigurationList = B40D4E4E225841ED00428FCC /* Build configuration list for PBXNativeTarget "CobaltWatch Extension" */;
 			buildPhases = (
 				B40D4E38225841ED00428FCC /* Sources */,
 				B40D4E39225841ED00428FCC /* Frameworks */,
@@ -747,12 +747,12 @@
 			);
 			dependencies = (
 			);
-			name = "BlueWalletWatch Extension";
+			name = "CobaltWatch Extension";
 			packageProductDependencies = (
 				6DFC806F24EA0B6C007B8700 /* EFQRCode */,
 			);
 			productName = "BlueWalletWatch Extension";
-			productReference = B40D4E3C225841ED00428FCC /* BlueWalletWatch Extension.appex */;
+			productReference = B40D4E3C225841ED00428FCC /* CobaltWatch Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
@@ -796,7 +796,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BlueWallet" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Cobalt" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -835,9 +835,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* BlueWallet */,
-				B40D4E2F225841EC00428FCC /* BlueWalletWatch */,
-				B40D4E3B225841ED00428FCC /* BlueWalletWatch Extension */,
+				13B07F861A680F5B00A75B9A /* Cobalt */,
+				B40D4E2F225841EC00428FCC /* CobaltWatch */,
+				B40D4E3B225841ED00428FCC /* CobaltWatch Extension */,
 				6D2A6460258BA92C0092292B /* Stickers */,
 				6DD4109B266CADF10087DE03 /* WidgetsExtension */,
 			);
@@ -1144,13 +1144,13 @@
 		};
 		B40D4E3F225841ED00428FCC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B40D4E3B225841ED00428FCC /* BlueWalletWatch Extension */;
+			target = B40D4E3B225841ED00428FCC /* CobaltWatch Extension */;
 			targetProxy = B40D4E3E225841ED00428FCC /* PBXContainerItemProxy */;
 		};
 		B40D4E4C225841ED00428FCC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = B40D4E2F225841EC00428FCC /* BlueWalletWatch */;
+			target = B40D4E2F225841EC00428FCC /* CobaltWatch */;
 			targetProxy = B40D4E4B225841ED00428FCC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1229,7 +1229,7 @@
 				);
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.bluewallet.bluewallet;
-				PRODUCT_NAME = BlueWallet;
+				PRODUCT_NAME = Cobalt;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = "$(OVERRIDE_SUPPORTS_MACCATALYST:default=YES)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlueWallet-Bridging-Header.h";
@@ -1276,7 +1276,7 @@
 				);
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.bluewallet.bluewallet;
-				PRODUCT_NAME = BlueWallet;
+				PRODUCT_NAME = Cobalt;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = "$(OVERRIDE_SUPPORTS_MACCATALYST:default=YES)";
@@ -1754,7 +1754,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BlueWallet" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Cobalt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1781,7 +1781,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BlueWallet" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Cobalt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
@@ -1790,7 +1790,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B40D4E4E225841ED00428FCC /* Build configuration list for PBXNativeTarget "BlueWalletWatch Extension" */ = {
+		B40D4E4E225841ED00428FCC /* Build configuration list for PBXNativeTarget "CobaltWatch Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B40D4E4F225841ED00428FCC /* Debug */,
@@ -1799,7 +1799,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B40D4E52225841ED00428FCC /* Build configuration list for PBXNativeTarget "BlueWalletWatch" */ = {
+		B40D4E52225841ED00428FCC /* Build configuration list for PBXNativeTarget "CobaltWatch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B40D4E53225841ED00428FCC /* Debug */,
