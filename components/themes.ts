@@ -73,7 +73,8 @@ export const BlueDefaultTheme = {
     outgoingBackgroundColor: '#f8d2d2',
     outgoingForegroundColor: '#FF6838',
 
-    primary: '#0059E7',
+    primary: '#3772FF',
+    secondary: '#4BC9F0',
     positive: '#58BD7D',
     negative: '#FF6838',
     lightning: '#FFD166',

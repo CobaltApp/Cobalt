@@ -94,6 +94,7 @@ import Notifications from './screen/Notifications';
 
 import Discover from './screen/Discover';
 import Chart from './screen/chart';
+import { IconConfigKeys } from 'react-native-ios-context-menu';
 
 const WalletsStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -111,10 +112,10 @@ function TabNavigator(props) {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false, 
-        tabBarStyle: { position: 'absolute', height: 100, borderTopWidth: 0, borderTopLeftRadius: 40, borderTopRightRadius: 40}, 
+        tabBarStyle: { position: 'absolute', height: 100, borderTopWidth: 0 }, 
         //activeTintColor: colors.foreground,
         //inactiveTintColor: '#ffffff',
-        tabBarActiveTintColor: colors.foreground,
+        tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: '#ffffff',
       }}
     >

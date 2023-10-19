@@ -22,6 +22,7 @@ import WalletGradient from '../class/wallet-gradient';
 import { BluePrivateBalance } from '../BlueComponents';
 import { BlueStorageContext } from '../blue_modules/storage-context';
 import { isHandset, isTablet, isDesktop } from '../blue_modules/environment';
+import { Button } from 'react-native-elements';
 
 const nStyles = StyleSheet.create({
   container: {
@@ -90,7 +91,7 @@ const iStyles = StyleSheet.create({
   root: { paddingRight: 20 },
   rootLargeDevice: { marginVertical: 20 },
   grad: {
-    padding: 15,
+    padding: 24,
     borderRadius: 12,
     minHeight: 194,
     elevation: 5,
@@ -107,25 +108,30 @@ const iStyles = StyleSheet.create({
   },
   label: {
     backgroundColor: 'transparent',
-    fontSize: 19,
+    fontSize: 18,
+    fontWeight: 400,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   balance: {
+    marginTop: 4,
     backgroundColor: 'transparent',
-    fontWeight: 'bold',
-    fontSize: 36,
+    fontWeight: 700,
+    fontSize: 32,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   latestTx: {
+    marginTop: 18,
     backgroundColor: 'transparent',
-    fontSize: 13,
+    fontSize: 14,
+    fontWeight: 400,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   latestTxTime: {
+    marginTop: 10,
     backgroundColor: 'transparent',
-    fontWeight: 'bold',
+    fontWeight: 700,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-    fontSize: 16,
+    fontSize: 24,
   },
 });
 
@@ -196,7 +202,6 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
       >
         <View backgroundColor={WalletGradient.gradientsFor(item.type)} style={iStyles.grad}>
           <Image source={image} style={iStyles.image} />
-          <Text style={iStyles.br} />
           <Text numberOfLines={1} style={[iStyles.label, { color: colors.background }]}>
             {item.getLabel()}
           </Text>
@@ -212,11 +217,9 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
               {balance}
             </Text>
           )}
-          <Text style={iStyles.br} />
           <Text numberOfLines={1} style={[iStyles.latestTx, { color: colors.background }]}>
             {loc.wallets.list_latest_transaction}
           </Text>
-
           <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: colors.background }]}>
             {latestTransactionText}
           </Text>

@@ -31,7 +31,7 @@ import { TransactionListItem } from '../../components/TransactionListItem';
 const scanqrHelper = require('../../helpers/scan-qr');
 const A = require('../../blue_modules/analytics');
 const fs = require('../../blue_modules/fs');
-const WalletsListSections = { BALANCE: 'BALANCE', CAROUSEL: 'CAROUSEL', TRANSACTIONS: 'TRANSACTIONS' };
+const WalletsListSections = { HEADER: 'HEADER', CAROUSEL: 'CAROUSEL', BUTTONS: 'BUTTONS', TRANSACTIONS: 'TRANSACTIONS' };
 
 const WalletsList = () => {
   const { logoImage } = useTheme();
@@ -93,42 +93,42 @@ const WalletsList = () => {
   };
 
   useLayoutEffect(() => {
-    setOptions({
-      headerShown: false,
-      headerStyle: {
-        backgroundColor: colors.background,
-        borderBottomWidth: 0,
-        elevation: 0,
-        shadowOpacity: 0,
-        shadowOffset: { height: 0, width: 0 },
-      },
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerRight: () =>
-        I18nManager.isRTL ? null : (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel={loc._.more}
-            testID="SettingsButton"
-            style={styles.headerTouch}
-            onPress={navigateToSettings}
-          >
-            <Icon size={22} name="menu" type="feather" color={colors.foreground} style={{marginHorizontal: 16}}/>
-          </TouchableOpacity>
-        ),
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerLeft: () =>
-        I18nManager.isRTL ? (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel={loc._.more}
-            testID="SettingsButton"
-            style={styles.headerTouch}
-            onPress={navigateToSettings}
-          >
-            <Icon size={22} name="menu" type="feather" color={colors.foreground} />
-          </TouchableOpacity>
-        ) : null,
-    });
+    // setOptions({
+    //   headerShown: false,
+    //   headerStyle: {
+    //     backgroundColor: colors.background,
+    //     borderBottomWidth: 0,
+    //     elevation: 0,
+    //     shadowOpacity: 0,
+    //     shadowOffset: { height: 0, width: 0 },
+    //   },
+    //   // eslint-disable-next-line react/no-unstable-nested-components
+    //   headerRight: () =>
+    //     I18nManager.isRTL ? null : (
+    //       <TouchableOpacity
+    //         accessibilityRole="button"
+    //         accessibilityLabel={loc._.more}
+    //         testID="SettingsButton"
+    //         style={styles.headerTouch}
+    //         onPress={navigateToSettings}
+    //       >
+    //         <Icon size={22} name="menu" type="feather" color={colors.foreground} style={{marginHorizontal: 16}}/>
+    //       </TouchableOpacity>
+    //     ),
+    //   // eslint-disable-next-line react/no-unstable-nested-components
+    //   headerLeft: () =>
+    //     I18nManager.isRTL ? (
+    //       <TouchableOpacity
+    //         accessibilityRole="button"
+    //         accessibilityLabel={loc._.more}
+    //         testID="SettingsButton"
+    //         style={styles.headerTouch}
+    //         onPress={navigateToSettings}
+    //       >
+    //         <Icon size={22} name="menu" type="feather" color={colors.foreground} />
+    //       </TouchableOpacity>
+    //     ) : null,
+    // });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
 
@@ -230,7 +230,7 @@ const WalletsList = () => {
 
   const renderSectionItem = item => {
     switch (item.section.key) {
-      case WalletsListSections.BALANCE:
+      case WalletsListSections.HEADER:
         return null;
       case WalletsListSections.CAROUSEL:
         return isLargeScreen ? null : renderWalletsCarousel();
@@ -243,19 +243,19 @@ const WalletsList = () => {
 
   const renderSectionHeader = section => {
     switch (section.section.key) {
-      case WalletsListSections.BALANCE:
+      case WalletsListSections.HEADER:
         return isLargeScreen ? null : (
           <View
             style={{
-              backgroundColor: colors.primary,
-              borderWidth: 0,
-              borderBottomRightRadius: 40,
-              borderBottomLeftRadius: 40,
+              //backgroundColor: colors.primary,
+              //borderWidth: 0,
+              //borderBottomRightRadius: 40,
+              //borderBottomLeftRadius: 40,
               paddingTop: 24,
               paddingBottom: 36,
             }}
           >
-            <Image 
+            {/* <Image 
               source={require('../../img/logodark-2048x1024.png')} 
               style={{
                 width: 2048,
@@ -265,29 +265,29 @@ const WalletsList = () => {
                 left: 10,
                 opacity: 0.25,
               }} 
-            />
+            /> */}
             <View 
               style={{
                 flexDirection: 'row',
-                marginLeft: 48, 
-                marginBottom: 40,
+                marginLeft: 24, 
+                marginBottom: 0,
               }}
             >
-              <Image 
+              <Image
                 source={require('../../img/avatar-01.png')}
-                style={{ width: 40, height: 40, borderRadius: 15, backgroundColor: colors.background}}
+                style={{ width: 52, height: 52, borderRadius: 20, backgroundColor: colors.secondary}}
               />
               <Text
                 style={{
-                  marginTop: 8,
+                  marginTop: 15,
                   marginLeft: 10,
-                  color: colors.background,
-                  fontSize: 16,
-                  fontWeight: '400',
+                  color: colors.foreground,
+                  fontSize: 18,
+                  fontWeight: '700',
                   writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
                 }}
               >Clifford Hale</Text>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 accessibilityRole="button"
                 accessibilityLabel={loc._.more}
                 testID="SettingsButton"
@@ -303,9 +303,9 @@ const WalletsList = () => {
                 onPress={navigateToNotifications}
               >
                 <Icon size={22} name="bell" type="feather" color={"#C0C9EA"} style={{marginTop: 8}}/>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
-            <Text
+            {/* <Text
               style={{
                 color: colors.background,
                 fontSize: 24,
@@ -322,14 +322,15 @@ const WalletsList = () => {
                 marginHorizontal: 48,
                 writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
               }}
-            >$2,385.60</Text>
+            >$2,385.60</Text> */}
           </View>
         );
       case WalletsListSections.CAROUSEL:
-        return null;
-        // isLargeScreen ? null : (
-        //   <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
-        // );
+        //return null;
+        return <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
+        isLargeScreen ? null : (
+          <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
+        );
       case WalletsListSections.TRANSACTIONS:
         return renderListHeaderComponent();
       default:
@@ -466,7 +467,7 @@ const WalletsList = () => {
           contentInset={styles.scrollContent}
           renderSectionFooter={renderSectionFooter}
           sections={[
-            { key: WalletsListSections.BALANCE, data: [WalletsListSections.BALANCE] },
+            { key: WalletsListSections.HEADER, data: [WalletsListSections.HEADER] },
             { key: WalletsListSections.CAROUSEL, data: [WalletsListSections.CAROUSEL] },
             { key: WalletsListSections.TRANSACTIONS, data: dataSource },
           ]}
@@ -504,9 +505,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   listHeaderText: {
-    fontWeight: '500',
-    fontSize: 24,
-    marginVertical: 16,
+    fontWeight: '700',
+    fontSize: 22,
+    marginVertical: 44,
   },
   footerRoot: {
     top: 80,

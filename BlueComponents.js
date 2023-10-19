@@ -551,19 +551,19 @@ export const BlueHeaderDefaultMain = props => {
       <Text
         style={{
           textAlign: 'left',
-          fontWeight: '500',
-          fontSize: 36,
+          fontWeight: '700',
+          fontSize: 22,
           color: colors.foreground,
         }}
       >
         {props.leftText}
       </Text>
-      <PlusIcon
+      {/* <PlusIcon
         accessibilityRole="button"
         accessibilityLabel={loc.wallets.add_title}
         onPress={props.onNewWalletPress}
         Component={TouchableOpacity}
-      />
+      /> */}
     </View>
   );
 };
