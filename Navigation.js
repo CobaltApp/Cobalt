@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Platform, useWindowDimensions, Dimensions, I18nManager, View } from 'react-native';
+import { Platform, useWindowDimensions, Dimensions, I18nManager, View, Image } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { createBottomTabNavigator, useBottomTabBarHeight, BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
@@ -112,7 +112,7 @@ function TabNavigator(props) {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false, 
-        tabBarStyle: { position: 'absolute', height: 100, borderTopWidth: 0 }, 
+        tabBarStyle: { position: 'absolute', height: 92, borderTopWidth: 0 }, 
         //activeTintColor: colors.foreground,
         //inactiveTintColor: '#ffffff',
         tabBarActiveTintColor: colors.primary,
@@ -126,7 +126,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              focused={focused}
+              color={ focused ? colors.primary : colors.foreground }
               name="home"
               type="feather" 
               width={24}
@@ -142,7 +142,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              focused={focused}
+              color={ focused ? colors.primary : colors.foreground }
               name="search"
               type="feather" 
               width={24}
@@ -151,7 +151,7 @@ function TabNavigator(props) {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Pay"
         component={ScanQRCodeRoot}
         options={{
@@ -169,7 +169,7 @@ function TabNavigator(props) {
             </View>
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Activity"
         component={Notifications}
@@ -177,8 +177,8 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              focused={focused}
-              name="activity"
+              color={ focused ? colors.primary : colors.foreground }
+              name="shopping-bag"
               type="feather" 
               width={24}
               height={24}
@@ -192,13 +192,23 @@ function TabNavigator(props) {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Icon
-              focused={focused}
-              name="user"
-              type="feather" 
-              width={24}
-              height={24}
+            <Image
+                source={require('./img/icons/profile_picture.png')}
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 12,
+                  borderWidth: 2,
+                  borderColor: focused ? colors.primary : colors.foreground,
+                  backgroundColor: colors.secondary}}
             />
+            // <Icon
+            //   focused={focused}
+            //   name="user"
+            //   type="feather" 
+            //   width={24}
+            //   height={24}
+            // />
           ),
         }}
       />

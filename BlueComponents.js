@@ -546,6 +546,7 @@ export const BlueHeaderDefaultMain = props => {
         borderTopColor: isDrawerList ? colors.background : colors.background,
         borderBottomColor: isDrawerList ? colors.background : colors.background,
         marginBottom: 8,
+        marginTop: 24,
       }}
     >
       <Text

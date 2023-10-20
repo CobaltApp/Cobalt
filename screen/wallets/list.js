@@ -33,6 +33,8 @@ const A = require('../../blue_modules/analytics');
 const fs = require('../../blue_modules/fs');
 const WalletsListSections = { HEADER: 'HEADER', CAROUSEL: 'CAROUSEL', BUTTONS: 'BUTTONS', TRANSACTIONS: 'TRANSACTIONS' };
 
+
+
 const WalletsList = () => {
   const { logoImage } = useTheme();
   const walletsCarousel = useRef();
@@ -48,9 +50,10 @@ const WalletsList = () => {
   const [isLargeScreen, setIsLargeScreen] = useState(
     Platform.OS === 'android' ? isTablet() : (width >= Dimensions.get('screen').width / 2 && isTablet()) || isDesktop,
   );
-  const dataSource = getTransactions(null, 10);
+  const dataSource = getTransactions(null, 3);
   const walletsCount = useRef(wallets.length);
   const walletActionButtonsRef = useRef();
+  
 
   const stylesHook = StyleSheet.create({
     walletsListWrapper: {
@@ -228,12 +231,82 @@ const WalletsList = () => {
     );
   };
 
+  const renderButtons = () => {
+    const buttonsRef = useRef();
+    return (
+      <View 
+      style={{
+        height: 68,
+        marginTop: 24,
+        justifyContent: 'center',
+        flexDirection: "row",
+      }}
+      >
+    <TouchableOpacity 
+      accessibilityRole="button" 
+      style={{
+        backgroundColor: colors.primary,
+        height: 68,
+        width: 146,
+        borderRadius: 12,
+        paddingLeft: 18,
+        marginEnd: 14,
+        flexDirection: 'row',
+        alignItems: 'center',
+        overflow: 'hidden',
+      }}
+      onPress={onScanButtonPressed}
+      onLongPress={sendButtonLongPress}
+      >
+      <Icon name="arrow-up-circle" type="feather" size={32} color={colors.background} />
+      <Text style={{
+        color: colors.background,
+        fontSize: 16,
+        fontWeight: '600',
+        marginLeft: 18,
+        }}
+      >
+        Send
+      </Text>
+    </TouchableOpacity>
+    <TouchableOpacity 
+      accessibilityRole="button" 
+      style={{
+        backgroundColor: colors.secondary,
+        height: 68,
+        width: 146,
+        borderRadius: 12,
+        paddingLeft: 18,
+        flexDirection: 'row',
+        alignItems: 'center',
+        //justifyContent: 'center',
+        overflow: 'hidden',
+      }}
+      onPress={onScanButtonPressed}
+      >
+      <Icon name="arrow-down-circle" type="feather" size={32} color={colors.background} />
+      <Text style={{
+        color: colors.background,
+        fontSize: 16,
+        fontWeight: '600',
+        marginLeft: 18,
+        }}
+      >
+        Receive
+      </Text>
+      </TouchableOpacity>
+      </View>
+    );
+  };
+
   const renderSectionItem = item => {
     switch (item.section.key) {
       case WalletsListSections.HEADER:
         return null;
       case WalletsListSections.CAROUSEL:
         return isLargeScreen ? null : renderWalletsCarousel();
+      case WalletsListSections.BUTTONS:
+        return renderButtons();
       case WalletsListSections.TRANSACTIONS:
         return renderTransactionListsRow(item);
       default:
@@ -286,7 +359,7 @@ const WalletsList = () => {
                   fontWeight: '700',
                   writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
                 }}
-              >Clifford Hale</Text>
+              > </Text>
               {/* <TouchableOpacity
                 accessibilityRole="button"
                 accessibilityLabel={loc._.more}
@@ -344,6 +417,14 @@ const WalletsList = () => {
         if (dataSource.length === 0 && !isLoading) {
           return (
             <View style={styles.footerRoot} testID="NoTransactionsMessage">
+              {/* <Image 
+                source={require('../../img/icons/decentralized_finance.png')}
+                style={{
+                  width: 128,
+                  height: 128,
+                  alignItems: "center",
+                }} 
+              /> */}
               <Text style={styles.footerEmpty}>{loc.wallets.list_empty_txs1}</Text>
               <Text style={styles.footerStart}>{loc.wallets.list_empty_txs2}</Text>
             </View>
@@ -467,8 +548,8 @@ const WalletsList = () => {
           contentInset={styles.scrollContent}
           renderSectionFooter={renderSectionFooter}
           sections={[
-            { key: WalletsListSections.HEADER, data: [WalletsListSections.HEADER] },
             { key: WalletsListSections.CAROUSEL, data: [WalletsListSections.CAROUSEL] },
+            { key: WalletsListSections.BUTTONS, data: [WalletsListSections.BUTTONS] },
             { key: WalletsListSections.TRANSACTIONS, data: dataSource },
           ]}
         />
@@ -507,12 +588,14 @@ const styles = StyleSheet.create({
   listHeaderText: {
     fontWeight: '700',
     fontSize: 22,
-    marginVertical: 44,
+    marginTop: 44,
   },
   footerRoot: {
-    top: 80,
-    height: 160,
-    marginBottom: 80,
+    //top: 80,
+    height: 100,
+    marginTop: 16,
+    //marginBottom: 80,
+    alignItems: "center"
   },
   footerEmpty: {
     fontSize: 18,

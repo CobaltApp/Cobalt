@@ -118,15 +118,15 @@ export const FButton = ({ text, icon, width, first, last, ...props }) => {
     style.paddingLeft = paddingLeft;
     style.width = 50;
   }
-//<Icon name="repeat" type="feather" size={24} color={colors.background} />
-{/* <Text numberOfLines={1} style={[bStyles.text, props.disabled ? bStylesHook.textDisabled : bStylesHook.text]}>
-{text}
-</Text> */}
+  //<Icon name="repeat" type="feather" size={24} color={colors.background} />
   return (
     <TouchableOpacity accessibilityRole="button" style={[bStyles.root, bStylesHook.root, style]} {...props}>
       <View style={bStyles.icon}>
         {icon}
       </View>
+      <Text numberOfLines={1} style={[bStyles.text, props.disabled ? bStylesHook.textDisabled : bStylesHook.text]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
