@@ -100,13 +100,13 @@ const NotificationSettings = () => {
         title={loc.settings.push_notifications}
         switch={{ onValueChange: onNotificationsSwitch, value: isNotificationsEnabled, testID: 'NotificationsSwitch' }}
       />
-      <BlueSpacing20 />
+      {/* <BlueSpacing20 /> */}
 
-      <BlueCard>
+      {/* <BlueCard>
         <BlueText>{loc.settings.groundcontrol_explanation}</BlueText>
-      </BlueCard>
+      </BlueCard> */}
 
-      <Button
+      {/* <Button
         icon={{
           name: 'github',
           type: 'font-awesome',
@@ -150,8 +150,8 @@ const NotificationSettings = () => {
         )}
 
         <BlueSpacing20 />
-        <BlueButton onPress={save} title={loc.settings.save} />
-      </BlueCard>
+        <BlueButton onPress={save} title={loc.settings.save} /> */}
+      {/* </BlueCard> */}
     </ScrollView>
   );
 };

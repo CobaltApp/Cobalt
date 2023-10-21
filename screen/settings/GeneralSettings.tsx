@@ -8,6 +8,8 @@ import loc from '../../loc';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
 import { isURv1Enabled, clearUseURv1, setUseURv1 } from '../../blue_modules/ur';
 
+import Notifications from '../../blue_modules/notifications';
+
 const styles = StyleSheet.create({
   root: {
     flex: 1,
@@ -60,8 +62,16 @@ const GeneralSettings: React.FC = () => {
           <BlueListItem component={TouchableOpacity} onPress={() => navigate('DefaultView')} title={loc.settings.default_title} chevron />
         </>
       )}
+      {/* {Notifications.isNotificationsCapable && (
+          <BlueListItem
+            title={loc.settings.notifications}
+            onPress={() => navigate('NotificationSettings')}
+            testID="NotificationSettings"
+            chevron
+          />
+        )} */}
       {/* @ts-ignore: Fix later */}
-      <BlueListItem title={loc.settings.privacy} onPress={navigateToPrivacy} testID="SettingsPrivacy" chevron />
+      {/* <BlueListItem title={loc.settings.privacy} onPress={navigateToPrivacy} testID="SettingsPrivacy" chevron /> */}
       {Platform.OS === 'ios' ? (
         <>
           <BlueListItem
@@ -69,12 +79,12 @@ const GeneralSettings: React.FC = () => {
             hideChevron
             title={loc.settings.general_continuity}
             Component={Pressable}
-            switch={{ onValueChange: setIsHandOffUseEnabledAsyncStorage, value: isHandOffUseEnabled }}
+            switch={{ onValueChange: setIsHandOffUseEnabledAsyncStorage, value: isHandOffUseEnabled}}
           />
-          <BlueCard>
+          {/* <BlueCard>
             <BlueText>{loc.settings.general_continuity_e}</BlueText>
-          </BlueCard>
-          <BlueSpacing20 />
+          </BlueCard> */}
+          {/* <BlueSpacing20 /> */}
         </>
       ) : null}
       <BlueListItem
@@ -83,10 +93,10 @@ const GeneralSettings: React.FC = () => {
         title={loc.settings.general_adv_mode}
         switch={{ onValueChange: onAdvancedModeSwitch, value: isAdvancedModeSwitchEnabled, testID: 'AdvancedMode' }}
       />
-      <BlueCard>
+      {/* <BlueCard>
         <BlueText>{loc.settings.general_adv_mode_e}</BlueText>
-      </BlueCard>
-      <BlueSpacing20 />
+      </BlueCard> */}
+      {/* <BlueSpacing20 /> */}
       {/* @ts-ignore: Fix later */}
       <BlueListItem
         // @ts-ignore: Fix later
@@ -94,7 +104,7 @@ const GeneralSettings: React.FC = () => {
         title="Legacy URv1 QR"
         switch={{ onValueChange: onLegacyURv1Switch, value: isURv1SwitchEnabled }}
       />
-      <BlueSpacing20 />
+      {/* <BlueSpacing20 /> */}
     </ScrollView>
   );
 };

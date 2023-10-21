@@ -28,6 +28,8 @@ import BlueClipboard from '../../blue_modules/clipboard';
 import navigationStyle from '../../components/navigationStyle';
 import { TransactionListItem } from '../../components/TransactionListItem';
 
+import ReceiveDetails from '../receive/details';
+
 const scanqrHelper = require('../../helpers/scan-qr');
 const A = require('../../blue_modules/analytics');
 const fs = require('../../blue_modules/fs');
@@ -282,7 +284,7 @@ const WalletsList = () => {
         //justifyContent: 'center',
         overflow: 'hidden',
       }}
-      onPress={onScanButtonPressed}
+      onPress={onReceiveButtonPressed}
       >
       <Icon name="arrow-down-circle" type="feather" size={32} color={colors.background} />
       <Text style={{
@@ -460,6 +462,10 @@ const WalletsList = () => {
 
   const onScanButtonPressed = () => {
     scanqrHelper(navigate, routeName, false).then(onBarScanned);
+  };
+
+  const onReceiveButtonPressed = () => {
+    navigate('ReceiveDetails');
   };
 
   const onBarScanned = value => {

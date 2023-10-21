@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ScrollView, TouchableWithoutFeedback, StyleSheet, Linking, Platform, Pressable } from 'react-native';
+import { ScrollView, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, Linking, Platform, Pressable } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 import navigationStyle from '../../components/navigationStyle';
@@ -75,6 +75,10 @@ const SettingsPrivacy = () => {
     setIsLoading(false);
   };
 
+  const navigateToPlausibleDeniability = () => {
+    navigate('PlausibleDeniability');
+  };
+
   const onWidgetsTotalBalanceValueChange = async value => {
     setIsLoading(sections.WIDGETS);
     try {
@@ -112,10 +116,16 @@ const SettingsPrivacy = () => {
         Component={TouchableWithoutFeedback}
         switch={{ onValueChange, value: isReadClipboardAllowed, disabled: isLoading === sections.ALL, testID: 'ClipboardSwitch' }}
       />
-      <BlueCard>
+      <BlueListItem
+        hideChevron
+        title={loc.settings.privacy_do_not_track}
+        Component={TouchableWithoutFeedback}
+        switch={{ onValueChange: onDoNotTrackValueChange, value: doNotTrackSwitchValue, disabled: isLoading === sections.ALL }}
+      />
+      {/* <BlueCard>
         <BlueText>{loc.settings.privacy_clipboard_explanation}</BlueText>
-      </BlueCard>
-      <BlueSpacing20 />
+      </BlueCard> */}
+      {/* <BlueSpacing20 /> */}
       {!storageIsEncrypted && (
         <>
           <BlueListItem
@@ -129,11 +139,20 @@ const SettingsPrivacy = () => {
               testID: 'QuickActionsSwitch',
             }}
           />
-          <BlueCard>
+          {/* <BlueCard>
             <BlueText>{loc.settings.privacy_quickactions_explanation}</BlueText>
-          </BlueCard>
+          </BlueCard> */}
         </>
       )}
+      {storageIsEncrypted && (
+          <BlueListItem
+            onPress={navigateToPlausibleDeniability}
+            title={loc.settings.plausible_deniability}
+            chevron
+            testID="PlausibleDeniabilityButton"
+            Component={TouchableOpacity}
+          />
+        )}
       {Platform.OS === 'ios' && !storageIsEncrypted && (
         <>
           <BlueHeaderDefaultSub leftText={loc.settings.widgets} rightComponent={null} />
@@ -147,25 +166,18 @@ const SettingsPrivacy = () => {
               disabled: isLoading === sections.ALL,
             }}
           />
-          <BlueCard>
+          {/* <BlueCard>
             <BlueText>{loc.settings.total_balance_explanation}</BlueText>
-          </BlueCard>
+          </BlueCard> */}
         </>
       )}
-      <BlueSpacing20 />
-
-      <BlueListItem
-        hideChevron
-        title={loc.settings.privacy_do_not_track}
-        Component={TouchableWithoutFeedback}
-        switch={{ onValueChange: onDoNotTrackValueChange, value: doNotTrackSwitchValue, disabled: isLoading === sections.ALL }}
-      />
-      <BlueCard>
+      {/* <BlueSpacing20 /> */}
+      {/* <BlueCard>
         <BlueText>{loc.settings.privacy_do_not_track_explanation}</BlueText>
       </BlueCard>
-      <BlueSpacing20 />
+      <BlueSpacing20 /> */}
       <BlueListItem title={loc.settings.privacy_system_settings} chevron onPress={openApplicationSettings} testID="PrivacySystemSettings" />
-      <BlueSpacing20 />
+      {/* <BlueSpacing20 /> */}
     </ScrollView>
   );
 };

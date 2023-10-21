@@ -40,6 +40,7 @@ export const BlueDefaultTheme = {
     lnbackgroundColor: '#F4F5F6',
     buttonDisabledTextColor: '#777E90',
     inputBorderColor: '#B1B5C3',
+    pink: '#E4D7CF',
 
     background: '#FCFCFD',
 
@@ -75,6 +76,7 @@ export const BlueDefaultTheme = {
 
     primary: '#3772FF',
     secondary: '#4BC9F0',
+    tertiary: '#9757D7',
     positive: '#58BD7D',
     negative: '#FF6838',
     lightning: '#FFD166',

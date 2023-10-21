@@ -126,7 +126,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.primary : colors.foreground }
+              color={ focused ? colors.foreground : colors.buttonDisabledTextColor }
               name="home"
               type="feather" 
               width={24}
@@ -142,7 +142,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.primary : colors.foreground }
+              color={ focused ? colors.foreground : colors.buttonDisabledTextColor }
               name="search"
               type="feather" 
               width={24}
@@ -177,7 +177,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.primary : colors.foreground }
+              color={ focused ? colors.foreground : colors.buttonDisabledTextColor }
               name="shopping-bag"
               type="feather" 
               width={24}
@@ -198,8 +198,8 @@ function TabNavigator(props) {
                   width: 24,
                   height: 24,
                   borderRadius: 12,
-                  borderWidth: 2,
-                  borderColor: focused ? colors.primary : colors.foreground,
+                  borderWidth: focused ? 2 : 0,
+                  borderColor: colors.foreground,
                   backgroundColor: colors.secondary}}
             />
             // <Icon

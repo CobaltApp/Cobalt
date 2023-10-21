@@ -27,7 +27,7 @@ const Settings = () => {
   };
 
   return (
-    <SafeBlueArea>
+    <ScrollView>
       <BlueCard>
       {/* <View
         style={{
@@ -61,63 +61,137 @@ const Settings = () => {
           Settings
         </BlueText>
       </View> */}
-      <View
+        <View
           style={{
-            flexDirection: 'row',
+            flexDirection: 'column',
             //alignSelf: 'center',
-            alignItems: 'center',
-            //marginBottom: 40,
-            marginLeft: 4,
-            marginBottom: 60,
+            //alignItems: 'center',
+            marginTop: 20,
+            marginBottom: 12,
             padding: 16,
             backgroundColor: '#FFFFFF',
             borderRadius: 12,
           }}
         >
-          <Image
-            source={require('../../img/profile.png')}
-            style={{ width: 52, height: 52, borderRadius: 26, backgroundColor: colors.secondary}}
-          />
           <View
             style={{
-              marginLeft: 16,
+              flexDirection: 'row',
+              //alignSelf: 'center',
+              alignItems: 'center',
+              //marginBottom: 40,
+              marginLeft: 4,
             }}
           >
-          <BlueText
-            style={{
-              fontWeight: '700',
-              fontSize: 16,
-              color: colors.foreground,
-            }}
-          >
-            Breanne Schinner
-          </BlueText>
-          <BlueText
-            style={{
-              fontWeight: '400',
-              fontSize: 12,
-              color: colors.foreground,
-            }}
-          >
-            schinner@ui8.net
-          </BlueText>
+            <Image
+              source={require('../../img/profile.png')}
+              style={{ width: 52, height: 52, borderRadius: 26, backgroundColor: colors.secondary}}
+            />
+            <View
+              style={{
+                marginLeft: 16,
+              }}
+            >
+              <BlueText
+                style={{
+                  fontWeight: '600',
+                  fontSize: 24,
+                  color: colors.foreground,
+                }}
+              >
+                Breanne Schinner
+              </BlueText>
+              <BlueText
+                style={{
+                  fontWeight: '400',
+                  fontSize: 14,
+                  color: colors.buttonDisabledTextColor,
+                }}
+              >
+                schinner@ui8.net
+              </BlueText>
+            </View>
           </View>
+          <View
+            style={{
+              marginTop: 8,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}
+          >
+            <View
+              style={{
+                marginTop: 4,
+                marginRight: 4,
+                backgroundColor: colors.primary,
+                borderColor: colors.background,
+                borderWidth: 2,
+                borderRadius: 12,
+                maxWidth: 192,
+                paddingVertical: 4,
+                paddingHorizontal: 8,
+              }}
+            >
+              <Text style={{
+                color: colors.background,
+                fontWeight: 700,
+              }}>
+                🧭 Explorer
+              </Text>
+            </View>
+            <View
+              style={{
+                marginTop: 4,
+                marginRight: 4,
+                backgroundColor: colors.background,
+                borderColor: colors.negative,
+                borderWidth: 2,
+                borderRadius: 12,
+                maxWidth: 192,
+                paddingVertical: 4,
+                paddingHorizontal: 8,
+              }}
+            >
+              <Text style={{
+                color: colors.negative,
+                fontWeight: 700,
+              }}>
+                🦐 Shrimp
+              </Text>
+            </View>
+            <View
+              style={{
+                marginTop: 4,
+                marginRight: 4,
+                backgroundColor: colors.background,
+                borderColor: colors.tertiary,
+                borderWidth: 2,
+                borderRadius: 12,
+                maxWidth: 192,
+                paddingVertical: 4,
+                paddingHorizontal: 8,
+              }}
+            >
+              <Text style={{
+                color: colors.tertiary,
+                fontWeight: 700,
+              }}>
+                📊 Market Watcher
+              </Text>
+            </View>
           </View>
-        <View
-          style={{
-            marginLeft: 24,
-          }}
-        >
-        <BlueListItem leftIcon={{ name: 'user', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.general} onPress={() => navigate('GeneralSettings')} testID="GeneralSettings" />
-        <BlueListItem leftIcon={{ name: 'dollar-sign', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.currency} onPress={() => navigate('Currency')} testID="Currency" />
-        <BlueListItem leftIcon={{ name: 'globe', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.language} onPress={() => navigate('Language')} testID="Language" />
-        <BlueListItem leftIcon={{ name: 'lock', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.encrypt_title} onPress={() => navigate('EncryptStorage')} testID="SecurityButton" />
-        <BlueListItem leftIcon={{ name: 'share-2', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.network} onPress={() => navigate('NetworkSettings')} testID="NetworkSettings" />
-        <BlueListItem leftIcon={{ name: 'tool', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" />
-        <BlueListItem leftIcon={{ name: 'info', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.about} onPress={() => navigate('About')} testID="AboutButton" />
-      </View>
+        </View>
+        <View>
+          <BlueListItem leftIcon={{ name: 'user', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.general} onPress={() => navigate('GeneralSettings')} testID="GeneralSettings" />
+          <BlueListItem leftIcon={{ name: 'dollar-sign', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.currency} onPress={() => navigate('Currency')} testID="Currency" />
+          <BlueListItem leftIcon={{ name: 'globe', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.language} onPress={() => navigate('Language')} testID="Language" />
+          <BlueListItem leftIcon={{ name: 'shield', size: 24, type: 'feather', color: colors.foreground }} title='Security' onPress={() => navigate('SettingsPrivacy')} testID="Security" />
+          <BlueListItem leftIcon={{ name: 'lock', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.encrypt_title} onPress={() => navigate('EncryptStorage')} testID="Password" />
+          <BlueListItem leftIcon={{ name: 'share-2', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.network} onPress={() => navigate('NetworkSettings')} testID="NetworkSettings" bottomDivider={true}/>
+          <BlueListItem leftIcon={{ name: 'tool', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" />
+          <BlueListItem leftIcon={{ name: 'info', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.about} onPress={() => navigate('About')} testID="AboutButton" />
+        </View>
       </BlueCard>
-    </SafeBlueArea>
+    </ScrollView>
   );
 };
 

@@ -1,5 +1,5 @@
 /* eslint react/prop-types: "off", react-native/no-inline-styles: "off" */
-import React, { Component, forwardRef } from 'react';
+import React, { Component, forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Icon, Text, Header, ListItem, Avatar } from 'react-native-elements';
 import {
@@ -28,6 +28,7 @@ import { useTheme } from '@react-navigation/native';
 import { BlueCurrentTheme } from './components/themes';
 import PlusIcon from './components/icons/PlusIcon';
 import loc, { formatStringAddTwoWhiteSpaces } from './loc';
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
 const { height, width } = Dimensions.get('window');
 const aspectRatio = height / width;
@@ -368,7 +369,7 @@ const styleCopyTextToClipboard = StyleSheet.create({
 export const SafeBlueArea = props => {
   const { style, ...nonStyleProps } = props;
   const { colors } = useTheme();
-  const baseStyle = { flex: 1, backgroundColor: '#F8F8F9' };
+  const baseStyle = { flex: 1, backgroundColor: '#F8F8F9'};
   return <SafeAreaView forceInset={{ horizontal: 'always' }} style={[baseStyle, style]} {...nonStyleProps} />;
 };
 
@@ -392,9 +393,9 @@ export const BlueListItem = React.memo(props => {
 
   return (
     <ListItem
-      containerStyle={props.containerStyle ?? { backgroundColor: 'transparent', height: 48 }}
+      containerStyle={props.containerStyle ?? { backgroundColor: 'transparent', height: 52}}
       Component={props.Component ?? TouchableOpacity}
-      //bottomDivider={props.bottomDivider !== undefined ? props.bottomDivider : true}
+      bottomDivider={props.bottomDivider !== undefined ? props.bottomDivider : false}
       topDivider={props.topDivider !== undefined ? props.topDivider : false}
       testID={props.testID}
       onPress={props.onPress}
@@ -408,7 +409,7 @@ export const BlueListItem = React.memo(props => {
         <ListItem.Title
           style={{
             color: props.disabled ? colors.buttonDisabledTextColor : colors.foreground,
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: '500',
             writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
           }}
@@ -446,7 +447,9 @@ export const BlueListItem = React.memo(props => {
         <>
           {props.chevron && <ListItem.Chevron iconStyle={{ transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }] }} />}
           {props.rightIcon && <Avatar icon={props.rightIcon} />}
-          {props.switch && <Switch {...props.switch} accessibilityLabel={props.title} accessible accessibilityRole="switch" />}
+          {props.switch && <Switch {...props.switch} accessibilityLabel={props.title} accessible accessibilityRole="switch" 
+            trackColor={{false: '#E6E8EC', true: '#3772FF'}}
+            />}
           {props.checkmark && <ListItem.CheckBox iconType="octaicon" checkedColor="#0070FF" checkedIcon="check" checked />}
         </>
       )}
@@ -461,10 +464,12 @@ export const BlueFormLabel = props => {
     <Text
       {...props}
       style={{
-        color: colors.foreground,
+        color: colors.foregroundInactive,
         fontWeight: '700',
-        marginHorizontal: 20,
+        fontSize: 12,
+        marginHorizontal: 16,
         writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+        marginBottom: 12,
       }}
     />
   );
@@ -472,30 +477,67 @@ export const BlueFormLabel = props => {
 
 export const BlueFormMultiInput = props => {
   const { colors } = useTheme();
+  const [input, onChangeInput] = useState('');
 
   return (
     <TextInput
       multiline
       underlineColorAndroid="transparent"
       numberOfLines={4}
+      //value={input}
       style={{
+        //height: 48,
         paddingHorizontal: 14,
-        paddingVertical: 14,
-        flex: 1,
-        marginTop: 5,
+        //flex: 0,
         marginHorizontal: 20,
         borderColor: colors.formBorder,
         borderWidth: 2,
         borderRadius: 12,
-        backgroundColor: colors.inputBackgroundColor,
-        color: colors.foreground,
-        textAlignVertical: 'top',
+        //backgroundColor: colors.inputBackgroundColor,
+        color: colors.buttonDisabledTextColor,
+        //textAlignVertical: 'bottom',
+        fontSize: 14,
+        fontWeight: '500',
       }}
+      //onChangeText={onChangeInput}
       autoCorrect={false}
       autoCapitalize="none"
       spellCheck={false}
       {...props}
-      selectTextOnFocus={false}
+      selectTextOnFocus={true}
+      keyboardType={Platform.OS === 'android' ? 'visible-password' : 'default'}
+    />
+  );
+};
+
+export const BlueFormInput = props => {
+  const { colors } = useTheme();
+  const [input, onChangeInput] = useState('');
+
+  return (
+    <TextInput
+      underlineColorAndroid="transparent"
+      //value={input}
+      style={{
+        height: 48,
+        paddingHorizontal: 14,
+        //flex: 0,
+        marginHorizontal: 16,
+        marginBottom: 12,
+        borderColor: colors.formBorder,
+        borderWidth: 2,
+        borderRadius: 12,
+        //backgroundColor: colors.inputBackgroundColor,
+        color: colors.buttonDisabledTextColor,
+        fontSize: 14,
+        fontWeight: '500',
+      }}
+      //onChangeText={onChangeInput}
+      autoCorrect={false}
+      autoCapitalize="none"
+      spellCheck={false}
+      {...props}
+      selectTextOnFocus={true}
       keyboardType={Platform.OS === 'android' ? 'visible-password' : 'default'}
     />
   );
@@ -505,22 +547,22 @@ export const BlueHeaderDefaultSub = props => {
   const { colors } = useTheme();
 
   return (
-    <SafeAreaView>
       <Header
-        //backgroundColor={colors.background}
+        backgroundColor={colors.background}
         leftContainerStyle={{ minWidth: '100%' }}
-        outerContainerStyles={{
-          borderBottomColor: 'transparent',
-          borderBottomWidth: 0,
-        }}
+        // outerContainerStyles={{
+        //   borderBottomColor: 'transparent',
+        //   borderBottomWidth: 0,
+        // }}
         leftComponent={
           <Text
             adjustsFontSizeToFit
             style={{
-              fontWeight: '400',
+              fontWeight: '600',
               fontSize: 24,
               color: colors.foreground,
-              marginLeft: 38,
+              //marginBottom: 24,
+              marginHorizontal: 8,
             }}
           >
             {props.leftText}
@@ -528,7 +570,6 @@ export const BlueHeaderDefaultSub = props => {
         }
         {...props}
       />
-    </SafeAreaView>
   );
 };
 

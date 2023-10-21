@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
-import { ScrollView, Alert, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { ScrollView, Alert, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, View, TextInput } from 'react-native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { colors } from 'react-native-elements';
+import { Text } from 'react-native-elements';
 
 import navigationStyle from '../../components/navigationStyle';
-import { BlueLoading, SafeBlueArea, BlueSpacing20, BlueCard, BlueListItem, BlueHeaderDefaultSub, BlueText } from '../../BlueComponents';
+import { BlueLoading, SafeBlueArea, BlueSpacing20, BlueCard, BlueListItem, BlueHeaderDefaultSub, BlueText, BlueFormLabel, BlueFormInput } from '../../BlueComponents';
 import Biometric from '../../class/biometrics';
 import loc from '../../loc';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
@@ -18,6 +18,7 @@ const EncryptStorage = () => {
   const [biometrics, setBiometrics] = useState({ isDeviceBiometricCapable: false, isBiometricsEnabled: false, biometricsType: '' });
   const [storageIsEncryptedSwitchEnabled, setStorageIsEncryptedSwitchEnabled] = useState(false);
   const { navigate, popToTop } = useNavigation();
+  const { colors } = useTheme();
   const styles = StyleSheet.create({
     root: {
       flex: 1,
@@ -142,6 +143,20 @@ const EncryptStorage = () => {
           </>
         )}
         <BlueHeaderDefaultSub leftText={loc.settings.encrypt_tstorage} rightComponent={null} />
+        <View>
+          <BlueFormLabel>
+            NEW PASSWORD
+          </BlueFormLabel>
+          <BlueFormInput>
+            New password
+          </BlueFormInput>
+          <BlueFormLabel>
+            CONFIRM PASSWORD
+          </BlueFormLabel>
+          <BlueFormInput>
+            New password
+          </BlueFormInput>
+        </View>
         <BlueListItem
           testID="EncyptedAndPasswordProtected"
           hideChevron
@@ -149,7 +164,7 @@ const EncryptStorage = () => {
           Component={TouchableWithoutFeedback}
           switch={{ onValueChange: onEncryptStorageSwitch, value: storageIsEncryptedSwitchEnabled }}
         />
-        {storageIsEncryptedSwitchEnabled && (
+        {/* {storageIsEncryptedSwitchEnabled && (
           <BlueListItem
             onPress={navigateToPlausibleDeniability}
             title={loc.settings.plausible_deniability}
@@ -157,7 +172,7 @@ const EncryptStorage = () => {
             testID="PlausibleDeniabilityButton"
             Component={TouchableOpacity}
           />
-        )}
+        )} */}
       </ScrollView>
     </SafeBlueArea>
   );
