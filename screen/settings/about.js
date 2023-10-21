@@ -24,6 +24,7 @@ const About = () => {
     copyToClipboard: {
       justifyContent: 'center',
       alignItems: 'center',
+      marginBottom: 92,
     },
     copyToClipboardText: {
       fontSize: 13,
@@ -33,11 +34,11 @@ const About = () => {
     center: {
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 54,
+      //marginTop: 54,
     },
     logo: {
-      width: 102,
-      height: 124,
+      width: 184,
+      height: 184,
     },
     textFree: {
       maxWidth: 260,
@@ -103,7 +104,7 @@ const About = () => {
     Linking.openURL('https://t.me/bluewallethat');
   };
   const handleOnGithubPress = () => {
-    Linking.openURL('https://github.com/BlueWallet/BlueWallet');
+    Linking.openURL('https://github.com/CobaltApp/Cobalt');
   };
   const handleOnRatePress = () => {
     const options = {
@@ -125,42 +126,51 @@ const About = () => {
     <ScrollView testID="AboutScrollView" contentInsetAdjustmentBehavior="automatic">
       <BlueCard>
         <View style={styles.center}>
-          <Image style={styles.logo} source={require('../../img/bluebeast.png')} />
+          <Image style={styles.logo} source={require('../../img/icons/digital_wallet.png')} />
           <Text style={styles.textFree}>{loc.settings.about_free}</Text>
-          <Text style={styles.textBackup}>{formatStringAddTwoWhiteSpaces(loc.settings.about_backup)}</Text>
+          {/* <Text style={styles.textBackup}>{formatStringAddTwoWhiteSpaces(loc.settings.about_backup)}</Text> */}
           {((Platform.OS === 'android' && hasGmsSync()) || Platform.OS !== 'android') && (
-            <BlueButton onPress={handleOnRatePress} title={loc.settings.about_review + ' ⭐🙏'} />
+            <BlueButton onPress={handleOnRatePress} title={loc.settings.about_review} />
           )}
         </View>
       </BlueCard>
       <BlueListItem
         leftIcon={{
           name: 'twitter',
-          type: 'font-awesome',
-          color: '#1da1f2',
+          type: 'feather',
+          color: colors.foreground,
         }}
         onPress={handleOnTwitterPress}
-        title={loc.settings.about_sm_twitter}
+        title='Twitter'
       />
       <BlueListItem
         leftIcon={{
           name: 'telegram',
           type: 'font-awesome',
-          color: '#0088cc',
+          color: colors.foreground,
         }}
         onPress={handleOnTelegramPress}
-        title={loc.settings.about_sm_telegram}
+        title='Telegram'
       />
       <BlueListItem
         leftIcon={{
           name: 'discord',
           type: 'font-awesome-5',
-          color: '#7289da',
+          color: colors.foreground,
         }}
         onPress={handleOnDiscordPress}
-        title={loc.settings.about_sm_discord}
+        title='Discord'
       />
-      <BlueCard>
+      <BlueListItem
+        leftIcon={{
+          name: 'github',
+          type: 'feather',
+          color: colors.foreground,
+        }}
+        onPress={handleOnGithubPress}
+        title="Github"
+      />
+      {/* <BlueCard>
         <View style={styles.buildWith}>
           <BlueSpacing20 />
 
@@ -177,28 +187,28 @@ const About = () => {
             <Text style={styles.textLink}>{formatStringAddTwoWhiteSpaces(loc.settings.about_sm_github)}</Text>
           </TouchableOpacity>
         </View>
-      </BlueCard>
-      <BlueListItem
+      </BlueCard> */}
+      {/* <BlueListItem
         leftIcon={{
           name: 'book',
-          type: 'font-awesome',
-          color: '#9AA0AA',
+          type: 'feather',
+          color: colors.foreground,
         }}
         chevron
         onPress={handleOnReleaseNotesPress}
         title={loc.settings.about_release_notes}
-      />
+      /> */}
       <BlueListItem
         leftIcon={{
-          name: 'balance-scale',
-          type: 'font-awesome',
+          name: 'book-open',
+          type: 'feather',
           color: colors.foreground,
         }}
-        chevron
+        //chevron
         onPress={handleOnLicensingPress}
         title={loc.settings.about_license}
       />
-      <BlueListItem
+      {/* <BlueListItem
         leftIcon={{
           name: 'flask',
           type: 'font-awesome',
@@ -208,8 +218,8 @@ const About = () => {
         onPress={handleOnSelfTestPress}
         testID="RunSelfTestButton"
         title={loc.settings.about_selftest}
-      />
-      <BlueListItem
+      /> */}
+      {/* <BlueListItem
         leftIcon={{
           name: 'flask',
           type: 'font-awesome',
@@ -233,17 +243,17 @@ const About = () => {
           Alert.alert(loc.formatString(loc.settings.performance_score, { num }));
         }}
         title={loc.settings.run_performance_test}
-      />
+      /> */}
       <BlueSpacing20 />
       <BlueSpacing20 />
       <BlueTextCentered>
         {getApplicationName()} ver {getVersion()} (build {getBuildNumber() + ' ' + branch})
       </BlueTextCentered>
-      <BlueTextCentered>{new Date(getBuildNumber() * 1000).toGMTString()}</BlueTextCentered>
+      {/* <BlueTextCentered>{new Date(getBuildNumber() * 1000).toGMTString()}</BlueTextCentered> */}
       <BlueTextCentered>{getBundleId()}</BlueTextCentered>
-      <BlueTextCentered>
+      {/* <BlueTextCentered>
         w, h = {width}, {height}
-      </BlueTextCentered>
+      </BlueTextCentered> */}
       <BlueTextCentered>Unique ID: {getUniqueId()}</BlueTextCentered>
       <View style={styles.copyToClipboard}>
         <TouchableOpacity

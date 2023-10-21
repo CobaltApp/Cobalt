@@ -368,7 +368,7 @@ const styleCopyTextToClipboard = StyleSheet.create({
 export const SafeBlueArea = props => {
   const { style, ...nonStyleProps } = props;
   const { colors } = useTheme();
-  const baseStyle = { flex: 1, backgroundColor: colors.background };
+  const baseStyle = { flex: 1, backgroundColor: '#F8F8F9' };
   return <SafeAreaView forceInset={{ horizontal: 'always' }} style={[baseStyle, style]} {...nonStyleProps} />;
 };
 
@@ -392,9 +392,9 @@ export const BlueListItem = React.memo(props => {
 
   return (
     <ListItem
-      containerStyle={props.containerStyle ?? { backgroundColor: 'transparent' }}
+      containerStyle={props.containerStyle ?? { backgroundColor: 'transparent', height: 48 }}
       Component={props.Component ?? TouchableOpacity}
-      bottomDivider={props.bottomDivider !== undefined ? props.bottomDivider : true}
+      //bottomDivider={props.bottomDivider !== undefined ? props.bottomDivider : true}
       topDivider={props.topDivider !== undefined ? props.topDivider : false}
       testID={props.testID}
       onPress={props.onPress}

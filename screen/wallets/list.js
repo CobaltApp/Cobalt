@@ -560,10 +560,11 @@ const WalletsList = () => {
 };
 
 export default WalletsList;
-WalletsList.navigationOptions = navigationStyle({}, opts => ({ ...opts, headerTitle: '', headerBackTitle: loc.wallets.list_title }));
+WalletsList.navigationOptions = navigationStyle({headerShown: false});
 
 const styles = StyleSheet.create({
   root: {
+    //marginTop: -40,
     flex: 1,
   },
   scrollContent: {

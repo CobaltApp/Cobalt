@@ -7,6 +7,7 @@ import { BlueListItem, BlueHeaderDefaultSub, BlueText, BlueCard, SafeBlueArea } 
 import loc from '../../loc';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
 import { Icon } from 'react-native-elements';
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
 const styles = StyleSheet.create({
   root: {
@@ -28,7 +29,7 @@ const Settings = () => {
   return (
     <SafeBlueArea>
       <BlueCard>
-      <View
+      {/* <View
         style={{
           flexDirection: 'row',
           marginBottom: 44,
@@ -57,21 +58,31 @@ const Settings = () => {
             marginTop: 13,
           }}
         >
-          Discover
+          Settings
         </BlueText>
-      </View>
+      </View> */}
       <View
           style={{
-            flexDirection: 'column',
-            alignSelf: 'center',
+            flexDirection: 'row',
+            //alignSelf: 'center',
             alignItems: 'center',
-            marginBottom: 40,
+            //marginBottom: 40,
+            marginLeft: 4,
+            marginBottom: 60,
+            padding: 16,
+            backgroundColor: '#FFFFFF',
+            borderRadius: 12,
           }}
         >
           <Image
-            source={require('../../img/avatar-01.png')}
-            style={{ width: 75, height: 75, borderRadius: 30, marginBottom: 26, backgroundColor: colors.foregroundInactive}}
+            source={require('../../img/profile.png')}
+            style={{ width: 52, height: 52, borderRadius: 26, backgroundColor: colors.secondary}}
           />
+          <View
+            style={{
+              marginLeft: 16,
+            }}
+          >
           <BlueText
             style={{
               fontWeight: '700',
@@ -79,7 +90,7 @@ const Settings = () => {
               color: colors.foreground,
             }}
           >
-            Clifford Hale
+            Breanne Schinner
           </BlueText>
           <BlueText
             style={{
@@ -88,10 +99,15 @@ const Settings = () => {
               color: colors.foreground,
             }}
           >
-            ID: 54FSD545C
+            schinner@ui8.net
           </BlueText>
-        </View>
-        <View>
+          </View>
+          </View>
+        <View
+          style={{
+            marginLeft: 24,
+          }}
+        >
         <BlueListItem leftIcon={{ name: 'user', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.general} onPress={() => navigate('GeneralSettings')} testID="GeneralSettings" />
         <BlueListItem leftIcon={{ name: 'dollar-sign', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.currency} onPress={() => navigate('Currency')} testID="Currency" />
         <BlueListItem leftIcon={{ name: 'globe', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.language} onPress={() => navigate('Language')} testID="Language" />
@@ -99,14 +115,14 @@ const Settings = () => {
         <BlueListItem leftIcon={{ name: 'share-2', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.network} onPress={() => navigate('NetworkSettings')} testID="NetworkSettings" />
         <BlueListItem leftIcon={{ name: 'tool', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" />
         <BlueListItem leftIcon={{ name: 'info', size: 22, type: 'feather', color: colors.foreground }} title={loc.settings.about} onPress={() => navigate('About')} testID="AboutButton" />
-    </View>
-    </BlueCard>
+      </View>
+      </BlueCard>
     </SafeBlueArea>
   );
 };
 
 export default Settings;
 Settings.navigationOptions = navigationStyle({
-  headerTitle: '',
-  headerLargeTitle: true,
+  headerShown: false,
+  //headerLargeTitle: true,
 });

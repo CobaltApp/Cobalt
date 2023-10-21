@@ -121,7 +121,7 @@ function TabNavigator(props) {
     >
       <Tab.Screen 
         name="Home"
-        component={WalletsList}
+        component={WalletsRoot}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -188,12 +188,12 @@ function TabNavigator(props) {
       />
       <Tab.Screen
         name="Settings"
-        component={Settings}
+        component={SettingsRoot}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Image
-                source={require('./img/icons/profile_picture.png')}
+                source={require('./img/profile.png')}
                 style={{
                   width: 24,
                   height: 24,
@@ -271,9 +271,8 @@ const sendButtonLongPress = async () => {
 
 const WalletsRoot = () => {
   const theme = useTheme();
-
   return (
-    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: false, }}>
+    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true, }}>
       <WalletsStack.Screen name="WalletsList" component={WalletsList} options={WalletsList.navigationOptions(theme)} />
       <WalletsStack.Screen name="WalletTransactions" component={WalletTransactions} options={WalletTransactions.navigationOptions(theme)} />
       <WalletsStack.Screen name="LdkOpenChannel" component={LdkOpenChannel} options={LdkOpenChannel.navigationOptions(theme)} />
@@ -285,6 +284,14 @@ const WalletsRoot = () => {
       <WalletsStack.Screen name="CPFP" component={CPFP} options={CPFP.navigationOptions(theme)} />
       <WalletsStack.Screen name="RBFBumpFee" component={RBFBumpFee} options={RBFBumpFee.navigationOptions(theme)} />
       <WalletsStack.Screen name="RBFCancel" component={RBFCancel} options={RBFCancel.navigationOptions(theme)} />
+    </WalletsStack.Navigator>
+  );
+};
+
+const SettingsRoot = () => {
+  const theme = useTheme();
+  return (
+    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true }}>
       <WalletsStack.Screen name="Settings" component={Settings} options={Settings.navigationOptions(theme)} />
       <WalletsStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
       <WalletsStack.Screen name="Currency" component={Currency} options={Currency.navigationOptions(theme)} />
@@ -535,7 +542,7 @@ const DrawerRoot = () => {
       drawerContent={drawerContent}
       drawerPosition={I18nManager.isRTL ? 'right' : 'left'}
     >
-      <Drawer.Screen name="Navigation" component={Navigation} options={{ headerShown: false, gestureEnabled: false }} />
+      <Drawer.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false, gestureEnabled: false }} />
     </Drawer.Navigator>
   );
 };

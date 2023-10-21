@@ -108,7 +108,8 @@ const IsItMyAddress = () => {
             <BlueSpacing10 />
             <BlueButtonLink ref={scanButtonRef} title={loc.wallets.import_scan_qr} onPress={importScan} />
             <BlueSpacing10 />
-            <BlueButton title={loc.send.input_clear} onPress={clearAddressInput} />
+            <BlueButton title={loc.send.input_clear} onPress={clearAddressInput} 
+            />
             <BlueSpacing20 />
             {resultCleanAddress && (
               <>
