@@ -55,6 +55,11 @@ const WalletsList = () => {
   const dataSource = getTransactions(null, 3);
   const walletsCount = useRef(wallets.length);
   const walletActionButtonsRef = useRef();
+
+  const { walletID } = useRoute();
+  const wallet = useRef(wallets.find(w => w.getID() === walletID)).current;
+
+ 
   
 
   const stylesHook = StyleSheet.create({
@@ -87,7 +92,11 @@ const WalletsList = () => {
       walletsCarousel.current?.scrollToItem({ item: false });
     }
     walletsCount.current = wallets.length;
-  }, [wallets]);
+
+    if (wallets.some(w => w.getID() === walletID)) {
+      setSelectedWallet(walletID);
+    }
+  }, [wallets, walletID]);
 
   const verifyBalance = () => {
     if (getBalance() !== 0) {
@@ -464,8 +473,28 @@ const WalletsList = () => {
     scanqrHelper(navigate, routeName, false).then(onBarScanned);
   };
 
-  const onReceiveButtonPressed = () => {
-    navigate('ReceiveDetails');
+  const menuRef = useRef();
+  const onReceiveButtonPressed = item => {
+    menuRef.current?.dismissMenu();
+    navigate('ReceiveDetailsRoot', {
+      screen: 'ReceiveDetails',
+      params: {
+        walletID,
+        address: item.address,
+      },
+    });
+    // if (item?.getID) {
+    //   const walletID = item.getID();
+      // navigate('Root', {
+      //   screen: 'ReceiveDetails',
+      //   params: {
+      //     walletID,
+      //     address: data.item.address,
+      //   },
+      // });
+    // } else {
+      
+    // }
   };
 
   const onBarScanned = value => {

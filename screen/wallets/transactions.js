@@ -547,7 +547,7 @@ const WalletTransactions = ({ navigation }) => {
           renderItem={renderItem}
           initialNumToRender={10}
           removeClippedSubviews
-          contentInset={{ top: 0, left: 0, bottom: 90, right: 0 }}
+          contentInset={{ top: 0, left: 0, bottom: 92, right: 0 }}
         />
       </View>
 

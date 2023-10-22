@@ -115,8 +115,8 @@ function TabNavigator(props) {
         tabBarStyle: { position: 'absolute', height: 92, borderTopWidth: 0 }, 
         //activeTintColor: colors.foreground,
         //inactiveTintColor: '#ffffff',
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: '#ffffff',
+        //tabBarActiveTintColor: colors.primary,
+        //tabBarInactiveTintColor: '#ffffff',
       }}
     >
       <Tab.Screen 
@@ -126,9 +126,9 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.buttonDisabledTextColor }
+              color={ focused ? colors.foreground : colors.inputBorderColor }
               name="home"
-              type="feather" 
+              type="feather"
               width={24}
               height={24}
             />
@@ -142,9 +142,9 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.buttonDisabledTextColor }
+              color={ focused ? colors.foreground : colors.inputBorderColor }
               name="search"
-              type="feather" 
+              type="feather"
               width={24}
               height={24}
             />
@@ -177,7 +177,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.buttonDisabledTextColor }
+              color={ focused ? colors.foreground : colors.inputBorderColor }
               name="shopping-bag"
               type="feather" 
               width={24}
@@ -272,8 +272,10 @@ const sendButtonLongPress = async () => {
 const WalletsRoot = () => {
   const theme = useTheme();
   return (
-    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true, }}>
+    <WalletsStack.Navigator name="Root" screenOptions={{ headerHideShadow: true, headerShown: true, }}>
       <WalletsStack.Screen name="WalletsList" component={WalletsList} options={WalletsList.navigationOptions(theme)} />
+      {/* <WalletsStack.Screen name="ReceiveDetails" component={ReceiveDetails} options={ReceiveDetails.navigationOptions(theme)} /> */}
+      <WalletsStack.Screen name="ReceiveDetailsRoot" component={ReceiveDetailsStackRoot} options={NavigationDefaultOptions} />
       <WalletsStack.Screen name="WalletTransactions" component={WalletTransactions} options={WalletTransactions.navigationOptions(theme)} />
       <WalletsStack.Screen name="LdkOpenChannel" component={LdkOpenChannel} options={LdkOpenChannel.navigationOptions(theme)} />
       <WalletsStack.Screen name="LdkInfo" component={LdkInfo} options={LdkInfo.navigationOptions(theme)} />
@@ -284,6 +286,7 @@ const WalletsRoot = () => {
       <WalletsStack.Screen name="CPFP" component={CPFP} options={CPFP.navigationOptions(theme)} />
       <WalletsStack.Screen name="RBFBumpFee" component={RBFBumpFee} options={RBFBumpFee.navigationOptions(theme)} />
       <WalletsStack.Screen name="RBFCancel" component={RBFCancel} options={RBFCancel.navigationOptions(theme)} />
+      <WalletsStack.Screen name="WalletAddresses" component={WalletAddresses} options={WalletAddresses.navigationOptions(theme)} />
     </WalletsStack.Navigator>
   );
 };
@@ -343,7 +346,6 @@ const SettingsRoot = () => {
           gestureEnabled: false,
         }}
       />
-      <WalletsStack.Screen name="WalletAddresses" component={WalletAddresses} options={WalletAddresses.navigationOptions(theme)} />
     </WalletsStack.Navigator>
   );
 };
@@ -695,7 +697,7 @@ const Navigation = () => {
       <RootStack.Screen name="WalletXpubRoot" component={WalletXpubStackRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="SignVerifyRoot" component={SignVerifyStackRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="SelectWallet" component={SelectWallet} />
-      <RootStack.Screen name="ReceiveDetailsRoot" component={ReceiveDetailsStackRoot} options={NavigationDefaultOptions} />
+      {/* <RootStack.Screen name="ReceiveDetailsRoot" component={ReceiveDetailsStackRoot} options={NavigationDefaultOptions} /> */}
       <RootStack.Screen name="LappBrowserRoot" component={LappBrowserStackRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="LDKOpenChannelRoot" component={LDKOpenChannelRoot} options={NavigationDefaultOptions} />
 

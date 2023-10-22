@@ -527,7 +527,7 @@ const WalletDetails = () => {
                   />
                 </View>
               </KeyboardAvoidingView>
-              <BlueSpacing20 />
+              {/* <BlueSpacing20 /> */}
               <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.details_type.toLowerCase()}</Text>
               <Text style={[styles.textValue, stylesHook.textValue]}>{wallet.typeReadable}</Text>
 
@@ -573,7 +573,7 @@ const WalletDetails = () => {
                   <BlueText>{wallet.getIdentityPubkey()}</BlueText>
                 </>
               )}
-              <BlueSpacing20 />
+              {/* <BlueSpacing20 /> */}
               <>
                 <Text onPress={exportInternals} style={[styles.textLabel2, stylesHook.textLabel2]}>
                   {loc.transactions.list_title.toLowerCase()}
@@ -603,7 +603,7 @@ const WalletDetails = () => {
               <View>
                 {wallet.type === WatchOnlyWallet.type && wallet.isHd() && (
                   <>
-                    <BlueSpacing10 />
+                    {/* <BlueSpacing10 /> */}
                     <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.details_advanced.toLowerCase()}</Text>
                     <View style={styles.hardware}>
                       <BlueText>{loc.wallets.details_use_with_hardware_wallet}</BlueText>
@@ -638,17 +638,17 @@ const WalletDetails = () => {
             {wallet.allowBIP47() && isBIP47Enabled && <BlueListItem onPress={navigateToPaymentCodes} title="Show payment codes" chevron />}
             <BlueCard style={styles.address}>
               <View>
-                <BlueSpacing20 />
+                {/* <BlueSpacing20 /> */}
                 <SecondButton onPress={navigateToWalletExport} testID="WalletExport" title={loc.wallets.details_export_backup} />
                 {walletTransactionsLength > 0 && (
                   <>
-                    <BlueSpacing20 />
+                    {/* <BlueSpacing20 /> */}
                     <SecondButton onPress={onExportHistoryPressed} title={loc.wallets.details_export_history} />
                   </>
                 )}
                 {wallet.type === MultisigHDWallet.type && (
                   <>
-                    <BlueSpacing20 />
+                    {/* <BlueSpacing20 /> */}
                     <SecondButton
                       onPress={navigateToMultisigCoordinationSetup}
                       testID="MultisigCoordinationSetup"
@@ -659,7 +659,7 @@ const WalletDetails = () => {
 
                 {wallet.type === MultisigHDWallet.type && (
                   <>
-                    <BlueSpacing20 />
+                    {/* <BlueSpacing20 /> */}
                     <SecondButton
                       onPress={navigateToViewEditCosigners}
                       testID="ViewEditCosigners"
@@ -670,24 +670,24 @@ const WalletDetails = () => {
 
                 {wallet.allowXpub() && (
                   <>
-                    <BlueSpacing20 />
+                    {/* <BlueSpacing20 /> */}
                     <SecondButton onPress={navigateToXPub} testID="XPub" title={loc.wallets.details_show_xpub} />
                   </>
                 )}
                 {wallet.allowSignVerifyMessage() && (
                   <>
-                    <BlueSpacing20 />
+                    {/* <BlueSpacing20 /> */}
                     <SecondButton onPress={navigateToSignVerify} testID="SignVerify" title={loc.addresses.sign_title} />
                   </>
                 )}
                 {wallet.type === LightningLdkWallet.type && (
                   <>
-                    <BlueSpacing20 />
+                    {/* <BlueSpacing20 /> */}
                     <SecondButton onPress={navigateToLdkViewLogs} testID="LdkLogs" title={loc.lnd.view_logs} />
                   </>
                 )}
-                <BlueSpacing20 />
-                <BlueSpacing20 />
+                {/* <BlueSpacing20 />
+                <BlueSpacing20 /> */}
                 <TouchableOpacity accessibilityRole="button" onPress={handleDeleteButtonTapped} testID="DeleteButton">
                   <Text textBreakStrategy="simple" style={styles.delete}>{`${loc.wallets.details_delete}${'  '}`}</Text>
                 </TouchableOpacity>
