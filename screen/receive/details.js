@@ -252,7 +252,7 @@ const ReceiveDetails = () => {
 
   const renderReceiveDetails = () => {
     return (
-      <ScrollView contentContainerStyle={[styles.root, stylesHook.root]} keyboardShouldPersistTaps="always">
+      <View contentContainerStyle={[styles.root, stylesHook.root]} keyboardShouldPersistTaps="always">
         <View style={styles.scrollBody}>
           {isCustom && (
             <>
@@ -284,7 +284,7 @@ const ReceiveDetails = () => {
           </BlueCard>
         </View>
         {renderCustomAmountModal()}
-      </ScrollView>
+      </View>
     );
   };
 
@@ -417,7 +417,6 @@ const ReceiveDetails = () => {
                 testID="CustomAmountDescription"
               />
             </View>
-            <BlueSpacing20 />
             <View>
               <BlueButton
                 testID="CustomAmountSaveButton"
@@ -425,9 +424,7 @@ const ReceiveDetails = () => {
                 title={loc.receive.details_create}
                 onPress={createCustomAmountAddress}
               />
-              <BlueSpacing20 />
             </View>
-            <BlueSpacing20 />
           </View>
         </KeyboardAvoidingView>
       </BottomModal>
@@ -504,12 +501,11 @@ const styles = StyleSheet.create({
   },
   share: {
     justifyContent: 'flex-end',
-    paddingVertical: 16,
     alignItems: 'center',
     marginBottom: 8,
   },
   link: {
-    marginVertical: 16,
+    marginBottom: 16,
     paddingHorizontal: 32,
   },
   amount: {
@@ -520,10 +516,8 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: '700',
     textAlign: 'center',
-    paddingBottom: 24,
   },
   modalButton: {
-    paddingVertical: 14,
     paddingHorizontal: 70,
     maxWidth: '80%',
     borderRadius: 50,
@@ -532,7 +526,6 @@ const styles = StyleSheet.create({
   customAmountText: {
     flex: 1,
     marginHorizontal: 8,
-    minHeight: 33,
   },
 });
 

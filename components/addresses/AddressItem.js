@@ -20,13 +20,14 @@ const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) =>
       backgroundColor: colors.background,
     },
     list: {
-      color: colors.foreground,
+      color: colors.border,
     },
     index: {
       color: colors.foreground,
     },
     balance: {
       color: colors.foreground,
+      fontSize: 14,
     },
     address: {
       color: hasTransactions ? colors.border : colors.foreground,
@@ -124,11 +125,13 @@ const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) =>
               <Text style={[stylesHook.list, styles.balance, stylesHook.balance]}>{balance}</Text>
             </View>
           </ListItem.Content>
-          <View style={styles.labels}>
+          <View style={{
+            marginBottom: 24,
+          }}>
             <AddressTypeBadge isInternal={item.isInternal} hasTransactions={hasTransactions} />
-            <Text style={[stylesHook.list, styles.balance, stylesHook.balance]}>
+            {/* <Text style={[stylesHook.list, styles.balance, stylesHook.balance]}>
               {loc.addresses.transactions}: {item.transactions}
-            </Text>
+            </Text> */}
           </View>
         </ListItem>
       </TooltipMenu>
@@ -161,11 +164,12 @@ AddressItem.actionIcons = {
 
 const styles = StyleSheet.create({
   address: {
-    fontWeight: 'bold',
+    fontWeight: '500',
+    fontSize: 16,
     marginHorizontal: 40,
   },
   index: {
-    fontSize: 15,
+    fontSize: 14,
   },
   balance: {
     marginTop: 8,

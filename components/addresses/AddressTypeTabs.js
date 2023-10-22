@@ -13,18 +13,17 @@ const AddressTypeTabs = ({ currentTab, setCurrentTab }) => {
 
   const stylesHook = StyleSheet.create({
     activeTab: {
-      backgroundColor: colors.modal,
+      backgroundColor: colors.lightButton,
     },
     activeText: {
-      fontWeight: 'bold',
+      fontWeight: '700',
+      fontSize: 14,
       color: colors.foreground,
     },
     inactiveTab: {
-      fontWeight: 'normal',
-      color: colors.foreground,
-    },
-    backTabs: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      fontWeight: '700',
+      fontSize: 14,
+      color: colors.buttonDisabledTextColor,
     },
   });
 
@@ -60,7 +59,7 @@ const AddressTypeTabs = ({ currentTab, setCurrentTab }) => {
 
     return (
       <View style={styles.container}>
-        <View style={[stylesHook.backTabs, styles.backTabs]}>
+        <View style={[styles.backTabs]}>
           <View style={styles.tabs}>{tabsButtons}</View>
         </View>
       </View>
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
   },
   backTabs: {
     padding: 4,
-    marginVertical: 8,
+    marginBottom: 16,
     borderRadius: 8,
   },
   tabs: {
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tab: {
-    borderRadius: 6,
+    borderRadius: 16,
     paddingVertical: 8,
     paddingHorizontal: 16,
   },

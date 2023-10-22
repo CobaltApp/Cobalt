@@ -83,7 +83,7 @@ const Notifications = () => {
                 >
                     <View>
                         <Image 
-                            source={require('../img/avatar-01.png')}
+                            source={require('../img/profile.png')}
                             style={{ width: 40, height: 40, borderRadius: 15, backgroundColor: colors.background}}
                         />
                     </View>

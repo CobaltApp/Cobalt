@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 12,
     textAlign: 'center',
+    fontWeight: 700,
   },
 });
 
@@ -21,12 +22,12 @@ const AddressTypeBadge = ({ isInternal, hasTransactions }) => {
   const { colors } = useTheme();
 
   const stylesHook = StyleSheet.create({
-    changeBadge: { backgroundColor: colors.changeBackground },
-    receiveBadge: { backgroundColor: colors.receiveBackground },
+    changeBadge: { backgroundColor: colors.lightning },
+    receiveBadge: { backgroundColor: colors.positive },
     usedBadge: { backgroundColor: colors.buttonDisabledBackgroundColor },
-    changeText: { color: colors.lightning },
-    receiveText: { color: colors.positive },
-    usedText: { color: colors.border },
+    changeText: { color: colors.background },
+    receiveText: { color: colors.background },
+    usedText: { color: colors.background },
   });
 
   const badgeLabel = hasTransactions
