@@ -369,12 +369,13 @@ const styleCopyTextToClipboard = StyleSheet.create({
 export const SafeBlueArea = props => {
   const { style, ...nonStyleProps } = props;
   const { colors } = useTheme();
-  const baseStyle = { flex: 1, backgroundColor: '#F8F8F9'};
+  const baseStyle = { flex: 1, backgroundColor: colors.modal, paddingVertical: 32, paddingHorizontal: 25,};
   return <SafeAreaView forceInset={{ horizontal: 'always' }} style={[baseStyle, style]} {...nonStyleProps} />;
 };
 
 export const BlueCard = props => {
-  return <View {...props} style={{ padding: 20 }} />;
+  const { colors } = useTheme();
+  return <View {...props} style={{ flex: 1, backgroundColor: colors.modal, paddingVertical: 32, paddingHorizontal: 25, }} />;
 };
 
 export const BlueText = props => {
@@ -582,19 +583,19 @@ export const BlueHeaderDefaultMain = props => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: isDrawerList ? colors.background : colors.background,
-        paddingHorizontal: 16,
-        borderTopColor: isDrawerList ? colors.background : colors.background,
-        borderBottomColor: isDrawerList ? colors.background : colors.background,
-        marginBottom: 8,
-        marginTop: 24,
+        //backgroundColor: isDrawerList ? colors.background : colors.background,
+        //paddingHorizontal: 25,
+        //borderTopColor: isDrawerList ? colors.background : colors.background,
+        //borderBottomColor: isDrawerList ? colors.background : colors.background,
+        marginBottom: 15,
+        //marginTop: 32,
       }}
     >
       <Text
         style={{
           textAlign: 'left',
-          fontWeight: '700',
-          fontSize: 22,
+          fontWeight: '600',
+          fontSize: 32,
           color: colors.foreground,
         }}
       >

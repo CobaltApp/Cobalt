@@ -57,53 +57,56 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textLabel1: {
-    fontWeight: '500',
-    fontSize: 14,
-    marginVertical: 12,
+    fontWeight: '700',
+    fontSize: 12,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+    marginBottom: 12,
   },
   textLabel2: {
     fontWeight: '500',
     fontSize: 14,
-    marginVertical: 16,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   textValue: {
     fontWeight: '500',
     fontSize: 14,
+    //marginBottom: 12,
   },
   input: {
     flexDirection: 'row',
-    borderWidth: 1,
-    borderBottomWidth: 0.5,
-    minHeight: 44,
-    height: 44,
+    borderWidth: 2,
+    minHeight: 48,
+    height: 48,
     alignItems: 'center',
-    borderRadius: 4,
+    borderRadius: 12,
+    marginBottom: 24,
   },
   inputText: {
     flex: 1,
     marginHorizontal: 8,
     minHeight: 33,
-    color: '#81868e',
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   hardware: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: -8,
+    marginBottom: 18,
   },
   delete: {
-    color: '#d0021b',
-    fontSize: 15,
-    fontWeight: '500',
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: '700',
     textAlign: 'center',
+  },
+  column: {
+    flexDirection: 'column',
   },
   row: {
     flexDirection: 'row',
-  },
-  marginRight16: {
-    marginRight: 16,
+    justifyContent: 'space-between',
+    marginBottom: 24,
   },
   save: {
     alignItems: 'center',
@@ -154,18 +157,17 @@ const WalletDetails = () => {
   }, [isAdvancedModeEnabledRender, wallet]);
   const stylesHook = StyleSheet.create({
     textLabel1: {
-      color: colors.border,
+      color: colors.inputBorderColor,
     },
     textLabel2: {
-      color: colors.border,
+      color: colors.foreground,
     },
     textValue: {
-      color: colors.foreground,
+      color: colors.border,
     },
     input: {
       borderColor: colors.formBorder,
       borderBottomColor: colors.formBorder,
-
       backgroundColor: colors.inputBackgroundColor,
     },
     save: {
@@ -497,7 +499,6 @@ const WalletDetails = () => {
           <View>
             <BlueCard style={styles.address}>
               <StatusBar barStyle="default" />
-
               {(() => {
                 if (
                   [LegacyWallet.type, SegwitBech32Wallet.type, SegwitP2SHWallet.type].includes(wallet.type) ||
@@ -511,7 +512,7 @@ const WalletDetails = () => {
                   );
                 }
               })()}
-              <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.add_wallet_name.toLowerCase()}</Text>
+              <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.add_wallet_name.toUpperCase()}</Text>
               <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
                 <View style={[styles.input, stylesHook.input]}>
                   <TextInput
@@ -519,8 +520,16 @@ const WalletDetails = () => {
                     onChangeText={setWalletName}
                     onBlur={walletNameTextInputOnBlur}
                     numberOfLines={1}
-                    placeholderTextColor="#81868e"
-                    style={styles.inputText}
+                    placeholderTextColor={colors.border}
+                    style={{
+                      flex: 1,
+                      marginHorizontal: 8,
+                      minHeight: 33,
+                      writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+                      color: colors.border,
+                      fontSize: 14,
+                      fontWeight: '500',
+                    }}
                     editable={!isLoading}
                     underlineColorAndroid="transparent"
                     testID="WalletNameInput"
@@ -528,9 +537,10 @@ const WalletDetails = () => {
                 </View>
               </KeyboardAvoidingView>
               {/* <BlueSpacing20 /> */}
-              <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.details_type.toLowerCase()}</Text>
-              <Text style={[styles.textValue, stylesHook.textValue]}>{wallet.typeReadable}</Text>
-
+              <View style={styles.row}>
+                <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.details_type}</Text>
+                <Text style={[styles.textValue, stylesHook.textValue]}>{wallet.typeReadable}</Text>
+              </View>
               {wallet.type === LightningLdkWallet.type && (
                 <>
                   <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.identity_pubkey}</Text>
@@ -562,34 +572,29 @@ const WalletDetails = () => {
 
               {wallet.type === LightningCustodianWallet.type && (
                 <>
-                  <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.details_connected_to.toLowerCase()}</Text>
+                  <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.details_connected_to}</Text>
                   <BlueText>{wallet.getBaseURI()}</BlueText>
                 </>
               )}
 
               {wallet.type === HDAezeedWallet.type && (
                 <>
-                  <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.identity_pubkey.toLowerCase()}</Text>
+                  <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.identity_pubkey}</Text>
                   <BlueText>{wallet.getIdentityPubkey()}</BlueText>
                 </>
               )}
               {/* <BlueSpacing20 /> */}
-              <>
-                <Text onPress={exportInternals} style={[styles.textLabel2, stylesHook.textLabel2]}>
-                  {loc.transactions.list_title.toLowerCase()}
-                </Text>
-                <View style={styles.hardware}>
-                  <BlueText onPress={() => setBackdoorBip47Pressed(prevState => prevState + 1)}>{loc.wallets.details_display}</BlueText>
-                  <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} />
-                </View>
-              </>
-              <>
+              
+              <View style={styles.row}>
                 <Text onPress={purgeTransactions} style={[styles.textLabel2, stylesHook.textLabel2]}>
-                  {loc.transactions.transactions_count.toLowerCase()}
+                  {loc.transactions.transactions_count}
                 </Text>
-                <BlueText>{wallet.getTransactions().length}</BlueText>
-              </>
-
+                <BlueText style={[styles.textValue, stylesHook.textValue]}>{wallet.getTransactions().length}</BlueText>
+              </View>
+              <View style={styles.hardware}>
+                <BlueText style={[styles.textLabel2, stylesHook.textLabel2]} onPress={() => setBackdoorBip47Pressed(prevState => prevState + 1)}>{loc.wallets.details_display}</BlueText>
+                <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{false: '#E6E8EC', true: '#3772FF'}}/>
+              </View>
               {backdoorBip47Pressed >= 10 && wallet.allowBIP47() ? (
                 <>
                   <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.bip47.payment_code}</Text>
@@ -612,20 +617,19 @@ const WalletDetails = () => {
                   </>
                 )}
                 {isAdvancedModeEnabledRender && (
-                  <View style={styles.row}>
+                  <View style={styles.column}>
                     {wallet.allowMasterFingerprint() && (
-                      <View style={styles.marginRight16}>
+                      <View style={styles.row}>
                         <Text style={[styles.textLabel2, stylesHook.textLabel2]}>
-                          {loc.wallets.details_master_fingerprint.toLowerCase()}
+                          {loc.wallets.details_master_fingerprint}
                         </Text>
-                        <BlueText>{masterFingerprint ?? <ActivityIndicator />}</BlueText>
+                        <BlueText style={[styles.textValue, stylesHook.textValue]}>{masterFingerprint ?? <ActivityIndicator />}</BlueText>
                       </View>
                     )}
-
                     {derivationPath && (
-                      <View>
+                      <View style={styles.row}>
                         <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.details_derivation_path}</Text>
-                        <BlueText testID="DerivationPath">{derivationPath}</BlueText>
+                        <BlueText style={[styles.textValue, stylesHook.textValue]} testID="DerivationPath">{derivationPath}</BlueText>
                       </View>
                     )}
                   </View>
@@ -688,7 +692,17 @@ const WalletDetails = () => {
                 )}
                 {/* <BlueSpacing20 />
                 <BlueSpacing20 /> */}
-                <TouchableOpacity accessibilityRole="button" onPress={handleDeleteButtonTapped} testID="DeleteButton">
+                <TouchableOpacity accessibilityRole="button" onPress={handleDeleteButtonTapped} testID="DeleteButton"
+                  style={{
+                    backgroundColor: colors.negative,
+                    padding: 8,
+                    minHeight: 45,
+                    borderRadius: 25,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexGrow: 1,
+                  }}
+                >
                   <Text textBreakStrategy="simple" style={styles.delete}>{`${loc.wallets.details_delete}${'  '}`}</Text>
                 </TouchableOpacity>
               </View>

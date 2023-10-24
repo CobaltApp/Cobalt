@@ -88,11 +88,11 @@ NewWalletPanel.propTypes = {
 };
 
 const iStyles = StyleSheet.create({
-  root: { paddingRight: 20 },
+  root: { paddingRight: 20, },
   rootLargeDevice: { marginVertical: 20 },
   grad: {
-    padding: 24,
-    borderRadius: 12,
+    padding: 20,
+    borderRadius: 25, //12
     minHeight: 194,
     elevation: 5,
   },
@@ -113,10 +113,10 @@ const iStyles = StyleSheet.create({
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   balance: {
-    marginTop: 4,
+    marginTop: 6,
     backgroundColor: 'transparent',
-    fontWeight: 700,
-    fontSize: 32,
+    fontWeight: 500,
+    fontSize: 28,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   latestTx: {
@@ -200,10 +200,18 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
           onPressedOut();
         }}
       >
-        <View backgroundColor={WalletGradient.gradientsFor(item.type)} style={iStyles.grad}>
-          <Image source={image} style={iStyles.image} />
-          <Text numberOfLines={1} style={[iStyles.label, { color: colors.background }]}>
+        {/* backgroundColor={WalletGradient.gradientsFor(item.type)} */}
+        <View backgroundColor={'#ffffff66'} style={iStyles.grad}>
+          {/* <Image source={image} style={iStyles.image} /> */}
+          {/* <Text numberOfLines={1} style={[iStyles.label, { color: colors.background }]}>
             {item.getLabel()}
+          </Text> */}
+          <Text numberOfLines={1} style={{
+            fontSize: 14,
+            fontWeight: 600,
+            color: colors.background,
+          }}>
+            Total Balance
           </Text>
           {item.hideBalance ? (
             <BluePrivateBalance />
@@ -217,12 +225,12 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
               {balance}
             </Text>
           )}
-          <Text numberOfLines={1} style={[iStyles.latestTx, { color: colors.background }]}>
+          {/* <Text numberOfLines={1} style={[iStyles.latestTx, { color: colors.background }]}>
             {loc.wallets.list_latest_transaction}
           </Text>
           <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: colors.background }]}>
             {latestTransactionText}
-          </Text>
+          </Text> */}
         </View>
       </Pressable>
     </Animated.View>

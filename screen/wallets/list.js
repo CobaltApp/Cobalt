@@ -29,6 +29,7 @@ import navigationStyle from '../../components/navigationStyle';
 import { TransactionListItem } from '../../components/TransactionListItem';
 
 import ReceiveDetails from '../receive/details';
+//import LinearGradient from 'react-native-linear-gradient';
 
 const scanqrHelper = require('../../helpers/scan-qr');
 const A = require('../../blue_modules/analytics');
@@ -64,10 +65,9 @@ const WalletsList = () => {
 
   const stylesHook = StyleSheet.create({
     walletsListWrapper: {
-      backgroundColor: colors.background,
+      backgroundColor: colors.primary,
     },
     listHeaderBack: {
-      backgroundColor: colors.background,
     },
     listHeaderText: {
       color: colors.foreground,
@@ -427,7 +427,13 @@ const WalletsList = () => {
       case WalletsListSections.TRANSACTIONS:
         if (dataSource.length === 0 && !isLoading) {
           return (
-            <View style={styles.footerRoot} testID="NoTransactionsMessage">
+            <View style={{
+              //top: 80,
+              height: 230,
+              marginTop: 20,
+              //marginBottom: 80,
+              alignItems: "center",
+            }} testID="NoTransactionsMessage">
               {/* <Image 
                 source={require('../../img/icons/decentralized_finance.png')}
                 style={{
@@ -567,27 +573,51 @@ const WalletsList = () => {
   };
 
   return (
-    <View style={styles.root} onLayout={onLayout}>
+    <View style={{flex: 1,}} onLayout={onLayout}>
       <StatusBar barStyle={barStyle} backgroundColor="transparent" translucent animated />
       <View style={[styles.walletsListWrapper, stylesHook.walletsListWrapper]}>
-        <SectionList
-          removeClippedSubviews
-          contentInsetAdjustmentBehavior="automatic"
-          automaticallyAdjustContentInsets
-          refreshing={isLoading}
-          {...(isElectrumDisabled ? {} : { refreshing: isLoading, onRefresh })}
-          renderItem={renderSectionItem}
-          keyExtractor={sectionListKeyExtractor}
-          renderSectionHeader={renderSectionHeader}
-          initialNumToRender={20}
-          contentInset={styles.scrollContent}
-          renderSectionFooter={renderSectionFooter}
-          sections={[
-            { key: WalletsListSections.CAROUSEL, data: [WalletsListSections.CAROUSEL] },
-            { key: WalletsListSections.BUTTONS, data: [WalletsListSections.BUTTONS] },
-            { key: WalletsListSections.TRANSACTIONS, data: dataSource },
-          ]}
+        <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
+        <WalletsCarousel
+          data={wallets.concat(false)}
+          extraData={[wallets]}
+          onPress={handleClick}
+          handleLongPress={handleLongPress}
+          onMomentumScrollEnd={onSnapToItem}
+          ref={walletsCarousel}
+          testID="WalletsList"
+          horizontal
+          scrollEnabled={isFocused}
         />
+        <View style={{
+          backgroundColor: '#ffffffcc',
+          borderRadius: 40,
+          paddingVertical: 30,
+          paddingHorizontal: 25,
+        }}>
+          <View style={[styles.listHeaderBack, stylesHook.listHeaderBack]}>
+            <Text textBreakStrategy="simple" style={[styles.listHeaderText, stylesHook.listHeaderText]}>
+              {`${loc.transactions.list_title}${'  '}`}
+            </Text>
+          </View>
+          <SectionList
+            removeClippedSubviews
+            contentInsetAdjustmentBehavior="automatic"
+            automaticallyAdjustContentInsets
+            refreshing={isLoading}
+            {...(isElectrumDisabled ? {} : { refreshing: isLoading, onRefresh })}
+            renderItem={renderSectionItem}
+            keyExtractor={sectionListKeyExtractor}
+            // renderSectionHeader={renderSectionHeader}
+            initialNumToRender={20}
+            // contentInset={styles.scrollContent}
+            renderSectionFooter={renderSectionFooter}
+            sections={[
+              // { key: WalletsListSections.CAROUSEL, data: [WalletsListSections.CAROUSEL] },
+              // { key: WalletsListSections.BUTTONS, data: [WalletsListSections.BUTTONS] },
+              { key: WalletsListSections.TRANSACTIONS, data: dataSource },
+            ]}
+          />
+        </View>
         {/* {renderScanButton()} */}
       </View>
     </View>
@@ -613,25 +643,25 @@ const styles = StyleSheet.create({
   },
   headerTouch: {
     height: 48,
-    paddingVertical: 10,
+    //paddingVertical: 10,
   },
   listHeaderBack: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 16,
+    //marginHorizontal: 16,
   },
   listHeaderText: {
-    fontWeight: '700',
-    fontSize: 22,
-    marginTop: 44,
+    fontWeight: '500',
+    fontSize: 20,
+    //marginTop: 44,
   },
   footerRoot: {
     //top: 80,
-    height: 100,
-    marginTop: 16,
+    //height: 100,
+    //marginTop: 16,
     //marginBottom: 80,
-    alignItems: "center"
+    alignItems: "center",
   },
   footerEmpty: {
     fontSize: 18,

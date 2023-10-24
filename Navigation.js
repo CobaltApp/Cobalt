@@ -112,7 +112,7 @@ function TabNavigator(props) {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false, 
-        tabBarStyle: { position: 'absolute', height: 92, borderTopWidth: 0 }, 
+        tabBarStyle: { position: 'absolute', backgroundColor: colors.background, height: 82, borderTopLeftRadius: 40, borderTopRightRadius: 40, }, 
         //activeTintColor: colors.foreground,
         //inactiveTintColor: '#ffffff',
         //tabBarActiveTintColor: colors.primary,
@@ -137,13 +137,13 @@ function TabNavigator(props) {
       />
       <Tab.Screen
         name="Discover"
-        component={Chart}
+        component={Discover}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
               color={ focused ? colors.foreground : colors.inputBorderColor }
-              name="search"
+              name="bar-chart-2"
               type="feather"
               width={24}
               height={24}
@@ -192,16 +192,23 @@ function TabNavigator(props) {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Image
-                source={require('./img/profile.png')}
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: 12,
-                  borderWidth: focused ? 2 : 0,
-                  borderColor: colors.foreground,
-                  backgroundColor: colors.secondary}}
+            <Icon
+              color={ focused ? colors.foreground : colors.inputBorderColor }
+              name="user"
+              type="feather" 
+              width={24}
+              height={24}
             />
+            // <Image
+            //     source={require('./img/profile.png')}
+            //     style={{
+            //       width: 24,
+            //       height: 24,
+            //       borderRadius: 12,
+            //       borderWidth: focused ? 2 : 0,
+            //       borderColor: colors.foreground,
+            //       backgroundColor: colors.secondary}}
+            // />
             // <Icon
             //   focused={focused}
             //   name="user"
