@@ -369,8 +369,14 @@ const styleCopyTextToClipboard = StyleSheet.create({
 export const SafeBlueArea = props => {
   const { style, ...nonStyleProps } = props;
   const { colors } = useTheme();
-  const baseStyle = { flex: 1, backgroundColor: colors.modal, paddingVertical: 32, paddingHorizontal: 25,};
-  return <SafeAreaView forceInset={{ horizontal: 'always' }} style={[baseStyle, style]} {...nonStyleProps} />;
+  const baseStyle = { flex: 1, backgroundColor: colors.background, paddingVertical: 48, paddingHorizontal: 32};
+  return (
+    <View 
+      forceInset={{ horizontal: 'always'}}
+      style={[baseStyle, style]}
+      {...nonStyleProps} 
+    />
+  );
 };
 
 export const BlueCard = props => {
@@ -594,7 +600,8 @@ export const BlueHeaderDefaultMain = props => {
       <Text
         style={{
           textAlign: 'left',
-          fontWeight: '600',
+          fontFamily: 'Poppins-Regular',
+          fontWeight: '700',
           fontSize: 32,
           color: colors.foreground,
         }}

@@ -25,9 +25,9 @@ const HandoffComponent: HandoffComponentWithActivityTypes = props => {
 };
 
 const activityTypes = {
-  ReceiveOnchain: 'io.bluewallet.bluewallet.receiveonchain',
-  Xpub: 'io.bluewallet.bluewallet.xpub',
-  ViewInBlockExplorer: 'io.bluewallet.bluewallet.blockexplorer',
+  ReceiveOnchain: 'com.cobalt.cobalt.receiveonchain',
+  Xpub: 'com.cobalt.cobalt.xpub',
+  ViewInBlockExplorer: 'come.cobalt.cobalt.blockexplorer',
 };
 
 HandoffComponent.activityTypes = activityTypes;

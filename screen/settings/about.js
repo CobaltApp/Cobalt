@@ -109,7 +109,7 @@ const About = () => {
   const handleOnRatePress = () => {
     const options = {
       AppleAppID: '1376878040',
-      GooglePackageName: 'io.bluewallet.bluewallet',
+      GooglePackageName: 'com.cobalt.cobalt',
       preferredAndroidMarket: AndroidMarket.Google,
       preferInApp: Platform.OS !== 'android',
       openAppStoreIfInAppFails: true,

@@ -7,7 +7,7 @@ import navigationStyle from '../components/navigationStyle';
 import { BlueLoading, BlueButton, BlueHeaderDefaultMain, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
 const prompt = require('../helpers/prompt');
 
-import { useGetCryptosQuery } from '../services/cryptoapi';
+// import { useGetCryptosQuery } from '../services/cryptoapi';
 
 const Discover = () => {
   const [isLoading, setIsLoading] = useState(false);

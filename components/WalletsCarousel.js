@@ -26,17 +26,16 @@ import { Button } from 'react-native-elements';
 
 const nStyles = StyleSheet.create({
   container: {
-    borderRadius: 12,
+    borderRadius: 15,
     borderWidth: 2,
     borderStyle: 'dashed',
-    minHeight: Platform.OS === 'ios' ? 194 : 194,
+    minHeight: Platform.OS === 'ios' ? 185 : 185,
     justifyContent: 'center',
     alignItems: 'center',
   },
   addAWAllet: {
     fontWeight: '200',
     fontSize: 48,
-    marginBottom: 4,
   },
   addLine: {
     fontSize: 13,
@@ -56,7 +55,7 @@ const nStyles = StyleSheet.create({
 const NewWalletPanel = ({ onPress }) => {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
-  const itemWidth = width * 0.82 > 375 ? 375 : 307; //65
+  const itemWidth = width * 0.82 > 375 ? 65 : 48; //65
   const isLargeScreen = Platform.OS === 'android' ? isTablet() : (width >= Dimensions.get('screen').width / 2 && isTablet()) || isDesktop;
 
   return (
@@ -64,13 +63,17 @@ const NewWalletPanel = ({ onPress }) => {
       accessibilityRole="button"
       testID="CreateAWallet"
       onPress={onPress}
-      style={isLargeScreen ? {} : { width: itemWidth * 1.2 }}
+      style={[{marginVertical: 16}, isLargeScreen ? {} : { width: itemWidth * 1.3 }]}
     >
       <View
         style={[
-          nStyles.container,
-          { 
-          backgroundColor: colors.background,
+          {
+          borderRadius: 15,
+          borderWidth: 2,
+          borderStyle: 'dashed',
+          minHeight: Platform.OS === 'ios' ? 151 : 151,
+          justifyContent: 'center',
+          alignItems: 'center',
           borderColor: colors.border,
           },
           isLargeScreen ? {} : { width: itemWidth },
@@ -88,12 +91,13 @@ NewWalletPanel.propTypes = {
 };
 
 const iStyles = StyleSheet.create({
-  root: { paddingRight: 20, },
+  root: { paddingRight: 0, },
   rootLargeDevice: { marginVertical: 20 },
   grad: {
-    padding: 20,
-    borderRadius: 25, //12
-    minHeight: 194,
+    paddingVertical: 20,
+    paddingHorizontal: 24,
+    borderRadius: 15, //12
+    minHeight: 185,
     elevation: 5,
   },
   image: {
@@ -201,26 +205,40 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
         }}
       >
         {/* backgroundColor={WalletGradient.gradientsFor(item.type)} */}
-        <View backgroundColor={'#ffffff66'} style={iStyles.grad}>
-          {/* <Image source={image} style={iStyles.image} /> */}
-          {/* <Text numberOfLines={1} style={[iStyles.label, { color: colors.background }]}>
+        <View backgroundColor={colors.primary} style={iStyles.grad}>
+          <Image source={image} style={iStyles.image} />
+          <Text
+            style={{
+              color: colors.background,
+              fontFamily: 'Poppins-Regular',
+              fontSize: 18,
+              writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr', 
+              marginBottom: 12,
+            }}
+          >
             {item.getLabel()}
-          </Text> */}
-          <Text numberOfLines={1} style={{
-            fontSize: 14,
-            fontWeight: 600,
-            color: colors.background,
-          }}>
-            Total Balance
+          </Text>
+          <Text
+            style={{
+              color: colors.background,
+              fontFamily: 'Poppins-Regular',
+              fontSize: 14,
+            }}
+          >
+            Balance
           </Text>
           {item.hideBalance ? (
             <BluePrivateBalance />
           ) : (
             <Text
-              numberOfLines={1}
               key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
               adjustsFontSizeToFit
-              style={[iStyles.balance, { color: colors.background }]}
+              style={{
+                color: colors.background,
+                fontFamily: 'Poppins-Regular', //Semi-Bold
+                fontSize: 32,
+                writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+              }}
             >
               {balance}
             </Text>
@@ -247,18 +265,20 @@ WalletCarouselItem.propTypes = {
 
 const cStyles = StyleSheet.create({
   content: {
-    paddingTop: 16,
+    paddingTop: 26,
+    marginBottom: 24,
   },
   contentLargeScreen: {
     paddingHorizontal: 16,
   },
   separatorStyle: {
-    width: 16,
+    width: 0,
     height: 20,
   },
 });
 
-const ListHeaderComponent = () => <View style={cStyles.separatorStyle} />;
+const ListHeaderComponent = props => <NewWalletPanel onPress={props.onPress} />;
+//<View style={cStyles.separatorStyle} />;
 
 const WalletsCarousel = forwardRef((props, ref) => {
   const { preferredFiatCurrency, language } = useContext(BlueStorageContext);
@@ -273,7 +293,8 @@ const WalletsCarousel = forwardRef((props, ref) => {
           onPress={props.onPress}
         />
       ) : (
-        <NewWalletPanel onPress={props.onPress} />
+        <View/>
+        //<NewWalletPanel onPress={props.onPress} />
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.horizontal, props.selectedWallet, props.handleLongPress, props.onPress, preferredFiatCurrency, language],
@@ -322,8 +343,8 @@ const WalletsCarousel = forwardRef((props, ref) => {
       directionalLockEnabled
       showsHorizontalScrollIndicator={false}
       initialNumToRender={10}
-      ListHeaderComponent={ListHeaderComponent}
-      style={props.horizontal ? { minHeight: sliderHeight + 9 } : {}}
+      // ListHeaderComponent={ListHeaderComponent}
+      style={props.horizontal ? { minHeight: sliderHeight + 9} : {}}
       onScrollToIndexFailed={onScrollToIndexFailed}
       {...props}
     />

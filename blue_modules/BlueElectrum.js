@@ -101,7 +101,7 @@ async function connectMain() {
     usingPeer = savedPeer;
   }
 
-  await DefaultPreference.setName('group.io.bluewallet.bluewallet');
+  await DefaultPreference.setName('group.com.cobalt.cobalt');
   try {
     if (usingPeer.host.endsWith('onion')) {
       const randomPeer = await getCurrentPeer();
@@ -241,7 +241,7 @@ async function presentNetworkErrorAlert(usingPeer) {
                   await AsyncStorage.setItem(ELECTRUM_TCP_PORT, '');
                   await AsyncStorage.setItem(ELECTRUM_SSL_PORT, '');
                   try {
-                    await DefaultPreference.setName('group.io.bluewallet.bluewallet');
+                    await DefaultPreference.setName('group.com.cobalt.cobalt');
                     await DefaultPreference.clear(ELECTRUM_HOST);
                     await DefaultPreference.clear(ELECTRUM_SSL_PORT);
                     await DefaultPreference.clear(ELECTRUM_TCP_PORT);

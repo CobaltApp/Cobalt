@@ -13,7 +13,7 @@ import {
   findNodeHandle,
   I18nManager,
 } from 'react-native';
-import { BlueHeaderDefaultMain, BlueHeaderDefaultSub } from '../../BlueComponents';
+import { BlueHeaderDefaultMain, BlueHeaderDefaultSub, SafeBlueArea } from '../../BlueComponents';
 import WalletsCarousel from '../../components/WalletsCarousel';
 import { Icon } from 'react-native-elements';
 import DeeplinkSchemaMatch from '../../class/deeplink-schema-match';
@@ -65,12 +65,18 @@ const WalletsList = () => {
 
   const stylesHook = StyleSheet.create({
     walletsListWrapper: {
-      backgroundColor: colors.primary,
+      flex: 1,
     },
     listHeaderBack: {
     },
     listHeaderText: {
       color: colors.foreground,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      fontWeight: '500',
+      fontSize: 18,
+      fontFamily: 'Poppins-Regular'
     },
   });
 
@@ -428,9 +434,9 @@ const WalletsList = () => {
         if (dataSource.length === 0 && !isLoading) {
           return (
             <View style={{
-              //top: 80,
-              height: 230,
-              marginTop: 20,
+              top: 20,
+              height: 350,
+              //marginTop: 20,
               //marginBottom: 80,
               alignItems: "center",
             }} testID="NoTransactionsMessage">
@@ -442,8 +448,21 @@ const WalletsList = () => {
                   alignItems: "center",
                 }} 
               /> */}
-              <Text style={styles.footerEmpty}>{loc.wallets.list_empty_txs1}</Text>
-              <Text style={styles.footerStart}>{loc.wallets.list_empty_txs2}</Text>
+              <Image source={require('../../img/icons/decentralized_finance.png')} 
+                style={{
+                  width: 156,
+                  height: 156,
+                  marginVertical: 16,
+                }}
+              />
+              <Text 
+                style={{
+                  fontFamily: 'Poppins-Regular',
+                  fontSize: 16,
+                  color: colors.border,
+                }}
+              >{loc.wallets.list_empty_txs1}</Text>
+              {/* <Text style={styles.footerStart}>{loc.wallets.list_empty_txs2}</Text> */}
             </View>
           );
         } else {
@@ -573,10 +592,26 @@ const WalletsList = () => {
   };
 
   return (
-    <View style={{flex: 1,}} onLayout={onLayout}>
+    <View
+      style={{
+        flex: 1, 
+        paddingVertical: 48, 
+        paddingHorizontal: 32,
+        // paddingLeft: 32,
+        // paddingRight: 16,
+        //marginLeft: 32,
+      }}
+    >
       <StatusBar barStyle={barStyle} backgroundColor="transparent" translucent animated />
-      <View style={[styles.walletsListWrapper, stylesHook.walletsListWrapper]}>
-        <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
+      <Icon
+              color={colors.foreground}
+              name="grid"
+              type="feather"
+              width={24}
+              height={24}
+            />
+      <View>
+        {/* <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} /> */}
         <WalletsCarousel
           data={wallets.concat(false)}
           extraData={[wallets]}
@@ -588,18 +623,12 @@ const WalletsList = () => {
           horizontal
           scrollEnabled={isFocused}
         />
-        <View style={{
-          backgroundColor: '#ffffffcc',
-          borderRadius: 40,
-          paddingVertical: 30,
-          paddingHorizontal: 25,
-        }}>
-          <View style={[styles.listHeaderBack, stylesHook.listHeaderBack]}>
-            <Text textBreakStrategy="simple" style={[styles.listHeaderText, stylesHook.listHeaderText]}>
-              {`${loc.transactions.list_title}${'  '}`}
-            </Text>
-          </View>
-          <SectionList
+      </View>
+      <View>
+        <Text style={stylesHook.listHeaderText}>
+          {`${loc.transactions.list_title}${'  '}`}
+        </Text>
+        <SectionList
             removeClippedSubviews
             contentInsetAdjustmentBehavior="automatic"
             automaticallyAdjustContentInsets
@@ -616,10 +645,9 @@ const WalletsList = () => {
               // { key: WalletsListSections.BUTTONS, data: [WalletsListSections.BUTTONS] },
               { key: WalletsListSections.TRANSACTIONS, data: dataSource },
             ]}
-          />
-        </View>
-        {/* {renderScanButton()} */}
+        />
       </View>
+      {/* {renderScanButton()} */}
     </View>
   );
 };
@@ -638,9 +666,6 @@ const styles = StyleSheet.create({
     bottom: 60,
     right: 0,
   },
-  walletsListWrapper: {
-    flex: 1,
-  },
   headerTouch: {
     height: 48,
     //paddingVertical: 10,
@@ -652,6 +677,9 @@ const styles = StyleSheet.create({
     //marginHorizontal: 16,
   },
   listHeaderText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     fontWeight: '500',
     fontSize: 20,
     //marginTop: 44,

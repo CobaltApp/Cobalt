@@ -112,7 +112,7 @@ function TabNavigator(props) {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false, 
-        tabBarStyle: { position: 'absolute', backgroundColor: colors.background, height: 82, borderTopLeftRadius: 40, borderTopRightRadius: 40, }, 
+        tabBarStyle: { position: 'absolute', backgroundColor: colors.background, height: 72 }, 
         //activeTintColor: colors.foreground,
         //inactiveTintColor: '#ffffff',
         //tabBarActiveTintColor: colors.primary,

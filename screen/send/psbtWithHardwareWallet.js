@@ -192,7 +192,7 @@ const PsbtWithHardwareWallet = () => {
   const openSignedTransaction = async () => {
     try {
       const res = await DocumentPicker.pickSingle({
-        type: Platform.OS === 'ios' ? ['io.bluewallet.psbt', 'io.bluewallet.psbt.txn'] : [DocumentPicker.types.allFiles],
+        type: Platform.OS === 'ios' ? ['com.cobalt.psbt', 'com.cobalt.psbt.txn'] : [DocumentPicker.types.allFiles],
       });
       const file = await RNFS.readFile(res.uri);
       if (file) {

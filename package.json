@@ -1,10 +1,10 @@
 {
-  "name": "bluewallet",
-  "version": "6.4.9",
+  "name": "cobalt",
+  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BlueWallet/BlueWallet.git"
+    "url": "https://github.com/CobaltApp/Cobalt.git"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -109,6 +109,7 @@
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/drawer": "5.12.9",
     "@react-navigation/native": "5.9.8",
+    "@reduxjs/toolkit": "^1.9.7",
     "@remobile/react-native-qrcode-local-image": "https://github.com/BlueWallet/react-native-qrcode-local-image",
     "@spsina/bip47": "github:BlueWallet/bip47#0a2f02c90350802f2ec93afa4e6c8843be2d687c",
     "aez": "1.0.1",

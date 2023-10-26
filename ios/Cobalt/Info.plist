@@ -6,12 +6,12 @@
 	<true/>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>io.bluewallet.bluewallet.fetchTxsForWallet</string>
+		<string>com.cobalt.cobalt.fetchTxsForWallet</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>BlueWallet</string>
+	<string>Cobalt</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -25,7 +25,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>io.bluewallet.psbt</string>
+				<string>com.cobalt.psbt</string>
 			</array>
 		</dict>
 		<dict>
@@ -39,7 +39,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>io.bluewallet.psbt.txn</string>
+				<string>com.cobalt.psbt.txn</string>
 			</array>
 		</dict>
 		<dict>
@@ -53,7 +53,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>io.bluewallet.backup</string>
+				<string>com.cobalt.backup</string>
 			</array>
 		</dict>
 	</array>
@@ -67,8 +67,8 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>io.bluewallet.bluewallet.receiveonchain</string>
-		<string>io.bluewallet.bluewallet.xpub</string>
+		<string>com.cobalt.cobalt.receiveonchain</string>
+		<string>com.cobalt.cobalt.xpub</string>
 	</array>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
@@ -166,6 +166,7 @@
 	<string>This alert should not show up as we do not require this data</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Poppins-Regular.ttf</string>
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
@@ -220,7 +221,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>io.bluewallet.psbt</string>
+			<string>com.cobalt.psbt</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -239,7 +240,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>io.bluewallet.psbt.txn</string>
+			<string>com.cobalt.psbt.txn</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -261,7 +262,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>io.bluewallet.psbt</string>
+			<string>com.cobalt.psbt</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -280,7 +281,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>io.bluewallet.psbt.txn</string>
+			<string>com.cobalt.psbt.txn</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -299,7 +300,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>io.bluewallet.backup</string>
+			<string>com.cobalt.backup</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
