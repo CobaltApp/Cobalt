@@ -31,7 +31,7 @@ import { BlueStorageContext } from '../../blue_modules/storage-context';
 const FrozenBadge = () => {
   const { colors } = useTheme();
   const oStyles = StyleSheet.create({
-    freeze: { backgroundColor: colors.redBG, borderWidth: 0 },
+    freeze: { backgroundColor: colors.negative, borderWidth: 0, opacity: 0.2 },
     freezeText: { color: colors.negative },
   });
   return <Badge value={loc.cc.freeze} badgeStyle={oStyles.freeze} textStyle={oStyles.freezeText} />;
@@ -40,8 +40,8 @@ const FrozenBadge = () => {
 const ChangeBadge = () => {
   const { colors } = useTheme();
   const oStyles = StyleSheet.create({
-    change: { backgroundColor: colors.buttonDisabledBackgroundColor, borderWidth: 0 },
-    changeText: { color: colors.border },
+    change: { backgroundColor: colors.element, borderWidth: 0 },
+    changeText: { color: colors.element },
   });
   return <Badge value={loc.cc.change} badgeStyle={oStyles.change} textStyle={oStyles.changeText} />;
 };
@@ -65,14 +65,14 @@ const OutputList = ({
   const amount = formatBalance(value, balanceUnit, true);
 
   const oStyles = StyleSheet.create({
-    container: { borderBottomColor: colors.lightBorder, backgroundColor: colors.background },
+    container: { borderBottomColor: colors.element, backgroundColor: colors.background },
     containerSelected: {
-      backgroundColor: colors.ballOutgoingExpired,
+      backgroundColor: colors.element,
       borderBottomColor: 'rgba(0, 0, 0, 0)',
     },
     avatar: { borderColor: 'white', borderWidth: 1, backgroundColor: color },
     amount: { fontWeight: 'bold', color: colors.foreground },
-    memo: { fontSize: 13, marginTop: 3, color: colors.border },
+    memo: { fontSize: 13, marginTop: 3, color: colors.element },
   });
 
   let onPress = onOpen;
@@ -128,12 +128,12 @@ const OutputModal = ({ item: { address, txid, value, vout, confirmations = 0 }, 
   const amount = formatBalance(value, balanceUnit, true);
 
   const oStyles = StyleSheet.create({
-    container: { paddingHorizontal: 0, borderBottomColor: colors.lightBorder, backgroundColor: colors.background },
+    container: { paddingHorizontal: 0, borderBottomColor: colors.element, backgroundColor: colors.background },
     avatar: { borderColor: 'white', borderWidth: 1, backgroundColor: color },
     amount: { fontWeight: 'bold', color: colors.foreground },
     tranContainer: { paddingLeft: 20 },
-    tranText: { fontWeight: 'normal', fontSize: 13, color: colors.border },
-    memo: { fontSize: 13, marginTop: 3, color: colors.border },
+    tranText: { fontWeight: 'normal', fontSize: 13, color: colors.element },
+    memo: { fontSize: 13, marginTop: 3, color: colors.element },
   });
   const confirmationsFormatted = new Intl.NumberFormat(RNLocalize.getLocales()[0].languageCode, { maximumSignificantDigits: 3 }).format(
     confirmations,
@@ -223,9 +223,9 @@ const OutputModalContent = ({ output, wallet, onUseCoin, frozen, setFrozen }) =>
         style={[
           mStyles.memoTextInput,
           {
-            borderColor: colors.formBorder,
-            borderBottomColor: colors.formBorder,
-            backgroundColor: colors.inputBackgroundColor,
+            borderColor: colors.element,
+            borderBottomColor: colors.element,
+            backgroundColor: colors.element,
           },
         ]}
         onChangeText={onMemoChange}
@@ -292,7 +292,7 @@ const CoinControl = () => {
 
   const stylesHook = StyleSheet.create({
     tip: {
-      backgroundColor: colors.ballOutgoingExpired,
+      backgroundColor: colors.element,
     },
   });
 

@@ -33,7 +33,7 @@ const PsbtMultisigQRCode = () => {
       backgroundColor: colors.background,
     },
     exportButton: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
   });
   const fileName = `${Date.now()}.psbt`;

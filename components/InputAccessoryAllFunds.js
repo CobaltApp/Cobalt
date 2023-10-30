@@ -13,13 +13,13 @@ const InputAccessoryAllFunds = ({ balance, canUseAll, onUseAllPressed }) => {
 
   const stylesHook = StyleSheet.create({
     root: {
-      backgroundColor: colors.inputBackgroundColor,
+      backgroundColor: colors.element,
     },
     totalLabel: {
-      color: colors.border,
+      color: colors.element,
     },
     totalCanNot: {
-      color: colors.border,
+      color: colors.element,
     },
   });
 

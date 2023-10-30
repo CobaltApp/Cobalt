@@ -57,13 +57,13 @@ const About = () => {
       fontWeight: '500',
     },
     buildWith: {
-      backgroundColor: colors.inputBackgroundColor,
+      backgroundColor: colors.element,
       padding: 16,
       paddingTop: 0,
       borderRadius: 8,
     },
     buttonLink: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
       borderRadius: 12,
       justifyContent: 'center',
       padding: 8,

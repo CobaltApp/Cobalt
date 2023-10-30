@@ -13,10 +13,10 @@ const SquareEnumeratedWords = props => {
   const { colors } = useTheme();
   const stylesHook = StyleSheet.create({
     entryTextContainer: {
-      backgroundColor: colors.inputBackgroundColor,
+      backgroundColor: colors.element,
     },
     entryText: {
-      color: colors.labelText,
+      color: colors.foreground,
     },
   });
 

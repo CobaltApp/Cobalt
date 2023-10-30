@@ -74,7 +74,7 @@ const NewWalletPanel = ({ onPress }) => {
           minHeight: Platform.OS === 'ios' ? 151 : 151,
           justifyContent: 'center',
           alignItems: 'center',
-          borderColor: colors.border,
+          borderColor: colors.element,
           },
           isLargeScreen ? {} : { width: itemWidth },
         ]}

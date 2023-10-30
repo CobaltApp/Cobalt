@@ -32,7 +32,7 @@ const ExportMultisigCoordinationSetup = () => {
     type: { color: colors.foreground },
     secret: { color: colors.foreground },
     exportButton: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
   });
 

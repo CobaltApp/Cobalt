@@ -23,7 +23,7 @@ export default class WalletGradient {
 
   static createWallet = () => {
     const { colors } = useTheme();
-    return colors.lightButton;
+    return colors.element;
   };
 
   static gradientsFor(type) {
@@ -51,7 +51,7 @@ export default class WalletGradient {
         break;
       case LightningCustodianWallet.type:
       case LightningLdkWallet.type:
-        color = colors.lightning;
+        color = colors.secondary;
         break;
       case MultisigHDWallet.type:
         color = '#9757D7';
@@ -91,7 +91,7 @@ export default class WalletGradient {
         break;
       case LightningCustodianWallet.type:
       case LightningLdkWallet.type:
-        color = colors.lightning;
+        color = colors.secondary;
         break;
       default:
         color = colors.primary;

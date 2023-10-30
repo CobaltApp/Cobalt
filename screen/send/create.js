@@ -27,13 +27,13 @@ const SendCreate = () => {
 
   const styleHooks = StyleSheet.create({
     transactionDetailsTitle: {
-      color: colors.border,
+      color: colors.element,
     },
     transactionDetailsSubtitle: {
       color: colors.foreground,
     },
     separator: {
-      backgroundColor: colors.inputBorderColor,
+      backgroundColor: colors.element,
     },
     root: {
       backgroundColor: colors.background,

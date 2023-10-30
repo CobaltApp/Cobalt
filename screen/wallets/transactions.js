@@ -16,7 +16,7 @@ import {
   View,
   I18nManager,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, colors } from 'react-native-elements';
 import { useRoute, useNavigation, useTheme, useFocusEffect } from '@react-navigation/native';
 import { Chain } from '../../models/bitcoinUnits';
 import { BlueAlertWalletExportReminder } from '../../BlueComponents';
@@ -34,6 +34,7 @@ import TransactionsNavigationHeader, { actionKeys } from '../../components/Trans
 import { TransactionListItem } from '../../components/TransactionListItem';
 import alert from '../../components/Alert';
 import PropTypes from 'prop-types';
+import { Button } from 'react-native-elements';
 
 const fs = require('../../blue_modules/fs');
 const BlueElectrum = require('../../blue_modules/BlueElectrum');
@@ -64,7 +65,7 @@ const WalletTransactions = ({ navigation }) => {
       color: colors.foreground,
     },
     browserButton2: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
     },
     marketpalceText1: {
       color: colors.foreground,
@@ -100,7 +101,7 @@ const WalletTransactions = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    setOptions({ headerTitle: walletTransactionUpdateStatus === walletID ? loc.transactions.updating : '' });
+    setOptions({ headerTitle: wallet.getLabel() });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletTransactionUpdateStatus]);
 
@@ -115,12 +116,14 @@ const WalletTransactions = ({ navigation }) => {
     setDataSource(wallet.getTransactions(15));
     setOptions({
       headerStyle: {
-        backgroundColor: colors.primary,
-        borderBottomWidth: 0,
-        elevation: 0,
-        // shadowRadius: 0,
-        shadowOffset: { height: 0, width: 0 },
+        backgroundColor: colors.background,
       },
+      headerTitleStyle: {
+        fontFamily: 'Poppins-Regular',
+        color: colors.foreground,
+      },
+      headerBackTitleVisible: false,
+      headerTintColor: colors.foreground,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletID]);
@@ -244,8 +247,25 @@ const WalletTransactions = ({ navigation }) => {
             <LNNodeBar canSend={lnNodeInfo.canSend} canReceive={lnNodeInfo.canReceive} itemPriceUnit={itemPriceUnit} />
           </View>
         )}
-        <View style={styles.listHeaderTextRow}>
-          <Text style={[styles.listHeaderText, stylesHook.listHeaderText]}>{loc.transactions.list_title}</Text>
+        <View 
+          style={{
+            flex: 1,
+            marginHorizontal: 32,
+            marginTop: 20,
+            marginBottom: 15,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Text 
+            style={{
+              color: colors.foreground,
+              fontFamily: 'Poppins-Regular',
+              fontSize: 18,
+            }}
+          >
+            {loc.transactions.list_title}
+          </Text>
           <TouchableOpacity
             accessibilityRole="button"
             testID="refreshTransactions"
@@ -253,7 +273,7 @@ const WalletTransactions = ({ navigation }) => {
             onPress={refreshTransactions}
             disabled={isLoading}
           >
-            <Icon name="refresh-cw" type="feather" color={colors.border} />
+            <Icon name="refresh-cw" type="feather" color={colors.element} />
           </TouchableOpacity>
         </View>
       </View>
@@ -475,8 +495,8 @@ const WalletTransactions = ({ navigation }) => {
   });
 
   return (
-    <View style={styles.flex}>
-      <StatusBar barStyle="light-content" backgroundColor={WalletGradient.headerColorFor(wallet.type)} animated />
+    <View style={{flex: 1}}>
+      <StatusBar barStyle="default" animated />
       <TransactionsNavigationHeader
         navigation={navigation}
         wallet={wallet}
@@ -513,6 +533,76 @@ const WalletTransactions = ({ navigation }) => {
           }
         }}
       />
+      <View 
+        ref={walletActionButtonsRef}
+        style={{
+          alignSelf: 'center',
+          flexDirection: 'row',
+          overflow: 'hidden',
+        }}
+      >
+        {(wallet.allowSend() || (wallet.type === WatchOnlyWallet.type && wallet.isHd())) && (
+          <Button
+            onLongPress={sendButtonLongPress}
+            onPress={sendButtonPress}
+            text={loc.send.header}
+            testID="SendButton"
+            icon={{
+                name: "arrow-up",
+                size: 24,
+                type: "feather",
+                color: colors.background,
+            }}
+            titleStyle={{ 
+              fontFamily: 'Poppins-Regular',
+              fontSize: 16,
+              color: colors.background,
+            }}
+            title="Send"
+            buttonStyle={{
+              backgroundColor: colors.primary,
+              height: 56,
+              width: 150,
+              borderRadius: 15,
+              padding: 16,
+              marginRight: 12,
+            }}
+          />
+        )}
+        {wallet.allowReceive() && (
+          <Button
+            testID="ReceiveButton"
+            text={loc.receive.header}
+            onPress={() => {
+              if (wallet.chain === Chain.OFFCHAIN) {
+                navigate('LNDCreateInvoiceRoot', { screen: 'LNDCreateInvoice', params: { walletID: wallet.getID() } });
+              } else {
+                navigate('ReceiveDetailsRoot', { screen: 'ReceiveDetails', params: { walletID: wallet.getID() } });
+              }
+            }}
+            icon={{
+              name: "arrow-down",
+              size: 24,
+              type: "feather",
+              color: colors.foreground,
+          }}
+            titleStyle={{ 
+              fontFamily: 'Poppins-Regular',
+              fontSize: 16,
+              color: colors.foreground,
+            }}
+            title="Receive"
+            //color={colors.foreground}
+            buttonStyle={{
+              backgroundColor: colors.element,
+              height: 56,
+              width: 150,
+              borderRadius: 15,
+              padding: 16,
+            }}
+          />
+        )}
+      </View>
       <View style={[styles.list, stylesHook.list]}>
         <FlatList
           getItemLayout={getItemLayout}
@@ -551,39 +641,7 @@ const WalletTransactions = ({ navigation }) => {
         />
       </View>
 
-      <FContainer ref={walletActionButtonsRef}>
-        {wallet.allowReceive() && (
-          <FButton
-            testID="ReceiveButton"
-            text={loc.receive.header}
-            onPress={() => {
-              if (wallet.chain === Chain.OFFCHAIN) {
-                navigate('LNDCreateInvoiceRoot', { screen: 'LNDCreateInvoice', params: { walletID: wallet.getID() } });
-              } else {
-                navigate('ReceiveDetailsRoot', { screen: 'ReceiveDetails', params: { walletID: wallet.getID() } });
-              }
-            }}
-            icon={
-              <View style={styles.receiveIcon}>
-                <Icon name="arrow-down" size={buttonFontSize} type="feather" color={colors.background} />
-              </View>
-            }
-          />
-        )}
-        {(wallet.allowSend() || (wallet.type === WatchOnlyWallet.type && wallet.isHd())) && (
-          <FButton
-            onLongPress={sendButtonLongPress}
-            onPress={sendButtonPress}
-            text={loc.send.header}
-            testID="SendButton"
-            icon={
-              <View style={styles.sendIcon}>
-                <Icon name="arrow-up" size={buttonFontSize} type="feather" color={colors.background} />
-              </View>
-            }
-          />
-        )}
-      </FContainer>
+      
     </View>
   );
 };
@@ -597,26 +655,19 @@ WalletTransactions.navigationOptions = navigationStyle({}, (options, { theme, na
         accessibilityRole="button"
         testID="WalletDetails"
         disabled={route.params.isLoading === true}
-        style={styles.walletDetails}
+        style={{
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+        }}
         onPress={() =>
           navigation.navigate('WalletDetails', {
             walletID: route.params.walletID,
           })
         }
       >
-        <Icon name="settings" type="feather" size={22} color="#FFFFFF" />
+        <Icon name="settings" type="feather" size={22} color={colors.foreground} />
       </TouchableOpacity>
     ),
-    title: '',
-    headerStyle: {
-      backgroundColor: WalletGradient.headerColorFor(route.params.walletType),
-      borderBottomWidth: 0,
-      elevation: 0,
-      // shadowRadius: 0,
-      shadowOffset: { height: 0, width: 0 },
-    },
-    headerTintColor: '#FFFFFF',
-    headerBackTitleVisible: false,
   };
 });
 
@@ -640,10 +691,6 @@ const styles = StyleSheet.create({
   marginBottom18: {
     marginBottom: 18,
   },
-  walletDetails: {
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-  },
   activityIndicator: {
     marginVertical: 20,
   },
@@ -657,7 +704,7 @@ const styles = StyleSheet.create({
   },
   listHeaderTextRow: {
     flex: 1,
-    marginHorizontal: 16,
+    marginHorizontal: 32,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

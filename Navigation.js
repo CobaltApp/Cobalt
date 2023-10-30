@@ -112,7 +112,17 @@ function TabNavigator(props) {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false, 
-        tabBarStyle: { position: 'absolute', backgroundColor: colors.background, height: 72 }, 
+        tabBarStyle: { 
+          //position: 'absolute', 
+          backgroundColor: colors.background, 
+          borderTopWidth: 0,
+          height: 72, 
+          // borderTopLeftRadius: 40, 
+          // borderTopRightRadius: 40, 
+          // shadowColor: '#000000',
+          // shadowOpacity: 0.05,
+          // shadowRadius: 8, //
+        }, 
         //activeTintColor: colors.foreground,
         //inactiveTintColor: '#ffffff',
         //tabBarActiveTintColor: colors.primary,
@@ -126,7 +136,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.inputBorderColor }
+              color={ focused ? colors.foreground : colors.foregroundInactive }
               name="home"
               type="feather"
               width={24}
@@ -142,7 +152,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.inputBorderColor }
+              color={ focused ? colors.foreground : colors.foregroundInactive }
               name="bar-chart-2"
               type="feather"
               width={24}
@@ -177,7 +187,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.inputBorderColor }
+              color={ focused ? colors.foreground : colors.foregroundInactive }
               name="shopping-bag"
               type="feather" 
               width={24}
@@ -193,7 +203,7 @@ function TabNavigator(props) {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.inputBorderColor }
+              color={ focused ? colors.foreground : colors.foregroundInactive }
               name="user"
               type="feather" 
               width={24}

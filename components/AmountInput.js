@@ -232,9 +232,9 @@ class AmountInput extends Component {
 
     const stylesHook = StyleSheet.create({
       center: { padding: amount === BitcoinUnit.MAX ? 0 : 15 },
-      localCurrency: { color: disabled ? colors.buttonDisabledTextColor : colors.foreground },
-      input: { color: disabled ? colors.buttonDisabledTextColor : colors.foreground, fontSize: amount.length > 10 ? 20 : 36 },
-      cryptoCurrency: { color: disabled ? colors.buttonDisabledTextColor : colors.foreground },
+      localCurrency: { color: disabled ? colors.foregroundInactive : colors.foreground },
+      input: { color: disabled ? colors.foregroundInactive : colors.foreground, fontSize: amount.length > 10 ? 20 : 36 },
+      cryptoCurrency: { color: disabled ? colors.foregroundInactive : colors.foreground },
     });
 
     return (
@@ -270,7 +270,7 @@ class AmountInput extends Component {
                     ref={textInput => (this.textInput = textInput)}
                     editable={!this.props.isLoading && !disabled}
                     value={amount === BitcoinUnit.MAX ? loc.units.MAX : parseFloat(amount) >= 0 ? String(amount) : undefined}
-                    placeholderTextColor={disabled ? colors.buttonDisabledTextColor : colors.foreground}
+                    placeholderTextColor={disabled ? colors.foregroundInactive : colors.foreground}
                     style={[styles.input, stylesHook.input]}
                   />
                 ) : (

@@ -9,7 +9,7 @@ const Button = props => {
   const { colors } = useTheme();
   const stylesHook = StyleSheet.create({
     buttonGrey: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
     },
     textGray: {
       color: colors.foreground,

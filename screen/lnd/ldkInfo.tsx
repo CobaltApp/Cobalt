@@ -59,13 +59,13 @@ const LdkInfo = () => {
       backgroundColor: colors.background,
     },
     detailsText: {
-      color: colors.border,
+      color: colors.element,
     },
     modalContent: {
       backgroundColor: colors.background,
     },
     separator: {
-      backgroundColor: colors.inputBorderColor,
+      backgroundColor: colors.element,
     },
   });
 

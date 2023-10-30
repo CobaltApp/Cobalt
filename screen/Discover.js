@@ -20,13 +20,13 @@ const Discover = () => {
   const [tickers, setTickers] = useState([]);
 
   const count = 4;
-  const { data: cryptosList } = useGetCryptosQuery(count);
+  //const { data: cryptosList } = useGetCryptosQuery(count);
   const [ cryptos, setCryptos ] = useState();
   const [ changes, setChanges ] = useState();
 
-  useEffect(() => {
-    setCryptos(cryptosList?.data?.coins);
-  }, [cryptosList]);
+//   useEffect(() => {
+//     setCryptos(cryptosList?.data?.coins);
+//   }, [cryptosList]);
 
 //   <div className={cn(className, styles.cards)}>
 //       {cryptos?.map((x, index) => (
@@ -80,7 +80,7 @@ const Discover = () => {
   return isLoading ? (
       <BlueLoading />
   ) : (
-        <BlueCard>
+        <SafeBlueArea>
             {/* <View
                 style={{
                     flexDirection: 'row',
@@ -95,12 +95,12 @@ const Discover = () => {
                   marginRight: 10,
                   height: 40,
                   width: 40,
-                  backgroundColor: colors.lightButton,
+                  backgroundColor: colors.element,
                   borderRadius: 15,
                 }}
                 onPress={navigateHome}
               >
-                <Icon size={24} name="chevron-left" type="feather" color={colors.border} style={{marginTop: 8}}/>
+                <Icon size={24} name="chevron-left" type="feather" color={colors.element} style={{marginTop: 8}}/>
               </TouchableOpacity>
                 <BlueText 
                     style={{
@@ -113,15 +113,23 @@ const Discover = () => {
                     Discover
                 </BlueText>
             </View> */}
-            <BlueHeaderDefaultMain leftText='Market' />
-            <TextInput
+            <View 
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <BlueHeaderDefaultMain leftText='Market'/>
+                <Icon name="search" type="feather" size={32} color={colors.foreground} style={{marginTop: 8}}/>
+            </View>
+            {/* <TextInput
                 testID="SearchInput"
                 // onChangeText={text => {
                 //     text = text.trim();
                 //     setSearch(text);
                 //   }}
                 placeholder="Search Anything..."
-                placeholderTextColor={colors.border}
+                placeholderTextColor={colors.element}
                 // value={search}
                 style={{
                     minHeight: 55,
@@ -145,7 +153,7 @@ const Discover = () => {
                 autoCapitalize="none"
                 autoCorrect={false}
                 keyboardType='default'
-            />
+            /> */}
         <ScrollView minHeight={520}>
         <View>
             <FlatList
@@ -162,7 +170,7 @@ const Discover = () => {
             />
             </View>
         </ScrollView>
-      </BlueCard>
+      </SafeBlueArea>
   );
 };
 

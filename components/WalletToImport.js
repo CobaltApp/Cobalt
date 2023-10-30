@@ -9,8 +9,8 @@ const WalletToImport = ({ title, subtitle, active, onPress }) => {
 
   const stylesHooks = StyleSheet.create({
     root: {
-      borderColor: active ? colors.primary : colors.buttonDisabledBackgroundColor,
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      borderColor: active ? colors.primary : colors.element,
+      backgroundColor: colors.element,
     },
     title: {
       color: colors.primary,

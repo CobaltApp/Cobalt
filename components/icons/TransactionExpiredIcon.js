@@ -23,7 +23,7 @@ const TransactionExpiredIcon = props => {
   const { colors } = useTheme();
   const stylesHooks = StyleSheet.create({
     ballOutgoingExpired: {
-      backgroundColor: colors.ballOutgoingExpired,
+      backgroundColor: colors.element,
     },
   });
 

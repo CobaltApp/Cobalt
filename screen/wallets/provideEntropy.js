@@ -122,7 +122,7 @@ const Dice = ({ push, sides }) => {
   const diceWidth = width / 4;
   const stylesHook = StyleSheet.create({
     dice: {
-      borderColor: colors.buttonBackgroundColor,
+      borderColor: colors.element,
     },
     diceText: {
       color: colors.foreground,
@@ -215,7 +215,7 @@ const Entropy = () => {
   const { colors } = useTheme();
   const stylesHook = StyleSheet.create({
     entropy: {
-      backgroundColor: colors.inputBackgroundColor,
+      backgroundColor: colors.element,
     },
     entropyText: {
       color: colors.foreground,
@@ -249,15 +249,15 @@ const Entropy = () => {
         tabs={[
           // eslint-disable-next-line react/no-unstable-nested-components
           ({ active }) => (
-            <Icon name="dollar-sign" type="feather" color={active ? colors.foreground : colors.buttonBackgroundColor} />
+            <Icon name="dollar-sign" type="feather" color={active ? colors.foreground : colors.element} />
           ),
           // eslint-disable-next-line react/no-unstable-nested-components
           ({ active }) => (
-            <Icon name="dice" type="font-awesome-5" color={active ? colors.foreground : colors.buttonBackgroundColor} />
+            <Icon name="dice" type="font-awesome-5" color={active ? colors.foreground : colors.element} />
           ),
           // eslint-disable-next-line react/no-unstable-nested-components
           ({ active }) => (
-            <Icon name="dice-d20" type="font-awesome-5" color={active ? colors.foreground : colors.buttonBackgroundColor} />
+            <Icon name="dice-d20" type="font-awesome-5" color={active ? colors.foreground : colors.element} />
           ),
         ]}
       />
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: BlueCurrentTheme.colors.lightButton,
+    borderColor: BlueCurrentTheme.colors.element,
     margin: 10,
     padding: 10,
     maxWidth: 100,
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     aspectRatio: 1,
-    borderColor: BlueCurrentTheme.colors.buttonBackgroundColor,
+    borderColor: BlueCurrentTheme.colors.element,
   },
   diceIcon: {
     margin: 3,

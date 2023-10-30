@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useContext, useCallback, useMemo } from 'react';
 import { Image, Text, TouchableOpacity, View, I18nManager, StyleSheet } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import LinearGradient from 'react-native-linear-gradient';
-import { AbstractWallet, HDSegwitBech32Wallet, LightningCustodianWallet, LightningLdkWallet, MultisigHDWallet } from '../class';
+import { AbstractWallet, HDSegwitBech32Wallet, LightningCustodianWallet, LightningLdkWallet, MultisigHDWallet, WatchOnlyWallet } from '../class';
 import { BitcoinUnit } from '../models/bitcoinUnits';
 import WalletGradient from '../class/wallet-gradient';
 import Biometric from '../class/biometrics';
@@ -10,6 +11,11 @@ import loc, { formatBalance } from '../loc';
 import { BlueStorageContext } from '../blue_modules/storage-context';
 import ToolTipMenu from './TooltipMenu';
 import { BluePrivateBalance } from '../BlueComponents';
+//import { color } from 'react-native-reanimated';
+//import { colors } from 'react-native-elements';
+import { Button } from 'react-native-elements';
+
+//const walletActionButtonsRef = useRef();
 
 interface TransactionsNavigationHeaderProps {
   wallet: AbstractWallet;
@@ -36,10 +42,11 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
   navigation,
   // @ts-ignore: Ugh
   onManageFundsPressed,
+  //forwardRef((props, ref)
 }) => {
   const [wallet, setWallet] = useState(initialWallet);
   const [allowOnchainAddress, setAllowOnchainAddress] = useState(false);
-
+  const { colors } = useTheme();
   const context = useContext(BlueStorageContext);
   const menuRef = useRef(null);
 
@@ -137,11 +144,17 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
   return (
     <View
       //{WalletGradient.gradientsFor(wallet.type)}
-      style={styles.lineaderGradient}
+      style={{
+        paddingTop: 15,
+        //minHeight: 50,
+        //justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 8,
+      }}
       // @ts-ignore: Ugh
       //{...WalletGradient.linearGradientProps(wallet.type)}
     >
-      <Image
+      {/* <Image
         source={(() => {
           switch (wallet.type) {
             case LightningLdkWallet.type:
@@ -154,9 +167,20 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
           }
         })()}
         style={styles.chainIcon}
-      />
-      <Text testID="WalletLabel" numberOfLines={1} style={styles.walletLabel}>
-        {wallet.getLabel()}
+      /> */}
+      <Text
+        testID="WalletLabel"
+        numberOfLines={1}
+        style={{
+          marginTop: 64,
+          fontFamily: 'Poppins-Regular',
+          fontSize: 16,
+          color: colors.foreground,
+          writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+        }}
+      >
+        WALLET BALANCE
+        {/* {wallet.getLabel()} */}
       </Text>
       <ToolTipMenu
         onPress={changeWalletBalanceUnit}
@@ -195,21 +219,98 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
               ]
         }
       >
-        <View style={styles.walletBalance}>
+        
           {wallet.hideBalance ? (
             <BluePrivateBalance />
           ) : (
-            <Text
-              testID="WalletBalance"
-              key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              style={styles.walletBalance}
+            <View 
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
             >
-              {balance}
-            </Text>
+              <Text
+                testID="WalletBalance"
+                key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                style={{
+                  fontFamily: 'Poppins-Regular',
+                  fontSize: 64,
+                  color: colors.foreground,
+                  writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+                }}
+              >
+                {balance}
+              </Text>
+              {/*  */}
+              {/* <Text
+                testID="WalletBalanceUnit"
+                numberOfLines={1}
+                //adjustsFontSizeToFit
+                style={{
+                  fontFamily: 'Poppins-Regular',
+                  fontSize: 24,
+                  color: colors.foregroundInactive,
+                  writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+                }}
+              >
+                {wallet.getPreferredBalanceUnit()}
+              </Text> */}
+            </View>
           )}
-        </View>
+      {/* <View style={{flexDirection: 'row'}}>
+      {(wallet.allowSend() || (wallet.type === WatchOnlyWallet.type)) && ( //&& wallet.isHd()
+        <Button
+          icon={{
+            name: 'arrow-up',
+            type: 'feather',
+            color: colors.background,
+            size: 24,
+          }}
+          //onPress={() => Linking.openURL('https://github.com/BlueWallet/GroundControl')}
+          titleStyle={{ 
+            fontFamily: 'Poppins-Regular',
+            fontSize: 16,
+            color: colors.background, 
+          }}
+          title="Send"
+          //color={colors.foreground}
+          buttonStyle={{
+            backgroundColor: colors.primary,
+            height: 56,
+            width: 150,
+            borderRadius: 15,
+            padding: 16,
+            marginRight: 10,
+          }}
+        />
+        )}
+        <Button
+          icon={{
+            name: 'arrow-down',
+            type: 'feather',
+            color: colors.foreground,
+            size: 24,
+          }}
+          //onPress={() => Linking.openURL('https://github.com/BlueWallet/GroundControl')}
+          titleStyle={{ 
+            fontFamily: 'Poppins-Regular',
+            fontSize: 16,
+            color: colors.foreground, 
+          }}
+          title="Receive"
+          //color={colors.foreground}
+          buttonStyle={{
+            backgroundColor: colors.element,
+            height: 56,
+            width: 150,
+            borderRadius: 15,
+            padding: 16,
+            marginRight: 10,
+          }}
+        />
+      </View> */}
       </ToolTipMenu>
       {wallet.type === LightningCustodianWallet.type && allowOnchainAddress && (
         <ToolTipMenu
@@ -260,31 +361,12 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
 };
 
 const styles = StyleSheet.create({
-  lineaderGradient: {
-    backgroundColor: '#3772FF',
-    padding: 15,
-    minHeight: 140,
-    justifyContent: 'center',
-  },
   chainIcon: {
     width: 99,
     height: 94,
     position: 'absolute',
     bottom: 0,
     right: 0,
-  },
-  walletLabel: {
-    backgroundColor: 'transparent',
-    fontSize: 19,
-    color: '#fff',
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  },
-  walletBalance: {
-    backgroundColor: 'transparent',
-    fontWeight: 'bold',
-    fontSize: 36,
-    color: '#fff',
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   manageFundsButton: {
     marginTop: 14,

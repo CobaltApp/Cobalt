@@ -467,7 +467,7 @@ ElectrumSettings.navigationOptions = navigationStyle({}, opts => ({ ...opts, tit
 const styles = StyleSheet.create({
   status: {
     textAlign: 'center',
-    color: BlueCurrentTheme.colors.border,
+    color: BlueCurrentTheme.colors.element,
     marginBottom: 4,
   },
   connectWrap: {
@@ -488,7 +488,8 @@ const styles = StyleSheet.create({
     backgroundColor: BlueCurrentTheme.colors.positive,
   },
   containerDisconnected: {
-    backgroundColor: BlueCurrentTheme.colors.redBG,
+    backgroundColor: BlueCurrentTheme.colors.negative,
+    opacity: 0.2,
   },
   textConnected: {
     color: BlueCurrentTheme.colors.background,
@@ -508,18 +509,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   explain: {
-    color: BlueCurrentTheme.colors.border,
+    color: BlueCurrentTheme.colors.element,
     marginBottom: -24,
     flexShrink: 1,
   },
   inputWrap: {
     flex: 1,
     flexDirection: 'row',
-    borderColor: BlueCurrentTheme.colors.formBorder,
-    borderBottomColor: BlueCurrentTheme.colors.formBorder,
+    borderColor: BlueCurrentTheme.colors.element,
+    borderBottomColor: BlueCurrentTheme.colors.element,
     borderWidth: 1,
     borderBottomWidth: 0.5,
-    backgroundColor: BlueCurrentTheme.colors.inputBackgroundColor,
+    backgroundColor: BlueCurrentTheme.colors.element,
     minHeight: 44,
     height: 44,
     alignItems: 'center',
@@ -551,7 +552,7 @@ const styles = StyleSheet.create({
   serverHistoryItem: {
     flexDirection: 'row',
     paddingVertical: 20,
-    borderBottomColor: BlueCurrentTheme.colors.formBorder,
+    borderBottomColor: BlueCurrentTheme.colors.element,
     borderBottomWidth: 0.5,
     flexWrap: 'nowrap',
   },

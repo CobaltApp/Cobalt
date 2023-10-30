@@ -39,13 +39,13 @@ const Confirm = () => {
       color: colors.foreground,
     },
     transactionDetailsSubtitle: {
-      color: colors.border,
+      color: colors.element,
     },
     transactionAmountFiat: {
-      color: colors.border,
+      color: colors.element,
     },
     txDetails: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
     },
     valueValue: {
       color: colors.foreground,
@@ -57,7 +57,7 @@ const Confirm = () => {
       backgroundColor: colors.background,
     },
     payjoinWrapper: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
   });
 

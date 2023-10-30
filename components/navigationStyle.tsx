@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Keyboard, TouchableOpacity, StyleSheet } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import { Theme } from './themes';
 import loc from '../loc';
 

@@ -22,14 +22,14 @@ const TransactionOffchainIcon = props => {
   const { colors } = useTheme();
   const stylesHooks = StyleSheet.create({
     ballOutgoingWithoutRotate: {
-      backgroundColor: colors.ballOutgoing,
+      backgroundColor: colors.negative,
     },
   });
 
   return (
     <View style={styles.boxIncoming}>
       <View style={[styles.ballOutgoingWithoutRotate, stylesHooks.ballOutgoingWithoutRotate]}>
-        <Icon name="zap" size={16} type="feather" color={colors.outgoingForegroundColor} iconStyle={styles.icon} />
+        <Icon name="zap" size={16} type="feather" color={colors.negative} iconStyle={styles.icon} />
       </View>
     </View>
   );

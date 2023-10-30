@@ -110,11 +110,11 @@ export const SuccessView = ({ amount, amountUnit, fee, invoiceDescription, shoul
           colorFilters={[
             {
               keypath: 'spark',
-              color: colors.success,
+              color: colors.element,
             },
             {
               keypath: 'circle',
-              color: colors.success,
+              color: colors.element,
             },
             {
               keypath: 'Oval',

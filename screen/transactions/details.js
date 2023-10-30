@@ -37,18 +37,18 @@ const TransactionsDetails = () => {
   const { colors } = useTheme();
   const stylesHooks = StyleSheet.create({
     memoTextInput: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
     greyButton: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
     },
     Link: {
       color: colors.foreground,
     },
     save: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
     },
     saveText: {
       color: colors.foreground,

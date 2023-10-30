@@ -37,52 +37,22 @@ export const BlueDefaultTheme = {
   logoImage: require('../img/logolight-2048x1024.png'),
   colors: {
     ...DefaultTheme.colors,
-    lnbackgroundColor: '#F4F5F6',
-    buttonDisabledTextColor: '#777E90',
-    inputBorderColor: '#B1B5C3',
-    pink: '#E4D7CF',
-
-    background: '#FCFCFD',
-
-    inputBackgroundColor: '#FCFCFD',
-    formBorder: '#E6E8EC',
-
-    modal: '#F4F5F6',
-    redBG: '#F4F5F6',
-    receiveBackground: '#F4F5F6',
-    
-    lightButton: '#E6E8EC',
-    buttonDisabledBackgroundColor: '#E6E8EC',
-    buttonBackgroundColor: '#E6E8EC',
-    buttonBlueBackgroundColor: '#E6E8EC',
-    lightBorder: '#E6E8EC',
-    ballOutgoingExpired: '#E6E8EC',
-    modalButton: '#E6E8EC',
-    success: '#E6E8EC',
-    changeBackground: '#E6E8EC',
-
-    border: '#777E90',
-
-    scanLabel: '#353945',
-    labelText: '#353945',
-
-    foreground: '#23262F',
-    foregroundInactive: '#B1B5C3',
-    
-    incomingBackgroundColor: '#d2f8d6',
-    incomingForegroundColor: '#58BD7D',
-    outgoingBackgroundColor: '#f8d2d2',
-    outgoingForegroundColor: '#FF6838',
-
-    primary: '#3772FF',
-    secondary: '#4BC9F0',
-    tertiary: '#9757D7',
-    positive: '#58BD7D',
-    negative: '#FF6838',
-    lightning: '#FFD166',
-  
-    ballReceive: '#d2f8d6',
-    ballOutgoing: '#f8d2d2',
+    primary: '#1A7EF7', //Crayola Blue
+    secondary: '#F7931A', //Bitcoin Orange
+    tertiary: '#931AF7', //Purple
+    accent: '#1AEDF7', //Fluorescent Blue
+    positive: '#1AF793', //Medium Spring Green
+    negative: '#F71A7E', //Electric Pink
+    //Dark Blue: #251AF7
+    //Yellow: #EDF71A
+    background: '#FFFFFF', //Cultured
+    foreground: '#0F0F0F', //Smoky Black
+    foregroundInactive: '#A6A6A6', //Quick Silver
+    //foregroundLabel: '#717171', //Dark Silver
+    element: '#F5F5F5', //Cultured
+    //element: '#EDEDED', //Bright Gray
+    //tab: '#DBDBDB', //Gainsboro
+    shadow: '#000000',
   },
 };
 
@@ -97,33 +67,12 @@ export const BlueDarkTheme: Theme = {
   colors: {
     ...BlueDefaultTheme.colors,
     ...DarkTheme.colors,
-    background: '#141416',
-
-    inputBackgroundColor: '#23262F',
-    formBorder: '#23262F',
-    modal: '#23262F',
-    redBG: '#23262F',
-    receiveBackground: '#23262F',
-
-    lightButton: '#353945',
-    buttonDisabledBackgroundColor: '#353945',
-    buttonBackgroundColor: '#353945',
-    buttonBlueBackgroundColor: '#353945',
-    lightBorder: '#353945',
-    ballOutgoingExpired: '#353945',
-    modalButton: '#353945',
-    success: '#353945',
-    changeBackground: '#353945',
-
-    border: '#B1B5C3', 
-        
-    scanLabel: '#E6E8EC',
-    labelText: '#E6E8EC',
-
-    foreground: '#F4F5F6',
-
-    ballReceive: '#23262F',
-    ballOutgoing: '#23262F',
+    background: '#171717', //Chinese Black
+    foreground: '#F5F5F5', //Cultured
+    foregroundInactive: '#717171', //Dark Silver
+    //foregroundLabel: '#A6A6A6', //Quick Silver
+    element: '#1F1F1F', //Eerie Black
+    //tab: '#2E2E2E', //Dark Charcoal
   },
 };
 

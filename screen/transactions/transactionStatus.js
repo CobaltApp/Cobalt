@@ -44,13 +44,13 @@ const TransactionsStatus = () => {
       color: colors.foreground,
     },
     iconRoot: {
-      backgroundColor: colors.success,
+      backgroundColor: colors.element,
     },
     detailsText: {
       color: colors.foreground,
     },
     details: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
     },
   });
 

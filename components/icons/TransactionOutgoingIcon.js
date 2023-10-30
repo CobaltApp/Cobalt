@@ -20,14 +20,14 @@ const TransactionOutgoingIcon = props => {
   const { colors } = useTheme();
   const stylesBlueIconHooks = StyleSheet.create({
     ballOutgoing: {
-      backgroundColor: colors.ballOutgoing,
+      backgroundColor: colors.negative,
     },
   });
 
   return (
     <View style={styles.boxIncoming}>
       <View style={[styles.ballOutgoing, stylesBlueIconHooks.ballOutgoing]}>
-        <Icon name="arrow-down" size={16} type="feather" color={colors.outgoingForegroundColor} />
+        <Icon name="arrow-down" size={16} type="feather" color={colors.negative} />
       </View>
     </View>
   );

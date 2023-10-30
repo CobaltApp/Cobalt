@@ -9,7 +9,7 @@ export const TransactionPendingIconBig = props => {
 
   const stylesBlueIconHooks = StyleSheet.create({
     ball: {
-      backgroundColor: colors.buttonBackgroundColor,
+      backgroundColor: colors.element,
     },
     ball2: {
       width: 150,

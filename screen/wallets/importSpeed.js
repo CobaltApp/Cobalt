@@ -38,9 +38,9 @@ const WalletsImportSpeed = () => {
       borderRadius: 4,
       paddingHorizontal: 8,
       color: '#81868e',
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
   });
 

@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { useNavigation, useRoute, useTheme, useFocusEffect } from '@react-navigation/native';
+import Clipboard from '@react-native-clipboard/clipboard';
 import Share from 'react-native-share';
 import QRCodeComponent from '../../components/QRCodeComponent';
 import {
@@ -39,6 +40,7 @@ import { TransactionPendingIconBig } from '../../components/TransactionPendingIc
 import * as BlueElectrum from '../../blue_modules/BlueElectrum';
 import { SuccessView } from '../send/success';
 const currency = require('../../blue_modules/currency');
+import { Button } from 'react-native-elements';
 
 const ReceiveDetails = () => {
   const { walletID, address } = useRoute().params;
@@ -63,14 +65,12 @@ const ReceiveDetails = () => {
   const fetchAddressInterval = useRef();
   const stylesHook = StyleSheet.create({
     modalContent: {
-      backgroundColor: colors.modal,
-      borderTopColor: colors.foreground,
-      borderWidth: colors.borderWidth,
+      backgroundColor: colors.background,
+      //borderWidth: colors.elementWidth,
     },
     customAmount: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.background,
+      backgroundColor: colors.background,
     },
     customAmountText: {
       color: colors.foreground,
@@ -88,7 +88,7 @@ const ReceiveDetails = () => {
       color: colors.foreground,
     },
     modalButton: {
-      backgroundColor: colors.modalButton,
+      //backgroundColor: colors.elementButton,
     },
   });
 
@@ -252,8 +252,23 @@ const ReceiveDetails = () => {
 
   const renderReceiveDetails = () => {
     return (
-      <View contentContainerStyle={[styles.root, stylesHook.root]} keyboardShouldPersistTaps="always">
-        <View style={styles.scrollBody}>
+      <View keyboardShouldPersistTaps="always">
+        <View
+          style={{
+            marginTop: 80,
+            marginHorizontal: 32,
+            width: 312,
+            height: 362,
+            borderRadius: 18,
+            flexGrow: 1,
+            alignItems: 'center',
+            alignSelf: 'center',
+            paddingHorizontal: 40,
+            paddingTop: 32,
+            backgroundColor: colors.background,
+
+          }}
+        >
           {isCustom && (
             <>
               {getDisplayAmount() && (
@@ -270,23 +285,73 @@ const ReceiveDetails = () => {
           )}
 
           <QRCodeComponent value={bip21encoded} />
-          <BlueCopyTextToClipboard text={isCustom ? bip21encoded : address} />
-        </View>
-        <View style={styles.share}>
-          <BlueCard>
-            <BlueButtonLink
+          {/* <BlueCopyTextToClipboard text={isCustom ? bip21encoded : address} /> */}
+        
+            {/* <BlueButtonLink
               style={styles.link}
               testID="SetCustomAmountButton"
               title={loc.receive.details_setAmount}
               onPress={showCustomAmountModal}
+            /> */}
+          <View style={{flexDirection: 'row', marginTop: 10,}}>
+            <Button 
+              onPress={Clipboard.setString(address)}
+              testID="CopyButton"
+              icon={{
+                  name: "copy",
+                  size: 18,
+                  type: "feather",
+                  color: colors.primary,
+              }}
+              titleStyle={{ 
+                fontFamily: 'Poppins-Regular',
+                fontSize: 18,
+                color: colors.primary,
+              }}
+              title='COPY'
+              buttonStyle={{
+                backgroundColor: 'transparent',
+                padding: 16,
+              }}
             />
-            <BlueButton onPress={handleShareButtonPressed} title={loc.receive.details_share} />
-          </BlueCard>
+            <Button
+              onPress={handleShareButtonPressed}
+              testID="ShareButton"
+              icon={{
+                  name: "share-2",
+                  size: 18,
+                  type: "feather",
+                  color: colors.primary,
+              }}
+              titleStyle={{ 
+                fontFamily: 'Poppins-Regular',
+                fontSize: 18,
+                color: colors.primary,
+              }}
+              title='SHARE'
+              buttonStyle={{
+                backgroundColor: 'transparent',
+                padding: 16,
+              }}
+            />
+          </View>
         </View>
         {renderCustomAmountModal()}
       </View>
     );
   };
+
+  // <View style={styles.share}>
+  //         <BlueCard>
+  //           <BlueButtonLink
+  //             style={styles.link}
+  //             testID="SetCustomAmountButton"
+  //             title={loc.receive.details_setAmount}
+  //             onPress={showCustomAmountModal}
+  //           />
+  //           <BlueButton onPress={handleShareButtonPressed} title={loc.receive.details_share} />
+  //         </BlueCard>
+  //       </View>
 
   const obtainWalletAddress = useCallback(async () => {
     console.log('receive/details - componentDidMount');
@@ -409,7 +474,7 @@ const ReceiveDetails = () => {
             <View style={[styles.customAmount, stylesHook.customAmount]}>
               <TextInput
                 onChangeText={setCustomLabel}
-                placeholderTextColor="#81868e"
+                placeholderTextColor={"#81868e"}
                 placeholder={loc.receive.details_label}
                 value={customLabel || ''}
                 numberOfLines={1}
@@ -455,7 +520,13 @@ const ReceiveDetails = () => {
   };
 
   return (
-    <View style={[styles.root, stylesHook.root]}>
+    <View 
+      style={{
+        flexGrow: 1,
+        justifyContent: 'space-between',
+        backgroundColor: colors.element,
+      }}
+    >
       <StatusBar barStyle="light-content" />
       {address !== undefined && showAddress && (
         <HandoffComponent title={loc.send.details_address} type={HandoffComponent.activityTypes.ReceiveOnchain} userInfo={{ address }} />
@@ -533,6 +604,10 @@ ReceiveDetails.navigationOptions = navigationStyle(
   {
     closeButton: true,
     headerHideBackButton: true,
+    // headerTitleStyle: {
+    //   fontFamily: 'Poppins-Regular',
+    //   //color: colors.foreground,
+    // },
   },
   opts => ({ ...opts, title: loc.receive.header }),
 );

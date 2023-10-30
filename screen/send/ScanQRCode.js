@@ -100,9 +100,9 @@ const ScanQRCode = () => {
     },
     progressWrapper: { backgroundColor: colors.background, borderColor: colors.foreground, borderWidth: 4 },
     backdoorInput: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
       color: colors.foreground,
     },
   });

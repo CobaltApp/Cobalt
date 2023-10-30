@@ -57,9 +57,9 @@ const LightningSettings: React.FC & { navigationOptions: NavigationOptionsGetter
   const navigation = useNavigation();
   const styleHook = StyleSheet.create({
     uri: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
   });
 

@@ -28,6 +28,8 @@ import BlueClipboard from '../../blue_modules/clipboard';
 import navigationStyle from '../../components/navigationStyle';
 import { TransactionListItem } from '../../components/TransactionListItem';
 
+import PlusIcon from '../../components/icons/PlusIcon';
+
 import ReceiveDetails from '../receive/details';
 //import LinearGradient from 'react-native-linear-gradient';
 
@@ -459,7 +461,7 @@ const WalletsList = () => {
                 style={{
                   fontFamily: 'Poppins-Regular',
                   fontSize: 16,
-                  color: colors.border,
+                  color: colors.foregroundInactive,
                 }}
               >{loc.wallets.list_empty_txs1}</Text>
               {/* <Text style={styles.footerStart}>{loc.wallets.list_empty_txs2}</Text> */}
@@ -603,13 +605,26 @@ const WalletsList = () => {
       }}
     >
       <StatusBar barStyle={barStyle} backgroundColor="transparent" translucent animated />
-      <Icon
-              color={colors.foreground}
-              name="grid"
-              type="feather"
-              width={24}
-              height={24}
-            />
+      <View 
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Icon
+          color={colors.foreground}
+          name="grid"
+          type="feather"
+          width={24}
+          height={24}
+        />
+        <PlusIcon
+          accessibilityRole="button"
+          accessibilityLabel={loc.wallets.add_title}
+          onPress={handleClick}
+          Component={TouchableOpacity}
+        />
+      </View>
       <View>
         {/* <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} /> */}
         <WalletsCarousel

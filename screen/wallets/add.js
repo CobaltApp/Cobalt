@@ -59,12 +59,12 @@ const WalletsAdd = () => {
   const [entropyButtonText, setEntropyButtonText] = useState(loc.wallets.add_entropy_provide);
   const stylesHook = {
     advancedText: {
-      color: colors.border,
+      color: colors.element,
     },
     label: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
     noPadding: {
       backgroundColor: colors.background,
@@ -73,9 +73,9 @@ const WalletsAdd = () => {
       backgroundColor: colors.background,
     },
     lndUri: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
   };
 

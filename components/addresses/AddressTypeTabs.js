@@ -13,7 +13,7 @@ const AddressTypeTabs = ({ currentTab, setCurrentTab }) => {
 
   const stylesHook = StyleSheet.create({
     activeTab: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
     },
     activeText: {
       fontWeight: '700',
@@ -23,7 +23,7 @@ const AddressTypeTabs = ({ currentTab, setCurrentTab }) => {
     inactiveTab: {
       fontWeight: '700',
       fontSize: 14,
-      color: colors.buttonDisabledTextColor,
+      color: colors.foregroundInactive,
     },
   });
 

@@ -16,11 +16,11 @@ const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) =>
 
   const stylesHook = StyleSheet.create({
     container: {
-      borderBottomColor: colors.lightBorder,
+      borderBottomColor: colors.element,
       backgroundColor: colors.background,
     },
     list: {
-      color: colors.border,
+      color: colors.element,
     },
     index: {
       color: colors.foreground,
@@ -30,7 +30,7 @@ const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) =>
       fontSize: 14,
     },
     address: {
-      color: hasTransactions ? colors.border : colors.foreground,
+      color: hasTransactions ? colors.element : colors.foreground,
     },
   });
 

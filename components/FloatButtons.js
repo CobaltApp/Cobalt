@@ -4,19 +4,19 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions, PixelRatio } from
 import { useTheme } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-const BORDER_RADIUS = 20;
-const PADDINGS = 0;
-const ICON_MARGIN = 0;
+const BORDER_RADIUS = 15;
+const PADDINGS = 10;
+const ICON_MARGIN = 8;
 
 const cStyles = StyleSheet.create({
   root: {
     alignSelf: 'center',
-    height: '6.3%',
-    minHeight: 50,
+    //height: '6.3%',
+    minHeight: 56,
   },
   rootAbsolute: {
-    position: 'absolute',
-    bottom: 30,
+    position: 'relative',
+    //bottom: 0,
   },
   rootInline: {},
   rootPre: {
@@ -24,7 +24,7 @@ const cStyles = StyleSheet.create({
     bottom: -1000,
   },
   rootPost: {
-    borderRadius: BORDER_RADIUS,
+    borderRadius: 15,
     flexDirection: 'row',
     overflow: 'hidden',
   },
@@ -84,15 +84,16 @@ const bStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
+    width: 150,
+    height: 56,
   },
   icon: {
     alignItems: 'center',
   },
   text: {
-    fontSize: buttonFontSize,
-    fontWeight: '600',
-    marginLeft: ICON_MARGIN,
-    backgroundColor: 'transparent',
+    fontSize: 16,
+    fontFamily: 'Poppins-Regular',
+    marginLeft: 8,
   },
 });
 
@@ -103,10 +104,10 @@ export const FButton = ({ text, icon, width, first, last, ...props }) => {
       backgroundColor: colors.primary,
     },
     text: {
-      color: colors.foreground,
+      color: colors.background,
     },
     textDisabled: {
-      color: colors.formBorder,
+      color: colors.element,
     },
   });
   const style = {};
@@ -116,7 +117,7 @@ export const FButton = ({ text, icon, width, first, last, ...props }) => {
     const paddingRight = PADDINGS;
     style.paddingRight = paddingRight;
     style.paddingLeft = paddingLeft;
-    style.width = 50;
+    //style.width = 150;
   }
   //<Icon name="repeat" type="feather" size={24} color={colors.background} />
   return (

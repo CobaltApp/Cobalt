@@ -22,9 +22,9 @@ const AddressTypeBadge = ({ isInternal, hasTransactions }) => {
   const { colors } = useTheme();
 
   const stylesHook = StyleSheet.create({
-    changeBadge: { backgroundColor: colors.lightning },
+    changeBadge: { backgroundColor: colors.secondary },
     receiveBadge: { backgroundColor: colors.positive },
-    usedBadge: { backgroundColor: colors.buttonDisabledBackgroundColor },
+    usedBadge: { backgroundColor: colors.element },
     changeText: { color: colors.background },
     receiveText: { color: colors.background },
     usedText: { color: colors.background },

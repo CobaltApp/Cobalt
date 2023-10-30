@@ -82,20 +82,20 @@ const ViewEditMultisigCosigners = () => {
       backgroundColor: colors.background,
     },
     exportButton: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
     vaultKeyText: {
-      color: colors.border,
+      color: colors.element,
     },
     vaultKeyCircleSuccess: {
       backgroundColor: colors.positive,
     },
     tipKeys: {
-      color: colors.border,
+      color: colors.element,
     },
     tipLabel: {
-      backgroundColor: colors.inputBackgroundColor,
-      borderColor: colors.inputBackgroundColor,
+      backgroundColor: colors.element,
+      borderColor: colors.element,
     },
     tipLabelText: {
       color: colors.foreground,

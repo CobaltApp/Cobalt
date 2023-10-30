@@ -129,7 +129,7 @@ const App = () => {
       if (colorScheme === 'light') {
         changeNavigationBarColor(BlueDefaultTheme.colors.background, true, true);
       } else {
-        changeNavigationBarColor(BlueDarkTheme.colors.buttonBackgroundColor, false, true);
+        changeNavigationBarColor(BlueDarkTheme.colors.element, false, true);
       }
     }
   }, [colorScheme]);

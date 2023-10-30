@@ -81,7 +81,7 @@ const ReorderWallets = () => {
       backgroundColor: colors.background,
     },
     tip: {
-      backgroundColor: colors.ballOutgoingExpired,
+      backgroundColor: colors.element,
     },
   };
   const [walletData, setWalletData] = useState([]);

@@ -56,10 +56,10 @@ const actionIcons: { [key: string]: ActionIcons } = {
 
 const QRCodeComponent: React.FC<QRCodeComponentProps> = ({
   value = '',
-  isLogoRendered = true,
+  isLogoRendered = false,
   isMenuAvailable = true,
   logoSize = 90,
-  size = 300,
+  size = 248,
   ecl = 'H',
   onError = () => {},
 }) => {
@@ -118,7 +118,7 @@ const QRCodeComponent: React.FC<QRCodeComponentProps> = ({
   );
 
   return (
-    <View style={styles.qrCodeContainer} testID="BitcoinAddressQRCodeContainer">
+    <View testID="BitcoinAddressQRCodeContainer">
       {isMenuAvailable ? (
         <ToolTipMenu actions={menuActions()} onPressMenuItem={onPressMenuItem}>
           {renderQRCode}
@@ -131,7 +131,3 @@ const QRCodeComponent: React.FC<QRCodeComponentProps> = ({
 };
 
 export default QRCodeComponent;
-
-const styles = StyleSheet.create({
-  qrCodeContainer: { borderWidth: 6, borderRadius: 8, borderColor: '#FFFFFF' },
-});

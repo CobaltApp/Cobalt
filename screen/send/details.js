@@ -1036,14 +1036,14 @@ const SendDetails = () => {
       backgroundColor: colors.background,
     },
     modalContent: {
-      backgroundColor: colors.modal,
-      borderTopColor: colors.border,
-      borderWidth: colors.borderWidth,
+      backgroundColor: colors.element,
+      borderTopColor: colors.element,
+      borderWidth: colors.elementWidth,
     },
     optionsContent: {
-      backgroundColor: colors.modal,
-      borderTopColor: colors.border,
-      borderWidth: colors.borderWidth,
+      backgroundColor: colors.element,
+      borderTopColor: colors.element,
+      borderWidth: colors.elementWidth,
     },
     feeModalItemActive: {
       backgroundColor: colors.positive,
@@ -1067,21 +1067,21 @@ const SendDetails = () => {
       color: colors.foreground,
     },
     of: {
-      color: colors.border,
+      color: colors.element,
     },
     memo: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
     feeLabel: {
-      color: colors.border,
+      color: colors.element,
     },
     feeModalItemDisabled: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
     feeModalItemTextDisabled: {
-      color: colors.buttonDisabledTextColor,
+      color: colors.foregroundInactive,
     },
     feeRow: {
       backgroundColor: colors.positive,

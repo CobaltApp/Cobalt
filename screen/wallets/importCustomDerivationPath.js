@@ -82,9 +82,9 @@ const ImportCustomDerivationPath = () => {
       backgroundColor: colors.background,
     },
     pathInput: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
   });
 

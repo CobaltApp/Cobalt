@@ -157,21 +157,21 @@ const WalletDetails = () => {
   }, [isAdvancedModeEnabledRender, wallet]);
   const stylesHook = StyleSheet.create({
     textLabel1: {
-      color: colors.inputBorderColor,
+      color: colors.element,
     },
     textLabel2: {
       color: colors.foreground,
     },
     textValue: {
-      color: colors.border,
+      color: colors.element,
     },
     input: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
     save: {
-      backgroundColor: colors.lightButton,
+      backgroundColor: colors.element,
     },
     saveText: {
       color: colors.foreground,
@@ -520,13 +520,13 @@ const WalletDetails = () => {
                     onChangeText={setWalletName}
                     onBlur={walletNameTextInputOnBlur}
                     numberOfLines={1}
-                    placeholderTextColor={colors.border}
+                    placeholderTextColor={colors.element}
                     style={{
                       flex: 1,
                       marginHorizontal: 8,
                       minHeight: 33,
                       writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-                      color: colors.border,
+                      color: colors.element,
                       fontSize: 14,
                       fontWeight: '500',
                     }}

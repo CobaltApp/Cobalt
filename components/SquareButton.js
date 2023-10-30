@@ -6,11 +6,11 @@ import { useTheme } from '@react-navigation/native';
 
 export const SquareButton = forwardRef((props, ref) => {
   const { colors } = useTheme();
-  let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.buttonBlueBackgroundColor;
+  let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.element;
   let fontColor = colors.foreground;
   if (props.disabled === true) {
-    backgroundColor = colors.buttonDisabledBackgroundColor;
-    fontColor = colors.buttonDisabledTextColor;
+    backgroundColor = colors.element;
+    fontColor = colors.foregroundInactive;
   }
 
   return (

@@ -15,7 +15,7 @@ const PlusIcon = props => {
   const { colors } = useTheme();
   const stylesHook = StyleSheet.create({
     ball: {
-      backgroundColor: colors.buttonBackgroundColor,
+      backgroundColor: colors.element,
     },
   });
 

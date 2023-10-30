@@ -17,13 +17,13 @@ const MultipleStepsListItem = props => {
   } = props;
   const stylesHook = StyleSheet.create({
     provideKeyButton: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
     provideKeyButtonText: {
       color: colors.foreground,
     },
     vaultKeyCircle: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
     vaultKeyText: {
       color: colors.foreground,

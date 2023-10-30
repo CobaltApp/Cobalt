@@ -41,22 +41,22 @@ const PsbtMultisig = () => {
       color: colors.foreground,
     },
     textFiat: {
-      color: colors.border,
+      color: colors.element,
     },
     provideSignatureButton: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
     provideSignatureButtonText: {
       color: colors.foreground,
     },
     vaultKeyCircle: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
     vaultKeyText: {
-      color: colors.border,
+      color: colors.element,
     },
     feeFiatText: {
-      color: colors.border,
+      color: colors.element,
     },
     vaultKeyCircleSuccess: {
       backgroundColor: colors.positive,

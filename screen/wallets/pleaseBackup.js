@@ -20,10 +20,10 @@ const PleaseBackup = () => {
       backgroundColor: colors.background,
     },
     word: {
-      backgroundColor: colors.inputBackgroundColor,
+      backgroundColor: colors.element,
     },
     wortText: {
-      color: colors.labelText,
+      color: colors.foreground,
     },
 
     successText: {

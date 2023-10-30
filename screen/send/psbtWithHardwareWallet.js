@@ -46,8 +46,8 @@ const PsbtWithHardwareWallet = () => {
       color: colors.foreground,
     },
     hexInput: {
-      borderColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      backgroundColor: colors.element,
       color: colors.foreground,
     },
     hexText: {

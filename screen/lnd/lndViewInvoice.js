@@ -39,10 +39,10 @@ const LNDViewInvoice = () => {
       backgroundColor: colors.background,
     },
     detailsText: {
-      color: colors.border,
+      color: colors.element,
     },
     expired: {
-      backgroundColor: colors.success,
+      backgroundColor: colors.element,
     },
     additionalInfo: {
       backgroundColor: colors.background,
@@ -232,7 +232,7 @@ const LNDViewInvoice = () => {
                     name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'}
                     size={18}
                     type="feather"
-                    color={colors.border}
+                    color={colors.element}
                   />
                 </TouchableOpacity>
               ) : undefined}

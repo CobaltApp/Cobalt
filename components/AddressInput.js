@@ -30,9 +30,9 @@ const AddressInput = ({
 
   const stylesHook = StyleSheet.create({
     root: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
     scan: {
       backgroundColor: colors.background,

@@ -25,14 +25,14 @@ const TransactionOnchainIcon = props => {
   const { colors } = useTheme();
   const stylesBlueIconHooks = StyleSheet.create({
     ballIncoming: {
-      backgroundColor: colors.ballReceive,
+      backgroundColor: colors.positive,
     },
   });
 
   return (
     <View style={styles.boxIncoming}>
       <View style={[styles.ballIncoming, stylesBlueIconHooks.ballIncoming]}>
-        <Icon name="zap-off" size={16} type="feather" color={colors.incomingForegroundColor} iconStyle={styles.icon} />
+        <Icon name="zap-off" size={16} type="feather" color={colors.positive} iconStyle={styles.icon} />
       </View>
     </View>
   );

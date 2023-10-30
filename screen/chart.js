@@ -41,12 +41,12 @@ const Chart = () => {
                   marginRight: 10,
                   height: 40,
                   width: 40,
-                  backgroundColor: colors.lightButton,
+                  backgroundColor: colors.element,
                   borderRadius: 15,
                 }}
                 onPress={navigateHome}
               >
-                <Icon size={24} name="chevron-left" type="feather" color={colors.border} style={{marginTop: 8}}/>
+                <Icon size={24} name="chevron-left" type="feather" color={colors.element} style={{marginTop: 8}}/>
               </TouchableOpacity>
                 <BlueText 
                     style={{

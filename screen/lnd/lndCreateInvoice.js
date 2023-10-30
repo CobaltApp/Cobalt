@@ -48,7 +48,7 @@ const LNDCreateInvoice = () => {
 
   const styleHooks = StyleSheet.create({
     scanRoot: {
-      backgroundColor: colors.scanLabel,
+      backgroundColor: colors.foreground,
     },
     scanClick: {
       color: colors.background,
@@ -69,9 +69,9 @@ const LNDCreateInvoice = () => {
       backgroundColor: colors.background,
     },
     fiat: {
-      borderColor: colors.formBorder,
-      borderBottomColor: colors.formBorder,
-      backgroundColor: colors.inputBackgroundColor,
+      borderColor: colors.element,
+      borderBottomColor: colors.element,
+      backgroundColor: colors.element,
     },
   });
 

@@ -10,10 +10,10 @@ export const LdkButton = props => {
     <TouchableOpacity accessibilityRole="button" onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.lightning) || colors.buttonDisabledBackgroundColor,
+          borderColor: (props.active && colors.secondary) || colors.element,
           borderWidth: 1.5,
           borderRadius: 8,
-          backgroundColor: colors.buttonDisabledBackgroundColor,
+          backgroundColor: colors.element,
           minWidth: props.style.width,
           minHeight: props.style.height,
           height: props.style.height,
@@ -26,7 +26,7 @@ export const LdkButton = props => {
             <Image style={{ width: 34, height: 34, marginRight: 8 }} source={require('../img/addWallet/lightning.png')} />
           </View>
           <View>
-            <Text style={{ color: colors.lightning, fontWeight: 'bold', fontSize: 18 }}>{props.text || '?'}</Text>
+            <Text style={{ color: colors.secondary, fontWeight: 'bold', fontSize: 18 }}>{props.text || '?'}</Text>
             <Text style={{ color: colors.foreground, fontSize: 13, fontWeight: '500' }}>{props.subtext || '?'}</Text>
           </View>
         </View>

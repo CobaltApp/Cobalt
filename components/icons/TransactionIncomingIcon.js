@@ -20,14 +20,14 @@ const TransactionIncomingIcon = props => {
   const { colors } = useTheme();
   const stylesHooks = StyleSheet.create({
     ballIncoming: {
-      backgroundColor: colors.ballReceive,
+      backgroundColor: colors.positive,
     },
   });
 
   return (
     <View style={styles.boxIncoming}>
       <View style={[styles.ballIncoming, stylesHooks.ballIncoming]}>
-        <Icon name="arrow-down" size={16} type="feather" color={colors.incomingForegroundColor} />
+        <Icon name="arrow-down" size={16} type="feather" color={colors.positive} />
       </View>
     </View>
   );

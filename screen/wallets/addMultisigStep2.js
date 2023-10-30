@@ -87,25 +87,25 @@ const WalletsAddMultisigStep2 = () => {
       color: colors.foreground,
     },
     modalContent: {
-      backgroundColor: colors.modal,
+      backgroundColor: colors.element,
     },
     exportButton: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
     vaultKeyText: {
-      color: colors.border,
+      color: colors.element,
     },
     vaultKeyCircleSuccess: {
       backgroundColor: colors.positive,
     },
     word: {
-      backgroundColor: colors.inputBackgroundColor,
+      backgroundColor: colors.element,
     },
     wordText: {
-      color: colors.labelText,
+      color: colors.foreground,
     },
     helpButton: {
-      backgroundColor: colors.buttonDisabledBackgroundColor,
+      backgroundColor: colors.element,
     },
     helpButtonText: {
       color: colors.foreground,
