@@ -1547,9 +1547,9 @@ const styles = StyleSheet.create({
   },
   scrollViewIndicator: {
     top: 0,
-    left: 8,
+    left: 16,
     bottom: 0,
-    right: 8,
+    right: 16,
   },
   modalContent: {
     padding: 22,

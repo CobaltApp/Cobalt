@@ -172,10 +172,10 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
         testID="WalletLabel"
         numberOfLines={1}
         style={{
-          marginTop: 64,
+          marginTop: 32,
           fontFamily: 'Poppins-Regular',
           fontSize: 16,
-          color: colors.foreground,
+          color: '#717171',
           writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
         }}
       >
@@ -237,7 +237,7 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
                 style={{
                   fontFamily: 'Poppins-Regular',
                   fontSize: 64,
-                  color: colors.foreground,
+                  color: '#0F0F0F',
                   writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
                 }}
               >

@@ -8,6 +8,7 @@ import confirm from '../helpers/confirm';
 import { BitcoinUnit } from '../models/bitcoinUnits';
 import loc, { formatBalanceWithoutSuffix, formatBalancePlain, removeTrailingZeros } from '../loc';
 import { BlueText } from '../BlueComponents';
+import { Button } from 'react-native-elements';
 import dayjs from 'dayjs';
 const currency = require('../blue_modules/currency');
 dayjs.extend(require('dayjs/plugin/localizedFormat'));
@@ -205,6 +206,7 @@ class AmountInput extends Component {
   render() {
     const { colors, disabled, unit } = this.props;
     const amount = this.props.amount || 0;
+    //const [frozenBalance, setFrozenBlance] = useState(false);
     let secondaryDisplayCurrency = formatBalanceWithoutSuffix(amount, BitcoinUnit.LOCAL_CURRENCY, false);
 
     // if main display is sat or btc - secondary display is fiat
@@ -228,13 +230,32 @@ class AmountInput extends Component {
         break;
     }
 
+    const onUseAllPressed = () => {
+      //Keyboard.dismiss();
+        // setAddresses(addrs => {
+        //   addrs[scrollIndex.current].amount = BitcoinUnit.MAX;
+        //   addrs[scrollIndex.current].amountSats = BitcoinUnit.MAX;
+        //   return [...addrs];
+        // });
+        // setUnits(u => {
+        //   u[scrollIndex.current] = BitcoinUnit.BTC;
+        //   return [...u];
+        // });
+        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        //setOptionsVisible(false);
+    };
+
     if (amount === BitcoinUnit.MAX) secondaryDisplayCurrency = ''; // we don't want to display NaN
 
     const stylesHook = StyleSheet.create({
       center: { padding: amount === BitcoinUnit.MAX ? 0 : 15 },
       localCurrency: { color: disabled ? colors.foregroundInactive : colors.foreground },
-      input: { color: disabled ? colors.foregroundInactive : colors.foreground, fontSize: amount.length > 10 ? 20 : 36 },
-      cryptoCurrency: { color: disabled ? colors.foregroundInactive : colors.foreground },
+      input: { 
+        color: disabled ? colors.foregroundInactive : colors.foreground, 
+        fontFamily: 'Poppins-Regular',
+        fontSize: amount.length > 5 ? 32 : 64
+      },
+      cryptoCurrency: { color: colors.foregroundInactive },
     });
 
     return (
@@ -245,12 +266,37 @@ class AmountInput extends Component {
         onPress={() => this.textInput.focus()}
       >
         <>
-          <View style={styles.root}>
-            {!disabled && <View style={[styles.center, stylesHook.center]} />}
-            <View style={styles.flex}>
-              <View style={styles.container}>
+          <View 
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              //marginVertical: 32,
+            }}
+          >
+            {!disabled && <View style={{alignSelf: 'center', padding: amount === BitcoinUnit.MAX ? 16 : 16}} />}
+            <View style={{flex: 1}}>
+              <View 
+                style={{
+                  flexDirection: 'row',
+                  alignContent: 'space-between',
+                  justifyContent: 'center',
+                  marginVertical: 32,
+                  //paddingTop: 16,
+                  //paddingBottom: 2,
+                  //paddingLeft: 32,
+                }}
+              >
                 {unit === BitcoinUnit.LOCAL_CURRENCY && amount !== BitcoinUnit.MAX && (
-                  <Text style={[styles.localCurrency, stylesHook.localCurrency]}>{currency.getCurrencySymbol() + ' '}</Text>
+                  <Text 
+                    style={{
+                      color: disabled ? colors.foregroundInactive : colors.foreground,
+                      fontFamily: 'Poppins-Regular',
+                      fontSize: amount.length > 5 ? 32 : 64,
+                      alignSelf: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {currency.getCurrencySymbol() + ''}</Text>
                 )}
                 {amount !== BitcoinUnit.MAX ? (
                   <TextInput
@@ -271,37 +317,65 @@ class AmountInput extends Component {
                     editable={!this.props.isLoading && !disabled}
                     value={amount === BitcoinUnit.MAX ? loc.units.MAX : parseFloat(amount) >= 0 ? String(amount) : undefined}
                     placeholderTextColor={disabled ? colors.foregroundInactive : colors.foreground}
-                    style={[styles.input, stylesHook.input]}
+                    style={[stylesHook.input]}
                   />
                 ) : (
                   <Pressable onPress={this.resetAmount}>
-                    <Text style={[styles.input, stylesHook.input]}>{BitcoinUnit.MAX}</Text>
+                    <Text style={[stylesHook.input]}>{BitcoinUnit.MAX}</Text>
                   </Pressable>
                 )}
                 {unit !== BitcoinUnit.LOCAL_CURRENCY && amount !== BitcoinUnit.MAX && (
                   <Text style={[styles.cryptoCurrency, stylesHook.cryptoCurrency]}>{' ' + loc.units[unit]}</Text>
                 )}
               </View>
-              <View style={styles.secondaryRoot}>
+              {/* <View style={styles.secondaryRoot}>
                 <Text style={styles.secondaryText}>
                   {unit === BitcoinUnit.LOCAL_CURRENCY && amount !== BitcoinUnit.MAX
                     ? removeTrailingZeros(secondaryDisplayCurrency)
                     : secondaryDisplayCurrency}
                   {unit === BitcoinUnit.LOCAL_CURRENCY && amount !== BitcoinUnit.MAX ? ` ${loc.units[BitcoinUnit.BTC]}` : null}
                 </Text>
-              </View>
+              </View> */}
             </View>
+            <View
+              style={{
+                marginRight: 16,
+                justifyContent: 'center',
+                //paddingTop: 16,
+              }}
+            >
+              <Button
+              onPress={onUseAllPressed}
+              testID="SendButton"
+              titleStyle={{ 
+                fontFamily: 'Poppins-Regular',
+                fontSize: 14,
+                color: colors.background,
+              }}
+              title="Max"
+              buttonStyle={{
+                backgroundColor: colors.foreground,
+                borderRadius: 15,
+                paddingHorizontal: 16,
+                paddingTop: 8,
+                marginBottom: 6,
+              }}
+            />
             {!disabled && amount !== BitcoinUnit.MAX && (
               <TouchableOpacity
                 accessibilityRole="button"
                 accessibilityLabel={loc._.change_input_currency}
                 testID="changeAmountUnitButton"
-                style={styles.changeAmountUnit}
+                style={{
+                  //alignSelf: 'center',
+                  marginTop: 6,
+                }}
                 onPress={this.changeAmountUnit}
               >
                 <Icon name="repeat" type="feather" size={24} color={colors.foreground} />
               </TouchableOpacity>
             )}
+            </View>
           </View>
           {this.state.isRateOutdated && (
             <View style={styles.outdatedRateContainer}>
@@ -363,19 +437,18 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
   },
   localCurrency: {
-    fontSize: 18,
-    marginHorizontal: 4,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 64,
     alignSelf: 'center',
     justifyContent: 'center',
   },
   input: {
-    fontWeight: 'bold',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 64,
   },
   cryptoCurrency: {
-    fontSize: 15,
-    marginHorizontal: 4,
-    fontWeight: '600',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 20,
     alignSelf: 'center',
     justifyContent: 'center',
   },

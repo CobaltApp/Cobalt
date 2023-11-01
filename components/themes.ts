@@ -71,8 +71,8 @@ export const BlueDarkTheme: Theme = {
     foreground: '#F5F5F5', //Cultured
     foregroundInactive: '#717171', //Dark Silver
     //foregroundLabel: '#A6A6A6', //Quick Silver
-    element: '#1F1F1F', //Eerie Black
-    //tab: '#2E2E2E', //Dark Charcoal
+    element: '#1F1F1F', //Eerie Black //card
+    //border: '#2E2E2E', //Dark Charcoal
   },
 };
 

@@ -240,9 +240,16 @@ const WalletTransactions = ({ navigation }) => {
     }
 
     return (
-      <View style={styles.flex}>
-        <View style={styles.listHeader}>{wallet.chain === Chain.OFFCHAIN && renderLappBrowserButton()}</View>
-        {wallet.type === LightningLdkWallet.type && (lnNodeInfo.canSend > 0 || lnNodeInfo.canReceive > 0) && (
+      <View style={{flex: 1}}>
+        <View 
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+          }}
+        >
+          {wallet.chain === Chain.OFFCHAIN && renderLappBrowserButton()}</View>
+          {wallet.type === LightningLdkWallet.type && (lnNodeInfo.canSend > 0 || lnNodeInfo.canReceive > 0) && (
           <View style={[styles.marginHorizontal18, styles.marginBottom18]}>
             <LNNodeBar canSend={lnNodeInfo.canSend} canReceive={lnNodeInfo.canReceive} itemPriceUnit={itemPriceUnit} />
           </View>
@@ -603,7 +610,7 @@ const WalletTransactions = ({ navigation }) => {
           />
         )}
       </View>
-      <View style={[styles.list, stylesHook.list]}>
+      <View style={{flex: 1}}>
         <FlatList
           getItemLayout={getItemLayout}
           ListHeaderComponent={renderListHeaderComponent}
@@ -624,7 +631,15 @@ const WalletTransactions = ({ navigation }) => {
           ListFooterComponent={renderListFooterComponent}
           ListEmptyComponent={
             <ScrollView style={styles.flex} contentContainerStyle={styles.scrollViewContent}>
-              <Text numberOfLines={0} style={styles.emptyTxs}>
+              <Text 
+                numberOfLines={0} 
+                style={{
+                  fontSize: 16,
+                  color: colors.foregroundInactive,
+                  textAlign: 'center',
+                  marginVertical: 16,
+                }}
+              >
                 {(isLightning() && loc.wallets.list_empty_txs1_lightning) || loc.wallets.list_empty_txs1}
               </Text>
               {isLightning() && <Text style={styles.emptyTxsLightning}>{loc.wallets.list_empty_txs2_lightning}</Text>}
@@ -682,7 +697,7 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: 32,
     paddingBottom: 40,
   },
   marginHorizontal18: {
@@ -695,9 +710,9 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   listHeader: {
-    marginLeft: 16,
-    marginRight: 16,
-    marginVertical: 16,
+    //marginLeft: 16,
+    //marginRight: 16,
+    //marginVertical: 16,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
