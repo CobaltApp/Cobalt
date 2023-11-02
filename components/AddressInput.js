@@ -32,7 +32,7 @@ const AddressInput = ({
     root: {
       borderColor: colors.element,
       borderBottomColor: colors.element,
-      backgroundColor: colors.element,
+      //backgroundColor: colors.element,
     },
     scan: {
       backgroundColor: colors.background,
@@ -48,14 +48,33 @@ const AddressInput = ({
   };
 
   return (
-    <View style={[styles.root, stylesHook.root]}>
+    <View 
+      style={{
+        borderColor: colors.element,
+        borderBottomColor: colors.element,
+        flexDirection: 'row',
+        borderWidth: 2,
+        minHeight: 48,
+        height: 56,
+        marginHorizontal: 32,
+        alignItems: 'center',
+        marginBottom: 8,
+        borderRadius: 15,
+      }}
+    >
       <TextInput
         testID="AddressInput"
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="#81868e"
+        placeholderTextColor={colors.foregroundInactive}
         value={address}
-        style={styles.input}
+        style={{
+          flex: 1,
+          marginHorizontal: 20,
+          //minHeight: 56,
+          color: colors.foreground,
+          fontFamily: 'Poppins-Regular',
+        }}
         editable={!isLoading && editable}
         multiline={!editable}
         inputAccessoryViewID={inputAccessoryViewID}
@@ -86,7 +105,16 @@ const AddressInput = ({
             }
           }}
           accessibilityRole="button"
-          style={[styles.scan, stylesHook.scan]}
+          style={{
+            height: 36,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            borderRadius: 12,
+            paddingVertical: 4,
+            paddingHorizontal: 8,
+            marginHorizontal: 4,
+          }}
           accessibilityLabel={loc.send.details_scan}
           accessibilityHint={loc.send.details_scan_hint}
         >
@@ -105,7 +133,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 2,
     minHeight: 48,
-    height: 48,
+    height: 56,
     marginHorizontal: 20,
     alignItems: 'center',
     marginVertical: 8,
@@ -114,7 +142,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     marginHorizontal: 14,
-    minHeight: 48,
+    //minHeight: 56,
     color: '#23262F',
   },
   scan: {

@@ -1452,17 +1452,33 @@ const SendDetails = () => {
               onMomentumScrollEnd={handleRecipientsScrollEnds}
               onScroll={handleRecipientsScroll}
               scrollEventThrottle={200}
-              scrollIndicatorInsets={styles.scrollViewIndicator}
+              //scrollIndicatorInsets={styles.scrollViewIndicator}
               contentContainerStyle={styles.scrollViewContent}
             />
-            <View style={[styles.memo, stylesHook.memo]}>
+            <View 
+              style={{
+                borderColor: colors.element,
+                flexDirection: 'row',
+                borderWidth: 2,
+                height: 56,
+                marginHorizontal: 32,
+                alignItems: 'center',
+                marginVertical: 8,
+                borderRadius: 15,
+              }}
+            >
               <TextInput
                 onChangeText={setTransactionMemo}
                 placeholder={loc.send.details_note_placeholder}
-                placeholderTextColor="#81868e"
+                placeholderTextColor={colors.foregroundInactive}
                 value={transactionMemo}
                 numberOfLines={1}
-                style={styles.memoText}
+                style={{
+                  flex: 1,
+                  marginHorizontal: 8,
+                  minHeight: 33,
+                  color: colors.foreground,
+                }}
                 editable={!isLoading}
                 onSubmitEditing={Keyboard.dismiss}
                 inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
@@ -1547,9 +1563,9 @@ const styles = StyleSheet.create({
   },
   scrollViewIndicator: {
     top: 0,
-    left: 16,
+    //left: 16,
     bottom: 0,
-    right: 16,
+    //right: 16,
   },
   modalContent: {
     padding: 22,
