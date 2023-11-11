@@ -9,6 +9,7 @@ import {
   StatusBar,
   StyleSheet,
   TextInput,
+  Text,
   View,
 } from 'react-native';
 import { useNavigation, useRoute, useTheme, useFocusEffect } from '@react-navigation/native';
@@ -308,7 +309,7 @@ const ReceiveDetails = () => {
                 fontSize: 18,
                 color: colors.primary,
               }}
-              title='COPY'
+              title='Copy'
               buttonStyle={{
                 backgroundColor: 'transparent',
                 padding: 16,
@@ -328,7 +329,7 @@ const ReceiveDetails = () => {
                 fontSize: 18,
                 color: colors.primary,
               }}
-              title='SHARE'
+              title='Share'
               buttonStyle={{
                 backgroundColor: 'transparent',
                 padding: 16,
@@ -337,6 +338,18 @@ const ReceiveDetails = () => {
           </View>
         </View>
         {renderCustomAmountModal()}
+        <Text
+          style={{
+            marginHorizontal: 32,
+            marginVertical: 24,
+            fontFamily: 'Poppins-Regular',
+            fontSize: 14,
+            alignSelf: 'center',
+            textAlign: 'center',
+          }}
+        >
+          Use this address to receive bitcoin from other Cobalt users.
+        </Text>
       </View>
     );
   };

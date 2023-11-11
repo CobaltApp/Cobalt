@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
   View,
   I18nManager,
+  Image,
 } from 'react-native';
 import { Icon, colors } from 'react-native-elements';
 import { useRoute, useNavigation, useTheme, useFocusEffect } from '@react-navigation/native';
@@ -631,13 +632,21 @@ const WalletTransactions = ({ navigation }) => {
           ListFooterComponent={renderListFooterComponent}
           ListEmptyComponent={
             <ScrollView style={styles.flex} contentContainerStyle={styles.scrollViewContent}>
+              <Image source={require('../../img/icons/Search.png')} 
+                style={{
+                  width: 156,
+                  height: 156,
+                  marginVertical: 16,
+                  alignSelf: 'center',
+                }}
+              />
               <Text 
                 numberOfLines={0} 
                 style={{
+                  fontFamily: 'Poppins-Regular',
                   fontSize: 16,
                   color: colors.foregroundInactive,
                   textAlign: 'center',
-                  marginVertical: 16,
                 }}
               >
                 {(isLightning() && loc.wallets.list_empty_txs1_lightning) || loc.wallets.list_empty_txs1}

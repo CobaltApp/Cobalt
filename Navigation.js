@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Platform, useWindowDimensions, Dimensions, I18nManager, View, Image } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { Keyboard, Platform, useWindowDimensions, Dimensions, I18nManager, View, Image } from 'react-native';
+import { useTheme, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator, useBottomTabBarHeight, BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
-import { Icon } from 'react-native-elements';
+import { Icon, Button } from 'react-native-elements';
 import { FContainer, FButton } from './components/FloatButtons';
 
 import Settings from './screen/settings/settings';
@@ -90,21 +90,30 @@ import PaymentCode from './screen/wallets/paymentCode';
 import PaymentCodesList from './screen/wallets/paymentCodesList';
 import loc from './loc';
 
+import DeeplinkSchemaMatch from './class/deeplink-schema-match';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+
 import Notifications from './screen/Notifications';
+import Chat from './screen/Chat';
 
 import Discover from './screen/Discover';
 import Chart from './screen/chart';
 import { IconConfigKeys } from 'react-native-ios-context-menu';
 
+import * as NavigationService from './NavigationService';
+
 const WalletsStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const scanqrHelper = require('./helpers/scan-qr');
+//const scanButtonRef = useRef();
 
-function TabNavigator(props) {
+function TabNavigator() {
   const { theme, colors, scanImage, barStyle } = useTheme();
-  const { navigation, route } = props;
+  //const { navigation, route } = props;
   const walletActionButtonsRef = useRef();
+
+  const scanButtonRef = useRef();
 
   return (
     <Tab.Navigator 
@@ -146,8 +155,8 @@ function TabNavigator(props) {
         }}
       />
       <Tab.Screen
-        name="Discover"
-        component={Discover}
+        name="Market"
+        component={Chart}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -161,7 +170,7 @@ function TabNavigator(props) {
           ),
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Pay"
         component={ScanQRCodeRoot}
         options={{
@@ -169,26 +178,56 @@ function TabNavigator(props) {
           tabBarButton: () => (
             <View style={{ flex: 1, marginBottom: -5}}>
               <FContainer ref={walletActionButtonsRef}>
-                <FButton
+                {/* <FButton
                   onPress={onScanButtonPressed}
                   onLongPress={sendButtonLongPress}
-                  icon={<Icon name="plus" type="feather" size={32} color={colors.background} />}
-                  //text={loc.send.details_scan}
+                  icon={<Icon name="grid" type="feather" size={24} color={colors.background} />}
+                  text={loc.send.details_scan}
+                > */}
+                <Button
+                  // onPress={}
+                  // onPress={async () => {
+                  //   await scanButtonTapped();
+                  //   Keyboard.dismiss();
+                  //   if (isDesktop) {
+                  //     fs.showActionSheet({ anchor: findNodeHandle(scanButtonRef.current) }).then(onBarScanned);
+                  //   } else {
+                  //     NavigationService.navigate('ScanQRCodeRoot', {
+                  //       screen: 'ScanQRCode',
+                  //       params: {
+                  //         launchedBy,
+                  //         onBarScanned,
+                  //         //onBarScannerDismissWithoutData,
+                  //       },
+                  //     });
+                  //   }
+                  // }}
+                  // onLongPress={sendButtonLongPress}
+                  testID="ModalButton"
+                  icon={<Icon name="grid" type="feather" size={24} color={colors.background} />}
+                  buttonStyle={{
+                    backgroundColor: colors.primary,
+                    marginTop: 12,
+                    borderRadius: 15,
+                    height: 48,
+                    width: 48,
+                    //marginBottom: 6,
+                  }}
                 />
               </FContainer>
             </View>
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Activity"
-        component={Notifications}
+        component={Chat}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
               color={ focused ? colors.foreground : colors.foregroundInactive }
-              name="shopping-bag"
+              name="message-square"
               type="feather" 
               width={24}
               height={24}
@@ -233,9 +272,48 @@ function TabNavigator(props) {
   );
 }
 
-const onScanButtonPressed = () => {
-  scanqrHelper(navigate, routeName, false).then(onBarScanned);
-};
+// const onScanButtonPressed = ({
+//   isLoading = false,
+//   address = '',
+//   placeholder = loc.send.details_address,
+//   onChangeText,
+//   onBarScanned,
+//   onBarScannerDismissWithoutData = () => {},
+//   scanButtonTapped = () => {},
+//   launchedBy,
+//   editable = true,
+//   inputAccessoryViewID,
+//   onBlur = () => {},
+//   keyboardType = 'default',
+// }) => {
+//   //const scanButtonRef = useRef();
+
+//   async () => {
+//     await scanButtonTapped();
+//     Keyboard.dismiss();
+//     NavigationService.navigate('ScanQRCodeRoot', {
+//         screen: 'ScanQRCode',
+//         params: {
+//           launchedBy,
+//           onBarScanned,
+//           onBarScannerDismissWithoutData,
+//         },
+//       });
+//   }
+//   //const { navigate, setOptions } = useNavigation();
+
+//   //scanqrHelper(navigate, routeName, false).then(onBarScanned);
+// };
+
+// const onBarScanned = value => {
+//   const { navigate, setOptions } = useNavigation();
+
+//   if (!value) return;
+//   DeeplinkSchemaMatch.navigationRouteFor({ url: value }, completionValue => {
+//     ReactNativeHapticFeedback.trigger('impactLight', { ignoreAndroidSystemSettings: false });
+//     navigate(...completionValue);
+//   });
+// };
 
 const sendButtonLongPress = async () => {
   const isClipboardEmpty = (await BlueClipboard().getClipboardContent()).trim().length === 0;

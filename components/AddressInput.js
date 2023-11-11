@@ -51,15 +51,15 @@ const AddressInput = ({
     <View 
       style={{
         borderColor: colors.element,
-        borderBottomColor: colors.element,
         flexDirection: 'row',
         borderWidth: 2,
         minHeight: 48,
-        height: 56,
+        height: 54,
         marginHorizontal: 32,
         alignItems: 'center',
         marginBottom: 8,
-        borderRadius: 15,
+        borderRadius: 12,
+        padding: 16,
       }}
     >
       <TextInput
@@ -70,10 +70,11 @@ const AddressInput = ({
         value={address}
         style={{
           flex: 1,
-          marginHorizontal: 20,
+          //marginHorizontal: 20,
           //minHeight: 56,
           color: colors.foreground,
           fontFamily: 'Poppins-Regular',
+          fontSize: 14,
         }}
         editable={!isLoading && editable}
         multiline={!editable}
@@ -111,14 +112,14 @@ const AddressInput = ({
             alignItems: 'center',
             justifyContent: 'space-between',
             borderRadius: 12,
-            paddingVertical: 4,
-            paddingHorizontal: 8,
-            marginHorizontal: 4,
+            //paddingVertical: 4,
+            //paddingHorizontal: 8,
+            //marginHorizontal: 4,
           }}
           accessibilityLabel={loc.send.details_scan}
           accessibilityHint={loc.send.details_scan_hint}
         >
-          <Icon name="camera" type="feather" size={24} color={colors.foregroundInactive} />
+          <Icon name="grid" type="feather" size={24} color={colors.foregroundInactive} />
           {/* <Text style={[styles.scanText, stylesHook.scanText]} accessible={false}>
             {loc.send.details_scan}
           </Text> */}

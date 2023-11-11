@@ -52,16 +52,11 @@ export const BlueButton = props => {
   return (
     <TouchableOpacity
       style={{
-        borderWidth: 0.7,
-        borderColor: 'transparent',
         backgroundColor,
-        minHeight: 45,
-        height: 45,
-        maxHeight: 45,
-        borderRadius: 25,
+        minHeight: 56,
+        borderRadius: 17,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 16,
         flexGrow: 1,
       }}
       accessibilityRole="button"
@@ -69,7 +64,7 @@ export const BlueButton = props => {
     >
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         {props.icon && <Icon name={props.icon.name} type={props.icon.type} color={props.icon.color} />}
-        {props.title && <Text style={{ marginHorizontal: 8, fontSize: 16, color: fontColor, fontWeight: '700' }}>{props.title}</Text>}
+        {props.title && <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 16, color: fontColor, }}>{props.title}</Text>}
       </View>
     </TouchableOpacity>
   );
@@ -282,12 +277,19 @@ export const BlueAlertWalletExportReminder = ({ onSuccess = () => {}, onFailure 
 
 export const BluePrivateBalance = () => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 13, borderRadius: 9 }}>
-      <ImageBackground
+    <View style={{ flexDirection: 'row', alignItems: 'center', height: 90 }}>
+      {/* <ImageBackground
         blurRadius={6}
-        style={{ backgroundColor: '#FFFFFF', opacity: 0.5, height: 30, width: 110, marginRight: 8, borderRadius: 9 }}
-      />
-      <Icon name="eye" type="feather" color="#FFFFFF" />
+        style={{ backgroundColor: '#000000', opacity: 0.5, height: 30, width: 110, marginRight: 8, borderRadius: 9 }}
+      /> */}
+      {/* <Icon name="eye-off" type="feather" color="#000000" /> */}
+      <Text
+        style={{
+          fontSize: 22,
+        }}
+      >
+        ●  ●  ●  ●  ●  ●
+      </Text>
     </View>
   );
 };
@@ -369,7 +371,7 @@ const styleCopyTextToClipboard = StyleSheet.create({
 export const SafeBlueArea = props => {
   const { style, ...nonStyleProps } = props;
   const { colors } = useTheme();
-  const baseStyle = { flex: 1, backgroundColor: '#F3F5F6', paddingVertical: 32, paddingHorizontal: 25};
+  const baseStyle = { flex: 1, backgroundColor: colors.background, paddingVertical: 32, paddingHorizontal: 32};
   return (
     <View 
       forceInset={{ horizontal: 'always'}}
@@ -386,7 +388,7 @@ export const BlueCard = props => {
 
 export const BlueText = props => {
   const { colors } = useTheme();
-  const style = StyleSheet.compose({ color: colors.foreground, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }, props.style);
+  const style = StyleSheet.compose({ fontFamily: 'Poppins-Regular', color: colors.foreground, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }, props.style);
   return <Text {...props} style={style} />;
 };
 
@@ -531,19 +533,20 @@ export const BlueFormInput = props => {
       underlineColorAndroid="transparent"
       //value={input}
       style={{
-        height: 48,
+        fontFamily: 'Poppins-Regular',
+        height: 58,
         paddingHorizontal: 14,
         //flex: 0,
-        marginHorizontal: 16,
+        //marginHorizontal: 16,
         marginBottom: 12,
         borderColor: colors.element,
         borderWidth: 2,
         borderRadius: 12,
         //backgroundColor: colors.element,
-        color: colors.foregroundInactive,
+        color: colors.foreground,
         fontSize: 14,
-        fontWeight: '500',
       }}
+      placeholderTextColor={colors.foregroundInactive}
       //onChangeText={onChangeInput}
       autoCorrect={false}
       autoCapitalize="none"
@@ -838,6 +841,7 @@ export class BlueReplaceFeeSuggestions extends Component {
               ref={ref => (this.customTextInput = ref)}
               maxLength={9}
               style={{
+                fontFamily: 'Poppins-Regular',
                 backgroundColor: BlueCurrentTheme.colors.element,
                 borderBottomColor: BlueCurrentTheme.colors.element,
                 borderBottomWidth: 0.5,

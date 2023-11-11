@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { ScrollView, View, TouchableOpacity, Text, Image, TextInput, } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { Icon} from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 
 import navigationStyle from '../components/navigationStyle';
 import { BlueLoading, BlueButton, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
-//import Widget from '../components/widgetChart';\
+//import TradingViewWidget from '../components/TradingViewWidget';
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import loc from '../loc';
+
+//import TradingViewWidget from 'react-tradingview-widget';
 
 const Chart = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,114 +28,68 @@ const Chart = () => {
     </SafeBlueArea>
   ) : (
     <SafeBlueArea>
-        <BlueCard>
+        <View style={{flexDirection: 'row'}}>
+            <Image 
+                source={require('../img/addWallet/bitcoin.png')}
+                style={{ width: 24, height: 24, borderRadius: 12, alignSelf: 'center',}}
+            />
+            <Text
+                style={{
+                    fontFamily: 'Poppins-Regular',
+                    fontSize: 16,
+                    marginLeft: 10,
+                    alignSelf: 'center',
+                }}
+            >
+                Bitcoin
+            </Text>
             <View
                 style={{
-                    flexDirection: 'row',
-                    marginBottom: 44,
-                  }}
-            >
-                <TouchableOpacity
-                accessibilityRole="button"
-                accessibilityLabel={loc._.more}
-                testID="HomeButton"
-                style={{
-                  marginRight: 10,
-                  height: 40,
-                  width: 40,
-                  backgroundColor: colors.element,
-                  borderRadius: 15,
+                    backgroundColor: colors.foreground,
+                    height: 30,
+                    borderRadius: 15,
+                    marginLeft: 12,
+                    paddingHorizontal: 10,
+                    justifyContent: 'center',
                 }}
-                onPress={navigateHome}
-              >
-                <Icon size={24} name="chevron-left" type="feather" color={colors.element} style={{marginTop: 8}}/>
-              </TouchableOpacity>
-                <BlueText 
+            >
+                <Text
                     style={{
-                        fontWeight: '400',
+                        color: colors.background,
+                        fontFamily: 'Poppins-Regular',
                         fontSize: 14,
-                        color: colors.foreground,
-                        marginTop: 13,
                     }}
                 >
-                    Bitcoin Live Chart
-                </BlueText>
+                    Rank #1
+                </Text>
             </View>
-            <View
+        </View>
+        <Text
+            style={{
+                color: colors.foregroundInactive,
+                fontFamily: 'Poppins-Regular',
+                fontSize: 12,
+                marginTop: 20,
+            }}
+        >
+            BITCOIN PRICE
+        </Text>
+        <View>
+            <Text
                 style={{
-                    flexDirection: 'row',
-                    height: 94,
-                    width: '100%',
-                    paddingHorizontal: 20,
-                    paddingVertical: 25,
-                    backgroundColor: colors.primary,
-                    borderWidth: 0,
-                    borderRadius: 30,
-                    marginBottom: 20,
+                    fontFamily: 'Poppins-Regular',
+                    fontSize: 32,
                 }}
             >
-                <View>
-                    <Image 
-                        source={require('../img/addWallet/bitcoin.png')}
-                        style={{ width: 43, height: 43, borderRadius: 22}}
-                    />
-                </View>
-                <View
-                    style={{
-                        marginLeft: 18,
-                    }}
-                >
-                    <Text 
-                        style={{
-                            fontWeight: '700',
-                            fontSize: 18,
-                            color: colors.background,
-                        }}
-                    >Bitcoin</Text>
-                    <Text
-                        style={{
-                            fontWeight: '400',
-                            fontSize: 12,
-                            marginTop: 6,
-                            color: colors.background,
-                        }}
-                    >BTC</Text>
-                </View>
-                <View
-                    style={{
-                        position: 'absolute',
-                        right: 20,
-                        marginTop: 25,
-                        //marginLeft: 72,
-                        alignItems: 'flex-end',
-                    }}
-                >
-                    <Text 
-                        style={{
-                            fontWeight: '700',
-                            fontSize: 18,
-                            color: colors.background,
-                        }}
-                    >$32,785.00</Text>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                        }}
-                    >
-                        <Icon size={24} name="arrow-up" type="feather" color={colors.positive} style={{marginTop: 4}}/>
-                        <Text
-                            style={{
-                                fontWeight: '600',
-                                fontSize: 16,
-                                marginTop: 6,
-                                color: colors.positive,
-                            }}
-                            //<TradingViewWidget symbol="NASDAQ:AAPL" />
-                        >1.37%</Text>
-                    </View>
-                </View>
-            </View>
-      </BlueCard>
+                $56,694.06
+            </Text>
+            <TradingViewWidget
+    symbol="NASDAQ:AAPL"
+    theme={Themes.DARK}
+    locale="fr"
+    autosize
+  />
+        </View>
     </SafeBlueArea>
   );
 };

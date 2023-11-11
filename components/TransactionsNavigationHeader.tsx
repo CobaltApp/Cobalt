@@ -14,6 +14,7 @@ import { BluePrivateBalance } from '../BlueComponents';
 //import { color } from 'react-native-reanimated';
 //import { colors } from 'react-native-elements';
 import { Button } from 'react-native-elements';
+import { BlueCurrentTheme } from './themes';
 
 //const walletActionButtonsRef = useRef();
 
@@ -219,30 +220,38 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
               ]
         }
       >
-        
-          {wallet.hideBalance ? (
-            <BluePrivateBalance />
-          ) : (
             <View 
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
+                height: 90,
               }}
             >
-              <Text
-                testID="WalletBalance"
-                key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
-                numberOfLines={1}
-                adjustsFontSizeToFit
-                style={{
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 64,
-                  color: '#0F0F0F',
-                  writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-                }}
-              >
-                {balance}
-              </Text>
+              {wallet.hideBalance ? (
+                <Text
+                  style={{
+                    fontSize: 22,
+                    color: BlueCurrentTheme.colors.foreground,
+                  }}
+                >
+                  ●  ●  ●  ●
+                </Text>
+              ) : (
+                <Text
+                  testID="WalletBalance"
+                  key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  style={{
+                    fontFamily: 'Poppins-Regular',
+                    fontSize: 64,
+                    color: BlueCurrentTheme.colors.foreground,
+                    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+                  }}
+                >
+                  {balance}
+                </Text>
+              )}
               {/*  */}
               {/* <Text
                 testID="WalletBalanceUnit"
@@ -258,7 +267,6 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
                 {wallet.getPreferredBalanceUnit()}
               </Text> */}
             </View>
-          )}
       {/* <View style={{flexDirection: 'row'}}>
       {(wallet.allowSend() || (wallet.type === WatchOnlyWallet.type)) && ( //&& wallet.isHd()
         <Button

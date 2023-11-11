@@ -1093,6 +1093,13 @@ const SendDetails = () => {
 
   const renderFeeSelectionModal = () => {
     const nf = networkTransactionFees;
+
+    const feeColor = [
+      colors.positive,
+      colors.secondary,
+      colors.negative
+    ];
+
     const options = [
       {
         label: loc.send.fee_fast,
@@ -1126,7 +1133,15 @@ const SendDetails = () => {
         onClose={() => setIsFeeSelectionModalVisible(false)}
       >
         <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
-          <View style={[styles.modalContent, stylesHook.modalContent]}>
+          <View 
+            style={{
+              padding: 22,
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              minHeight: 200,
+              backgroundColor: colors.background,
+            }}
+          >
             {options.map(({ label, time, fee, rate, active, disabled }, index) => (
               <TouchableOpacity
                 accessibilityRole="button"
@@ -1137,19 +1152,64 @@ const SendDetails = () => {
                   setIsFeeSelectionModalVisible(false);
                   setCustomFee(rate.toString());
                 }}
-                style={[styles.feeModalItem, active && styles.feeModalItemActive, active && !disabled && stylesHook.feeModalItemActive]}
+                style={{
+                  paddingHorizontal: 16,
+                  paddingVertical: 8,
+                  marginBottom: 10,
+                  borderWidth: 1,
+                  borderRadius: 13,
+                  borderColor: active ? colors.primary : colors.background,
+                }}
+                //style={[styles.feeModalItem, active && styles.feeModalItemActive, active && !disabled && stylesHook.feeModalItemActive]}
               >
-                <View style={styles.feeModalRow}>
-                  <Text style={[styles.feeModalLabel, disabled ? stylesHook.feeModalItemTextDisabled : stylesHook.feeModalLabel]}>
+                <View 
+                  style={{
+                    flexDirection: 'row', 
+                    alignItems: 'center',
+                    marginBottom: 4,
+                  }}
+                >
+                  <Text 
+                    style={{
+                      fontFamily: 'Poppins-Regular',
+                      fontSize: 16,
+                      color: disabled ? colors.foregroundInactive : colors.foreground,
+                      marginRight: 12,
+                    }}
+                  >
                     {label}
                   </Text>
-                  <View style={[styles.feeModalTime, disabled ? stylesHook.feeModalItemDisabled : stylesHook.feeModalTime]}>
-                    <Text style={stylesHook.feeModalTimeText}>~{time}</Text>
+                  <View 
+                    style={{
+                      backgroundColor: disabled ? colors.foregroundInactive : feeColor[index],
+                      borderRadius: 15,
+                      paddingHorizontal: 12,
+                      paddingVertical: 4,
+                    }}
+                  >
+                    <Text style={{fontFamily: 'Poppins-Regular', fontSize: 14, color: colors.background}}>{time}</Text>
                   </View>
                 </View>
-                <View style={styles.feeModalRow}>
-                  <Text style={disabled ? stylesHook.feeModalItemTextDisabled : stylesHook.feeModalValue}>{fee && formatFee(fee)}</Text>
-                  <Text style={disabled ? stylesHook.feeModalItemTextDisabled : stylesHook.feeModalValue}>
+                <View 
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text 
+                    style={{
+                      color: disabled ? colors.foregroundInactive : colors.foreground
+                    }}
+                  >
+                    {fee && formatFee(fee)}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: 'Poppins-Regular',
+                      fontSize: 14,
+                      color: disabled ? colors.foregroundInactive : colors.foreground
+                    }}
+                  >
                     {rate} {loc.units.sat_vbyte}
                   </Text>
                 </View>
@@ -1158,7 +1218,11 @@ const SendDetails = () => {
             <TouchableOpacity
               testID="feeCustom"
               accessibilityRole="button"
-              style={styles.feeModalCustom}
+              style={{
+                height: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
               onPress={async () => {
                 let error = loc.send.fee_satvbyte;
                 while (true) {
@@ -1183,7 +1247,14 @@ const SendDetails = () => {
                 }
               }}
             >
-              <Text style={[styles.feeModalCustomText, stylesHook.feeModalCustomText]}>{loc.send.fee_custom}</Text>
+              <Text 
+                style={{
+                  fontFamily: 'Poppins-Regular',
+                  fontSize: 14,
+                }}
+              >
+                {loc.send.fee_custom}
+              </Text>
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -1280,7 +1351,17 @@ const SendDetails = () => {
 
   const renderCreateButton = () => {
     return (
-      <View style={styles.createButton}>
+      <View 
+        style={{
+          marginVertical: 16,
+          marginHorizontal: 32,
+          alignContent: 'center',
+          minHeight: 48,
+          width: 311,
+          position: 'absolute',
+          bottom: 20,
+        }}
+      >
         {isLoading ? (
           <ActivityIndicator />
         ) : (
@@ -1308,27 +1389,44 @@ const SendDetails = () => {
     }
 
     return (
-      <View style={styles.select}>
+      <View>
         {!isLoading && isEditable && (
           <TouchableOpacity
             accessibilityRole="button"
-            style={styles.selectTouch}
+            style={{
+                borderColor: colors.element,
+                flexDirection: 'row',
+                borderWidth: 2,
+                height: 54,
+                width: 311,
+                marginHorizontal: 32,
+                alignItems: 'center',
+                //alignContent: 'space-around',
+                justifyContent: 'space-between',
+                marginVertical: 8,
+                borderRadius: 12,
+                padding: 16,
+            }}
             onPress={() => navigation.navigate('SelectWallet', { onWalletSelect, chainType: Chain.ONCHAIN })}
           >
-            <Text style={styles.selectText}>{loc.wallets.select_wallet.toLowerCase()}</Text>
-            <Icon name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'} size={18} type="feather" color="#9aa0aa" />
+            <Text 
+              style={{
+                fontFamily: 'Poppins-Regular',
+                fontSize: 14,
+                color: colors.foreground,
+              }}
+            >
+              {wallet.getLabel()}
+            </Text>
+            <Icon 
+              name={'chevron-right'}
+              size={20} 
+              type="feather" 
+              color={colors.foreground}
+              
+            />
           </TouchableOpacity>
         )}
-        <View style={styles.selectWrap}>
-          <TouchableOpacity
-            accessibilityRole="button"
-            style={styles.selectTouch}
-            onPress={() => navigation.navigate('SelectWallet', { onWalletSelect, chainType: Chain.ONCHAIN })}
-            disabled={!isEditable || isLoading}
-          >
-            <Text style={[styles.selectLabel, stylesHook.selectLabel]}>{wallet.getLabel()}</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     );
   };
@@ -1456,18 +1554,18 @@ const SendDetails = () => {
               contentContainerStyle={styles.scrollViewContent}
             />
             <View 
-              style={{
-                borderColor: colors.element,
-                flexDirection: 'row',
-                borderWidth: 2,
-                height: 56,
-                marginHorizontal: 32,
-                alignItems: 'center',
-                marginVertical: 8,
-                borderRadius: 15,
-              }}
+              // style={{
+              //   borderColor: colors.element,
+              //   flexDirection: 'row',
+              //   borderWidth: 2,
+              //   height: 56,
+              //   marginHorizontal: 32,
+              //   alignItems: 'center',
+              //   marginVertical: 8,
+              //   borderRadius: 15,
+              // }}
             >
-              <TextInput
+              {/* <TextInput
                 onChangeText={setTransactionMemo}
                 placeholder={loc.send.details_note_placeholder}
                 placeholderTextColor={colors.foregroundInactive}
@@ -1482,28 +1580,47 @@ const SendDetails = () => {
                 editable={!isLoading}
                 onSubmitEditing={Keyboard.dismiss}
                 inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
-              />
+              /> */}
+              {renderWalletSelectionOrCoinsSelected()}
             </View>
             <TouchableOpacity
               testID="chooseFee"
               accessibilityRole="button"
               onPress={() => setIsFeeSelectionModalVisible(true)}
               disabled={isLoading}
-              style={styles.fee}
+              style={{
+                borderColor: colors.element,
+                flexDirection: 'row',
+                borderWidth: 2,
+                height: 54,
+                width: 311,
+                marginHorizontal: 32,
+                alignItems: 'center',
+                //alignContent: 'space-around',
+                justifyContent: 'space-between',
+                marginVertical: 8,
+                borderRadius: 12,
+                padding: 16,
+              }}
             >
-              <Text style={[styles.feeLabel, stylesHook.feeLabel]}>{loc.send.create_fee}</Text>
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Regular',
+                  fontSize: 14,
+                  color: colors.foreground,
+                }}
+              >
+                {loc.send.create_fee}
+              </Text>
 
               {networkTransactionFeesIsLoading ? (
                 <ActivityIndicator />
               ) : (
-                <View style={[styles.feeRow, stylesHook.feeRow]}>
-                  <Text style={stylesHook.feeValue}>
-                    {feePrecalc.current ? formatFee(feePrecalc.current) : feeRate + ' ' + loc.units.sat_vbyte}
-                  </Text>
-                </View>
+                <Text>
+                  {feePrecalc.current ? formatFee(feePrecalc.current) : feeRate + ' ' + loc.units.sat_vbyte}
+                </Text>
               )}
             </TouchableOpacity>
-            {renderCreateButton()}
             {renderFeeSelectionModal()}
             {renderOptionsModal()}
           </KeyboardAvoidingView>
@@ -1515,8 +1632,9 @@ const SendDetails = () => {
             <InputAccessoryAllFunds canUseAll={balance > 0} onUseAllPressed={onUseAllPressed} balance={allBalance} />
           ),
         })}
+        {renderCreateButton()}
 
-        {renderWalletSelectionOrCoinsSelected()}
+        {/* {renderWalletSelectionOrCoinsSelected()} */}
       </View>
     </TouchableWithoutFeedback>
   );

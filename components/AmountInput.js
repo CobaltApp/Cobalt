@@ -357,11 +357,11 @@ class AmountInput extends Component {
                 backgroundColor: colors.foreground,
                 borderRadius: 15,
                 paddingHorizontal: 16,
-                paddingTop: 8,
-                marginBottom: 6,
+                paddingVertical: 4,
+                //marginBottom: 6,
               }}
             />
-            {!disabled && amount !== BitcoinUnit.MAX && (
+            {/* {!disabled && amount !== BitcoinUnit.MAX && (
               <TouchableOpacity
                 accessibilityRole="button"
                 accessibilityLabel={loc._.change_input_currency}
@@ -374,7 +374,7 @@ class AmountInput extends Component {
               >
                 <Icon name="repeat" type="feather" size={24} color={colors.foreground} />
               </TouchableOpacity>
-            )}
+            )} */}
             </View>
           </View>
           {this.state.isRateOutdated && (

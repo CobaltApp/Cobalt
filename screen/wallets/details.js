@@ -526,9 +526,9 @@ const WalletDetails = () => {
                       marginHorizontal: 8,
                       minHeight: 33,
                       writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-                      color: colors.element,
+                      color: colors.foreground,
+                      fontFamily: 'Poppins-Regular',
                       fontSize: 14,
-                      fontWeight: '500',
                     }}
                     editable={!isLoading}
                     underlineColorAndroid="transparent"

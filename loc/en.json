@@ -443,7 +443,7 @@
     "list_create_a_button": "Add now",
     "list_create_a_wallet": "Add a wallet",
     "list_create_a_wallet_text": "It’s free and you can create \nas many as you like.",
-    "list_empty_txs1": "Your transactions will appear here.",
+    "list_empty_txs1": "Oops! Looks like there's nothing here.",
     "list_empty_txs1_lightning": "Lightning wallet should be used for your daily transactions. Fees are unfairly cheap and the speed is blazing fast.",
     "list_empty_txs2": "Start with your wallet.",
     "list_empty_txs2_lightning": "\nTo start using it, tap on Manage Funds and topup your balance.",

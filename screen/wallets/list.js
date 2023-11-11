@@ -442,15 +442,7 @@ const WalletsList = () => {
               //marginBottom: 80,
               alignItems: "center",
             }} testID="NoTransactionsMessage">
-              {/* <Image 
-                source={require('../../img/icons/decentralized_finance.png')}
-                style={{
-                  width: 128,
-                  height: 128,
-                  alignItems: "center",
-                }} 
-              /> */}
-              <Image source={require('../../img/icons/decentralized_finance.png')} 
+              <Image source={require('../../img/icons/Search.png')} 
                 style={{
                   width: 156,
                   height: 156,
