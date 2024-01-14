@@ -32,7 +32,7 @@ const Settings = () => {
     // <ScrollView>
       <View
         style={{
-          backgroundColor: '#F3F5F6',
+          //backgroundColor: '#F3F5F6',
           flex: 1,
         }}
       >
@@ -68,19 +68,21 @@ const Settings = () => {
           Settings
         </BlueText>
       </View> */}
-        <View style={{paddingTop: 32, paddingHorizontal: 25}}>
-          <BlueHeaderDefaultMain leftText='Account'/>
+        <View style={{paddingHorizontal: 24, paddingTop: 44, paddingBottom: 16, marginBottom: 8}}>
+          <BlueHeaderDefaultMain leftText='Profile'/>
         </View>
         <View
           style={{
-            flexDirection: 'column',
-            //alignSelf: 'center',
-            //alignItems: 'center',
-            marginBottom: 36,
-            marginHorizontal: 25,
-            padding: 25,
-            backgroundColor: '#1A7EF7',
-            borderRadius: 25,
+            backgroundColor: colors.background,
+            marginBottom: 46,
+            marginHorizontal: 24,
+            paddingHorizontal: 12,
+            paddingVertical: 16,
+            borderRadius: 16,
+            shadowColor: '#000000',
+            shadowOpacity: 0.05,
+            shadowRadius: 24,
+            shadowOffset: { width: 0, height: 40, },
           }}
         >
           <View
@@ -92,21 +94,16 @@ const Settings = () => {
               //marginLeft: 4,
             }}
           >
-            {/* <Image
+            <Image
               source={require('../../img/profile.png')}
-              style={{ width: 52, height: 52, borderRadius: 26, backgroundColor: colors.secondary}}
-            /> */}
-            <View
-              style={{
-                // marginLeft: 16,
-              }}
-            >
+              style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: colors.secondary}}
+            />
+            <View style={{marginLeft: 16,}}>
               <BlueText
                 style={{
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 20,
-                  color: colors.background,
-                  marginBottom: 10,
+                  fontFamily: 'Poppins-SemiBold',
+                  fontSize: 24,
+                  color: colors.foreground,
                 }}
               >
                 John Doe
@@ -114,11 +111,11 @@ const Settings = () => {
               <BlueText
                 style={{
                   fontFamily: 'Poppins-Regular',
-                  fontSize: 14,
-                  color: colors.background,
+                  fontSize: 16,
+                  color: colors.foregroundInactive,
                 }}
               >
-                johndoe89@cobalt.com
+                @johndoe
               </BlueText>
             </View>
           </View>
@@ -193,21 +190,17 @@ const Settings = () => {
         </View>
         <View 
           style={{
-            backgroundColor: '#F7F7FA',
-            borderRadius: 25,
-            paddingVertical: 12,
-            paddingHorizontal: 25,
-            height: 560,
+            marginHorizontal: 24,
           }}
         >
-          <BlueListItem leftIcon={{ name: 'settings', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.general} onPress={() => navigate('GeneralSettings')} testID="GeneralSettings" chevron/>
+          <BlueListItem leftIcon={{ name: 'settings', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.general} onPress={() => navigate('GeneralSettings')} testID="GeneralSettings" bottomDivider/>
           {/* <BlueListItem leftIcon={{ name: 'dollar-sign', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.currency} onPress={() => navigate('Currency')} testID="Currency" />
           <BlueListItem leftIcon={{ name: 'globe', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.language} onPress={() => navigate('Language')} testID="Language" /> */}
-          <BlueListItem leftIcon={{ name: 'shield', size: 32, type: 'feather', color: colors.foreground }} title='Security' onPress={() => navigate('SettingsPrivacy')} testID="Security" chevron/>
-          <BlueListItem leftIcon={{ name: 'lock', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.encrypt_title} onPress={() => navigate('EncryptStorage')} testID="Password" chevron/>
+          <BlueListItem leftIcon={{ name: 'shield', size: 32, type: 'feather', color: colors.foreground }} title='Security' onPress={() => navigate('SettingsPrivacy')} testID="Security" bottomDivider/>
+          {/* <BlueListItem leftIcon={{ name: 'lock', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.encrypt_title} onPress={() => navigate('EncryptStorage')} testID="Password" chevron/> */}
           {/* <BlueListItem leftIcon={{ name: 'share-2', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.network} onPress={() => navigate('NetworkSettings')} testID="NetworkSettings" bottomDivider={true} chevron/> */}
-          <BlueListItem leftIcon={{ name: 'tool', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" chevron/>
-          <BlueListItem leftIcon={{ name: 'help-circle', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.about} onPress={() => navigate('About')} testID="AboutButton" chevron/>
+          <BlueListItem leftIcon={{ name: 'tool', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" bottomDivider/>
+          <BlueListItem leftIcon={{ name: 'help-circle', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.about} onPress={() => navigate('About')} testID="AboutButton" />
         </View>
       </View>
       

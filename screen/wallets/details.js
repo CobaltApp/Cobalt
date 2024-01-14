@@ -34,6 +34,7 @@ import {
   HDAezeedWallet,
   LightningLdkWallet,
 } from '../../class';
+import { Icon } from 'react-native-elements';
 import loc, { formatBalanceWithoutSuffix } from '../../loc';
 import { useTheme, useRoute, useNavigation } from '@react-navigation/native';
 import RNFS from 'react-native-fs';
@@ -57,18 +58,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textLabel1: {
-    fontWeight: '700',
+    fontFamily: 'Poppins-Regular',
     fontSize: 12,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
     marginBottom: 12,
   },
   textLabel2: {
-    fontWeight: '500',
+    fontFamily: 'Poppins-Regular',
     fontSize: 14,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   textValue: {
-    fontWeight: '500',
+    fontFamily: 'Poppins-Regular',
     fontSize: 14,
     //marginBottom: 12,
   },
@@ -96,9 +97,10 @@ const styles = StyleSheet.create({
   },
   delete: {
     color: "#FFFFFF",
+    fontFamily: 'Poppins-Regular',
     fontSize: 16,
-    fontWeight: '700',
     textAlign: 'center',
+    marginLeft: 12,
   },
   column: {
     flexDirection: 'column',
@@ -116,8 +118,8 @@ const styles = StyleSheet.create({
     height: 34,
   },
   saveText: {
+    fontFamily: 'Poppins-Regular',
     fontSize: 15,
-    fontWeight: '600',
   },
 });
 
@@ -157,24 +159,23 @@ const WalletDetails = () => {
   }, [isAdvancedModeEnabledRender, wallet]);
   const stylesHook = StyleSheet.create({
     textLabel1: {
-      color: colors.element,
+      color: colors.foregroundInactive,
     },
     textLabel2: {
       color: colors.foreground,
     },
     textValue: {
-      color: colors.element,
+      color: colors.foregroundInactive,
     },
     input: {
       borderColor: colors.element,
-      borderBottomColor: colors.element,
-      backgroundColor: colors.element,
+      backgroundColor: colors.background,
     },
     save: {
-      backgroundColor: colors.element,
+      backgroundColor: colors.primary,
     },
     saveText: {
-      color: colors.foreground,
+      color: colors.background,
     },
   });
   useEffect(() => {
@@ -219,7 +220,15 @@ const WalletDetails = () => {
           style={[styles.save, stylesHook.save]}
           onPress={save}
         >
-          <Text style={[styles.saveText, stylesHook.saveText]}>{loc.wallets.details_save}</Text>
+          <Text 
+            style={{
+              fontFamily: 'Poppins-Regular',
+              fontSize: 14,
+              color: colors.white,
+            }}
+          >
+            {loc.wallets.details_save}
+          </Text>
         </TouchableOpacity>
       ),
     });
@@ -526,7 +535,7 @@ const WalletDetails = () => {
                       marginHorizontal: 8,
                       minHeight: 33,
                       writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-                      color: colors.foreground,
+                      //color: colors.foreground,
                       fontFamily: 'Poppins-Regular',
                       fontSize: 14,
                     }}
@@ -593,7 +602,7 @@ const WalletDetails = () => {
               </View>
               <View style={styles.hardware}>
                 <BlueText style={[styles.textLabel2, stylesHook.textLabel2]} onPress={() => setBackdoorBip47Pressed(prevState => prevState + 1)}>{loc.wallets.details_display}</BlueText>
-                <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{false: '#E6E8EC', true: '#3772FF'}}/>
+                <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{false: colors.element, true: colors.primary}}/>
               </View>
               {backdoorBip47Pressed >= 10 && wallet.allowBIP47() ? (
                 <>
@@ -643,12 +652,16 @@ const WalletDetails = () => {
             <BlueCard style={styles.address}>
               <View>
                 {/* <BlueSpacing20 /> */}
-                <SecondButton onPress={navigateToWalletExport} testID="WalletExport" title={loc.wallets.details_export_backup} />
+                <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                  <Icon name="upload" type="feather" color={colors.foreground} size={20}/>
+                  <SecondButton onPress={navigateToWalletExport} testID="WalletExport" title={loc.wallets.details_export_backup} />
+                </View>
                 {walletTransactionsLength > 0 && (
-                  <>
+                  <View style={{flexDirection: 'row', alignItems: 'center',}}>
                     {/* <BlueSpacing20 /> */}
+                    <Icon name="book-open" type="feather" color={colors.foreground} size={20}/>
                     <SecondButton onPress={onExportHistoryPressed} title={loc.wallets.details_export_history} />
-                  </>
+                  </View>
                 )}
                 {wallet.type === MultisigHDWallet.type && (
                   <>
@@ -673,16 +686,28 @@ const WalletDetails = () => {
                 )}
 
                 {wallet.allowXpub() && (
-                  <>
+                  <View style={{flexDirection: 'row', alignItems: 'center',}}>
                     {/* <BlueSpacing20 /> */}
+                    <Icon name="hash" type="feather" color={colors.foreground} size={20}/>
                     <SecondButton onPress={navigateToXPub} testID="XPub" title={loc.wallets.details_show_xpub} />
-                  </>
+                  </View>
                 )}
                 {wallet.allowSignVerifyMessage() && (
-                  <>
-                    {/* <BlueSpacing20 /> */}
-                    <SecondButton onPress={navigateToSignVerify} testID="SignVerify" title={loc.addresses.sign_title} />
-                  </>
+                  <TouchableOpacity accessibilityRole="button" onPress={navigateToSignVerify} testID="SignVerify" 
+                  style={{
+                    backgroundColor: colors.foreground,
+                    padding: 8,
+                    minHeight: 45,
+                    borderRadius: 25,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexGrow: 1,
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Icon name="edit-3" type="feather" color="#FFFFFF" size={20}/>
+                  <Text textBreakStrategy="simple" style={styles.delete}>{`${loc.addresses.sign_title}${'  '}`}</Text>
+                </TouchableOpacity>
                 )}
                 {wallet.type === LightningLdkWallet.type && (
                   <>
@@ -701,8 +726,10 @@ const WalletDetails = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexGrow: 1,
+                    flexDirection: 'row',
                   }}
                 >
+                  <Icon name="trash" type="feather" color="#FFFFFF" size={20}/>
                   <Text textBreakStrategy="simple" style={styles.delete}>{`${loc.wallets.details_delete}${'  '}`}</Text>
                 </TouchableOpacity>
               </View>

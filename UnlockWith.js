@@ -9,30 +9,6 @@ import { BlueStorageContext } from './blue_modules/storage-context';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { isHandset } from './blue_modules/environment';
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  biometric: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 58,
-  },
-  biometricRow: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  icon: {
-    width: 64,
-    height: 64,
-  },
-});
-
 const UnlockWith = () => {
   const { setWalletsInitialized, isStorageEncrypted, startAndDecrypt } = useContext(BlueStorageContext);
   const { dispatch } = useNavigation();
@@ -101,7 +77,10 @@ const UnlockWith = () => {
           <TouchableOpacity accessibilityRole="button" disabled={isAuthenticating} onPress={unlockWithBiometrics}>
             <Image
               source={colorScheme === 'dark' ? require('./img/faceid-default.png') : require('./img/faceid-dark.png')}
-              style={styles.icon}
+              style={{
+                width: 64,
+                height: 64,
+              }}
             />
           </TouchableOpacity>
         );
@@ -128,11 +107,39 @@ const UnlockWith = () => {
   };
 
   return (
-    <SafeAreaView style={styles.root}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="default" />
-      <View style={styles.container}>
-        <LottieView source={require('./img/bluewalletsplash.json')} autoPlay loop={false} onAnimationFinish={onAnimationFinish} />
-        <View style={styles.biometric}>{animationDidFinish && <View style={styles.biometricRow}>{renderUnlockOptions()}</View>}</View>
+      <View 
+        style={{
+          flex: 1,
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <LottieView 
+          source={require('./img/intro.json')}
+          autoPlay 
+          loop={false} 
+          onAnimationFinish={onAnimationFinish}
+        />
+        <View 
+          style={{
+            flex: 1,
+            justifyContent: 'flex-end',
+            marginBottom: 58,
+          }}
+        >
+          {animationDidFinish && 
+            <View 
+              style={{
+                justifyContent: 'center',
+                flexDirection: 'row',
+              }}
+            >
+              {renderUnlockOptions()}
+            </View>
+          }
+        </View>
       </View>
     </SafeAreaView>
   );

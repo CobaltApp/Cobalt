@@ -16,6 +16,9 @@
 		782F075B5DD048449E2DECE9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D9B3A7B2CB4255876B67AF /* libz.tbd */; };
 		84E05A842721191B001A0D3A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84E05A832721191B001A0D3A /* Settings.bundle */; };
 		B461B852299599F800E431AA /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = B461B851299599F800E431AA /* AppDelegate.mm */; };
+		DB48FFE42B01100A004AE06A /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB48FFE32B011009004AE06A /* Poppins-Medium.ttf */; };
+		DB48FFE62B01101A004AE06A /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB48FFE52B011019004AE06A /* Poppins-SemiBold.ttf */; };
+		DB48FFE82B011027004AE06A /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB48FFE72B011027004AE06A /* Poppins-Bold.ttf */; };
 		DBBCC5BA2AE89B4C00B9389F /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DBBCC5B92AE89B4C00B9389F /* Poppins-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +127,9 @@
 		CA741BA794714D3F80251AC9 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		CD746B955C55410793BB72C0 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		CF4A4D7AAD974D67A2D62B3E /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		DB48FFE32B011009004AE06A /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		DB48FFE52B011019004AE06A /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		DB48FFE72B011027004AE06A /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		DBBCC5B92AE89B4C00B9389F /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		E6B44173A8854B6D85D7F933 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
 		E8E8CE89B3D142C6A8A56C34 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -214,6 +220,9 @@
 		4B0CACE36C3348E1BCEA92C8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DB48FFE72B011027004AE06A /* Poppins-Bold.ttf */,
+				DB48FFE52B011019004AE06A /* Poppins-SemiBold.ttf */,
+				DB48FFE32B011009004AE06A /* Poppins-Medium.ttf */,
 				DBBCC5B92AE89B4C00B9389F /* Poppins-Regular.ttf */,
 				C4496FB303574862B40A878A /* AntDesign.ttf */,
 				44BC9E3EE0E9476A830CCCB9 /* Entypo.ttf */,
@@ -387,7 +396,7 @@
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
-				6DFC806E24EA0B6C007B8700 /* XCRemoteSwiftPackageReference "EFQRCode.git" */,
+				6DFC806E24EA0B6C007B8700 /* XCRemoteSwiftPackageReference "EFQRCode" */,
 			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
@@ -403,7 +412,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB48FFE62B01101A004AE06A /* Poppins-SemiBold.ttf in Resources */,
+				DB48FFE82B011027004AE06A /* Poppins-Bold.ttf in Resources */,
 				6DF25A9F249DB97E001D06F5 /* LaunchScreen.storyboard in Resources */,
+				DB48FFE42B01100A004AE06A /* Poppins-Medium.ttf in Resources */,
 				84E05A842721191B001A0D3A /* Settings.bundle in Resources */,
 				DBBCC5BA2AE89B4C00B9389F /* Poppins-Regular.ttf in Resources */,
 			);
@@ -811,7 +823,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6DFC806E24EA0B6C007B8700 /* XCRemoteSwiftPackageReference "EFQRCode.git" */ = {
+		6DFC806E24EA0B6C007B8700 /* XCRemoteSwiftPackageReference "EFQRCode" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/EFPrefix/EFQRCode.git";
 			requirement = {

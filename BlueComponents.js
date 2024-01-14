@@ -383,7 +383,7 @@ export const SafeBlueArea = props => {
 
 export const BlueCard = props => {
   const { colors } = useTheme();
-  return <View {...props} style={{ flex: 1, backgroundColor: colors.element, paddingVertical: 32, paddingHorizontal: 25, }} />;
+  return <View {...props} style={{ flex: 1, backgroundColor: colors.background, paddingVertical: 32, paddingHorizontal: 25, }} />;
 };
 
 export const BlueText = props => {
@@ -418,8 +418,8 @@ export const BlueListItem = React.memo(props => {
         <ListItem.Title
           style={{
             color: props.disabled ? colors.foregroundInactive : colors.foreground,
-            fontSize: 18,
-            fontFamily: 'Poppins-Regular',
+            fontSize: 16,
+            fontFamily: 'Poppins-Medium',
             writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
           }}
           numberOfLines={0}
@@ -601,15 +601,15 @@ export const BlueHeaderDefaultMain = props => {
         //paddingHorizontal: 25,
         //borderTopColor: isDrawerList ? colors.background : colors.background,
         //borderBottomColor: isDrawerList ? colors.background : colors.background,
-        marginBottom: 25,
+        //marginBottom: 25,
         //marginTop: 32,
       }}
     >
       <Text
         style={{
           textAlign: 'left',
-          fontFamily: 'Poppins-Regular',
-          fontSize: 32,
+          fontFamily: 'Poppins-SemiBold',
+          fontSize: 24,
           color: colors.foreground,
         }}
       >

@@ -52,6 +52,7 @@ export const BlueDefaultTheme = {
     element: '#F5F5F5', //Cultured
     //element: '#EDEDED', //Bright Gray
     //tab: '#DBDBDB', //Gainsboro
+    white: '#FFFFFF',
     shadow: '#000000',
   },
 };
