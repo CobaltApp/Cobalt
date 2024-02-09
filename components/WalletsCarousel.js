@@ -14,7 +14,7 @@ import {
   FlatList,
   Pressable,
 } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import loc, { formatBalance, transactionTimeToReadable } from '../loc';
 import { LightningCustodianWallet, LightningLdkWallet, MultisigHDWallet } from '../class';
@@ -53,36 +53,61 @@ const nStyles = StyleSheet.create({
 });
 
 const NewWalletPanel = ({ onPress }) => {
+  const { navigate } = useNavigation();
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const itemWidth = width * 0.82 > 375 ? 65 : 48; //65
   const isLargeScreen = Platform.OS === 'android' ? isTablet() : (width >= Dimensions.get('screen').width / 2 && isTablet()) || isDesktop;
 
   return (
-    <TouchableOpacity
-      accessibilityRole="button"
-      testID="CreateAWallet"
-      onPress={onPress}
-      style={[{marginVertical: 16}, isLargeScreen ? {} : { width: itemWidth * 1.3 }]}
+    <View
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: width * 0.74,
+        height: 200,
+        marginLeft: 20,
+        backgroundColor: colors.element,
+        borderRadius: 25,
+      }}
     >
-      <View
-        style={[
-          {
-          borderRadius: 15,
-          borderWidth: 2,
-          borderStyle: 'dashed',
-          minHeight: Platform.OS === 'ios' ? 151 : 151,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderColor: colors.element,
-          },
-          isLargeScreen ? {} : { width: itemWidth },
-        ]}
-      >
-        <Text style={[nStyles.addAWAllet, { color: colors.foreground }]}>+</Text>
-        
+      <View style={{ gap: 16 }}>
+        <TouchableOpacity
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 18,
+            padding: 16,
+            borderRadius: 40,
+            backgroundColor: colors.primary,
+          }}
+          accessibilityRole="button"
+          testID="CreateAWallet"
+          onPress={() => navigate('AddWalletRoot')}
+        >
+          <Text
+            style={{
+              color: '#FFFFFF',
+              fontFamily: 'Poppins',
+              fontSize: 16,
+            }}
+          >
+            Add Wallet
+          </Text>
+        </TouchableOpacity>
+        <Text
+          style={{
+            color: colors.foregroundInactive,
+            fontFamily: 'Poppins',
+            fontSize: 14,
+          }}
+        >
+          Add a new wallet to your profile
+        </Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -91,21 +116,20 @@ NewWalletPanel.propTypes = {
 };
 
 const iStyles = StyleSheet.create({
-  root: { paddingRight: 0, },
+  root: { paddingLeft: 24, },
   rootLargeDevice: { marginVertical: 20 },
   grad: {
-    paddingVertical: 20,
+    paddingVertical: 45,
     paddingHorizontal: 24,
-    borderRadius: 15, //12
+    borderRadius: 25,
     minHeight: 185,
-    elevation: 5,
   },
   image: {
-    width: 99,
-    height: 94,
+    width: 50,
+    height: 50,
     position: 'absolute',
-    bottom: 0,
-    right: 0,
+    top: 20,
+    right: 24,
   },
   br: {
     backgroundColor: 'transparent',
@@ -124,18 +148,17 @@ const iStyles = StyleSheet.create({
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   latestTx: {
-    marginTop: 18,
     backgroundColor: 'transparent',
+    fontFamily: 'Poppins',
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: 500,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   latestTxTime: {
-    marginTop: 10,
     backgroundColor: 'transparent',
-    fontWeight: 700,
+    fontWeight: 500,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-    fontSize: 24,
+    fontSize: 20,
   },
 });
 
@@ -171,7 +194,7 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
       image = I18nManager.isRTL ? require('../img/vault-shape-rtl.png') : require('../img/vault-shape.png');
       break;
     default:
-      image = I18nManager.isRTL ? require('../img/btc-shape-rtl.png') : require('../img/btc-shape.png');
+      image = I18nManager.isRTL ? require('../img/coins/bitcoin.png') : require('../img/coins/bitcoin.png');
   }
 
   const latestTransactionText =
@@ -205,27 +228,18 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
         }}
       >
         {/* backgroundColor={WalletGradient.gradientsFor(item.type)} */}
-        <View backgroundColor={colors.primary} style={iStyles.grad}>
+        <View backgroundColor={'#0A3263'} style={iStyles.grad}>
           <Image source={image} style={iStyles.image} />
           <Text
             style={{
-              color: colors.background,
-              fontFamily: 'Poppins-Regular',
-              fontSize: 18,
+              color: '#CACACA',
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontSize: 14,
               writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr', 
-              marginBottom: 12,
             }}
           >
             {item.getLabel()}
-          </Text>
-          <Text
-            style={{
-              color: colors.background,
-              fontFamily: 'Poppins-Regular',
-              fontSize: 14,
-            }}
-          >
-            Balance
           </Text>
           {item.hideBalance ? (
             <BluePrivateBalance />
@@ -234,8 +248,9 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
               key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
               adjustsFontSizeToFit
               style={{
-                color: colors.background,
-                fontFamily: 'Poppins-Regular', //Semi-Bold
+                color: '#FFFFFF',
+                fontFamily: 'Poppins',
+                fontWeight: 600,
                 fontSize: 32,
                 writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
               }}
@@ -243,12 +258,12 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
               {balance}
             </Text>
           )}
-          {/* <Text numberOfLines={1} style={[iStyles.latestTx, { color: colors.background }]}>
+          <Text numberOfLines={1} style={[iStyles.latestTx, { color: '#CACACA' }]}>
             {loc.wallets.list_latest_transaction}
           </Text>
-          <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: colors.background }]}>
+          <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: '#FFFFFF' }]}>
             {latestTransactionText}
-          </Text> */}
+          </Text>
         </View>
       </Pressable>
     </Animated.View>
@@ -265,11 +280,11 @@ WalletCarouselItem.propTypes = {
 
 const cStyles = StyleSheet.create({
   content: {
-    paddingTop: 26,
-    marginBottom: 24,
+    //paddingTop: 26,
+    //marginBottom: 24,
   },
   contentLargeScreen: {
-    paddingHorizontal: 16,
+    //paddingHorizontal: 16,
   },
   separatorStyle: {
     width: 0,
@@ -293,8 +308,8 @@ const WalletsCarousel = forwardRef((props, ref) => {
           onPress={props.onPress}
         />
       ) : (
-        <View/>
-        //<NewWalletPanel onPress={props.onPress} />
+        // <View/>
+        <NewWalletPanel onPress={props.onPress} />
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.horizontal, props.selectedWallet, props.handleLongPress, props.onPress, preferredFiatCurrency, language],
@@ -343,7 +358,7 @@ const WalletsCarousel = forwardRef((props, ref) => {
       directionalLockEnabled
       showsHorizontalScrollIndicator={false}
       initialNumToRender={10}
-      // ListHeaderComponent={ListHeaderComponent}
+      //={ListHeaderComponent}
       style={props.horizontal ? { minHeight: sliderHeight + 9} : {}}
       onScrollToIndexFailed={onScrollToIndexFailed}
       {...props}

@@ -34,6 +34,7 @@ const Settings = () => {
         style={{
           //backgroundColor: '#F3F5F6',
           flex: 1,
+          paddingTop: 20,
         }}
       >
       {/* <View
@@ -68,10 +69,76 @@ const Settings = () => {
           Settings
         </BlueText>
       </View> */}
-        <View style={{paddingHorizontal: 24, paddingTop: 44, paddingBottom: 16, marginBottom: 8}}>
-          <BlueHeaderDefaultMain leftText='Profile'/>
+        <View style={{paddingHorizontal: 24, paddingTop: 32, paddingBottom: 24}}>
+          {/* <BlueHeaderDefaultMain leftText='Profile'/> */}
+          <Text
+            style={{
+              color: colors.foreground,
+              fontFamily: 'Poppins',
+              fontWeight: 600,
+              fontSize: 32,
+            }}
+          >
+            Profile
+          </Text>
         </View>
         <View
+          style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            padding: 24,
+            marginHorizontal: 24,
+            marginBottom: 42,
+            borderRadius: 25,
+            backgroundColor: '#F7931A',
+            gap: 16,
+          }}
+        >
+          <Text
+            style={{
+              width: 150,
+              color: '#FFFFFF',
+              fontFamily: 'Poppins',
+              fontWeight: 600,
+              fontSize: 18,
+            }}
+          >
+            Got a question? Let Colby help.
+          </Text>
+          <TouchableOpacity
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              paddingHorizontal: 24,
+              paddingVertical: 8,
+              borderRadius: 40,
+              backgroundColor: '#051931',
+            }}
+            onPress={() => navigate('Chat')}
+          >
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Poppins',
+                fontWeight: 600,
+                fontSize: 14,
+              }}
+            >
+              Try now
+            </Text>
+          </TouchableOpacity>
+          <Image 
+                    source={require('../../img/Illustrations/robot-head-3.png')}
+                    style={{
+                        width: 206,
+                        height: 168,
+                        position: 'absolute',
+                        right: -16,
+                        bottom: -18,
+                    }}
+                />
+        </View>
+        {/* <View
           style={{
             backgroundColor: colors.background,
             marginBottom: 46,
@@ -118,7 +185,7 @@ const Settings = () => {
                 @johndoe
               </BlueText>
             </View>
-          </View>
+          </View> */}
           {/* <View
             style={{
               marginTop: 8,
@@ -187,20 +254,25 @@ const Settings = () => {
               </Text>
             </View>
           </View> */}
-        </View>
+        {/* </View> */}
         <View 
           style={{
-            marginHorizontal: 24,
+            display: 'flex',
+            flex: 1,
+            paddingHorizontal: 24,
+            paddingTop: 32,
+            borderRadius: 40,
+            backgroundColor: colors.element,
           }}
         >
-          <BlueListItem leftIcon={{ name: 'settings', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.general} onPress={() => navigate('GeneralSettings')} testID="GeneralSettings" bottomDivider/>
+          <BlueListItem leftIcon={{ name: 'settings', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.general} onPress={() => navigate('GeneralSettings')} testID="GeneralSettings" chevron/>
           {/* <BlueListItem leftIcon={{ name: 'dollar-sign', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.currency} onPress={() => navigate('Currency')} testID="Currency" />
           <BlueListItem leftIcon={{ name: 'globe', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.language} onPress={() => navigate('Language')} testID="Language" /> */}
-          <BlueListItem leftIcon={{ name: 'shield', size: 32, type: 'feather', color: colors.foreground }} title='Security' onPress={() => navigate('SettingsPrivacy')} testID="Security" bottomDivider/>
+          <BlueListItem leftIcon={{ name: 'lock', size: 24, type: 'feather', color: colors.foreground }} title='Security' onPress={() => navigate('SettingsPrivacy')} testID="Security" chevron/>
           {/* <BlueListItem leftIcon={{ name: 'lock', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.encrypt_title} onPress={() => navigate('EncryptStorage')} testID="Password" chevron/> */}
           {/* <BlueListItem leftIcon={{ name: 'share-2', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.network} onPress={() => navigate('NetworkSettings')} testID="NetworkSettings" bottomDivider={true} chevron/> */}
-          <BlueListItem leftIcon={{ name: 'tool', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" bottomDivider/>
-          <BlueListItem leftIcon={{ name: 'help-circle', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.about} onPress={() => navigate('About')} testID="AboutButton" />
+          <BlueListItem leftIcon={{ name: 'tool', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" chevron/>
+          <BlueListItem leftIcon={{ name: 'help-circle', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.about} onPress={() => navigate('About')} testID="AboutButton" chevron/>
         </View>
       </View>
       

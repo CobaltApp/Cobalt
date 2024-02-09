@@ -63,7 +63,7 @@ const WalletTransactions = ({ navigation }) => {
 
   const stylesHook = StyleSheet.create({
     listHeaderText: {
-      color: colors.foreground,
+      color: '#CACACA',
     },
     browserButton2: {
       backgroundColor: colors.element,
@@ -120,11 +120,28 @@ const WalletTransactions = ({ navigation }) => {
         backgroundColor: colors.background,
       },
       headerTitleStyle: {
-        fontFamily: 'Poppins-Regular',
+        fontFamily: 'Poppins',
+        fontWeight: '500',
+        fontSize: 18,
         color: colors.foreground,
       },
-      headerBackTitleVisible: false,
-      headerTintColor: colors.foreground,
+      headerLeft: () => (
+        <TouchableOpacity
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 44,
+          width: 44,
+          borderRadius: 22,
+          backgroundColor: '#0A3263',
+        }}
+        // onPress={() =>
+        //   goBack()
+        // }
+      >
+        <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+      </TouchableOpacity>
+      ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletID]);
@@ -258,9 +275,9 @@ const WalletTransactions = ({ navigation }) => {
         <View 
           style={{
             flex: 1,
-            marginHorizontal: 32,
-            marginTop: 20,
-            marginBottom: 15,
+            marginHorizontal: 24,
+            marginTop: 32,
+            marginBottom: 12,
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}
@@ -268,8 +285,9 @@ const WalletTransactions = ({ navigation }) => {
           <Text 
             style={{
               color: colors.foreground,
-              fontFamily: 'Poppins-Regular',
-              fontSize: 18,
+              fontFamily: 'Poppins',
+              fontWeight: '500',
+              fontSize: 20,
             }}
           >
             {loc.transactions.list_title}
@@ -544,43 +562,83 @@ const WalletTransactions = ({ navigation }) => {
       <View 
         ref={walletActionButtonsRef}
         style={{
-          alignSelf: 'center',
+          //alignSelf: 'center',
           flexDirection: 'row',
-          overflow: 'hidden',
+          justifyContent: 'space-around',
+          paddingHorizontal: 48,
+          //overflow: 'hidden',
         }}
       >
         {(wallet.allowSend() || (wallet.type === WatchOnlyWallet.type && wallet.isHd())) && (
-          <Button
-            onLongPress={sendButtonLongPress}
-            onPress={sendButtonPress}
-            text={loc.send.header}
-            testID="SendButton"
-            icon={{
-                name: "arrow-up",
-                size: 24,
-                type: "feather",
-                color: colors.background,
-            }}
-            titleStyle={{ 
-              fontFamily: 'Poppins-Regular',
-              fontSize: 16,
-              color: colors.background,
-            }}
-            title="Send"
-            buttonStyle={{
-              backgroundColor: colors.primary,
-              height: 56,
-              width: 150,
-              borderRadius: 15,
-              padding: 16,
-              marginRight: 12,
-            }}
-          />
+          <View style={{ alignItems: 'center', gap: 12 }}>
+            <TouchableOpacity
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 64,
+                width: 64,
+                borderRadius: 32,
+                backgroundColor: '#0A3263',
+              }}
+              onLongPress={sendButtonLongPress}
+              onPress={sendButtonPress}
+            >
+              <Image source={require('../../img/icons/Send.png')} 
+                  style={{
+                    width: 28,
+                    height: 28,
+                  }}
+                />
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: colors.foreground,
+                fontFamily: 'Poppins',
+                fontWeight: '500',
+                fontSize: 12,
+              }}
+            >
+              Send
+            </Text>
+          </View>
+          // <Button
+          //   onLongPress={sendButtonLongPress}
+          //   onPress={sendButtonPress}
+          //   text={loc.send.header}
+          //   testID="SendButton"
+          //   icon={{
+          //       name: "arrow-up",
+          //       size: 24,
+          //       type: "feather",
+          //       color: colors.background,
+          //   }}
+          //   titleStyle={{ 
+          //     fontFamily: 'Poppins-Regular',
+          //     fontSize: 16,
+          //     color: colors.background,
+          //   }}
+          //   title="Send"
+          //   buttonStyle={{
+          //     backgroundColor: colors.primary,
+          //     height: 56,
+          //     width: 150,
+          //     borderRadius: 15,
+          //     padding: 16,
+          //     marginRight: 12,
+          //   }}
+          // />
         )}
         {wallet.allowReceive() && (
-          <Button
-            testID="ReceiveButton"
-            text={loc.receive.header}
+          <View style={{ alignItems: 'center', gap: 12 }}>
+            <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 64,
+              width: 64,
+              borderRadius: 32,
+              backgroundColor: '#0A3263',
+            }}
             onPress={() => {
               if (wallet.chain === Chain.OFFCHAIN) {
                 navigate('LNDCreateInvoiceRoot', { screen: 'LNDCreateInvoice', params: { walletID: wallet.getID() } });
@@ -588,30 +646,66 @@ const WalletTransactions = ({ navigation }) => {
                 navigate('ReceiveDetailsRoot', { screen: 'ReceiveDetails', params: { walletID: wallet.getID() } });
               }
             }}
-            icon={{
-              name: "arrow-down",
-              size: 24,
-              type: "feather",
-              color: colors.foreground,
-          }}
-            titleStyle={{ 
-              fontFamily: 'Poppins-Regular',
-              fontSize: 16,
-              color: colors.foreground,
-            }}
-            title="Receive"
-            //color={colors.foreground}
-            buttonStyle={{
-              backgroundColor: colors.element,
-              height: 56,
-              width: 150,
-              borderRadius: 15,
-              padding: 16,
-            }}
-          />
+          >
+            <Image source={require('../../img/icons/Receive.png')} 
+                style={{
+                  width: 28,
+                  height: 28,
+                }}
+              />
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: colors.foreground,
+                fontFamily: 'Poppins',
+                fontWeight: '500',
+                fontSize: 12,
+              }}
+            >
+              Receive
+            </Text>
+          </View>
+          // <Button
+          //   testID="ReceiveButton"
+          //   text={loc.receive.header}
+          //   onPress={() => {
+          //     if (wallet.chain === Chain.OFFCHAIN) {
+          //       navigate('LNDCreateInvoiceRoot', { screen: 'LNDCreateInvoice', params: { walletID: wallet.getID() } });
+          //     } else {
+          //       navigate('ReceiveDetailsRoot', { screen: 'ReceiveDetails', params: { walletID: wallet.getID() } });
+          //     }
+          //   }}
+          //   icon={{
+          //     name: "arrow-down",
+          //     size: 24,
+          //     type: "feather",
+          //     color: colors.foreground,
+          // }}
+          //   titleStyle={{ 
+          //     fontFamily: 'Poppins-Regular',
+          //     fontSize: 16,
+          //     color: colors.foreground,
+          //   }}
+          //   title="Receive"
+          //   //color={colors.foreground}
+          //   buttonStyle={{
+          //     backgroundColor: colors.element,
+          //     height: 56,
+          //     width: 150,
+          //     borderRadius: 15,
+          //     padding: 16,
+          //   }}
+          // />
         )}
       </View>
-      <View style={{flex: 1}}>
+      <View 
+        style={{
+          flex: 1,
+          marginTop: 32,
+          borderRadius: 40,
+          backgroundColor: colors.element
+        }}
+      >
         <FlatList
           getItemLayout={getItemLayout}
           ListHeaderComponent={renderListHeaderComponent}
@@ -632,10 +726,10 @@ const WalletTransactions = ({ navigation }) => {
           ListFooterComponent={renderListFooterComponent}
           ListEmptyComponent={
             <ScrollView style={styles.flex} contentContainerStyle={styles.scrollViewContent}>
-              <Image source={require('../../img/icons/Search.png')} 
+              <Image source={require('../../img/Illustrations/question.png')} 
                 style={{
-                  width: 156,
-                  height: 156,
+                  width: 300,
+                  height: 300,
                   marginVertical: 16,
                   alignSelf: 'center',
                 }}
@@ -643,8 +737,9 @@ const WalletTransactions = ({ navigation }) => {
               <Text 
                 numberOfLines={0} 
                 style={{
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                  fontWeight: '500',
+                  fontSize: 14,
                   color: colors.foregroundInactive,
                   textAlign: 'center',
                 }}
@@ -681,7 +776,11 @@ WalletTransactions.navigationOptions = navigationStyle({}, (options, { theme, na
         disabled={route.params.isLoading === true}
         style={{
           justifyContent: 'center',
-          alignItems: 'flex-end',
+          alignItems: 'center',
+          height: 44,
+          width: 44,
+          borderRadius: 22,
+          backgroundColor: '#0A3263',
         }}
         onPress={() =>
           navigation.navigate('WalletDetails', {
@@ -689,7 +788,7 @@ WalletTransactions.navigationOptions = navigationStyle({}, (options, { theme, na
           })
         }
       >
-        <Icon name="settings" type="feather" size={22} color={colors.foreground} />
+        <Icon name="more-horizontal" type="feather" size={24} color={'#FFFFFF'} />
       </TouchableOpacity>
     ),
   };

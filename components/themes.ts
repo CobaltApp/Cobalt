@@ -47,8 +47,9 @@ export const BlueDefaultTheme = {
     //Yellow: #EDF71A
     background: '#FFFFFF', //Cultured
     foreground: '#0F0F0F', //Smoky Black
-    foregroundInactive: '#A6A6A6', //Quick Silver
+    foregroundInactive: '#747792', //Quick Silver
     //foregroundLabel: '#717171', //Dark Silver
+    card: '#0A3263',
     element: '#F5F5F5', //Cultured
     //element: '#EDEDED', //Bright Gray
     //tab: '#DBDBDB', //Gainsboro
@@ -68,11 +69,11 @@ export const BlueDarkTheme: Theme = {
   colors: {
     ...BlueDefaultTheme.colors,
     ...DarkTheme.colors,
-    background: '#171717', //Chinese Black
+    background: '#030D19', //Chinese Black
     foreground: '#F5F5F5', //Cultured
     foregroundInactive: '#717171', //Dark Silver
     //foregroundLabel: '#A6A6A6', //Quick Silver
-    element: '#1F1F1F', //Eerie Black //card
+    element: '#08264A', //Eerie Black //card
     //border: '#2E2E2E', //Dark Charcoal
   },
 };

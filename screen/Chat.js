@@ -111,43 +111,69 @@ const Chat = () => {
       <BlueLoading />
     </SafeBlueArea>
   ) : (
-    <View>
-        <StatusBar barStyle="light-content"/>
         <View
             style={{
-                backgroundColor: colors.primary,
-                height: 104,
-                padding: 32,
-                paddingTop: 42,
+                paddingTop: 20,
+                paddingBottom: 32,
+                paddingHorizontal: 24,
             }}
         >
             <View
-                style={{flexDirection:'row'}}
+                style={{ paddingVertical: 32, backgroundColor: colors.background }}
             >
-                <Image 
+                {/* <Image 
                     source={require('../img/profile.png')}
                     style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: colors.background}}
-                />
+                /> */}
                 <Text 
                     style={{
-                        alignSelf: 'center',
-                        color: colors.background,
-                        fontFamily: 'Poppins-Regular',
-                        fontSize: 16,
-                        marginLeft: 8,
+                        color: colors.foreground,
+                        fontFamily: 'Poppins',
+                        fontWeight: 600,
+                        fontSize: 32,
                     }}
                 >
-                    Fin
+                    Chat
                 </Text>
             </View>
-        </View>
-        <ScrollView>
+            <View
+                style={{
+                    display: 'flex',
+                    padding: 24,
+                    borderRadius: 25,
+                    backgroundColor: colors.primary,
+                }}
+            >
+                <Text
+                    style={{
+                        width: 180,
+                        color: '#FFFFFF',
+                        fontFamily: 'Poppins',
+                        fontWeight: 600,
+                        fontSize: 18,
+                    }}
+                >
+                    Chat is under construction, check back later
+                </Text>
+                <Image 
+                    source={require('../img/Illustrations/robot-head-19.png')}
+                    style={{
+                        width: 195,
+                        height: 172,
+                        position: 'absolute',
+                        right: -16,
+                        bottom: 16,
+                    }}
+                />
+            </View>
+        <ScrollView
+        >
             <SafeBlueArea>
                 <View
                     style={{
                         flex: 1,
                         width: 375,
-                        height: 700,
+                        height: 400,
                         overflow: 'scroll',
                         display: 'flex',
                         flexDirection: 'column',
@@ -160,14 +186,13 @@ const Chat = () => {
         </ScrollView>
         <View
             style={{
-                width: 311,
-                marginHorizontal: 32,
-                position: 'absolute',
-                bottom: 92,
+                //width: 311,
+                //position: 'absolute',
+                //bottom: 92,
             }}
         >
             <BlueFormInput
-                placeholder="Compose your message"
+                placeholder="Ask Colby..."
             />
         </View>
     </View>

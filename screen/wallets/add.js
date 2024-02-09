@@ -33,6 +33,7 @@ import loc from '../../loc';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
 import { LdkButton } from '../../components/LdkButton';
 import alert from '../../components/Alert';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const BlueApp = require('../../BlueApp');
 const AppStorage = BlueApp.AppStorage;
 const A = require('../../blue_modules/analytics');
@@ -61,21 +62,14 @@ const WalletsAdd = () => {
     advancedText: {
       color: colors.element,
     },
-    label: {
-      borderColor: colors.element,
-      borderBottomColor: colors.element,
-      backgroundColor: colors.element,
+    input: {
+      backgroundColor: '#0A3263'
     },
     noPadding: {
       backgroundColor: colors.background,
     },
     root: {
       backgroundColor: colors.background,
-    },
-    lndUri: {
-      borderColor: colors.element,
-      borderBottomColor: colors.element,
-      backgroundColor: colors.element,
     },
   };
 
@@ -257,18 +251,18 @@ const WalletsAdd = () => {
   };
 
   return (
-    <ScrollView style={stylesHook.root}>
-      <StatusBar
+    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+      {/* <StatusBar
         barStyle={Platform.select({ ios: 'light-content', default: useColorScheme() === 'dark' ? 'light-content' : 'dark-content' })}
-      />
-      <BlueSpacing20 />
-      <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? 'padding' : null} keyboardVerticalOffset={62}>
-        <BlueFormLabel>{loc.wallets.add_wallet_name}</BlueFormLabel>
-        <View style={[styles.label, stylesHook.label]}>
+      /> */}
+      {/* <BlueSpacing20 /> */}
+      {/* <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? 'padding' : null} keyboardVerticalOffset={62}> */}
+        {/* <BlueFormLabel>{loc.wallets.add_wallet_name}</BlueFormLabel> */}
+        <View style={[styles.input, stylesHook.input, { marginHorizontal: 24 }]}>
           <TextInput
             testID="WalletNameInput"
             value={label}
-            placeholderTextColor="#81868e"
+            placeholderTextColor="#A6A6A6"
             placeholder={loc.wallets.add_placeholder}
             onChangeText={setLabel}
             style={styles.textInputCommon}
@@ -276,7 +270,7 @@ const WalletsAdd = () => {
             underlineColorAndroid="transparent"
           />
         </View>
-        <BlueFormLabel>{loc.wallets.add_wallet_type}</BlueFormLabel>
+        {/* <BlueFormLabel>{loc.wallets.add_wallet_type}</BlueFormLabel> */}
         <View style={styles.buttons}>
           <BitcoinButton
             testID="ActivateBitcoinButton"
@@ -334,11 +328,9 @@ const WalletsAdd = () => {
             } else if (selectedWalletType === ButtonSelected.OFFCHAIN) {
               return (
                 <>
-                  <BlueSpacing20 />
                   <Text style={[styles.advancedText, stylesHook.advancedText]}>{loc.settings.advanced_options}</Text>
-                  <BlueSpacing20 />
                   <BlueText>{loc.wallets.add_lndhub}</BlueText>
-                  <View style={[styles.lndUri, stylesHook.lndUri]}>
+                  <View style={[styles.input, stylesHook.input]}>
                     <TextInput
                       value={walletBaseURI}
                       onChangeText={setWalletBaseURI}
@@ -361,37 +353,83 @@ const WalletsAdd = () => {
           {isAdvancedOptionsEnabled && selectedWalletType === ButtonSelected.ONCHAIN && !isLoading && (
             <BlueButtonLink style={styles.import} title={entropyButtonText} onPress={navigateToEntropy} />
           )}
-          <BlueSpacing20 />
+          {/* <BlueSpacing20 /> */}
+          <View style={{ gap: 16, marginTop: 16 }}>
           <View style={styles.createButton}>
             {!isLoading ? (
-              <BlueButton
-                testID="Create"
-                title={loc.wallets.add_create}
-                disabled={!selectedWalletType || (selectedWalletType === Chain.OFFCHAIN && (walletBaseURI ?? '').trim().length === 0)}
+              // <BlueButton
+              //   testID="Create"
+              //   title={loc.wallets.add_create}
+              //   disabled={!selectedWalletType || (selectedWalletType === Chain.OFFCHAIN && (walletBaseURI ?? '').trim().length === 0)}
+              //   onPress={createWallet}
+              // />
+              <TouchableOpacity
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: 16,
+                  borderRadius: 30,
+                  backgroundColor: colors.primary,
+                }}
                 onPress={createWallet}
-              />
+              >
+                <Text
+                  style={{
+                    color: '#FFFFFF',
+                    fontFamily: 'Poppins',
+                    fontWeight: 600,
+                    fontSize: 16,
+
+                  }}
+                >
+                  Create
+                </Text>
+              </TouchableOpacity>
             ) : (
               <ActivityIndicator />
             )}
           </View>
           {!isLoading && (
-            <BlueButtonLink
-              testID="ImportWallet"
-              style={styles.import}
-              title={loc.wallets.add_import_wallet}
-              onPress={navigateToImportWallet}
-            />
+            // <BlueButtonLink
+            //   testID="ImportWallet"
+            //   style={styles.import}
+            //   title={loc.wallets.add_import_wallet}
+            //   onPress={navigateToImportWallet}
+            // />
+            <TouchableOpacity
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: 16,
+                  borderRadius: 30,
+                  backgroundColor: '#0B376C',
+                }}
+                onPress={navigateToImportWallet}
+              >
+                <Text
+                  style={{
+                    color: colors.primary,
+                    fontFamily: 'Poppins',
+                    fontWeight: 600,
+                    fontSize: 16,
+
+                  }}
+                >
+                  Import Wallet
+                </Text>
+              </TouchableOpacity>
           )}
+          </View>
         </View>
-      </KeyboardAvoidingView>
+      {/* </KeyboardAvoidingView> */}
     </ScrollView>
   );
 };
 
 WalletsAdd.navigationOptions = navigationStyle(
   {
-    closeButton: true,
-    headerHideBackButton: true,
+    closeButton: false,
+    headerHideBackButton: false,
   },
   opts => ({ ...opts, title: loc.wallets.add_title }),
 );
@@ -400,21 +438,19 @@ const styles = StyleSheet.create({
   createButton: {
     flex: 1,
   },
-  label: {
+  input: {
     flexDirection: 'row',
-    borderWidth: 1,
-    borderBottomWidth: 0.5,
-    minHeight: 44,
-    height: 44,
-    marginHorizontal: 20,
+    minHeight: 54,
+    padding: 12,
     alignItems: 'center',
-    marginVertical: 16,
-    borderRadius: 4,
+    marginTop: 24,
+    borderRadius: 25,
+    backgroundColor: '#0A3263',
   },
   textInputCommon: {
     flex: 1,
-    marginHorizontal: 8,
-    color: '#81868e',
+    marginHorizontal: 20,
+    fontSize: 16,
   },
   buttons: {
     flexDirection: 'column',
@@ -428,7 +464,14 @@ const styles = StyleSheet.create({
     height: 'auto',
   },
   advanced: {
-    marginHorizontal: 20,
+    display: 'flex',
+    bottom: 0,
+    alignSelf: 'stretch',
+    marginTop: 16,
+    paddingVertical: 32,
+    paddingHorizontal: 24,
+    borderRadius: 40,
+    backgroundColor: '#08264A',
   },
   advancedText: {
     fontWeight: '500',

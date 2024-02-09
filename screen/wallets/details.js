@@ -48,7 +48,6 @@ import { BitcoinUnit, Chain } from '../../models/bitcoinUnits';
 import { writeFileAndExport } from '../../blue_modules/fs';
 
 const prompt = require('../../helpers/prompt');
-
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
@@ -58,10 +57,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textLabel1: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
+    fontFamily: 'Poppins',
+    fontWeight: '500',
+    fontSize: 16,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-    marginBottom: 12,
   },
   textLabel2: {
     fontFamily: 'Poppins-Regular',
@@ -75,12 +74,13 @@ const styles = StyleSheet.create({
   },
   input: {
     flexDirection: 'row',
-    borderWidth: 2,
-    minHeight: 48,
-    height: 48,
+    minHeight: 55,
     alignItems: 'center',
-    borderRadius: 12,
+    justifyContent: 'flex-start',
+    paddingHorizontal: 24,
+    borderRadius: 25,
     marginBottom: 24,
+    backgroundColor: '#0A3263',
   },
   inputText: {
     flex: 1,
@@ -159,7 +159,7 @@ const WalletDetails = () => {
   }, [isAdvancedModeEnabledRender, wallet]);
   const stylesHook = StyleSheet.create({
     textLabel1: {
-      color: colors.foregroundInactive,
+      color: colors.foreground,
     },
     textLabel2: {
       color: colors.foreground,
@@ -169,7 +169,7 @@ const WalletDetails = () => {
     },
     input: {
       borderColor: colors.element,
-      backgroundColor: colors.background,
+      backgroundColor: '#0A3263',
     },
     save: {
       backgroundColor: colors.primary,
@@ -211,26 +211,52 @@ const WalletDetails = () => {
     isAdvancedModeEnabled().then(setIsAdvancedModeEnabledRender);
 
     setOptions({
+      headerStyle: {
+        backgroundColor: colors.background,
+      },
+      headerTitleStyle: {
+        fontFamily: 'Poppins',
+        fontWeight: '500',
+        fontSize: 18,
+        color: colors.foreground,
+      },
       // eslint-disable-next-line react/no-unstable-nested-components
-      headerRight: () => (
+      headerLeft: () => (
         <TouchableOpacity
-          accessibilityRole="button"
-          testID="Save"
-          disabled={isLoading}
-          style={[styles.save, stylesHook.save]}
-          onPress={save}
-        >
-          <Text 
-            style={{
-              fontFamily: 'Poppins-Regular',
-              fontSize: 14,
-              color: colors.white,
-            }}
-          >
-            {loc.wallets.details_save}
-          </Text>
-        </TouchableOpacity>
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 44,
+          width: 44,
+          borderRadius: 22,
+          backgroundColor: '#0A3263',
+        }}
+        onPress={() =>
+          goBack()
+        }
+      >
+        <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+      </TouchableOpacity>
       ),
+      // headerRight: () => (
+      //   <TouchableOpacity
+      //     accessibilityRole="button"
+      //     testID="Save"
+      //     disabled={isLoading}
+      //     style={[styles.save, stylesHook.save]}
+      //     onPress={save}
+      //   >
+      //     <Text 
+      //       style={{
+      //         fontFamily: 'Poppins-Regular',
+      //         fontSize: 14,
+      //         color: colors.white,
+      //       }}
+      //     >
+      //       {loc.wallets.details_save}
+      //     </Text>
+      //   </TouchableOpacity>
+      // ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, colors, walletName, useWithHardwareWallet, hideTransactionsInWalletsList, isBIP47Enabled]);
@@ -506,7 +532,16 @@ const WalletDetails = () => {
       ) : (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View>
-            <BlueCard style={styles.address}>
+            <View
+              style={{
+                display: 'flex',
+                marginTop: 32,
+                paddingTop: 32,
+                paddingHorizontal: 24,
+                borderRadius: 40,
+                backgroundColor: colors.element,
+              }}
+            >
               <StatusBar barStyle="default" />
               {(() => {
                 if (
@@ -521,7 +556,13 @@ const WalletDetails = () => {
                   );
                 }
               })()}
-              <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.add_wallet_name.toUpperCase()}</Text>
+              <View 
+                style={{
+                  gap: 12,
+                  marginBottom: 24,
+                }}
+              >
+              <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.add_wallet_name}</Text>
               <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
                 <View style={[styles.input, stylesHook.input]}>
                   <TextInput
@@ -532,11 +573,11 @@ const WalletDetails = () => {
                     placeholderTextColor={colors.element}
                     style={{
                       flex: 1,
-                      marginHorizontal: 8,
-                      minHeight: 33,
                       writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
                       //color: colors.foreground,
-                      fontFamily: 'Poppins-Regular',
+                      color: colors.foreground,
+                      fontFamily: 'Poppins',
+                      fontWeight: '500',
                       fontSize: 14,
                     }}
                     editable={!isLoading}
@@ -545,10 +586,20 @@ const WalletDetails = () => {
                   />
                 </View>
               </KeyboardAvoidingView>
+              </View>
               {/* <BlueSpacing20 /> */}
-              <View style={styles.row}>
-                <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.details_type}</Text>
-                <Text style={[styles.textValue, stylesHook.textValue]}>{wallet.typeReadable}</Text>
+              <View style={{ gap: 12, marginBottom: 24 }}>
+                <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.details_type}</Text>
+                <View style={[styles.input, stylesHook.input]}>
+                  <Text 
+                    style={{
+                      color: colors.foregroundInactive,
+                      fontFamily: 'Poppins',
+                      fontWeight: '500',
+                      fontSize: 14,
+                    }}
+                  >{wallet.typeReadable}</Text>
+                </View>
               </View>
               {wallet.type === LightningLdkWallet.type && (
                 <>
@@ -594,15 +645,60 @@ const WalletDetails = () => {
               )}
               {/* <BlueSpacing20 /> */}
               
-              <View style={styles.row}>
-                <Text onPress={purgeTransactions} style={[styles.textLabel2, stylesHook.textLabel2]}>
+              <View style={{
+                gap: 12,
+                marginBottom: 24,
+              }}>
+                <Text onPress={purgeTransactions} style={[styles.textLabel1, stylesHook.textLabel1]}>
                   {loc.transactions.transactions_count}
                 </Text>
-                <BlueText style={[styles.textValue, stylesHook.textValue]}>{wallet.getTransactions().length}</BlueText>
               </View>
-              <View style={styles.hardware}>
-                <BlueText style={[styles.textLabel2, stylesHook.textLabel2]} onPress={() => setBackdoorBip47Pressed(prevState => prevState + 1)}>{loc.wallets.details_display}</BlueText>
-                <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{false: colors.element, true: colors.primary}}/>
+              <View style={{
+                alignItems: 'stretch',
+                justifyContent: 'center',
+                padding: 24,
+                gap: 24,
+                borderRadius: 25,
+                marginBottom: 24,
+                backgroundColor: '#0A3263',
+              }}>
+                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Text
+                    style={{
+                      color: colors.foregroundInactive,
+                      fontFamily: 'Poppins',
+                      fontWeight: '500',
+                      fontSize: 14,
+                    }}
+                  >
+                    Show on Home Page
+                  </Text>
+                {/* <BlueText style={[styles.textValue, stylesHook.textValue]}>{wallet.getTransactions().length}</BlueText> */}
+                {/* <BlueText style={[styles.textLabel1, stylesHook.textLabel1]} onPress={() => setBackdoorBip47Pressed(prevState => prevState + 1)}>{loc.wallets.details_display}</BlueText> */}
+                  <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+                </View>
+                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Text
+                    style={{
+                      color: colors.foregroundInactive,
+                      fontFamily: 'Poppins',
+                      fontWeight: '500',
+                      fontSize: 14,
+                    }}
+                  >
+                    Count
+                  </Text>
+                  <Text
+                    style={{
+                      color: colors.foregroundInactive,
+                      fontFamily: 'Poppins',
+                      fontWeight: '500',
+                      fontSize: 14,
+                    }}
+                  >
+                    {wallet.getTransactions().length}
+                  </Text>
+                </View>
               </View>
               {backdoorBip47Pressed >= 10 && wallet.allowBIP47() ? (
                 <>
@@ -644,10 +740,36 @@ const WalletDetails = () => {
                   </View>
                 )}
               </View>
-            </BlueCard>
-            {(wallet instanceof AbstractHDElectrumWallet || (wallet.type === WatchOnlyWallet.type && wallet.isHd())) && (
+              {(wallet instanceof AbstractHDElectrumWallet || (wallet.type === WatchOnlyWallet.type && wallet.isHd())) && (
               <BlueListItem onPress={navigateToAddresses} title={loc.wallets.details_show_addresses} chevron />
             )}
+              <TouchableOpacity
+                accessibilityRole="button"
+                testID="Save"
+                disabled={isLoading}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: 24,
+                  minHeight: 56,
+                  borderRadius: 30,
+                  backgroundColor: colors.primary,
+                }}
+                onPress={save}
+              >
+                <Text 
+                  style={{
+                    fontFamily: 'Poppins',
+                    fontWeight: '600',
+                    fontSize: 16,
+                    color: colors.white,
+                  }}
+                >
+                  {loc.wallets.details_save}
+                </Text>
+              </TouchableOpacity>
+            </View>
             {wallet.allowBIP47() && isBIP47Enabled && <BlueListItem onPress={navigateToPaymentCodes} title="Show payment codes" chevron />}
             <BlueCard style={styles.address}>
               <View>
@@ -741,6 +863,6 @@ const WalletDetails = () => {
   );
 };
 
-WalletDetails.navigationOptions = navigationStyle({}, opts => ({ ...opts, headerTitle: loc.wallets.details_title }));
+WalletDetails.navigationOptions = navigationStyle({}, opts => ({ ...opts, headerTitle: 'Wallet Settings'}));
 
 export default WalletDetails;

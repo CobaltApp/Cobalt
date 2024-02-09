@@ -119,15 +119,16 @@ function TabNavigator() {
     <Tab.Navigator 
       initialRouteName="Home" 
       screenOptions={{
-        headerShown: false,
         tabBarShowLabel: false, 
         tabBarStyle: { 
           //position: 'absolute', 
-          backgroundColor: colors.background, 
+          backgroundColor: '#0A3263', 
           borderTopWidth: 0,
-          height: 72, 
-          // borderTopLeftRadius: 40, 
-          // borderTopRightRadius: 40, 
+          height: 82, 
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          paddingVertical: 29,
+          position: 'absolute',
           // shadowColor: '#000000',
           // shadowOpacity: 0.05,
           // shadowRadius: 8, //
@@ -155,8 +156,8 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Market"
-        component={Chart}
+        name="Insights"
+        component={Discover}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -176,7 +177,7 @@ function TabNavigator() {
         options={{
           headerShown: false,
           tabBarButton: () => (
-            <View style={{ flex: 1, marginBottom: -5}}>
+            <View style={{ flex: 1, marginTop: -12, }}>
               <FContainer ref={walletActionButtonsRef}>
                 {/* <FButton
                   onPress={onScanButtonPressed}
@@ -204,10 +205,9 @@ function TabNavigator() {
                   // }}
                   // onLongPress={sendButtonLongPress}
                   testID="ModalButton"
-                  icon={<Icon name="grid" type="feather" size={24} color={colors.background} />}
+                  icon={<Icon name="grid" type="feather" size={24} color={'#FFFFFF'} />}
                   buttonStyle={{
                     backgroundColor: colors.primary,
-                    marginTop: 12,
                     borderRadius: 15,
                     height: 48,
                     width: 48,
@@ -220,7 +220,7 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Activity"
+        name="Chat"
         component={Chat}
         options={{
           headerShown: false,

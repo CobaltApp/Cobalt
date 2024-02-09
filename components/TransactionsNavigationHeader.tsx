@@ -146,11 +146,10 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
     <View
       //{WalletGradient.gradientsFor(wallet.type)}
       style={{
-        paddingTop: 15,
+        marginVertical: 36,
         //minHeight: 50,
         //justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 8,
       }}
       // @ts-ignore: Ugh
       //{...WalletGradient.linearGradientProps(wallet.type)}
@@ -169,7 +168,7 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
         })()}
         style={styles.chainIcon}
       /> */}
-      <Text
+      {/* <Text
         testID="WalletLabel"
         numberOfLines={1}
         style={{
@@ -181,8 +180,7 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
         }}
       >
         WALLET BALANCE
-        {/* {wallet.getLabel()} */}
-      </Text>
+      </Text> */}
       <ToolTipMenu
         onPress={changeWalletBalanceUnit}
         ref={menuRef}
@@ -224,7 +222,6 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                height: 90,
               }}
             >
               {wallet.hideBalance ? (
@@ -243,8 +240,9 @@ const TransactionsNavigationHeader: React.FC<TransactionsNavigationHeaderProps> 
                   numberOfLines={1}
                   adjustsFontSizeToFit
                   style={{
-                    fontFamily: 'Poppins-Regular',
-                    fontSize: 64,
+                    fontFamily: 'Poppins',
+                    fontWeight: '600',
+                    fontSize: 32,
                     color: BlueCurrentTheme.colors.foreground,
                     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
                   }}

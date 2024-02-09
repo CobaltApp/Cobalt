@@ -112,26 +112,27 @@ export const BitcoinButton = props => {
     <TouchableOpacity accessibilityRole="button" testID={props.testID} onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.primary) || colors.element,
+          //height: 54,
+          borderColor: (props.active && colors.primary) || '#0A3263',
           borderWidth: 1.5,
-          borderRadius: 8,
-          backgroundColor: colors.element,
+          borderRadius: 30,
+          backgroundColor: '#0A3263',
           minWidth: props.style.width,
           minHeight: props.style.height,
           height: props.style.height,
           flex: 1,
-          marginBottom: 8,
+          marginBottom: 16,
         }}
       >
-        <View style={{ marginHorizontal: 16, marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ marginHorizontal: 12, marginVertical: 12, flexDirection: 'row', alignItems: 'center' }}>
           <View>
-            <Image style={{ width: 34, height: 34, marginRight: 8 }} source={require('./img/addWallet/bitcoin.png')} />
+            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./img/addWallet/bitcoin.png')} />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={{ color: colors.primary, fontWeight: '700', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}>
+            <Text style={{ color: colors.foreground, fontWeight: '500', fontSize: 14, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}>
               {loc.wallets.add_bitcoin}
             </Text>
-            <Text
+            {/* <Text
               style={{
                 color: colors.foreground,
                 fontSize: 13,
@@ -140,7 +141,7 @@ export const BitcoinButton = props => {
               }}
             >
               {loc.wallets.add_bitcoin_explain}
-            </Text>
+            </Text> */}
           </View>
         </View>
       </View>
@@ -154,32 +155,32 @@ export const VaultButton = props => {
     <TouchableOpacity accessibilityRole="button" testID={props.testID} onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.foreground) || colors.element,
+          borderColor: (props.active && colors.foreground) || '#0A3263',
           borderWidth: 1.5,
-          borderRadius: 8,
-          backgroundColor: colors.element,
+          borderRadius: 30,
+          backgroundColor: '#0A3263',
           minWidth: props.style.width,
           minHeight: props.style.height,
           height: props.style.height,
           flex: 1,
         }}
       >
-        <View style={{ marginHorizontal: 16, marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ marginHorizontal: 12, marginVertical: 12, flexDirection: 'row', alignItems: 'center' }}>
           <View>
-            <Image style={{ width: 34, height: 34, marginRight: 8 }} source={require('./img/addWallet/vault.png')} />
+            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./img/addWallet/vault.png')} />
           </View>
           <View style={{ flex: 1 }}>
             <Text
               style={{
                 color: colors.foreground,
-                fontWeight: '700',
-                fontSize: 18,
+                fontWeight: '500',
+                fontSize: 14,
                 writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
               }}
             >
               {loc.multisig.multisig_vault}
             </Text>
-            <Text
+            {/* <Text
               style={{
                 color: colors.foreground,
                 fontSize: 13,
@@ -188,7 +189,7 @@ export const VaultButton = props => {
               }}
             >
               {loc.multisig.multisig_vault_explain}
-            </Text>
+            </Text> */}
           </View>
         </View>
       </View>
@@ -202,28 +203,28 @@ export const LightningButton = props => {
     <TouchableOpacity accessibilityRole="button" onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.secondary) || colors.element,
+          borderColor: (props.active && colors.secondary) || '#0A3263',
           borderWidth: 1.5,
-          borderRadius: 8,
-          backgroundColor: colors.element,
+          borderRadius: 30,
+          backgroundColor: '#0A3263',
           minWidth: props.style.width,
           minHeight: props.style.height,
           height: props.style.height,
           flex: 1,
-          marginBottom: 8,
+          marginBottom: 16,
         }}
       >
-        <View style={{ marginHorizontal: 16, marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ marginHorizontal: 12, marginVertical: 12, flexDirection: 'row', alignItems: 'center' }}>
           <View>
-            <Image style={{ width: 34, height: 34, marginRight: 8 }} source={require('./img/addWallet/lightning.png')} />
+            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./img/addWallet/lightning.png')} />
           </View>
           <View style={{ flex: 1 }}>
             <Text
-              style={{ color: colors.secondary, fontWeight: '700', fontSize: 18, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}
+              style={{ color: colors.foreground, fontWeight: '500', fontSize: 14, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}
             >
               {loc.wallets.add_lightning}
             </Text>
-            <Text
+            {/* <Text
               style={{
                 color: colors.foreground,
                 fontSize: 13,
@@ -232,7 +233,7 @@ export const LightningButton = props => {
               }}
             >
               {loc.wallets.add_lightning_explain}
-            </Text>
+            </Text> */}
           </View>
         </View>
       </View>
@@ -435,7 +436,8 @@ export const BlueListItem = React.memo(props => {
               flexWrap: 'wrap',
               writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
               color: colors.element,
-              fontFamily: 'Poppins-Regular',
+              fontFamily: 'Poppins',
+              fontWeight: 500,
               fontSize: 16,
             }}
           >
@@ -456,8 +458,8 @@ export const BlueListItem = React.memo(props => {
         <>
           {props.chevron && <ListItem.Chevron 
             iconStyle={{ 
-              color: colors.element,
-              transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }] 
+              color: colors.foregroundInactive,
+              transform: [{ scaleX: I18nManager.isRTL ? -1.5 : 1.5 }, {scaleY: 1.5}] 
             }}
           />}
           {props.rightIcon && <Avatar icon={props.rightIcon} />}
@@ -533,18 +535,17 @@ export const BlueFormInput = props => {
       underlineColorAndroid="transparent"
       //value={input}
       style={{
-        fontFamily: 'Poppins-Regular',
-        height: 58,
-        paddingHorizontal: 14,
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        height: 56,
+        paddingHorizontal: 20,
         //flex: 0,
         //marginHorizontal: 16,
         marginBottom: 12,
-        borderColor: colors.element,
-        borderWidth: 2,
-        borderRadius: 12,
+        borderRadius: 28,
         //backgroundColor: colors.element,
         color: colors.foreground,
-        fontSize: 14,
+        backgroundColor: '#08264A',
       }}
       placeholderTextColor={colors.foregroundInactive}
       //onChangeText={onChangeInput}

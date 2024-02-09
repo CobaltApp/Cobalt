@@ -73,12 +73,9 @@ const WalletsList = () => {
     },
     listHeaderText: {
       color: colors.foreground,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      fontFamily: 'Poppins',
       fontWeight: '500',
-      fontSize: 18,
-      fontFamily: 'Poppins-Regular'
+      fontSize: 20,
     },
   });
 
@@ -323,7 +320,7 @@ const WalletsList = () => {
       case WalletsListSections.HEADER:
         return null;
       case WalletsListSections.CAROUSEL:
-        return isLargeScreen ? null : renderWalletsCarousel();
+        return renderWalletsCarousel();
       case WalletsListSections.BUTTONS:
         return renderButtons();
       case WalletsListSections.TRANSACTIONS:
@@ -437,7 +434,7 @@ const WalletsList = () => {
           return (
             <View style={{
               top: 20,
-              height: 350,
+              height: 375,
               //marginTop: 20,
               //marginBottom: 80,
               alignItems: "center",
@@ -451,9 +448,10 @@ const WalletsList = () => {
               />
               <Text 
                 style={{
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 16,
                   color: colors.foregroundInactive,
+                  fontFamily: 'Poppins',
+                  fontSize: 14,
+                  
                 }}
               >{loc.wallets.list_empty_txs1}</Text>
               {/* <Text style={styles.footerStart}>{loc.wallets.list_empty_txs2}</Text> */}
@@ -589,35 +587,57 @@ const WalletsList = () => {
     <View
       style={{
         flex: 1, 
-        paddingVertical: 48, 
-        paddingHorizontal: 32,
+        paddingTop: 20,
+        //paddingVertical: 68,
         // paddingLeft: 32,
         // paddingRight: 16,
         //marginLeft: 32,
       }}
     >
-      <StatusBar barStyle={barStyle} backgroundColor="transparent" translucent animated />
+      {/* <StatusBar barStyle={barStyle} backgroundColor="transparent" translucent animated /> */}
       <View 
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
+          paddingHorizontal: 24,
+          paddingTop: 32,
+          paddingBottom: 16,
         }}
       >
-        <Icon
+        {/* <Icon
           color={colors.foreground}
           name="grid"
           type="feather"
           width={24}
           height={24}
-        />
-        <PlusIcon
+        /> */}
+        {/* <PlusIcon
           accessibilityRole="button"
           accessibilityLabel={loc.wallets.add_title}
           onPress={handleClick}
           Component={TouchableOpacity}
-        />
+        /> */}
+        <Text
+          style={{
+            color: colors.foreground,
+            fontFamily: 'Poppins-SemiBold',
+            fontSize: 32,
+          }}
+        >
+          Home
+        </Text>
       </View>
-      <View>
+      <View style={{ gap: 16, marginBottom: 24 }}>
+      <Text
+        style={{
+          color: '#FFFFFF',
+          fontFamily: 'Poppins',
+          fontSize: 20,
+          marginLeft: 24,
+        }}
+      >
+        Wallets
+      </Text>
         {/* <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} /> */}
         <WalletsCarousel
           data={wallets.concat(false)}
@@ -631,9 +651,18 @@ const WalletsList = () => {
           scrollEnabled={isFocused}
         />
       </View>
-      <View>
+      <View
+        style={{
+          display: 'flex',
+          flex: 1,
+          paddingHorizontal: 24,
+          paddingTop: 32,
+          borderRadius: 40,
+          backgroundColor: colors.element,
+        }}
+      >
         <Text style={stylesHook.listHeaderText}>
-          {`${loc.transactions.list_title}${'  '}`}
+          {`${loc.transactions.list_title}${''}`}
         </Text>
         <SectionList
             removeClippedSubviews
