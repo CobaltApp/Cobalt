@@ -7,9 +7,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   View,
+  Image,
   StatusBar,
   TextInput,
   StyleSheet,
+  Switch,
   useColorScheme,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,8 +26,9 @@ import {
   BlueButtonLink,
   BlueSpacing20,
 } from '../../BlueComponents';
-import navigationStyle from '../../components/navigationStyle';
+import navigationStyleTx from '../../components/navigationStyle';
 import { HDSegwitBech32Wallet, SegwitP2SHWallet, HDSegwitP2SHWallet, LightningCustodianWallet, LightningLdkWallet } from '../../class';
+import { Icon, colors } from 'react-native-elements';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { useTheme, useNavigation } from '@react-navigation/native';
 import { Chain } from '../../models/bitcoinUnits';
@@ -34,6 +37,7 @@ import { BlueStorageContext } from '../../blue_modules/storage-context';
 import { LdkButton } from '../../components/LdkButton';
 import alert from '../../components/Alert';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
 const BlueApp = require('../../BlueApp');
 const AppStorage = BlueApp.AppStorage;
 const A = require('../../blue_modules/analytics');
@@ -58,20 +62,122 @@ const WalletsAdd = () => {
   const { navigate, goBack } = useNavigation();
   const [entropy, setEntropy] = useState();
   const [entropyButtonText, setEntropyButtonText] = useState(loc.wallets.add_entropy_provide);
-  const stylesHook = {
-    advancedText: {
-      color: colors.element,
+
+  const styles = StyleSheet.create({
+    headerContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      gap: 20,  
+    },
+    header: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 16,
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    titleContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 16,
+    },
+    title: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 14,
+    },
+    subtitle: {
+      color: '#A6A6A6',
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 12
+    },
+  
+    createButton: {
+      flex: 1,
     },
     input: {
-      backgroundColor: '#0A3263'
+      flexDirection: 'row',
+      minHeight: 54,
+      padding: 12,
+      alignItems: 'center',
+      borderRadius: 25,
+      backgroundColor: '#0A3263',
+    },
+    textInputCommon: {
+      flex: 1,
+      marginHorizontal: 16,
+      fontFamily: 'Poppins',
+      fontWeight: '400',
+      fontSize: 16,
+    },
+    buttons: {
+      display: 'flex',
+      padding: 16,
+      gap: 16,
+      borderRadius: 25,
+      backgroundColor: '#0A3263',
+    },
+    button: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minWidth: 83,
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      gap: 8,
+      borderRadius: 40,
+      backgroundColor: colors.primary,
+    },
+    buttonText: {
+      color: '#FFFFFF',
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 12,
+    },
+    modal: {
+      display: 'flex',
+      flex: 1,
+      minHeight: ScreenHeight - 148,
+      alignSelf: 'stretch',
+      marginTop: 32,
+      paddingVertical: 32,
+      paddingHorizontal: 24,
+      gap: 24,
+      borderRadius: 40,
+      backgroundColor: '#08264A',
+    },
+    advancedText: {
+      fontWeight: '500',
+    },
+    lndUri: {
+      flexDirection: 'row',
+      borderWidth: 1,
+      borderBottomWidth: 0.5,
+      minHeight: 44,
+      height: 44,
+      alignItems: 'center',
+      marginVertical: 16,
+      borderRadius: 4,
+    },
+    import: {
+      marginBottom: 0,
+      marginTop: 24,
     },
     noPadding: {
-      backgroundColor: colors.background,
+      paddingHorizontal: 0,
     },
-    root: {
-      backgroundColor: colors.background,
-    },
-  };
+  });
 
   useEffect(() => {
     AsyncStorage.getItem(AppStorage.LNDHUB)
@@ -251,14 +357,20 @@ const WalletsAdd = () => {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+    <ScrollView style={{ flex: 1, backgroundColor: '#051931' }}>
+      <View style={styles.modal}>
       {/* <StatusBar
         barStyle={Platform.select({ ios: 'light-content', default: useColorScheme() === 'dark' ? 'light-content' : 'dark-content' })}
       /> */}
-      {/* <BlueSpacing20 /> */}
       {/* <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? 'padding' : null} keyboardVerticalOffset={62}> */}
         {/* <BlueFormLabel>{loc.wallets.add_wallet_name}</BlueFormLabel> */}
-        <View style={[styles.input, stylesHook.input, { marginHorizontal: 24 }]}>
+        <View style={styles.headerContainer}>
+          <Icon name="type" type="feather" size={24} color={colors.foreground}/>
+          <Text style={styles.header}>
+            Name
+          </Text>
+        </View>
+        <View style={styles.input}>
           <TextInput
             testID="WalletNameInput"
             value={label}
@@ -270,20 +382,104 @@ const WalletsAdd = () => {
             underlineColorAndroid="transparent"
           />
         </View>
+        <View style={styles.headerContainer}>
+          <Icon name="credit-card" type="feather" size={24} color={colors.foreground}/>
+          <Text style={styles.header}>
+            Type
+          </Text>
+        </View>
         {/* <BlueFormLabel>{loc.wallets.add_wallet_type}</BlueFormLabel> */}
         <View style={styles.buttons}>
-          <BitcoinButton
-            testID="ActivateBitcoinButton"
-            active={selectedWalletType === ButtonSelected.ONCHAIN}
-            onPress={handleOnBitcoinButtonPressed}
-            style={styles.button}
-          />
-          <LightningButton
-            active={selectedWalletType === ButtonSelected.OFFCHAIN}
-            onPress={handleOnLightningButtonPressed}
-            style={styles.button}
-          />
-          {backdoorPressed > 10 ? (
+          <View style={styles.row}>
+            <View style={styles.titleContainer}>
+            <Image
+              style={{ width: 32, height: 32 }}
+              source={require('../../img/coins/bitcoin.png')}
+            />
+            <View>
+              <Text style={styles.title}>
+                Bitcoin
+              </Text>
+              <Text style={styles.subtitle}>
+                Simple and powerful
+              </Text>
+            </View>
+            </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleOnBitcoinButtonPressed}
+            >
+              <View>
+              {selectedWalletType === ButtonSelected.ONCHAIN ? ( 
+                <Icon name="check" type="feather" size={12} color={'#FFFFFF'}/>
+              ): (null)}
+              </View>
+              <Text style={styles.buttonText}>
+                {selectedWalletType === ButtonSelected.ONCHAIN ? 'Selected' : 'Select'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
+          <View style={styles.row}>
+            <View style={styles.titleContainer}>
+            <Image
+              style={{ width: 32, height: 32 }}
+              source={require('../../img/coins/lightning.png')}
+            />
+            <View>
+              <Text style={styles.title}>
+                Lightning
+              </Text>
+              <Text style={styles.subtitle}>
+                Instant transactions
+              </Text>
+            </View>
+            </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleOnLightningButtonPressed}
+            >
+              <View>
+              {selectedWalletType === ButtonSelected.OFFCHAIN ? ( 
+                <Icon name="check" type="feather" size={12} color={'#FFFFFF'}/>
+              ): (null)}
+              </View>
+              <Text style={styles.buttonText}>
+                {selectedWalletType === ButtonSelected.OFFCHAIN ? 'Selected' : 'Select'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
+          <View style={styles.row}>
+            <View style={styles.titleContainer}>
+            <Image
+              style={{ width: 32, height: 32 }}
+              source={require('../../img/coins/vault.png')}
+            />
+            <View>
+              <Text style={styles.title}>
+                Vault
+              </Text>
+              <Text style={styles.subtitle}>
+                Secure for larger sums
+              </Text>
+            </View>
+            </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleOnVaultButtonPressed}
+            >
+              <View>
+              {selectedWalletType === ButtonSelected.VAULT ? ( 
+                <Icon name="check" type="feather" size={12} color={'#FFFFFF'}/>
+              ): (null)}
+              </View>
+              <Text style={styles.buttonText}>
+                {selectedWalletType === ButtonSelected.VAULT ? 'Selected' : 'Select'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {backdoorPressed > 100 ? (
             <LdkButton
               active={selectedWalletType === ButtonSelected.LDK}
               onPress={handleOnLdkButtonPressed}
@@ -292,45 +488,73 @@ const WalletsAdd = () => {
               text="LDK"
             />
           ) : null}
-          <VaultButton active={selectedWalletType === ButtonSelected.VAULT} onPress={handleOnVaultButtonPressed} style={styles.button} />
         </View>
-
-        <View style={styles.advanced}>
-          {(() => {
-            if (selectedWalletType === ButtonSelected.ONCHAIN && isAdvancedOptionsEnabled) {
-              return (
-                <View>
-                  <BlueSpacing20 />
-                  <Text style={[styles.advancedText, stylesHook.advancedText]}>{loc.settings.advanced_options}</Text>
-                  <BlueListItem
-                    containerStyle={[styles.noPadding, stylesHook.noPadding]}
-                    bottomDivider={false}
-                    onPress={() => setSelectedIndex(0)}
-                    title={HDSegwitBech32Wallet.typeReadable}
-                    checkmark={selectedIndex === 0}
-                  />
-                  <BlueListItem
-                    containerStyle={[styles.noPadding, stylesHook.noPadding]}
-                    bottomDivider={false}
-                    onPress={() => setSelectedIndex(1)}
-                    title={SegwitP2SHWallet.typeReadable}
-                    checkmark={selectedIndex === 1}
-                  />
-                  <BlueListItem
-                    containerStyle={[styles.noPadding, stylesHook.noPadding]}
-                    bottomDivider={false}
-                    onPress={() => setSelectedIndex(2)}
-                    title={HDSegwitP2SHWallet.typeReadable}
-                    checkmark={selectedIndex === 2}
-                  />
-                </View>
-              );
-            } else if (selectedWalletType === ButtonSelected.OFFCHAIN) {
-              return (
-                <>
-                  <Text style={[styles.advancedText, stylesHook.advancedText]}>{loc.settings.advanced_options}</Text>
-                  <BlueText>{loc.wallets.add_lndhub}</BlueText>
-                  <View style={[styles.input, stylesHook.input]}>
+        {selectedWalletType != ButtonSelected.VAULT && isAdvancedModeEnabled ? (
+          <View>
+          <View style={[styles.headerContainer, { marginBottom: 24 }]}>
+          <Icon name="settings" type="feather" size={24} color={colors.foreground}/>
+          <Text style={styles.header}>
+            Advanced Options
+          </Text>
+          </View>
+          {selectedWalletType === ButtonSelected.ONCHAIN ? 
+          (<View style={[styles.buttons, { marginBottom: 66 }]}>
+            <View style={styles.row}>
+            <View style={styles.titleContainer}>
+            <Image
+              style={{ width: 32, height: 32 }}
+              source={require('../../img/coins/bitcoin.png')}
+            />
+            <View>
+              <Text style={styles.title}>
+                HD SegWit (Bech32 Native)
+              </Text>
+              <Text style={styles.subtitle}>
+                Streamlined, secure transactions
+              </Text>
+            </View>
+            </View>
+            <Switch value={selectedIndex === 0} onValueChange={() => setSelectedIndex(0)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+          </View>
+          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
+          <View style={styles.row}>
+            <View style={styles.titleContainer}>
+            <Image
+              style={{ width: 32, height: 32 }}
+              source={require('../../img/coins/lightning.png')}
+            />
+            <View>
+              <Text style={styles.title}>
+                HD SegWit (P2SH)
+              </Text>
+              <Text style={styles.subtitle}>
+                Enhanced security
+              </Text>
+            </View>
+            </View>
+            <Switch value={selectedIndex === 1} onValueChange={() => setSelectedIndex(1)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+          </View>
+          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
+          <View style={styles.row}>
+            <View style={styles.titleContainer}>
+            <Image
+              style={{ width: 32, height: 32 }}
+              source={require('../../img/coins/vault.png')}
+            />
+            <View>
+              <Text style={styles.title}>
+                SegWit
+              </Text>
+              <Text style={styles.subtitle}>
+                Efficient and secure
+              </Text>
+            </View>
+            </View>
+            <Switch value={selectedIndex === 2} onValueChange={() => setSelectedIndex(2)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+          </View>
+            </View>
+            ) : (
+              <View style={styles.input}>
                     <TextInput
                       value={walletBaseURI}
                       onChangeText={setWalletBaseURI}
@@ -340,30 +564,24 @@ const WalletsAdd = () => {
                       autoCapitalize="none"
                       textContentType="URL"
                       autoCorrect={false}
-                      placeholderTextColor="#81868e"
+                      placeholderTextColor="#A6A6A6"
                       style={styles.textInputCommon}
                       editable={!isLoading}
                       underlineColorAndroid="transparent"
                     />
-                  </View>
-                </>
-              );
-            }
-          })()}
+                </View>
+            ) }
+          </View>
+        ) : null }
+
           {isAdvancedOptionsEnabled && selectedWalletType === ButtonSelected.ONCHAIN && !isLoading && (
             <BlueButtonLink style={styles.import} title={entropyButtonText} onPress={navigateToEntropy} />
           )}
           {/* <BlueSpacing20 /> */}
-          <View style={{ gap: 16, marginTop: 16 }}>
-          <View style={styles.createButton}>
+        <View style={{ position: 'absolute', bottom: 48, width: ScreenWidth, gap: 16, paddingHorizontal: 24,}}>
             {!isLoading ? (
-              // <BlueButton
-              //   testID="Create"
-              //   title={loc.wallets.add_create}
-              //   disabled={!selectedWalletType || (selectedWalletType === Chain.OFFCHAIN && (walletBaseURI ?? '').trim().length === 0)}
-              //   onPress={createWallet}
-              // />
               <TouchableOpacity
+                testID="Create"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -388,15 +606,9 @@ const WalletsAdd = () => {
             ) : (
               <ActivityIndicator />
             )}
-          </View>
           {!isLoading && (
-            // <BlueButtonLink
-            //   testID="ImportWallet"
-            //   style={styles.import}
-            //   title={loc.wallets.add_import_wallet}
-            //   onPress={navigateToImportWallet}
-            // />
             <TouchableOpacity
+              testID="ImportWallet"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -426,73 +638,13 @@ const WalletsAdd = () => {
   );
 };
 
-WalletsAdd.navigationOptions = navigationStyle(
+WalletsAdd.navigationOptions = navigationStyleTx(
   {
-    closeButton: false,
-    headerHideBackButton: false,
+    headerStyle: {
+      backgroundColor: '#051931',
+    },
   },
   opts => ({ ...opts, title: loc.wallets.add_title }),
 );
-
-const styles = StyleSheet.create({
-  createButton: {
-    flex: 1,
-  },
-  input: {
-    flexDirection: 'row',
-    minHeight: 54,
-    padding: 12,
-    alignItems: 'center',
-    marginTop: 24,
-    borderRadius: 25,
-    backgroundColor: '#0A3263',
-  },
-  textInputCommon: {
-    flex: 1,
-    marginHorizontal: 20,
-    fontSize: 16,
-  },
-  buttons: {
-    flexDirection: 'column',
-    marginHorizontal: 20,
-    marginTop: 16,
-    borderWidth: 0,
-    minHeight: 100,
-  },
-  button: {
-    width: '100%',
-    height: 'auto',
-  },
-  advanced: {
-    display: 'flex',
-    bottom: 0,
-    alignSelf: 'stretch',
-    marginTop: 16,
-    paddingVertical: 32,
-    paddingHorizontal: 24,
-    borderRadius: 40,
-    backgroundColor: '#08264A',
-  },
-  advancedText: {
-    fontWeight: '500',
-  },
-  lndUri: {
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderBottomWidth: 0.5,
-    minHeight: 44,
-    height: 44,
-    alignItems: 'center',
-    marginVertical: 16,
-    borderRadius: 4,
-  },
-  import: {
-    marginBottom: 0,
-    marginTop: 24,
-  },
-  noPadding: {
-    paddingHorizontal: 0,
-  },
-});
 
 export default WalletsAdd;

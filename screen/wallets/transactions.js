@@ -135,9 +135,9 @@ const WalletTransactions = ({ navigation }) => {
           borderRadius: 22,
           backgroundColor: '#0A3263',
         }}
-        // onPress={() =>
-        //   goBack()
-        // }
+        onPress={() =>
+          navigation.pop()
+        }
       >
         <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
       </TouchableOpacity>

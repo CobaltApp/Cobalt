@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { StatusBar, ScrollView, View, TouchableOpacity, Text, TextInput, Image } from 'react-native';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { StatusBar, ScrollView, View, TouchableOpacity, Text, TextInput, Image, ImageBackground, StyleSheet } from 'react-native';
+import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/native';
 import { Icon} from 'react-native-elements';
+import Obscure from 'react-native-obscure';
 
 import navigationStyle from '../components/navigationStyle';
 import { BlueLoading, BlueFormInput, BlueButton, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
 import loc from '../loc';
+import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
 //import { TextInput } from 'react-native-gesture-handler';
 const prompt = require('../helpers/prompt');
 
@@ -13,6 +15,7 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { navigate } = useNavigation();
   const { colors } = useTheme();
+  const [isActive, setActive] = useState(false);
 
   const navigateHome = () => {
     navigate('Home');
@@ -111,6 +114,102 @@ const Chat = () => {
       <BlueLoading />
     </SafeBlueArea>
   ) : (
+    <View>
+        {isActive ? null : 
+        <View
+            style={{
+                flex: 1,
+                position: 'absolute',
+                width: ScreenWidth,
+                height: ScreenHeight,
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                zIndex: 100
+            }}
+        >
+                <ImageBackground
+                style={{
+                    flex: 1,
+                    width: ScreenWidth,
+                    height: ScreenHeight,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    zIndex: 100,
+                }}
+                >
+                    <Image
+                        style={{
+                            position: 'absolute',
+                            alignSelf: 'center',
+                            top: -80,
+                            zIndex: 101,
+                        }}
+                        source={require('../img/Illustrations/locked.png')}
+                    />
+                    <View
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginHorizontal: 24,
+                            padding: 24,
+                            paddingTop: 160,
+                            borderRadius: 25,
+                            gap: 16,
+                            backgroundColor: '#0A3263',
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: colors.foreground,
+                                fontFamily: 'Poppins',
+                                fontWeight: '600',
+                                fontSize: 18,
+                            }}
+                        >
+                            This feature is locked
+                        </Text>
+                        <Text
+                            style={{
+                                color: '#9395A4',
+                                fontFamily: 'Poppins',
+                                fontWeight: '500',
+                                fontSize: 14,
+                            }}
+                        >
+                        Chat is only available for premium members. Subscribe to our premium membership to live chat with Colby, get discounted rates, and much more!
+                        </Text>
+                        <TouchableOpacity
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                paddingHorizontal: 48,
+                                paddingVertical: 16,
+                                borderRadius: 40,
+                                backgroundColor: colors.primary,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: colors.foreground,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: '600',
+                                    fontSize: 16,
+                                }}
+                            >
+                                Try Now
+                            </Text>
+                        </TouchableOpacity>
+                        
+
+                    </View>
+                    </ImageBackground>
+                    </View>
+            }
         <View
             style={{
                 paddingTop: 20,
@@ -136,7 +235,7 @@ const Chat = () => {
                     Chat
                 </Text>
             </View>
-            <View
+            {/* <View
                 style={{
                     display: 'flex',
                     padding: 24,
@@ -165,36 +264,29 @@ const Chat = () => {
                         bottom: 16,
                     }}
                 />
+            </View> */}
+        <ScrollView>
+            <View
+                style={{
+                    flex: 1,
+                    minHeight: ScreenHeight * 0.65,
+                    overflow: 'scroll',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 10,
+                    paddingBottom: 20,
+                }}
+            >
+
             </View>
-        <ScrollView
-        >
-            <SafeBlueArea>
-                <View
-                    style={{
-                        flex: 1,
-                        width: 375,
-                        height: 400,
-                        overflow: 'scroll',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 10,
-                        paddingBottom: 20,
-                    }}
-                >
-                </View>
-            </SafeBlueArea>
         </ScrollView>
         <View
-            style={{
-                //width: 311,
-                //position: 'absolute',
-                //bottom: 92,
-            }}
         >
             <BlueFormInput
                 placeholder="Ask Colby..."
             />
         </View>
+    </View>
     </View>
   );
 };
@@ -206,9 +298,19 @@ const Chat = () => {
 //     }
 // })
 
+const styles = StyleSheet.create({
+    blurOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: ScreenWidth,
+      height: ScreenHeight,
+      //backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+});
+
 export default Chat;
-
-
 
 Chat.navigationOptions = navigationStyle({
   title: loc.plausibledeniability.title,

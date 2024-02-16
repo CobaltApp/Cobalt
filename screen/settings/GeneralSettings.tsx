@@ -46,6 +46,10 @@ const GeneralSettings: React.FC = () => {
     navigate('SettingsPrivacy');
   };
 
+  const navigateToPlausibleDeniability = () => {
+    navigate('PlausibleDeniability');
+  };
+
   const stylesWithThemeHook = {
     root: {
       backgroundColor: colors.background,
@@ -104,7 +108,13 @@ const GeneralSettings: React.FC = () => {
         title="Legacy URv1 QR"
         switch={{ onValueChange: onLegacyURv1Switch, value: isURv1SwitchEnabled }}
       />
-      {/* <BlueSpacing20 /> */}
+      <BlueListItem
+            onPress={navigateToPlausibleDeniability}
+            title={loc.settings.plausible_deniability}
+            chevron
+            testID="PlausibleDeniabilityButton"
+            Component={TouchableOpacity}
+          />
     </ScrollView>
   );
 };

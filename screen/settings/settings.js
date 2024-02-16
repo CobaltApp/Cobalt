@@ -11,12 +11,6 @@ import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
 import RadialGradient from 'react-native-radial-gradient';
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
-
 const Settings = () => {
   const { navigate } = useNavigation();
   // By simply having it here, it'll re-render the UI if language is changed
@@ -28,61 +22,37 @@ const Settings = () => {
     navigate('Home');
   };
 
+  const styles = StyleSheet.create({
+    root: {
+      backgroundColor: '#F7931A',
+      flex: 1,
+      paddingTop: 20,
+    },
+    header: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: 600,
+      fontSize: 32,
+    },
+    modal: {
+      display: 'flex',
+      flex: 1,
+      marginTop: 128,
+      paddingHorizontal: 24,
+      paddingTop: 32,
+      borderRadius: 40,
+      backgroundColor: colors.element,
+    },
+  });
+
   return (
-    // <ScrollView>
-      <View
-        style={{
-          //backgroundColor: '#F3F5F6',
-          flex: 1,
-          paddingTop: 20,
-        }}
-      >
-      {/* <View
-        style={{
-          flexDirection: 'row',
-          marginBottom: 44,
-        }}
-      >
-        <TouchableOpacity
-          accessibilityRole="button"
-          accessibilityLabel={loc._.more}
-          testID="HomeButton"
-          style={{
-            marginRight: 10,
-            height: 40,
-            width: 40,
-            backgroundColor: colors.element,
-            borderRadius: 15,
-          }}
-          onPress={navigateHome}
-        >
-          <Icon size={24} name="chevron-left" type="feather" color={colors.element} style={{marginTop: 8}}/>
-        </TouchableOpacity>
-        <BlueText
-          style={{
-            fontWeight: '400',
-            fontSize: 14,
-            color: colors.foreground,
-            marginTop: 13,
-          }}
-        >
-          Settings
-        </BlueText>
-      </View> */}
+      <View style={styles.root}>
         <View style={{paddingHorizontal: 24, paddingTop: 32, paddingBottom: 24}}>
-          {/* <BlueHeaderDefaultMain leftText='Profile'/> */}
-          <Text
-            style={{
-              color: colors.foreground,
-              fontFamily: 'Poppins',
-              fontWeight: 600,
-              fontSize: 32,
-            }}
-          >
-            Profile
+          <Text style={styles.header}>
+            Settings
           </Text>
         </View>
-        <View
+        {/* <View
           style={{
             display: 'flex',
             alignItems: 'flex-start',
@@ -137,146 +107,56 @@ const Settings = () => {
                         bottom: -18,
                     }}
                 />
-        </View>
-        {/* <View
+        </View> */}
+        <Image 
+          source={require('../../img/Illustrations/ethereum.png')}
           style={{
-            backgroundColor: colors.background,
-            marginBottom: 46,
-            marginHorizontal: 24,
-            paddingHorizontal: 12,
-            paddingVertical: 16,
-            borderRadius: 16,
-            shadowColor: '#000000',
-            shadowOpacity: 0.05,
-            shadowRadius: 24,
-            shadowOffset: { width: 0, height: 40, },
+            position: 'absolute',
+            top: 32,
+            right: 0,
           }}
-        >
-          <View
+        />
+        <View style={styles.modal}>
+          <TouchableOpacity
             style={{
+              display: 'flex',
               flexDirection: 'row',
-              //alignSelf: 'center',
               alignItems: 'center',
-              //marginBottom: 40,
-              //marginLeft: 4,
+              justifyContent: 'space-between',
             }}
+            onPress={() => navigate('GeneralSettings')}
           >
-            <Image
-              source={require('../../img/profile.png')}
-              style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: colors.secondary}}
+            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+            <Image 
+              source={require('../../img/icons/settings.png')}
+              style={{
+                width: 48,
+                height: 48,
+              }}
             />
-            <View style={{marginLeft: 16,}}>
-              <BlueText
-                style={{
-                  fontFamily: 'Poppins-SemiBold',
-                  fontSize: 24,
-                  color: colors.foreground,
-                }}
-              >
-                John Doe
-              </BlueText>
-              <BlueText
-                style={{
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 16,
-                  color: colors.foregroundInactive,
-                }}
-              >
-                @johndoe
-              </BlueText>
-            </View>
-          </View> */}
-          {/* <View
-            style={{
-              marginTop: 8,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}
-          > */}
-            {/* <View
+            <Text
               style={{
-                marginTop: 4,
-                marginRight: 4,
-                backgroundColor: colors.primary,
-                borderColor: colors.background,
-                borderWidth: 2,
-                borderRadius: 12,
-                maxWidth: 192,
-                paddingVertical: 4,
-                paddingHorizontal: 8,
+                color: colors.foreground,
+                fontFamily: 'Poppins',
+                fontWeight: '500',
+                fontSize: 18,
               }}
             >
-              <Text style={{
-                color: colors.background,
-                fontWeight: 700,
-              }}>
-                🧭 Explorer
-              </Text>
+              General Settings
+            </Text>
             </View>
-            <View
-              style={{
-                marginTop: 4,
-                marginRight: 4,
-                backgroundColor: colors.background,
-                borderColor: colors.negative,
-                borderWidth: 2,
-                borderRadius: 12,
-                maxWidth: 192,
-                paddingVertical: 4,
-                paddingHorizontal: 8,
-              }}
-            >
-              <Text style={{
-                color: colors.negative,
-                fontWeight: 700,
-              }}>
-                🦐 Shrimp
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 4,
-                marginRight: 4,
-                backgroundColor: colors.background,
-                borderColor: colors.tertiary,
-                borderWidth: 2,
-                borderRadius: 12,
-                maxWidth: 192,
-                paddingVertical: 4,
-                paddingHorizontal: 8,
-              }}
-            >
-              <Text style={{
-                color: colors.tertiary,
-                fontWeight: 700,
-              }}>
-                📊 Market Watcher
-              </Text>
-            </View>
-          </View> */}
-        {/* </View> */}
-        <View 
-          style={{
-            display: 'flex',
-            flex: 1,
-            paddingHorizontal: 24,
-            paddingTop: 32,
-            borderRadius: 40,
-            backgroundColor: colors.element,
-          }}
-        >
-          <BlueListItem leftIcon={{ name: 'settings', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.general} onPress={() => navigate('GeneralSettings')} testID="GeneralSettings" chevron/>
+            <Icon name="chevron-right" type="feather" size={24} color={'#A6A6A6'} />
+          </TouchableOpacity>
           {/* <BlueListItem leftIcon={{ name: 'dollar-sign', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.currency} onPress={() => navigate('Currency')} testID="Currency" />
           <BlueListItem leftIcon={{ name: 'globe', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.language} onPress={() => navigate('Language')} testID="Language" /> */}
           <BlueListItem leftIcon={{ name: 'lock', size: 24, type: 'feather', color: colors.foreground }} title='Security' onPress={() => navigate('SettingsPrivacy')} testID="Security" chevron/>
           {/* <BlueListItem leftIcon={{ name: 'lock', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.encrypt_title} onPress={() => navigate('EncryptStorage')} testID="Password" chevron/> */}
           {/* <BlueListItem leftIcon={{ name: 'share-2', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.network} onPress={() => navigate('NetworkSettings')} testID="NetworkSettings" bottomDivider={true} chevron/> */}
-          <BlueListItem leftIcon={{ name: 'tool', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" chevron/>
+          <BlueListItem leftIcon={{ name: 'lock', size: 24, type: 'feather', color: colors.foreground }} title='Notifications' onPress={() => navigate('NotificationSettings')} testID="Security" chevron/>
+          {/* <BlueListItem leftIcon={{ name: 'tool', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.tools} onPress={() => navigate('Tools')} testID="Tools" chevron/> */}
           <BlueListItem leftIcon={{ name: 'help-circle', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.about} onPress={() => navigate('About')} testID="AboutButton" chevron/>
         </View>
       </View>
-      
-    // </ScrollView>
   );
 };
 

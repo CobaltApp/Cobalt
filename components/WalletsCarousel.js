@@ -23,6 +23,7 @@ import { BluePrivateBalance } from '../BlueComponents';
 import { BlueStorageContext } from '../blue_modules/storage-context';
 import { isHandset, isTablet, isDesktop } from '../blue_modules/environment';
 import { Button } from 'react-native-elements';
+import { navigationRef } from '../NavigationService';
 
 const nStyles = StyleSheet.create({
   container: {
@@ -52,7 +53,7 @@ const nStyles = StyleSheet.create({
   },
 });
 
-const NewWalletPanel = ({ onPress }) => {
+const NewWalletPanel = () => {
   const { navigate } = useNavigation();
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
@@ -68,6 +69,7 @@ const NewWalletPanel = ({ onPress }) => {
         width: width * 0.74,
         height: 200,
         marginLeft: 20,
+        marginRight: 88,
         backgroundColor: colors.element,
         borderRadius: 25,
       }}

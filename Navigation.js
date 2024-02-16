@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Keyboard, Platform, useWindowDimensions, Dimensions, I18nManager, View, Image } from 'react-native';
-import { useTheme, useNavigation } from '@react-navigation/native';
+import { useTheme, useNavigation, useRoute } from '@react-navigation/native';
 import { createBottomTabNavigator, useBottomTabBarHeight, BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import { Icon, Button } from 'react-native-elements';
 import { FContainer, FButton } from './components/FloatButtons';
@@ -101,6 +101,7 @@ import Chart from './screen/chart';
 import { IconConfigKeys } from 'react-native-ios-context-menu';
 
 import * as NavigationService from './NavigationService';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const WalletsStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -111,9 +112,23 @@ const scanqrHelper = require('./helpers/scan-qr');
 function TabNavigator() {
   const { theme, colors, scanImage, barStyle } = useTheme();
   //const { navigation, route } = props;
+  const { navigate } = useNavigation();
+  const routeName = useRoute().name;
   const walletActionButtonsRef = useRef();
 
   const scanButtonRef = useRef();
+
+  const onScanButtonPressed = () => {
+    scanqrHelper(navigate, routeName, false).then(onBarScanned);
+  };
+
+  const onBarScanned = value => {
+    if (!value) return;
+    DeeplinkSchemaMatch.navigationRouteFor({ url: value }, completionValue => {
+      ReactNativeHapticFeedback.trigger('impactLight', { ignoreAndroidSystemSettings: false });
+      navigate(...completionValue);
+    });
+  };
 
   return (
     <Tab.Navigator 
@@ -121,13 +136,13 @@ function TabNavigator() {
       screenOptions={{
         tabBarShowLabel: false, 
         tabBarStyle: { 
-          //position: 'absolute', 
           backgroundColor: '#0A3263', 
           borderTopWidth: 0,
-          height: 82, 
+          height: 100, 
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
-          paddingVertical: 29,
+          paddingVertical: 32,
+          paddingHorizontal: 24,
           position: 'absolute',
           // shadowColor: '#000000',
           // shadowOpacity: 0.05,
@@ -177,15 +192,15 @@ function TabNavigator() {
         options={{
           headerShown: false,
           tabBarButton: () => (
-            <View style={{ flex: 1, marginTop: -12, }}>
-              <FContainer ref={walletActionButtonsRef}>
+            <View style={{ marginTop: -16, width: 100, alignItems: 'center' }}>
+              {/* <FContainer ref={walletActionButtonsRef}> */}
                 {/* <FButton
                   onPress={onScanButtonPressed}
                   onLongPress={sendButtonLongPress}
                   icon={<Icon name="grid" type="feather" size={24} color={colors.background} />}
                   text={loc.send.details_scan}
                 > */}
-                <Button
+                {/* <Button
                   // onPress={}
                   // onPress={async () => {
                   //   await scanButtonTapped();
@@ -205,16 +220,37 @@ function TabNavigator() {
                   // }}
                   // onLongPress={sendButtonLongPress}
                   testID="ModalButton"
-                  icon={<Icon name="grid" type="feather" size={24} color={'#FFFFFF'} />}
+                  icon={<Icon name="grid" type="feather" size={32} color={'#FFFFFF'} />}
                   buttonStyle={{
                     backgroundColor: colors.primary,
-                    borderRadius: 15,
-                    height: 48,
-                    width: 48,
+                    borderRadius: 32,
+                    height: 64,
+                    width: 64,
                     //marginBottom: 6,
                   }}
-                />
-              </FContainer>
+                /> */}
+                <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 64,
+                    width: 64,
+                    borderRadius: 32,
+                    backgroundColor: colors.primary,
+                  }}
+                  onPress={onScanButtonPressed}
+                  onLongPress={sendButtonLongPress}
+                >
+                  <Image
+                    style={{
+                      height: 56,
+                      width: 56,
+                    }}
+                    source={require('./img/icons/swap.png')}
+                  />
+                </TouchableOpacity>
+              {/* </FContainer> */}
             </View>
           ),
         }}
@@ -300,19 +336,9 @@ function TabNavigator() {
 //         },
 //       });
 //   }
-//   //const { navigate, setOptions } = useNavigation();
-
-//   //scanqrHelper(navigate, routeName, false).then(onBarScanned);
-// };
-
-// const onBarScanned = value => {
 //   const { navigate, setOptions } = useNavigation();
 
-//   if (!value) return;
-//   DeeplinkSchemaMatch.navigationRouteFor({ url: value }, completionValue => {
-//     ReactNativeHapticFeedback.trigger('impactLight', { ignoreAndroidSystemSettings: false });
-//     navigate(...completionValue);
-//   });
+//   scanqrHelper(navigate, routeName, false).then(onBarScanned);
 // };
 
 const sendButtonLongPress = async () => {
@@ -450,44 +476,44 @@ const AddWalletRoot = () => {
   const theme = useTheme();
 
   return (
-    <AddWalletStack.Navigator screenOptions={{ headerHideShadow: true }}>
-      <AddWalletStack.Screen name="AddWallet" component={AddWallet} options={AddWallet.navigationOptions(theme)} />
-      <AddWalletStack.Screen name="ImportWallet" component={ImportWallet} options={ImportWallet.navigationOptions(theme)} />
-      <AddWalletStack.Screen
+    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true, }}>
+      <WalletsStack.Screen name="AddWallet" component={AddWallet} options={AddWallet.navigationOptions(theme)} />
+      <WalletsStack.Screen name="ImportWallet" component={ImportWallet} options={ImportWallet.navigationOptions(theme)} />
+      <WalletsStack.Screen
         name="ImportWalletDiscovery"
         component={ImportWalletDiscovery}
         options={ImportWalletDiscovery.navigationOptions(theme)}
       />
-      <AddWalletStack.Screen
+      <WalletsStack.Screen
         name="ImportCustomDerivationPath"
         component={ImportCustomDerivationPath}
         options={ImportCustomDerivationPath.navigationOptions(theme)}
       />
-      <AddWalletStack.Screen name="ImportSpeed" component={ImportSpeed} options={ImportSpeed.navigationOptions(theme)} />
-      <AddWalletStack.Screen name="PleaseBackup" component={PleaseBackup} options={PleaseBackup.navigationOptions(theme)} />
-      <AddWalletStack.Screen
+      <WalletsStack.Screen name="ImportSpeed" component={ImportSpeed} options={ImportSpeed.navigationOptions(theme)} />
+      <WalletsStack.Screen name="PleaseBackup" component={PleaseBackup} options={PleaseBackup.navigationOptions(theme)} />
+      <WalletsStack.Screen
         name="PleaseBackupLNDHub"
         component={PleaseBackupLNDHub}
         options={PleaseBackupLNDHub.navigationOptions(theme)}
       />
-      <AddWalletStack.Screen name="PleaseBackupLdk" component={PleaseBackupLdk} options={PleaseBackupLdk.navigationOptions(theme)} />
-      <AddWalletStack.Screen name="ProvideEntropy" component={ProvideEntropy} options={ProvideEntropy.navigationOptions(theme)} />
-      <AddWalletStack.Screen
+      <WalletsStack.Screen name="PleaseBackupLdk" component={PleaseBackupLdk} options={PleaseBackupLdk.navigationOptions(theme)} />
+      <WalletsStack.Screen name="ProvideEntropy" component={ProvideEntropy} options={ProvideEntropy.navigationOptions(theme)} />
+      <WalletsStack.Screen
         name="WalletsAddMultisig"
         component={WalletsAddMultisig}
         options={WalletsAddMultisig.navigationOptions(theme)}
       />
-      <AddWalletStack.Screen
+      <WalletsStack.Screen
         name="WalletsAddMultisigStep2"
         component={WalletsAddMultisigStep2}
         options={WalletsAddMultisigStep2.navigationOptions(theme)}
       />
-      <AddWalletStack.Screen
+      <WalletsStack.Screen
         name="WalletsAddMultisigHelp"
         component={WalletsAddMultisigHelp}
         options={WalletsAddMultisigHelp.navigationOptions(theme)}
       />
-    </AddWalletStack.Navigator>
+    </WalletsStack.Navigator>
   );
 };
 
@@ -706,7 +732,7 @@ const InitRoot = () => (
     <InitStack.Screen
       name="ReorderWallets"
       component={ReorderWalletsStackRoot}
-      options={{ headerShown: false, gestureEnabled: false, stackPresentation: isDesktop ? 'containedModal' : 'modal' }}
+      options={{ headerShown: true, gestureEnabled: false, stackPresentation: isDesktop ? 'containedModal' : 'modal' }}
     />
     <InitStack.Screen
       name={isHandset ? 'Navigation' : 'DrawerRoot'}

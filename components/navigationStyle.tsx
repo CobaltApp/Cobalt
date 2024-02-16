@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Keyboard, TouchableOpacity, StyleSheet } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 import { Theme } from './themes';
 import loc from '../loc';
@@ -19,8 +20,10 @@ type NavigationOptions = {
     elevation: number;
     shadowOpacity?: number;
     shadowOffset: { height?: number; width?: number };
+    backgroundColor: string;
   };
   headerTitleStyle?: {
+    fontFamily: string;
     fontWeight: string;
     color: string;
   };
@@ -76,9 +79,11 @@ const navigationStyle = (
           elevation: 0,
           shadowOpacity: 0,
           shadowOffset: { height: 0, width: 0 },
+          backgroundColor: theme.colors.background,
         },
         headerTitleStyle: {
-          fontWeight: '600',
+          fontFamily: 'Poppins',
+          fontWeight: '500',
           color: theme.colors.foreground,
         },
         headerRight,
@@ -105,9 +110,11 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
           borderBottomWidth: 0,
           elevation: 0,
           shadowOffset: { height: 0, width: 0 },
+          backgroundColor: theme.colors.background,
         },
         headerTitleStyle: {
-          fontWeight: '600',
+          fontFamily: 'Poppins',
+          fontWeight: '500',
           color: theme.colors.foreground,
         },
         // headerBackTitle: null,
@@ -115,16 +122,23 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
         headerTintColor: theme.colors.foreground,
         headerLeft: () => (
           <TouchableOpacity
-            accessibilityRole="button"
+          accessibilityRole="button"
             accessibilityLabel={loc._.close}
-            style={styles.button}
-            onPress={() => {
-              Keyboard.dismiss();
-              navigation.goBack(null);
-            }}
-          >
-            <Image source={theme.closeImage} />
-          </TouchableOpacity>
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 44,
+            width: 44,
+            borderRadius: 22,
+            backgroundColor: '#0A3263',
+          }}
+          onPress={() => {
+            Keyboard.dismiss();
+            navigation.goBack(null);
+          }}
+        >
+          <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+        </TouchableOpacity>
         ),
         ...opts,
       };

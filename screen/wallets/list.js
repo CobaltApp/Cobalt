@@ -433,17 +433,14 @@ const WalletsList = () => {
         if (dataSource.length === 0 && !isLoading) {
           return (
             <View style={{
-              top: 20,
-              height: 375,
               //marginTop: 20,
               //marginBottom: 80,
               alignItems: "center",
             }} testID="NoTransactionsMessage">
-              <Image source={require('../../img/icons/Search.png')} 
+              <Image source={require('../../img/Illustrations/question.png')} 
                 style={{
-                  width: 156,
-                  height: 156,
-                  marginVertical: 16,
+                  width: 300,
+                  height: 300,
                 }}
               />
               <Text 
@@ -468,14 +465,24 @@ const WalletsList = () => {
   const renderScanButton = () => {
     if (wallets.length > 0) {
       return (
-        <FContainer ref={walletActionButtonsRef}>
-          <FButton
-            onPress={onScanButtonPressed}
-            onLongPress={sendButtonLongPress}
-            //icon={<Icon name="camera" type="feather" size={24} color={colors.foreground} />}
-            //text={loc.send.details_scan}
-          />
-        </FContainer>
+        <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    position: 'absolute',
+                    alignSelf: 'center',
+                    bottom: 100,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 64,
+                    width: 64,
+                    borderRadius: 32,
+                    backgroundColor: colors.primary,
+                  }}
+                  onPress={onScanButtonPressed}
+                  onLongPress={sendButtonLongPress}
+                >
+                  <Icon name="grid" type="feather" size={32} color={'#FFFFFF'} />
+                </TouchableOpacity>
       );
     } else {
       return null;
