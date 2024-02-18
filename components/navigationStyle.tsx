@@ -7,10 +7,12 @@ import loc from '../loc';
 
 const styles = StyleSheet.create({
   button: {
-    minWidth: 40,
-    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    height: 44,
+    width: 44,
+    borderRadius: 22,
+    backgroundColor: '#0A3263',
   },
 });
 
@@ -86,6 +88,19 @@ const navigationStyle = (
           fontWeight: '500',
           color: theme.colors.foreground,
         },
+        headerLeft: () => (
+          <TouchableOpacity
+          accessibilityRole="button"
+            accessibilityLabel={loc._.close}
+          style={styles.button}
+          onPress={() => {
+            Keyboard.dismiss();
+            navigation.goBack(null);
+          }}
+        >
+          <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+        </TouchableOpacity>
+        ),
         headerRight,
         headerBackTitleVisible: false,
         headerTintColor: theme.colors.foreground,
@@ -117,7 +132,6 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
           fontWeight: '500',
           color: theme.colors.foreground,
         },
-        // headerBackTitle: null,
         headerBackTitleVisible: false,
         headerTintColor: theme.colors.foreground,
         headerLeft: () => (

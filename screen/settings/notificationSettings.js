@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ScrollView, TouchableWithoutFeedback, I18nManager, StyleSheet, Linking, View, TextInput } from 'react-native';
+import { ScrollView, TouchableWithoutFeedback, I18nManager, StyleSheet, Switch, Linking, View, Text, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
 
@@ -9,6 +9,8 @@ import loc from '../../loc';
 import { BlueCurrentTheme } from '../../components/themes';
 import Notifications from '../../blue_modules/notifications';
 import alert from '../../components/Alert';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
 
 const NotificationSettings = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,20 +57,53 @@ const NotificationSettings = () => {
     })();
   }, []);
 
-  const stylesWithThemeHook = {
+  const styles = StyleSheet.create({
     root: {
-      ...styles.root,
+      flex: 1,
       backgroundColor: colors.background,
     },
-    scroll: {
-      ...styles.scroll,
-      backgroundColor: colors.background,
+    modal: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'stretch',
+      marginTop: 48,
+      paddingHorizontal: 24,
+      paddingBottom: 48,
+      paddingTop: 32,
+      gap: 24,
+      borderRadius: 40,
+      backgroundColor: colors.element
     },
-    scrollBody: {
-      ...styles.scrollBody,
-      backgroundColor: colors.background,
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
-  };
+    rowText: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 16,
+    },
+    uri: {
+      flexDirection: 'row',
+      backgroundColor: '#0A3263',
+      height: 56,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      padding: 16,
+      borderRadius: 25,
+      marginBottom: 120,
+    },
+    uriText: {
+      flex: 1,
+      color: '#A6A6A6',
+      fontFamily: 'Poppins',
+      fontWeight: '400',
+      fontSize: 14,
+    },
+  });
 
   const save = useCallback(async () => {
     setIsLoading(true);
@@ -94,13 +129,98 @@ const NotificationSettings = () => {
   return isLoading ? (
     <BlueLoading />
   ) : (
-    <ScrollView style={stylesWithThemeHook.scroll}>
-      <BlueListItem
-        Component={TouchableWithoutFeedback}
-        title={loc.settings.push_notifications}
-        switch={{ onValueChange: onNotificationsSwitch, value: isNotificationsEnabled, testID: 'NotificationsSwitch' }}
-      />
-      {/* <BlueSpacing20 /> */}
+    <View style={styles.root}>
+      <View style={styles.modal}>
+        <View style={styles.row}>
+          <Text style={styles.rowText}>
+            Push Notifications
+          </Text>
+          <Switch value={isNotificationsEnabled} onValueChange={onNotificationsSwitch} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+        </View>
+        {isNotificationsEnabled ? (
+          <View style={{ display: 'flex', flex: 1, gap: 24 }}>
+            <Text
+              style={{
+                color: colors.foreground,
+                fontFamily: 'Poppins',
+                fontWeight: '500',
+                fontSize: 14,
+              }}
+            >
+            GroundControl is a FREE, open-source push notification server for Bitcoin wallets. You can install your own GroundControl server and put its URL here to not rely on Cobalt’s infrastructure.
+            </Text>
+            <View style={styles.uri}>
+              <TextInput
+                placeholder={Notifications.getDefaultUri()}
+                value={URI}
+                onChangeText={setURI}
+                numberOfLines={1}
+                style={styles.uriText}
+                placeholderTextColor="#A6A6A6"
+                editable={!isLoading}
+                textContentType="URL"
+                autoCapitalize="none"
+                underlineColorAndroid="transparent"
+              />
+            </View>
+            <TouchableOpacity
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              width: ScreenWidth - 48,
+              height: 56,
+              left: 0,
+              bottom: 0,
+              alignSelf: 'stretch',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 40,
+              backgroundColor: colors.primary,
+            }}
+            onPress={save}
+          >
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Poppins',
+                fontWeight: '600',
+                fontSize: 16,
+              }}
+            >
+              Save
+            </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              width: ScreenWidth - 48,
+              height: 56,
+              left: 0,
+              bottom: 96,
+              alignSelf: 'stretch',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 40,
+              backgroundColor: '#F7931A',
+            }}
+            onPress={() => Linking.openURL('https://github.com/BlueWallet/GroundControl')}
+          >
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Poppins',
+                fontWeight: '600',
+                fontSize: 16,
+              }}
+            >
+              Visit GroundControl
+            </Text>
+          </TouchableOpacity>
+          </View>
+          ) : (
+          null
+        )}
 
       {/* <BlueCard>
         <BlueText>{loc.settings.groundcontrol_explanation}</BlueText>
@@ -120,22 +240,7 @@ const NotificationSettings = () => {
       />
 
       <BlueCard>
-        <View style={styles.uri}>
-          <TextInput
-            placeholder={Notifications.getDefaultUri()}
-            value={URI}
-            onChangeText={setURI}
-            numberOfLines={1}
-            style={styles.uriText}
-            placeholderTextColor="#81868e"
-            editable={!isLoading}
-            textContentType="URL"
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-          />
-        </View>
 
-        <BlueSpacing20 />
         <BlueText style={styles.centered} onPress={() => setShowTokenInfo(isShowTokenInfo + 1)}>
           ♪ Ground Control to Major Tom ♪
         </BlueText>
@@ -148,46 +253,13 @@ const NotificationSettings = () => {
             <BlueCopyToClipboardButton stringToCopy={tokenInfo} displayText={tokenInfo} />
           </View>
         )}
-
-        <BlueSpacing20 />
-        <BlueButton onPress={save} title={loc.settings.save} /> */}
+         */}
       {/* </BlueCard> */}
-    </ScrollView>
+      </View>
+    </View>
   );
 };
 
 NotificationSettings.navigationOptions = navigationStyle({}, opts => ({ ...opts, title: loc.settings.notifications }));
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-  uri: {
-    flexDirection: 'row',
-    borderColor: BlueCurrentTheme.colors.element,
-    borderBottomColor: BlueCurrentTheme.colors.element,
-    borderWidth: 1,
-    borderBottomWidth: 0.5,
-    backgroundColor: BlueCurrentTheme.colors.element,
-    minHeight: 44,
-    height: 44,
-    alignItems: 'center',
-    borderRadius: 4,
-  },
-  centered: {
-    textAlign: 'center',
-  },
-  uriText: {
-    flex: 1,
-    color: '#81868e',
-    marginHorizontal: 8,
-    minHeight: 36,
-    height: 36,
-  },
-  buttonStyle: {
-    backgroundColor: 'transparent',
-    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
-  },
-});
 
 export default NotificationSettings;
