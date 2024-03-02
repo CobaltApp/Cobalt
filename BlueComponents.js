@@ -420,7 +420,8 @@ export const BlueListItem = React.memo(props => {
           style={{
             color: props.disabled ? colors.foregroundInactive : colors.foreground,
             fontSize: 16,
-            fontFamily: 'Poppins-Medium',
+            fontFamily: 'Poppins',
+            fontWeight: '500',
             writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
           }}
           numberOfLines={0}
@@ -464,7 +465,7 @@ export const BlueListItem = React.memo(props => {
           />}
           {props.rightIcon && <Avatar icon={props.rightIcon} />}
           {props.switch && <Switch {...props.switch} accessibilityLabel={props.title} accessible accessibilityRole="switch" 
-            trackColor={{false: '#E6E8EC', true: '#3772FF'}}
+            trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}
             />}
           {props.checkmark && <ListItem.CheckBox iconType="octaicon" checkedColor="#0070FF" checkedIcon="check" checked />}
         </>

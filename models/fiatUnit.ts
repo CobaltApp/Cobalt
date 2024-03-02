@@ -1,127 +1,129 @@
 import untypedFiatUnit from './fiatUnits.json';
 
 export const FiatUnitSource = {
-  CoinDesk: 'CoinDesk',
   CoinGecko: 'CoinGecko',
-  Yadio: 'Yadio',
-  YadioConvert: 'YadioConvert',
-  Exir: 'Exir',
-  wazirx: 'wazirx',
-  Bitstamp: 'Bitstamp',
+  // CoinDesk: 'CoinDesk',
+  // Yadio: 'Yadio',
+  // YadioConvert: 'YadioConvert',
+  // Exir: 'Exir',
+  // wazirx: 'wazirx',
+  // Bitstamp: 'Bitstamp',
 } as const;
 
 const RateExtractors = {
-  CoinDesk: async (ticker: string): Promise<number> => {
-    let json;
-    try {
-      const res = await fetch(`https://api.coindesk.com/v1/bpi/currentprice/${ticker}.json`);
-      json = await res.json();
-    } catch (e: any) {
-      throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
-    }
-    let rate = json?.bpi?.[ticker]?.rate_float;
-    if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  // CoinDesk: async (ticker: string): Promise<number> => {
+  //   let json;
+  //   try {
+  //     const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${ticker}&precision=2`);
+  //     json = await res.json();
+  //   } catch (e: any) {
+  //     throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
+  //   }
+  //   let rate = json?.bpi?.[ticker]?.rate_float;
+  //   if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
 
-    rate = Number(rate);
-    if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
-    return rate;
-  },
+  //   rate = Number(rate);
+  //   if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  //   return rate;
+  // },
   CoinGecko: async (ticker: string): Promise<number> => {
     let json;
     try {
-      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${ticker.toLowerCase()}`);
+      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${ticker}&precision=2`);
+      //simple/price?ids=bitcoin&vs_currencies=${ticker.toLowerCase()}`);
       json = await res.json();
     } catch (e: any) {
       throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
     }
-    const rate = json?.bitcoin?.[ticker] || json?.bitcoin?.[ticker.toLowerCase()];
+    const rate = json?.bitcoin?.[ticker];
+    //const rate = json?.bitcoin?.[ticker] || json?.bitcoin?.[ticker.toLowerCase()];
     if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
     return rate;
   },
-  Bitstamp: async (ticker: string): Promise<number> => {
-    let json;
-    try {
-      const res = await fetch(`https://www.bitstamp.net/api/v2/ticker/btc${ticker.toLowerCase()}`);
-      json = await res.json();
-    } catch (e: any) {
-      throw new Error(`Could not update rate from Bitstamp for ${ticker}: ${e.message}`);
-    }
+  // Bitstamp: async (ticker: string): Promise<number> => {
+  //   let json;
+  //   try {
+  //     const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=${ticker}&precision=2`);
+  //     json = await res.json();
+  //   } catch (e: any) {
+  //     throw new Error(`Could not update rate from Bitstamp for ${ticker}: ${e.message}`);
+  //   }
 
-    if (Array.isArray(json)) {
-      throw new Error(`Unsupported ticker for Bitstamp: ${ticker}`);
-    }
+  //   if (Array.isArray(json)) {
+  //     throw new Error(`Unsupported ticker for Bitstamp: ${ticker}`);
+  //   }
 
-    let rate = +json?.last;
-    if (!rate) throw new Error(`Could not update rate from Bitstamp for ${ticker}: data is wrong`);
+  //   let rate = +json?.last;
+  //   if (!rate) throw new Error(`Could not update rate from Bitstamp for ${ticker}: data is wrong`);
 
-    rate = Number(rate);
-    if (!(rate >= 0)) throw new Error(`Could not update rate from Bitstamp for ${ticker}: data is wrong`);
-    return rate;
-  },
+  //   rate = Number(rate);
+  //   if (!(rate >= 0)) throw new Error(`Could not update rate from Bitstamp for ${ticker}: data is wrong`);
+  //   return rate;
+  // },
 
-  Yadio: async (ticker: string): Promise<number> => {
-    let json;
-    try {
-      const res = await fetch(`https://api.yadio.io/json/${ticker}`);
-      json = await res.json();
-    } catch (e: any) {
-      throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
-    }
-    let rate = json?.[ticker]?.price;
-    if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  // Yadio: async (ticker: string): Promise<number> => {
+  //   let json;
+  //   try {
+  //     const res = await fetch(`https://api.yadio.io/json/${ticker}`);
+  //     json = await res.json();
+  //   } catch (e: any) {
+  //     throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
+  //   }
+  //   let rate = json?.[ticker]?.price;
+  //   if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
 
-    rate = Number(rate);
-    if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
-    return rate;
-  },
+  //   rate = Number(rate);
+  //   if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  //   return rate;
+  // },
 
-  YadioConvert: async (ticker: string): Promise<number> => {
-    let json;
-    try {
-      const res = await fetch(`https://api.yadio.io/convert/1/BTC/${ticker}`);
-      json = await res.json();
-    } catch (e: any) {
-      throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
-    }
-    let rate = json?.rate;
-    if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  // YadioConvert: async (ticker: string): Promise<number> => {
+  //   let json;
+  //   try {
+  //     const res = await fetch(`https://api.yadio.io/convert/1/BTC/${ticker}`);
+  //     json = await res.json();
+  //   } catch (e: any) {
+  //     throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
+  //   }
+  //   let rate = json?.rate;
+  //   if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
 
-    rate = Number(rate);
-    if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
-    return rate;
-  },
+  //   rate = Number(rate);
+  //   if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  //   return rate;
+  // },
 
-  Exir: async (ticker: string): Promise<number> => {
-    let json;
-    try {
-      const res = await fetch('https://api.exir.io/v1/ticker?symbol=btc-irt');
-      json = await res.json();
-    } catch (e: any) {
-      throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
-    }
-    let rate = json?.last;
-    if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  // Exir: async (ticker: string): Promise<number> => {
+  //   let json;
+  //   try {
+  //     const res = await fetch('https://api.exir.io/v1/ticker?symbol=btc-irt');
+  //     json = await res.json();
+  //   } catch (e: any) {
+  //     throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
+  //   }
+  //   let rate = json?.last;
+  //   if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
 
-    rate = Number(rate);
-    if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
-    return rate;
-  },
+  //   rate = Number(rate);
+  //   if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  //   return rate;
+  // },
 
-  wazirx: async (ticker: string): Promise<number> => {
-    let json;
-    try {
-      const res = await fetch(`https://api.wazirx.com/api/v2/tickers/btcinr`);
-      json = await res.json();
-    } catch (e: any) {
-      throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
-    }
-    let rate = json?.ticker?.buy;
-    if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  // wazirx: async (ticker: string): Promise<number> => {
+  //   let json;
+  //   try {
+  //     const res = await fetch(`https://api.wazirx.com/api/v2/tickers/btcinr`);
+  //     json = await res.json();
+  //   } catch (e: any) {
+  //     throw new Error(`Could not update rate for ${ticker}: ${e.message}`);
+  //   }
+  //   let rate = json?.ticker?.buy;
+  //   if (!rate) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
 
-    rate = Number(rate);
-    if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
-    return rate;
-  },
+  //   rate = Number(rate);
+  //   if (!(rate >= 0)) throw new Error(`Could not update rate for ${ticker}: data is wrong`);
+  //   return rate;
+  // },
 } as const;
 
 type FiatUnit = {
@@ -129,7 +131,7 @@ type FiatUnit = {
     endPointKey: string;
     symbol: string;
     locale: string;
-    source: 'CoinDesk' | 'Yadio' | 'Exir' | 'wazirx' | 'Bitstamp';
+    source: 'CoinGecko';
   };
 };
 export const FiatUnit = untypedFiatUnit as FiatUnit;

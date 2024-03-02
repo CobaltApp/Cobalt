@@ -171,7 +171,7 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Insights"
+        name="BTC"
         component={Discover}
         options={{
           headerShown: false,
@@ -193,42 +193,6 @@ function TabNavigator() {
           headerShown: false,
           tabBarButton: () => (
             <View style={{ marginTop: -16, width: 100, alignItems: 'center' }}>
-              {/* <FContainer ref={walletActionButtonsRef}> */}
-                {/* <FButton
-                  onPress={onScanButtonPressed}
-                  onLongPress={sendButtonLongPress}
-                  icon={<Icon name="grid" type="feather" size={24} color={colors.background} />}
-                  text={loc.send.details_scan}
-                > */}
-                {/* <Button
-                  // onPress={}
-                  // onPress={async () => {
-                  //   await scanButtonTapped();
-                  //   Keyboard.dismiss();
-                  //   if (isDesktop) {
-                  //     fs.showActionSheet({ anchor: findNodeHandle(scanButtonRef.current) }).then(onBarScanned);
-                  //   } else {
-                  //     NavigationService.navigate('ScanQRCodeRoot', {
-                  //       screen: 'ScanQRCode',
-                  //       params: {
-                  //         launchedBy,
-                  //         onBarScanned,
-                  //         //onBarScannerDismissWithoutData,
-                  //       },
-                  //     });
-                  //   }
-                  // }}
-                  // onLongPress={sendButtonLongPress}
-                  testID="ModalButton"
-                  icon={<Icon name="grid" type="feather" size={32} color={'#FFFFFF'} />}
-                  buttonStyle={{
-                    backgroundColor: colors.primary,
-                    borderRadius: 32,
-                    height: 64,
-                    width: 64,
-                    //marginBottom: 6,
-                  }}
-                /> */}
                 <TouchableOpacity
                   style={{
                     display: 'flex',
@@ -250,7 +214,6 @@ function TabNavigator() {
                     source={require('./img/icons/swap.png')}
                   />
                 </TouchableOpacity>
-              {/* </FContainer> */}
             </View>
           ),
         }}
@@ -284,62 +247,12 @@ function TabNavigator() {
               width={24}
               height={24}
             />
-            // <Image
-            //     source={require('./img/profile.png')}
-            //     style={{
-            //       width: 24,
-            //       height: 24,
-            //       borderRadius: 12,
-            //       borderWidth: focused ? 2 : 0,
-            //       borderColor: colors.foreground,
-            //       backgroundColor: colors.secondary}}
-            // />
-            // <Icon
-            //   focused={focused}
-            //   name="user"
-            //   type="feather" 
-            //   width={24}
-            //   height={24}
-            // />
           ),
         }}
       />
     </Tab.Navigator>
   );
 }
-
-// const onScanButtonPressed = ({
-//   isLoading = false,
-//   address = '',
-//   placeholder = loc.send.details_address,
-//   onChangeText,
-//   onBarScanned,
-//   onBarScannerDismissWithoutData = () => {},
-//   scanButtonTapped = () => {},
-//   launchedBy,
-//   editable = true,
-//   inputAccessoryViewID,
-//   onBlur = () => {},
-//   keyboardType = 'default',
-// }) => {
-//   //const scanButtonRef = useRef();
-
-//   async () => {
-//     await scanButtonTapped();
-//     Keyboard.dismiss();
-//     NavigationService.navigate('ScanQRCodeRoot', {
-//         screen: 'ScanQRCode',
-//         params: {
-//           launchedBy,
-//           onBarScanned,
-//           onBarScannerDismissWithoutData,
-//         },
-//       });
-//   }
-//   const { navigate, setOptions } = useNavigation();
-
-//   scanqrHelper(navigate, routeName, false).then(onBarScanned);
-// };
 
 const sendButtonLongPress = async () => {
   const isClipboardEmpty = (await BlueClipboard().getClipboardContent()).trim().length === 0;
@@ -408,6 +321,37 @@ const WalletsRoot = () => {
       <WalletsStack.Screen name="RBFBumpFee" component={RBFBumpFee} options={RBFBumpFee.navigationOptions(theme)} />
       <WalletsStack.Screen name="RBFCancel" component={RBFCancel} options={RBFCancel.navigationOptions(theme)} />
       <WalletsStack.Screen name="WalletAddresses" component={WalletAddresses} options={WalletAddresses.navigationOptions(theme)} />
+      <WalletsStack.Screen 
+        name="Chart" 
+        component={Chart} 
+        options={{
+          presentation: 'card',
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontFamily: 'Poppins',
+          fontWeight: '500',
+          fontSize: 18,
+          color: '#FFFFFF',
+        },
+        headerLeft: () => (
+          <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 44,
+            width: 44,
+            borderRadius: 22,
+            backgroundColor: '#0A3263',
+          }}
+          onPress={() =>
+            navigation.pop()
+          }
+        >
+          <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+        </TouchableOpacity>
+        ),
+        }}
+      />
     </WalletsStack.Navigator>
   );
 };

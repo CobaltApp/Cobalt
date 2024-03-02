@@ -30,6 +30,7 @@ const UnlockWith = () => {
 
   useEffect(() => {
     initialRender();
+    onAnimationFinish();
   }, []);
 
   const successfullyAuthenticated = () => {
@@ -116,12 +117,12 @@ const UnlockWith = () => {
           alignItems: 'center',
         }}
       >
-        <LottieView 
+        {/* <LottieView 
           source={require('./img/intro.json')}
           autoPlay 
           loop={false} 
           onAnimationFinish={onAnimationFinish}
-        />
+        /> */}
         <View 
           style={{
             flex: 1,
@@ -129,7 +130,7 @@ const UnlockWith = () => {
             marginBottom: 58,
           }}
         >
-          {animationDidFinish && 
+          {/* {animationDidFinish &&  */}
             <View 
               style={{
                 justifyContent: 'center',
@@ -138,7 +139,7 @@ const UnlockWith = () => {
             >
               {renderUnlockOptions()}
             </View>
-          }
+          
         </View>
       </View>
     </SafeAreaView>

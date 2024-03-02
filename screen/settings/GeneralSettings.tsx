@@ -108,13 +108,6 @@ const GeneralSettings: React.FC = () => {
         title="Legacy URv1 QR"
         switch={{ onValueChange: onLegacyURv1Switch, value: isURv1SwitchEnabled }}
       />
-      <BlueListItem
-            onPress={navigateToPlausibleDeniability}
-            title={loc.settings.plausible_deniability}
-            chevron
-            testID="PlausibleDeniabilityButton"
-            Component={TouchableOpacity}
-          />
     </ScrollView>
   );
 };

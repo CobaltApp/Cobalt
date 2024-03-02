@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import navigationStyle from '../components/navigationStyle';
@@ -8,9 +8,11 @@ import { BlueLoading, BlueButton, SafeBlueArea, BlueCard, BlueText, BlueSpacing2
 import loc from '../loc';
 import { BlueStorageContext } from '../blue_modules/storage-context';
 import alert from '../components/Alert';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const prompt = require('../helpers/prompt');
 
 const PlausibleDeniability = () => {
+  const { colors } = useTheme();
   const { cachedPassword, isPasswordInUse, createFakeStorage, resetWallets } = useContext(BlueStorageContext);
   const [isLoading, setIsLoading] = useState(false);
   const { popToTop } = useNavigation();
@@ -46,30 +48,72 @@ const PlausibleDeniability = () => {
     }
   };
 
+  const styles = StyleSheet.create({
+    root: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    modal: {
+      flex: 1,
+      display: 'flex',
+      marginTop: 32,
+      paddingHorizontal: 24,
+      paddingTop: 32,
+      paddingBottom: 400,
+      gap: 24,
+      borderRadius: 40,
+      backgroundColor: colors.element,
+    },
+    container: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 16,
+      borderRadius: 25,
+      backgroundColor: '#0A3263'
+    },
+    text: {
+      color: '#A6A6A6',
+      fontFamily: 'Poppins',
+      fontWeight: '400',
+      fontSize: 16,
+    },
+    button: {
+      display: 'flex',
+      alignItems: 'center',
+      paddingHorizontal: 24,
+      paddingVertical: 20,
+      borderRadius: 30,
+      backgroundColor: colors.primary,
+    },
+    buttonText: {
+      color: '#FFFFFF',
+      fontFamily: 'Poppins',
+      fontWeight: '600',
+      fontSize: 16,
+    },
+  });
+
   return isLoading ? (
-    <SafeBlueArea>
-      <BlueLoading />
-    </SafeBlueArea>
+    <BlueLoading />
   ) : (
-    <SafeBlueArea>
-      <BlueCard>
-        <ScrollView maxHeight={450}>
-          <BlueText>{loc.plausibledeniability.help}</BlueText>
-
-          <BlueText />
-
-          <BlueText>{loc.plausibledeniability.help2}</BlueText>
-
-          <BlueSpacing20 />
-
-          <BlueButton
-            testID="CreateFakeStorageButton"
-            title={loc.plausibledeniability.create_fake_storage}
+        <View style={styles.modal}>
+          <View style={styles.container}>
+            <Text style={styles.text}>
+              In the name of security, Cobalt can create a separate encrypted
+              storage with a different password. You can disclose this password 
+              to third parties under pressure while keeping your funds safe.
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={styles.button}
             onPress={handleOnCreateFakeStorageButtonPressed}
-          />
-        </ScrollView>
-      </BlueCard>
-    </SafeBlueArea>
+          >
+            <Text style={styles.buttonText}>
+              Create
+            </Text>
+          </TouchableOpacity>
+        </View>
   );
 };
 

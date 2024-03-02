@@ -2,7 +2,7 @@
     "USD": {
         "endPointKey": "USD",
         "locale": "en-US",
-        "source": "Bitstamp",
+        "source": "CoinGecko",
         "symbol": "$"
     },
     "AED": {

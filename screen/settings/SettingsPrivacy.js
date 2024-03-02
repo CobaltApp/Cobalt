@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ScrollView, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, Linking, Platform, Pressable } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { ScrollView, View, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, Linking, Platform, Pressable } from 'react-native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 import navigationStyle from '../../components/navigationStyle';
 import { BlueText, BlueSpacing20, BlueListItem, BlueCard, BlueHeaderDefaultSub } from '../../BlueComponents';
@@ -14,6 +14,7 @@ const A = require('../../blue_modules/analytics');
 
 const SettingsPrivacy = () => {
   const { colors } = useTheme();
+  const { navigate } = useNavigation();
   const { isStorageEncrypted, setDoNotTrack, isDoNotTrackEnabled, setIsPrivacyBlurEnabled } = useContext(BlueStorageContext);
   const sections = Object.freeze({ ALL: 0, CLIPBOARDREAD: 1, QUICKACTION: 2, WIDGETS: 3 });
   const [isLoading, setIsLoading] = useState(sections.ALL);
@@ -90,12 +91,6 @@ const SettingsPrivacy = () => {
     setIsLoading(false);
   };
 
-  const stylesWithThemeHook = StyleSheet.create({
-    root: {
-      backgroundColor: colors.background,
-    },
-  });
-
   const openApplicationSettings = () => {
     Linking.openSettings();
   };
@@ -105,11 +100,28 @@ const SettingsPrivacy = () => {
     setIsPrivacyBlurEnabledTapped(prev => prev + 1);
   };
 
+  const styles = StyleSheet.create({
+    root: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    modal: {
+      flex: 1,
+      display: 'flex',
+      marginTop: 32,
+      paddingHorizontal: 24,
+      paddingTop: 32,
+      paddingBottom: 400,
+      borderRadius: 40,
+      backgroundColor: colors.element,
+    },
+  });
+
   return (
-    <ScrollView style={[styles.root, stylesWithThemeHook.root]}>
-      <Pressable accessibilityRole="button" onPress={onDisablePrivacyTapped}>
-        <BlueHeaderDefaultSub leftText={loc.settings.general} rightComponent={null} />
-      </Pressable>
+    <ScrollView style={styles.root}>
+      <View
+        style={styles.modal}
+      >
       <BlueListItem
         hideChevron
         title={loc.settings.privacy_read_clipboard}
@@ -122,10 +134,6 @@ const SettingsPrivacy = () => {
         Component={TouchableWithoutFeedback}
         switch={{ onValueChange: onDoNotTrackValueChange, value: doNotTrackSwitchValue, disabled: isLoading === sections.ALL }}
       />
-      {/* <BlueCard>
-        <BlueText>{loc.settings.privacy_clipboard_explanation}</BlueText>
-      </BlueCard> */}
-      {/* <BlueSpacing20 /> */}
       {!storageIsEncrypted && (
         <>
           <BlueListItem
@@ -139,26 +147,13 @@ const SettingsPrivacy = () => {
               testID: 'QuickActionsSwitch',
             }}
           />
-          {/* <BlueCard>
-            <BlueText>{loc.settings.privacy_quickactions_explanation}</BlueText>
-          </BlueCard> */}
         </>
       )}
-      {storageIsEncrypted && (
-          <BlueListItem
-            onPress={navigateToPlausibleDeniability}
-            title={loc.settings.plausible_deniability}
-            chevron
-            testID="PlausibleDeniabilityButton"
-            Component={TouchableOpacity}
-          />
-        )}
       {Platform.OS === 'ios' && !storageIsEncrypted && (
         <>
-          <BlueHeaderDefaultSub leftText={loc.settings.widgets} rightComponent={null} />
           <BlueListItem
             hideChevron
-            title={loc.settings.total_balance}
+            title={'Show Total Balance in Widgets'}
             Component={TouchableWithoutFeedback}
             switch={{
               onValueChange: onWidgetsTotalBalanceValueChange,
@@ -166,27 +161,20 @@ const SettingsPrivacy = () => {
               disabled: isLoading === sections.ALL,
             }}
           />
-          {/* <BlueCard>
-            <BlueText>{loc.settings.total_balance_explanation}</BlueText>
-          </BlueCard> */}
         </>
       )}
-      {/* <BlueSpacing20 /> */}
-      {/* <BlueCard>
-        <BlueText>{loc.settings.privacy_do_not_track_explanation}</BlueText>
-      </BlueCard>
-      <BlueSpacing20 /> */}
+      <BlueListItem
+            onPress={navigateToPlausibleDeniability}
+            title={'Encrypted Storage'}
+            chevron
+            testID="PlausibleDeniabilityButton"
+            Component={TouchableOpacity}
+          />
       <BlueListItem title={loc.settings.privacy_system_settings} chevron onPress={openApplicationSettings} testID="PrivacySystemSettings" />
-      {/* <BlueSpacing20 /> */}
+      </View>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
 
 SettingsPrivacy.navigationOptions = navigationStyle({}, opts => ({ ...opts, title: loc.settings.privacy }));
 

@@ -11,6 +11,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
 import alert from '../../components/Alert';
 import { HDSegwitBech32Wallet } from '../../class';
+import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
 const A = require('../../blue_modules/analytics');
 const branch = require('../../current-branch.json');
@@ -20,59 +21,67 @@ const About = () => {
   const { colors } = useTheme();
   const { width, height } = useWindowDimensions();
   const { isElectrumDisabled } = useContext(BlueStorageContext);
+  
   const styles = StyleSheet.create({
-    copyToClipboard: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: 92,
+    header: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 20,
     },
-    copyToClipboardText: {
-      fontSize: 13,
-      fontWeight: '400',
-      color: '#68bbe1',
-    },
-    center: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      //marginTop: 54,
-    },
-    logo: {
-      width: 184,
-      height: 184,
-    },
-    textFree: {
-      maxWidth: 260,
+    card: {
+      display: 'flex',
+      marginHorizontal: 24,
       marginVertical: 24,
-      color: '#9AA0AA',
-      fontSize: 15,
-      textAlign: 'center',
-      fontWeight: '500',
+      padding: 20,
+      borderRadius: 25,
+      backgroundColor: colors.primary,
     },
-    textBackup: {
-      maxWidth: 260,
-      marginBottom: 40,
-      color: colors.foreground,
-      fontSize: 15,
-      textAlign: 'center',
-      fontWeight: '500',
-    },
-    buildWith: {
-      backgroundColor: colors.element,
-      padding: 16,
-      paddingTop: 0,
-      borderRadius: 8,
-    },
-    buttonLink: {
-      backgroundColor: colors.element,
-      borderRadius: 12,
-      justifyContent: 'center',
-      padding: 8,
-      flexDirection: 'row',
-    },
-    textLink: {
-      color: colors.foreground,
-      marginLeft: 8,
+    cardTitle: {
+      color: '#FFFFFF',
+      fontFamily: 'Poppins',
       fontWeight: '600',
+      fontSize: 18,
+      maxWidth: (width - 80) / 2,
+    },
+    cardButton: {
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: 16,
+      paddingVertical: 8,
+      borderRadius: 24,
+      backgroundColor: '#051931',
+      maxWidth: (width - 80) / 2,
+    },
+    cardButtonText: {
+      color: '#FFFFFF',
+      fontFamily: 'Poppins',
+      fontWeight: '600',
+      fontSize: 14,
+    },
+    buttonRow: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 16,
+    },
+    button: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      minWidth: (width - 64) / 2,
+      padding: 16,
+      gap: 16,
+      borderRadius: 32,
+      backgroundColor: '#0A3263',
+    },
+    buttonText: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 14,
     },
   });
 
@@ -92,20 +101,6 @@ const About = () => {
     navigate('Licensing');
   };
 
-  const handleOnTwitterPress = () => {
-    Linking.openURL('https://twitter.com/bluewalletio');
-  };
-
-  const handleOnDiscordPress = () => {
-    Linking.openURL('https://discord.gg/btWq2Aby2z');
-  };
-
-  const handleOnTelegramPress = () => {
-    Linking.openURL('https://t.me/bluewallethat');
-  };
-  const handleOnGithubPress = () => {
-    Linking.openURL('https://github.com/CobaltApp/Cobalt');
-  };
   const handleOnRatePress = () => {
     const options = {
       AppleAppID: '1376878040',
@@ -113,7 +108,7 @@ const About = () => {
       preferredAndroidMarket: AndroidMarket.Google,
       preferInApp: Platform.OS !== 'android',
       openAppStoreIfInAppFails: true,
-      fallbackPlatformURL: 'https://bluewallet.io',
+      fallbackPlatformURL: 'https://cobalt-pay.com',
     };
     Rate.rate(options, success => {
       if (success) {
@@ -124,63 +119,89 @@ const About = () => {
 
   return (
     <ScrollView testID="AboutScrollView" contentInsetAdjustmentBehavior="automatic">
-      <BlueCard>
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>
+          Help improve Cobalt, tell us what you think!
+        </Text>
+        <TouchableOpacity
+          style={styles.cardButton}
+          onPress={handleOnRatePress}
+        >
+          <Text style={styles.cardButtonText}>
+            Leave a Review
+          </Text>
+        </TouchableOpacity>
+        <Image 
+          style={{
+            position: 'absolute',
+            right: -16,
+            top: -16,
+            width: 165,
+            height: 134,
+          }}
+          source={require('../../img/Illustrations/robot-head-3.png')}
+        />
+      </View>
+      {/* <BlueCard>
         <View style={styles.center}>
-          <Image style={styles.logo} source={require('../../img/icons/digital_wallet.png')} />
-          <Text style={styles.textFree}>{loc.settings.about_free}</Text>
-          {/* <Text style={styles.textBackup}>{formatStringAddTwoWhiteSpaces(loc.settings.about_backup)}</Text> */}
           {((Platform.OS === 'android' && hasGmsSync()) || Platform.OS !== 'android') && (
             <BlueButton onPress={handleOnRatePress} title={loc.settings.about_review} />
           )}
         </View>
-      </BlueCard>
-      <BlueListItem
-        leftIcon={{
-          name: 'twitter',
-          type: 'feather',
-          color: colors.foreground,
-        }}
-        onPress={handleOnTwitterPress}
-        title='Twitter'
-      />
-      <BlueListItem
-        leftIcon={{
-          name: 'telegram',
-          type: 'font-awesome',
-          color: colors.foreground,
-        }}
-        onPress={handleOnTelegramPress}
-        title='Telegram'
-      />
-      <BlueListItem
-        leftIcon={{
-          name: 'discord',
-          type: 'font-awesome-5',
-          color: colors.foreground,
-        }}
-        onPress={handleOnDiscordPress}
-        title='Discord'
-      />
-      <BlueListItem
-        leftIcon={{
-          name: 'github',
-          type: 'feather',
-          color: colors.foreground,
-        }}
-        onPress={handleOnGithubPress}
-        title="Github"
-      />
+      </BlueCard> */}
+      <View style={{ marginHorizontal: 24, gap: 16 }}>
+        <Text style={styles.header}>
+          Follow Us
+        </Text>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {Linking.openURL('https://twitter.com/cobaltofficial_')}}
+          >
+            <Icon name="twitter" type="font-awesome-5" size={24} color={colors.foreground} />
+            <Text style={styles.buttonText}>
+              Twitter
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {Linking.openURL('https://t.me/cobaltapp')}}
+          >
+            <Icon name="telegram" type="font-awesome-5" size={24} color={colors.foreground} />
+            <Text style={styles.buttonText}>
+              Telegram
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {Linking.openURL('https://discord.gg/7ahsy3E9yB')}}
+          >
+            <Icon name="discord" type="font-awesome-5" size={24} color={colors.foreground} />
+            <Text style={styles.buttonText}>
+              Discord
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {Linking.openURL('https://github.com/CobaltApp/Cobalt')}}
+          >
+            <Icon name="github" type="font-awesome-5" size={24} color={colors.foreground} />
+            <Text style={styles.buttonText}>
+              Github
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       {/* <BlueCard>
         <View style={styles.buildWith}>
-          <BlueSpacing20 />
 
           <BlueTextCentered>{loc.settings.about_awesome} 👍</BlueTextCentered>
-          <BlueSpacing20 />
           <BlueTextCentered>React Native</BlueTextCentered>
           <BlueTextCentered>bitcoinjs-lib</BlueTextCentered>
           <BlueTextCentered>Nodejs</BlueTextCentered>
           <BlueTextCentered>Electrum server</BlueTextCentered>
-          <BlueSpacing20 />
 
           <TouchableOpacity accessibilityRole="button" onPress={handleOnGithubPress} style={styles.buttonLink}>
             <Icon size={22} name="github" type="feather" color={colors.foreground} />
@@ -198,7 +219,7 @@ const About = () => {
         onPress={handleOnReleaseNotesPress}
         title={loc.settings.about_release_notes}
       /> */}
-      <BlueListItem
+      {/* <BlueListItem
         leftIcon={{
           name: 'book-open',
           type: 'feather',
@@ -207,7 +228,7 @@ const About = () => {
         //chevron
         onPress={handleOnLicensingPress}
         title={loc.settings.about_license}
-      />
+      /> */}
       {/* <BlueListItem
         leftIcon={{
           name: 'flask',
@@ -244,17 +265,15 @@ const About = () => {
         }}
         title={loc.settings.run_performance_test}
       /> */}
-      <BlueSpacing20 />
-      <BlueSpacing20 />
-      <BlueTextCentered>
+      {/* <BlueTextCentered>
         {getApplicationName()} ver {getVersion()} (build {getBuildNumber() + ' ' + branch})
-      </BlueTextCentered>
+      </BlueTextCentered> */}
       {/* <BlueTextCentered>{new Date(getBuildNumber() * 1000).toGMTString()}</BlueTextCentered> */}
-      <BlueTextCentered>{getBundleId()}</BlueTextCentered>
+      {/* <BlueTextCentered>{getBundleId()}</BlueTextCentered> */}
       {/* <BlueTextCentered>
         w, h = {width}, {height}
       </BlueTextCentered> */}
-      <BlueTextCentered>Unique ID: {getUniqueId()}</BlueTextCentered>
+      {/* <BlueTextCentered>Unique ID: {getUniqueId()}</BlueTextCentered>
       <View style={styles.copyToClipboard}>
         <TouchableOpacity
           accessibilityRole="button"
@@ -266,9 +285,7 @@ const About = () => {
         >
           <Text style={styles.copyToClipboardText}>{loc.transactions.details_copy}</Text>
         </TouchableOpacity>
-      </View>
-      <BlueSpacing20 />
-      <BlueSpacing20 />
+      </View> */}
     </ScrollView>
   );
 };
