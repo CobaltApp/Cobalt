@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import {
   BackHandler,
   InteractionManager,
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -14,6 +15,7 @@ import {
 } from 'react-native';
 import { useNavigation, useRoute, useTheme, useFocusEffect } from '@react-navigation/native';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { Icon } from 'react-native-elements';
 import Share from 'react-native-share';
 import QRCodeComponent from '../../components/QRCodeComponent';
 import {
@@ -42,6 +44,8 @@ import * as BlueElectrum from '../../blue_modules/BlueElectrum';
 import { SuccessView } from '../send/success';
 const currency = require('../../blue_modules/currency');
 import { Button } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
 const ReceiveDetails = () => {
   const { walletID, address } = useRoute().params;
@@ -64,32 +68,152 @@ const ReceiveDetails = () => {
   const [initialUnconfirmed, setInitialUnconfirmed] = useState(0);
   const [displayBalance, setDisplayBalance] = useState('');
   const fetchAddressInterval = useRef();
-  const stylesHook = StyleSheet.create({
+  const styles = StyleSheet.create({
+    modal: {
+      flex: 1,
+      marginTop: 24,
+      paddingTop: 32,
+      paddingHorizontal: 24,
+      gap: 24,
+      borderRadius: 40,
+      backgroundColor: colors.element,
+    },
+    headerContainer: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 24,
+    },
+    header: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 16,
+    },
+    qrcode: {
+      display: 'flex',
+      borderRadius: 40,
+      alignItems: 'center',
+      alignSelf: 'center',
+      padding: 24,
+      backgroundColor: '#FFFFFF',
+    },
+    button: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: 56,
+      borderRadius: 40,
+      backgroundColor: colors.primary,
+    },
+    buttonText: {
+      color: '#FFFFFF',
+      fontFamily: 'Poppins',
+      fontWeight: '600',
+      fontSize: 16,
+    },
+    addressContainer:{
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingLeft: 24,
+      paddingRight: 12,
+      minHeight: 56,
+      borderRadius: 30,
+      backgroundColor: '#0A3263',
+    },
+    address: {
+      color: '#A6A6A6',
+      fontFamily: 'Poppins',
+      fontWeight: '400',
+      fontSize: 16,
+    },
+    advancedContainer: {
+      display: 'flex',
+      alignItems: 'stretch',
+      justifyContent: 'center',
+      padding: 20,
+      gap: 16,
+      borderRadius: 25,
+      backgroundColor: '#0A3263',
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      gap: 20,
+    },
+
+
+    rootBackgroundColor: {
+      backgroundColor: '#051931',
+    },
     modalContent: {
-      backgroundColor: colors.background,
-      //borderWidth: colors.elementWidth,
+      padding: 22,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      minHeight: 350,
+      height: 350,
+      //backgroundColor: colors.background,
     },
     customAmount: {
+      flexDirection: 'row',
+      borderWidth: 1.0,
+      borderBottomWidth: 0.5,
+      minHeight: 44,
+      height: 44,
+      marginHorizontal: 20,
+      alignItems: 'center',
+      marginVertical: 8,
+      borderRadius: 4,
       borderColor: colors.background,
-      backgroundColor: colors.background,
-    },
-    customAmountText: {
-      color: colors.foreground,
+      //backgroundColor: colors.background,
     },
     root: {
-      backgroundColor: colors.background,
+      flexGrow: 1,
+      justifyContent: 'space-between',
+      //backgroundColor: colors.background,
     },
-    rootBackgroundColor: {
-      backgroundColor: colors.background,
+    scrollBody: {
+      marginTop: 32,
+      flexGrow: 1,
+      alignItems: 'center',
+      paddingHorizontal: 16,
+    },
+    share: {
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      marginBottom: 8,
+    },
+    link: {
+      marginBottom: 16,
+      paddingHorizontal: 32,
     },
     amount: {
+      fontWeight: '500',
+      fontSize: 36,
+      textAlign: 'center',
       color: colors.foreground,
     },
     label: {
+      fontWeight: '700',
+      textAlign: 'center',
       color: colors.foreground,
     },
     modalButton: {
-      //backgroundColor: colors.elementButton,
+      paddingHorizontal: 70,
+      maxWidth: '80%',
+      borderRadius: 50,
+      fontWeight: '700',
+    },
+    customAmountText: {
+      color: '#A6A6A6',
+      fontFamily: 'Poppins',
+      fontWeight: '400',
+      fontSize: 16,
     },
   });
 
@@ -193,17 +317,17 @@ const ReceiveDetails = () => {
 
   const renderConfirmedBalance = () => {
     return (
-      <ScrollView style={stylesHook.rootBackgroundColors} centerContent keyboardShouldPersistTaps="always">
+      <ScrollView style={styles.rootBackgroundColors} centerContent keyboardShouldPersistTaps="always">
         <View style={styles.scrollBody}>
           {isCustom && (
             <>
-              <BlueText style={[styles.label, stylesHook.label]} numberOfLines={1}>
+              <BlueText style={styles.label} numberOfLines={1}>
                 {customLabel}
               </BlueText>
             </>
           )}
           <SuccessView />
-          <BlueText style={[styles.label, stylesHook.label]} numberOfLines={1}>
+          <BlueText style={styles.label} numberOfLines={1}>
             {displayBalance}
           </BlueText>
         </View>
@@ -213,21 +337,20 @@ const ReceiveDetails = () => {
 
   const renderPendingBalance = () => {
     return (
-      <ScrollView contentContainerStyle={stylesHook.rootBackgroundColor} centerContent keyboardShouldPersistTaps="always">
+      <ScrollView contentContainerStyle={styles.rootBackgroundColor} centerContent keyboardShouldPersistTaps="always">
         <View style={styles.scrollBody}>
           {isCustom && (
             <>
-              <BlueText style={[styles.label, stylesHook.label]} numberOfLines={1}>
+              <BlueText style={styles.label} numberOfLines={1}>
                 {customLabel}
               </BlueText>
             </>
           )}
           <TransactionPendingIconBig />
-          <BlueSpacing40 />
-          <BlueText style={[styles.label, stylesHook.label]} numberOfLines={1}>
+          <BlueText style={styles.label} numberOfLines={1}>
             {displayBalance}
           </BlueText>
-          <BlueText style={[styles.label, stylesHook.label]} numberOfLines={1}>
+          <BlueText style={styles.label} numberOfLines={1}>
             {eta}
           </BlueText>
         </View>
@@ -253,37 +376,31 @@ const ReceiveDetails = () => {
 
   const renderReceiveDetails = () => {
     return (
-      <View keyboardShouldPersistTaps="always">
-        <View
-          style={{
-            marginTop: 80,
-            marginHorizontal: 32,
-            width: 312,
-            height: 362,
-            borderRadius: 18,
-            flexGrow: 1,
-            alignItems: 'center',
-            alignSelf: 'center',
-            paddingHorizontal: 40,
-            paddingTop: 32,
-            backgroundColor: colors.background,
-
-          }}
-        >
-          {isCustom && (
+      <View 
+        style={styles.modal}
+        keyboardShouldPersistTaps="always"
+      >
+        <View style={styles.headerContainer}>
+          <Icon name="credit-card" type="feather" size={24} color={colors.foreground}/>
+          <Text style={styles.header}>
+            Address
+          </Text>
+        </View>
+        <View style={styles.qrcode}>
+          {/* {isCustom && (
             <>
               {getDisplayAmount() && (
-                <BlueText testID="CustomAmountText" style={[styles.amount, stylesHook.amount]} numberOfLines={1}>
+                <BlueText testID="CustomAmountText" style={styles.amount} numberOfLines={1}>
                   {getDisplayAmount()}
                 </BlueText>
               )}
               {customLabel?.length > 0 && (
-                <BlueText testID="CustomAmountDescriptionText" style={[styles.label, stylesHook.label]} numberOfLines={1}>
+                <BlueText testID="CustomAmountDescriptionText" style={styles.label} numberOfLines={1}>
                   {customLabel}
                 </BlueText>
               )}
             </>
-          )}
+          )} */}
 
           <QRCodeComponent value={bip21encoded} />
           {/* <BlueCopyTextToClipboard text={isCustom ? bip21encoded : address} /> */}
@@ -294,51 +411,82 @@ const ReceiveDetails = () => {
               title={loc.receive.details_setAmount}
               onPress={showCustomAmountModal}
             /> */}
-          <View style={{flexDirection: 'row', marginTop: 10,}}>
-            <Button 
-              onPress={Clipboard.setString(address)}
-              testID="CopyButton"
-              icon={{
-                  name: "copy",
-                  size: 18,
-                  type: "feather",
-                  color: colors.primary,
-              }}
-              titleStyle={{ 
-                fontFamily: 'Poppins-Regular',
-                fontSize: 18,
-                color: colors.primary,
-              }}
-              title='Copy'
-              buttonStyle={{
-                backgroundColor: 'transparent',
-                padding: 16,
+        </View>
+        <View style={styles.addressContainer}>
+          <Text style={styles.address}>
+            {isCustom ? 
+            (bip21encoded.slice(0, Math.round(ScreenWidth / 35)) + '...' + bip21encoded.slice(bip21encoded.length - (Math.round(ScreenWidth / 35) + 1), bip21encoded.length)) 
+            :
+            (address.slice(0, Math.round(ScreenWidth / 35)) + '...' + address.slice(address.length - (Math.round(ScreenWidth / 35) + 1), address.length)
+            )}
+          </Text>
+          <TouchableOpacity
+            onPress={Clipboard.setString(address)}
+          >
+            <Image
+              source={require('../../img/icons/copy.png')}
+              style={{
+                width: 56,
+                height: 56,
               }}
             />
-            <Button
-              onPress={handleShareButtonPressed}
-              testID="ShareButton"
-              icon={{
-                  name: "share-2",
-                  size: 18,
-                  type: "feather",
-                  color: colors.primary,
+          </TouchableOpacity>
+        </View>
+        <View style={styles.headerContainer}>
+          <Icon name="settings" type="feather" size={24} color={colors.foreground}/>
+          <Text style={styles.header}>
+            Advanced Options
+          </Text>
+        </View>
+        <View style={styles.advancedContainer}>
+          <View style={styles.row}>
+          <Image
+              source={require('../../img/icons/email.png')}
+              style={{
+                width: 32,
+                height: 32,
               }}
-              titleStyle={{ 
-                fontFamily: 'Poppins-Regular',
-                fontSize: 18,
-                color: colors.primary,
+            />
+            <TextInput
+              onChangeText={setCustomLabel}
+              placeholderTextColor={'#A6A6A6'}
+              placeholder={'Message'}
+              value={customLabel|| ''}
+              numberOfLines={1}
+              style={styles.customAmountText}
+              testID="CustomAmountDescription"
+            />
+          </View>
+          <View style={{ borderWidth: 0.5, borderColor: '#535770' }}/>
+          <View style={styles.row}>
+            <Image
+              source={require('../../img/icons/value.png')}
+              style={{
+                width: 32,
+                height: 32,
               }}
-              title='Share'
-              buttonStyle={{
-                backgroundColor: 'transparent',
-                padding: 16,
-              }}
+            />
+            <TextInput
+              onChangeText={setCustomAmount}
+              placeholderTextColor={'#A6A6A6'}
+              placeholder={'Amount'}
+              value={customAmount || ''}
+              numberOfLines={1}
+              style={styles.customAmountText}
+              testID="CustomAmount"
             />
           </View>
         </View>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={handleShareButtonPressed}
+        >
+          <Text style={styles.buttonText}>
+            Share
+          </Text>
+        </TouchableOpacity>
         {renderCustomAmountModal()}
-        <Text
+        {/* <Text
           style={{
             marginHorizontal: 32,
             marginVertical: 24,
@@ -349,7 +497,7 @@ const ReceiveDetails = () => {
           }}
         >
           Use this address to receive bitcoin from other Cobalt users.
-        </Text>
+        </Text> */}
       </View>
     );
   };
@@ -482,23 +630,23 @@ const ReceiveDetails = () => {
     return (
       <BottomModal isVisible={isCustomModalVisible} onClose={dismissCustomAmountModal}>
         <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
-          <View style={[styles.modalContent, stylesHook.modalContent]}>
+          <View style={styles.modalContent}>
             <AmountInput unit={customUnit} amount={customAmount || ''} onChangeText={setCustomAmount} onAmountUnitChange={setCustomUnit} />
-            <View style={[styles.customAmount, stylesHook.customAmount]}>
+            <View style={styles.customAmount}>
               <TextInput
                 onChangeText={setCustomLabel}
                 placeholderTextColor={"#81868e"}
                 placeholder={loc.receive.details_label}
                 value={customLabel || ''}
                 numberOfLines={1}
-                style={[styles.customAmountText, stylesHook.customAmountText]}
+                style={styles.customAmountText}
                 testID="CustomAmountDescription"
               />
             </View>
             <View>
               <BlueButton
                 testID="CustomAmountSaveButton"
-                style={[styles.modalButton, stylesHook.modalButton]}
+                style={styles.modalButton}
                 title={loc.receive.details_create}
                 onPress={createCustomAmountAddress}
               />
@@ -537,7 +685,6 @@ const ReceiveDetails = () => {
       style={{
         flexGrow: 1,
         justifyContent: 'space-between',
-        backgroundColor: colors.element,
       }}
     >
       <StatusBar barStyle="light-content" />
@@ -552,70 +699,9 @@ const ReceiveDetails = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  modalContent: {
-    padding: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    minHeight: 350,
-    height: 350,
-  },
-  customAmount: {
-    flexDirection: 'row',
-    borderWidth: 1.0,
-    borderBottomWidth: 0.5,
-    minHeight: 44,
-    height: 44,
-    marginHorizontal: 20,
-    alignItems: 'center',
-    marginVertical: 8,
-    borderRadius: 4,
-  },
-  root: {
-    flexGrow: 1,
-    justifyContent: 'space-between',
-  },
-  scrollBody: {
-    marginTop: 32,
-    flexGrow: 1,
-    alignItems: 'center',
-    paddingHorizontal: 16,
-  },
-  share: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  link: {
-    marginBottom: 16,
-    paddingHorizontal: 32,
-  },
-  amount: {
-    fontWeight: '500',
-    fontSize: 36,
-    textAlign: 'center',
-  },
-  label: {
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-  modalButton: {
-    paddingHorizontal: 70,
-    maxWidth: '80%',
-    borderRadius: 50,
-    fontWeight: '700',
-  },
-  customAmountText: {
-    flex: 1,
-    marginHorizontal: 8,
-  },
-});
-
 ReceiveDetails.navigationOptions = navigationStyle(
   {
-    closeButton: true,
+    closeButton: false,
     headerHideBackButton: true,
     // headerTitleStyle: {
     //   fontFamily: 'Poppins-Regular',

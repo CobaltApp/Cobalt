@@ -56,7 +56,7 @@ const WalletsAdd = () => {
   const [walletBaseURI, setWalletBaseURI] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [label, setLabel] = useState('');
-  const [isAdvancedOptionsEnabled, setIsAdvancedOptionsEnabled] = useState(false);
+  const [advancedMode, setadvancedMode] = useState(false);
   const [selectedWalletType, setSelectedWalletType] = useState(false);
   const [backdoorPressed, setBackdoorPressed] = useState(1);
   const { navigate, goBack } = useNavigation();
@@ -184,10 +184,10 @@ const WalletsAdd = () => {
       .then(url => setWalletBaseURI(url))
       .catch(() => setWalletBaseURI(''));
     isAdvancedModeEnabled()
-      .then(setIsAdvancedOptionsEnabled)
+      .then(setadvancedMode)
       .finally(() => setIsLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAdvancedOptionsEnabled]);
+  }, [advancedMode]);
 
   const entropyGenerated = newEntropy => {
     let entropyTitle;
@@ -489,16 +489,16 @@ const WalletsAdd = () => {
             />
           ) : null}
         </View>
-        {selectedWalletType != ButtonSelected.VAULT && isAdvancedModeEnabled ? (
-          <View>
+        {selectedWalletType != ButtonSelected.VAULT && advancedMode ? (
+        <View>
           <View style={[styles.headerContainer, { marginBottom: 24 }]}>
-          <Icon name="settings" type="feather" size={24} color={colors.foreground}/>
-          <Text style={styles.header}>
-            Advanced Options
-          </Text>
+            <Icon name="settings" type="feather" size={24} color={colors.foreground}/>
+            <Text style={styles.header}>
+              Advanced Options
+            </Text>
           </View>
-          {selectedWalletType === ButtonSelected.ONCHAIN ? 
-          (<View style={[styles.buttons, { marginBottom: 66 }]}>
+          {selectedWalletType === ButtonSelected.ONCHAIN ? (
+          <View style={[styles.buttons, { marginBottom: 66 }]}>
             <View style={styles.row}>
             <View style={styles.titleContainer}>
             <Image
@@ -552,7 +552,7 @@ const WalletsAdd = () => {
             </View>
             <Switch value={selectedIndex === 2} onValueChange={() => setSelectedIndex(2)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
           </View>
-            </View>
+        </View>
             ) : (
               <View style={styles.input}>
                     <TextInput
@@ -574,10 +574,9 @@ const WalletsAdd = () => {
           </View>
         ) : null }
 
-          {isAdvancedOptionsEnabled && selectedWalletType === ButtonSelected.ONCHAIN && !isLoading && (
+          {/* {advancedMode && selectedWalletType === ButtonSelected.ONCHAIN && !isLoading && (
             <BlueButtonLink style={styles.import} title={entropyButtonText} onPress={navigateToEntropy} />
-          )}
-          {/* <BlueSpacing20 /> */}
+          )} */}
         <View style={{ position: 'absolute', bottom: 48, width: ScreenWidth, gap: 16, paddingHorizontal: 24,}}>
             {!isLoading ? (
               <TouchableOpacity

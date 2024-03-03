@@ -327,6 +327,10 @@ const WalletsRoot = () => {
         options={{
           presentation: 'card',
         headerShadowVisible: false,
+        title: 'Bitcoin (BTC)',
+        headerStyle: {
+          backgroundColor: '#051931'
+        },
         headerTitleStyle: {
           fontFamily: 'Poppins',
           fontWeight: '500',

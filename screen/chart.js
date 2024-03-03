@@ -8,27 +8,41 @@ import { BlueLoading, BlueButton, SafeBlueArea, BlueCard, BlueText, BlueSpacing2
 //import TradingViewWidget from '../components/TradingViewWidget';
 //import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import loc from '../loc';
+//import { createChart } from 'lightweight-charts';
+//import { ChartComponent } from '../components/ChartComponent';
 
 //import TradingViewWidget from 'react-tradingview-widget';
 
-const periods = [
-    '24H',
-    '1W',
-    '1M',
-    '1Y',
-    'ALL',
-];
+import { Defs, LinearGradient, Stop } from 'react-native-svg'
+import { LineChart, Grid } from 'react-native-svg-charts';
+import * as shape from 'd3-shape';
 
-let change;
-let mcap;
-let open;
-let close
-let high;
-let low;
+const periodList = [
+    {
+        name: '24H',
+        days: 1,
+    },
+    {
+        name: '1W',
+        days: 7,
+    },
+    {
+        name: '1M',
+        days: 30,
+    },
+    {
+        name: '1Y',
+        days: 365,
+    },
+    {
+        name: 'ALL',
+        days: 'max',
+    },
+];
 
 const Chart = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [period, setPeriod] = useState(0);
+  const [currentPeriod, setCurrentPeriod] = useState(0);
   const [search, setSearch] = useState();
   const { navigate } = useNavigation();
   const { colors } = useTheme();
@@ -140,10 +154,24 @@ const Chart = () => {
   const [ price, setPrice] = useState();
   const [ change, setChange ] = useState();
   const [ cap, setCap ] = useState();
+  const [ chartData, setChartData ] = useState([]);
 
   const navigateHome = () => {
     navigate('Home');
   };
+
+  const initialData = [
+	{ time: '2018-12-22', value: 32.51 },
+	{ time: '2018-12-23', value: 31.11 },
+	{ time: '2018-12-24', value: 27.02 },
+	{ time: '2018-12-25', value: 27.32 },
+	{ time: '2018-12-26', value: 25.17 },
+	{ time: '2018-12-27', value: 28.89 },
+	{ time: '2018-12-28', value: 25.46 },
+	{ time: '2018-12-29', value: 23.92 },
+	{ time: '2018-12-30', value: 22.68 },
+	{ time: '2018-12-31', value: 22.67 },
+];
 
   const fetchData = async () => {
     let json;
@@ -160,15 +188,36 @@ const Chart = () => {
     setChange(Math.round(data.price_change_percentage_24h * 100) / 100);
 };
 
+const fetchChart = async () => {
+    let json;
+    let ticker = 'bitcoin';
+    const data = [];
+    try {
+      const res = await fetch(`https://api.coingecko.com/api/v3/coins/${ticker}/market_chart?vs_currency=usd&days=${periodList[currentPeriod].days}`);
+      json = await res.json();
+    } catch (e) {
+      throw new Error(`Could not update rate for USD: ${e.message}`);
+    }
+    for (i = 0; i < json?.prices.length; i++) {
+        data.push(json?.prices[i][1])
+    }
+    setChartData(data);
+};
 
     useEffect(() => {
         fetchData();
+        fetchChart();
     }, [])
 
-  return isLoading ? (
-    <SafeBlueArea>
-      <BlueLoading />
-    </SafeBlueArea>
+    const changePeriod = async (period) => {
+        setCurrentPeriod(period)
+        fetchChart();
+    }
+
+  return isLoading ? (null
+    // <SafeBlueArea>
+    //   <BlueLoading />
+    // </SafeBlueArea>
   ) : (
     <View style={{ flex: 1, backgroundColor: '#051931' }}>
         <View style={styles.chartContainer}>
@@ -181,19 +230,41 @@ const Chart = () => {
                 </Text>
             </View>
             <View style={styles.dateContainer}>
-            {periods.map((x, index) => (
+            {periodList.map((x, index) => (
                 <TouchableOpacity
                     key={index}
-                    style={[styles.dateButton, { backgroundColor: period === index ? '#0A3263' : 'transparent' }]}
-                    onPress={() => setPeriod(index)}
+                    style={[styles.dateButton, { backgroundColor: currentPeriod === index ? '#0A3263' : 'transparent' }]}
+                    onPress={() => {
+                        changePeriod(index)
+                    }}
                 >
-                    <Text style={[styles.dateText, { color: period === index ? colors.foreground : '#A6A6A6' }]}>
-                        {x}
+                    <Text style={[styles.dateText, { color: currentPeriod === index ? colors.foreground : '#A6A6A6' }]}>
+                        {x.name}
                     </Text>
                 </TouchableOpacity>
             ))}
             </View>
-            <View style={{ height: 224 }}/>
+
+            {/* <ChartComponent data={initialData}></ChartComponent> */}
+            <View>
+                <LineChart
+                    style={{ height: 224 }}
+                    data={chartData}
+                    // contentInset={{ top: 24, bottom: 24 }}
+                    curve={shape.curveBasis}
+                    svg={{
+                        strokeWidth: 4,
+                        stroke: colors.primary,
+                    }}
+                >
+                    <Grid
+                        svg={{
+                            strokeWidth: 0.5,
+                            stroke: 'rgba(229, 231, 243, 0.2)',
+                        }}
+                    />
+                </LineChart>
+            </View>
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
                     Buy Now
