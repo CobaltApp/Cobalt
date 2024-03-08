@@ -136,7 +136,7 @@ function TabNavigator() {
       screenOptions={{
         tabBarShowLabel: false, 
         tabBarStyle: { 
-          backgroundColor: '#0A3263', 
+          backgroundColor: colors.card, 
           borderTopWidth: 0,
           height: 100, 
           borderTopLeftRadius: 40,
@@ -144,14 +144,10 @@ function TabNavigator() {
           paddingVertical: 32,
           paddingHorizontal: 24,
           position: 'absolute',
-          // shadowColor: '#000000',
-          // shadowOpacity: 0.05,
-          // shadowRadius: 8, //
-        }, 
-        //activeTintColor: colors.foreground,
-        //inactiveTintColor: '#ffffff',
-        //tabBarActiveTintColor: colors.primary,
-        //tabBarInactiveTintColor: '#ffffff',
+          shadowColor: '#000000',
+          shadowOpacity: 0.05,
+          shadowRadius: 8,
+        },
       }}
     >
       <Tab.Screen 
@@ -329,7 +325,7 @@ const WalletsRoot = () => {
         headerShadowVisible: false,
         title: 'Bitcoin (BTC)',
         headerStyle: {
-          backgroundColor: '#051931'
+          //backgroundColor: '#051931'
         },
         headerTitleStyle: {
           fontFamily: 'Poppins',
@@ -345,7 +341,7 @@ const WalletsRoot = () => {
             height: 44,
             width: 44,
             borderRadius: 22,
-            backgroundColor: '#0A3263',
+            //backgroundColor: colors.card,
           }}
           onPress={() =>
             navigation.pop()

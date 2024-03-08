@@ -70,10 +70,10 @@ const PlausibleDeniability = () => {
       justifyContent: 'center',
       padding: 16,
       borderRadius: 25,
-      backgroundColor: '#0A3263'
+      backgroundColor: colors.card
     },
     text: {
-      color: '#A6A6A6',
+      color: colors.foregroundInactive,
       fontFamily: 'Poppins',
       fontWeight: '400',
       fontSize: 16,
@@ -87,7 +87,7 @@ const PlausibleDeniability = () => {
       backgroundColor: colors.primary,
     },
     buttonText: {
-      color: '#FFFFFF',
+      color: colors.white,
       fontFamily: 'Poppins',
       fontWeight: '600',
       fontSize: 16,

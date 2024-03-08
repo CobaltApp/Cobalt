@@ -5,6 +5,7 @@ import {
   Dimensions,
   FlatList,
   I18nManager,
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   LayoutAnimation,
@@ -59,7 +60,7 @@ const SendDetails = () => {
   const [width, setWidth] = useState(Dimensions.get('window').width);
   const [isLoading, setIsLoading] = useState(false);
   const [wallet, setWallet] = useState(null);
-  const [walletSelectionOrCoinsSelectedHidden, setWalletSelectionOrCoinsSelectedHidden] = useState(false);
+  //const [walletSelectionOrCoinsSelectedHidden, setWalletSelectionOrCoinsSelectedHidden] = useState(false);
   const [isAmountToolbarVisibleForAndroid, setIsAmountToolbarVisibleForAndroid] = useState(false);
   const [isFeeSelectionModalVisible, setIsFeeSelectionModalVisible] = useState(false);
   const [optionsVisible, setOptionsVisible] = useState(false);
@@ -109,12 +110,12 @@ const SendDetails = () => {
   // keyboad effects
   useEffect(() => {
     const _keyboardDidShow = () => {
-      setWalletSelectionOrCoinsSelectedHidden(true);
+      //setWalletSelectionOrCoinsSelectedHidden(true);
       setIsAmountToolbarVisibleForAndroid(true);
     };
 
     const _keyboardDidHide = () => {
-      setWalletSelectionOrCoinsSelectedHidden(false);
+      //setWalletSelectionOrCoinsSelectedHidden(false);
       setIsAmountToolbarVisibleForAndroid(false);
     };
 
@@ -1028,30 +1029,68 @@ const SendDetails = () => {
 
   const formatFee = fee => formatBalance(fee, feeUnit, true);
 
-  const stylesHook = StyleSheet.create({
+  const styles = StyleSheet.create({
     loading: {
+      flex: 1,
+      paddingTop: 20,
       backgroundColor: colors.background,
     },
     root: {
+      flex: 1,
+      justifyContent: 'space-between',
+      paddingHorizontal: 24,
       backgroundColor: colors.background,
     },
+    scrollViewContent: {
+      flexDirection: 'row',
+    },
+    scrollViewIndicator: {
+      top: 0,
+      //left: 16,
+      bottom: 0,
+      //right: 16,
+    },
     modalContent: {
+      padding: 22,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      minHeight: 200,
       backgroundColor: colors.element,
       borderTopColor: colors.element,
       borderWidth: colors.elementWidth,
     },
     optionsContent: {
+      padding: 22,
+      borderTopLeftRadius: 14,
+      borderTopRightRadius: 14,
+      minHeight: 130,
       backgroundColor: colors.element,
       borderTopColor: colors.element,
       borderWidth: colors.elementWidth,
     },
-    feeModalItemActive: {
+    feeModalItem: {
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      marginBottom: 10,
       backgroundColor: colors.positive,
     },
+    feeModalItemActive: {
+      borderRadius: 8,
+    },
+    feeModalRow: {
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
     feeModalLabel: {
+      fontSize: 22,
+      fontWeight: '700',
       color: colors.foreground,
     },
     feeModalTime: {
+      borderRadius: 12,
+      paddingHorizontal: 6,
+      paddingVertical: 3,
       backgroundColor: colors.positive,
     },
     feeModalTimeText: {
@@ -1060,22 +1099,91 @@ const SendDetails = () => {
     feeModalValue: {
       color: colors.positive,
     },
+    feeModalCustom: {
+      height: 60,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     feeModalCustomText: {
+      fontSize: 15,
+      fontWeight: '700',
       color: colors.foreground,
     },
+    createButton: {
+      marginVertical: 16,
+      marginHorizontal: 20,
+      alignContent: 'center',
+      minHeight: 48,
+    },
+    select: {
+      marginBottom: 24,
+      marginHorizontal: 24,
+      alignItems: 'center',
+    },
+    selectTouch: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    selectText: {
+      color: '#23262F',
+      fontSize: 14,
+      marginRight: 8,
+    },
+    selectWrap: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: 4,
+    },
     selectLabel: {
+      fontSize: 12,
       color: colors.foreground,
     },
     of: {
+      alignSelf: 'flex-end',
+      marginRight: 18,
+      marginVertical: 8,
       color: colors.element,
     },
     memo: {
+      flexDirection: 'row',
+      borderWidth: 2,
+      height: 48,
+      marginHorizontal: 20,
+      alignItems: 'center',
+      marginVertical: 8,
+      borderRadius: 12,
       borderColor: colors.element,
       borderBottomColor: colors.element,
       backgroundColor: colors.element,
     },
+    memoText: {
+      flex: 1,
+      marginHorizontal: 8,
+      minHeight: 33,
+      color: '#23262F',
+    },
+    fee: {
+      flexDirection: 'row',
+      marginHorizontal: 20,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
     feeLabel: {
+      fontSize: 12,
       color: colors.element,
+    },
+    feeRow: {
+      minWidth: 40,
+      height: 25,
+      borderRadius: 4,
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 10,
+      backgroundColor: colors.positive,
+    },
+    feeValue: {
+      color: colors.background,
     },
     feeModalItemDisabled: {
       backgroundColor: colors.element,
@@ -1083,11 +1191,67 @@ const SendDetails = () => {
     feeModalItemTextDisabled: {
       color: colors.foregroundInactive,
     },
-    feeRow: {
-      backgroundColor: colors.positive,
+    advancedOptions: {
+      minWidth: 40,
+      height: 40,
+      justifyContent: 'center',
     },
-    feeValue: {
-      color: colors.background,
+    frozenContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical: 8,
+    },
+
+    addressBox: {
+      display: 'flex',
+      alignItems: 'stretch',
+      justifyContent: 'center',
+      padding: 24,
+      gap: 16,
+      borderRadius: 25,
+      backgroundColor: colors.element,
+    },
+    buttonOption: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderRadius: 25,
+      padding: 24,
+      backgroundColor: colors.card
+    },
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 24,
+    },
+    textInactive: {
+      color: colors.foregroundInactive,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 14,
+    },
+    textTitle: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 20,
+    },
+    button: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: 56,
+      marginBottom: 36,
+      borderRadius: 30,
+      backgroundColor: colors.primary,
+    },
+    buttonText: {
+      color: colors.white,
+      fontFamily: 'Poppins',
+      fontWeight: '600',
+      fontSize: 16,
     },
   });
 
@@ -1268,7 +1432,7 @@ const SendDetails = () => {
     return (
       <BottomModal deviceWidth={width + width / 2} isVisible={optionsVisible} onClose={hideOptions}>
         <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
-          <View style={[styles.optionsContent, stylesHook.optionsContent]}>
+          <View style={styles.optionsContent}>
             {isEditable && (
               <BlueListItem
                 testID="sendMaxButton"
@@ -1372,7 +1536,7 @@ const SendDetails = () => {
   };
 
   const renderWalletSelectionOrCoinsSelected = () => {
-    if (walletSelectionOrCoinsSelectedHidden) return null;
+    //if (walletSelectionOrCoinsSelectedHidden) return null;
     if (utxo !== null) {
       return (
         <View style={styles.select}>
@@ -1393,37 +1557,31 @@ const SendDetails = () => {
         {!isLoading && isEditable && (
           <TouchableOpacity
             accessibilityRole="button"
-            style={{
-                borderColor: colors.element,
-                flexDirection: 'row',
-                borderWidth: 2,
-                height: 54,
-                width: 311,
-                marginHorizontal: 32,
-                alignItems: 'center',
-                //alignContent: 'space-around',
-                justifyContent: 'space-between',
-                marginVertical: 8,
-                borderRadius: 12,
-                padding: 16,
-            }}
+            style={styles.buttonOption}
             onPress={() => navigation.navigate('SelectWallet', { onWalletSelect, chainType: Chain.ONCHAIN })}
           >
-            <Text 
-              style={{
-                fontFamily: 'Poppins-Regular',
-                fontSize: 14,
-                color: colors.foreground,
-              }}
-            >
-              {wallet.getLabel()}
-            </Text>
+            <View style={styles.row}>
+              <Image
+                source={require('../../img/icons/card.png')}
+                style={{
+                  width: 32,
+                  height: 32,
+                }}
+              />
+              <View>
+                <Text style={styles.textInactive}>
+                  Wallet
+                </Text>
+                <Text style={styles.textTitle}>
+                  {wallet.getLabel()}
+                </Text>
+              </View>
+            </View>
             <Icon 
               name={'chevron-right'}
-              size={20} 
+              size={24} 
               type="feather" 
-              color={colors.foreground}
-              
+              color={colors.foregroundInactive}
             />
           </TouchableOpacity>
         )}
@@ -1434,7 +1592,7 @@ const SendDetails = () => {
   const renderBitcoinTransactionInfoFields = params => {
     const { item, index } = params;
     return (
-      <View style={{ width }} testID={'Transaction' + index}>
+      <View testID={'Transaction' + index}>
         <AmountInput
           isLoading={isLoading}
           amount={item.amount ? item.amount.toString() : null}
@@ -1495,30 +1653,48 @@ const SendDetails = () => {
             </BlueText>
           </TouchableOpacity>
         )}
-
-        <AddressInput
-          onChangeText={text => {
-            text = text.trim();
-            const { address, amount, memo, payjoinUrl: pjUrl } = DeeplinkSchemaMatch.decodeBitcoinUri(text);
-            setAddresses(addrs => {
-              item.address = address || text;
-              item.amount = amount || item.amount;
-              addrs[index] = item;
-              return [...addrs];
-            });
-            setTransactionMemo(memo || transactionMemo);
-            setIsLoading(false);
-            setPayjoinUrl(pjUrl);
-          }}
-          onBarScanned={processAddressData}
-          address={item.address}
-          isLoading={isLoading}
-          inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
-          launchedBy={name}
-          editable={isEditable}
-        />
+        <View style={styles.addressBox}>
+          <AddressInput
+            onChangeText={text => {
+              text = text.trim();
+              const { address, amount, memo, payjoinUrl: pjUrl } = DeeplinkSchemaMatch.decodeBitcoinUri(text);
+              setAddresses(addrs => {
+                item.address = address || text;
+                item.amount = amount || item.amount;
+                addrs[index] = item;
+                return [...addrs];
+              });
+              setTransactionMemo(memo || transactionMemo);
+              setIsLoading(false);
+              setPayjoinUrl(pjUrl);
+            }}
+            onBarScanned={processAddressData}
+            address={item.address}
+            isLoading={isLoading}
+            inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
+            launchedBy={name}
+            editable={isEditable}
+          />
+          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
+          <TextInput
+            onChangeText={setTransactionMemo}
+            placeholder={loc.send.details_note_placeholder}
+            placeholderTextColor={colors.foregroundInactive}
+            value={transactionMemo}
+            numberOfLines={1}
+            style={{
+              color: colors.foreground,
+              fontFamily: 'Poppins',
+              fontWeight: '500',
+              fontSize: 14,
+            }}
+            editable={!isLoading}
+            onSubmitEditing={Keyboard.dismiss}
+            inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
+          />
+        </View>
         {addresses.length > 1 && (
-          <Text style={[styles.of, stylesHook.of]}>{loc.formatString(loc._.of, { number: index + 1, total: addresses.length })}</Text>
+          <Text style={styles.of}>{loc.formatString(loc._.of, { number: index + 1, total: addresses.length })}</Text>
         )}
       </View>
     );
@@ -1526,45 +1702,34 @@ const SendDetails = () => {
 
   if (isLoading || !wallet) {
     return (
-      <View style={[styles.loading, stylesHook.loading]}>
+      <View style={styles.loading}>
         <BlueLoading />
       </View>
     );
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={[styles.root, stylesHook.root]} onLayout={e => setWidth(e.nativeEvent.layout.width)}>
+      <View style={styles.root} onLayout={e => setWidth(e.nativeEvent.layout.width)}>
         <StatusBar barStyle="light-content" />
-        <View>
           <KeyboardAvoidingView enabled={!Platform.isPad} behavior="position">
+            <View style={{ gap: 24 }}>
             <FlatList
               keyboardShouldPersistTaps="always"
-              scrollEnabled={addresses.length > 1}
+              scrollEnabled={false}
+              //{addresses.length > 1}
               data={addresses}
               renderItem={renderBitcoinTransactionInfoFields}
               ref={scrollView}
-              horizontal
-              pagingEnabled
+              //horizontal
+              //pagingEnabled
               removeClippedSubviews={false}
               onMomentumScrollBegin={Keyboard.dismiss}
               onMomentumScrollEnd={handleRecipientsScrollEnds}
               onScroll={handleRecipientsScroll}
               scrollEventThrottle={200}
               //scrollIndicatorInsets={styles.scrollViewIndicator}
-              contentContainerStyle={styles.scrollViewContent}
+              //contentContainerStyle={styles.scrollViewContent}
             />
-            <View 
-              // style={{
-              //   borderColor: colors.element,
-              //   flexDirection: 'row',
-              //   borderWidth: 2,
-              //   height: 56,
-              //   marginHorizontal: 32,
-              //   alignItems: 'center',
-              //   marginVertical: 8,
-              //   borderRadius: 15,
-              // }}
-            >
               {/* <TextInput
                 onChangeText={setTransactionMemo}
                 placeholder={loc.send.details_note_placeholder}
@@ -1581,50 +1746,46 @@ const SendDetails = () => {
                 onSubmitEditing={Keyboard.dismiss}
                 inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
               /> */}
-              {renderWalletSelectionOrCoinsSelected()}
-            </View>
+            {renderWalletSelectionOrCoinsSelected()}
             <TouchableOpacity
               testID="chooseFee"
               accessibilityRole="button"
               onPress={() => setIsFeeSelectionModalVisible(true)}
               disabled={isLoading}
-              style={{
-                borderColor: colors.element,
-                flexDirection: 'row',
-                borderWidth: 2,
-                height: 54,
-                width: 311,
-                marginHorizontal: 32,
-                alignItems: 'center',
-                //alignContent: 'space-around',
-                justifyContent: 'space-between',
-                marginVertical: 8,
-                borderRadius: 12,
-                padding: 16,
-              }}
+              style={styles.buttonOption}
             >
-              <Text
-                style={{
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 14,
-                  color: colors.foreground,
-                }}
-              >
-                {loc.send.create_fee}
-              </Text>
-
+              <View style={styles.row}>
+                <Image
+                  source={require('../../img/icons/calculator.png')}
+                  style={{
+                    width: 32,
+                    height: 32,
+                  }}
+                />
+                <View>
+                  <Text style={styles.textInactive}>
+                    {loc.send.create_fee}
+                  </Text>
+                  <Text style={styles.textTitle}>
+                    {feePrecalc.current ? formatFee(feePrecalc.current) : feeRate + ' ' + loc.units.sat_vbyte}
+                  </Text>
+                </View>
+              </View>
               {networkTransactionFeesIsLoading ? (
                 <ActivityIndicator />
               ) : (
-                <Text>
-                  {feePrecalc.current ? formatFee(feePrecalc.current) : feeRate + ' ' + loc.units.sat_vbyte}
-                </Text>
+                <Icon 
+                  name={'chevron-right'}
+                  size={24} 
+                  type="feather" 
+                  color={colors.foregroundInactive}
+                />
               )}
             </TouchableOpacity>
             {renderFeeSelectionModal()}
             {renderOptionsModal()}
+            </View>
           </KeyboardAvoidingView>
-        </View>
         <BlueDismissKeyboardInputAccessory />
         {Platform.select({
           ios: <InputAccessoryAllFunds canUseAll={balance > 0} onUseAllPressed={onUseAllPressed} balance={allBalance} />,
@@ -1632,9 +1793,15 @@ const SendDetails = () => {
             <InputAccessoryAllFunds canUseAll={balance > 0} onUseAllPressed={onUseAllPressed} balance={allBalance} />
           ),
         })}
-        {renderCreateButton()}
-
-        {/* {renderWalletSelectionOrCoinsSelected()} */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={createTransaction}
+          testID="CreateTransactionButton"
+        >
+          <Text style={styles.buttonText}>
+            Next
+          </Text>
+        </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -1666,146 +1833,6 @@ SendDetails.actionIcons = {
   ImportTransactionQR: { iconType: 'SYSTEM', iconValue: 'qrcode.viewfinder' },
   CoinControl: { iconType: 'SYSTEM', iconValue: 'switch.2' },
 };
-
-const styles = StyleSheet.create({
-  loading: {
-    flex: 1,
-    paddingTop: 20,
-  },
-  root: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  scrollViewContent: {
-    flexDirection: 'row',
-  },
-  scrollViewIndicator: {
-    top: 0,
-    //left: 16,
-    bottom: 0,
-    //right: 16,
-  },
-  modalContent: {
-    padding: 22,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    minHeight: 200,
-  },
-  optionsContent: {
-    padding: 22,
-    borderTopLeftRadius: 14,
-    borderTopRightRadius: 14,
-    minHeight: 130,
-  },
-  feeModalItem: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginBottom: 10,
-  },
-  feeModalItemActive: {
-    borderRadius: 8,
-  },
-  feeModalRow: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  feeModalLabel: {
-    fontSize: 22,
-    fontWeight: '700',
-  },
-  feeModalTime: {
-    borderRadius: 12,
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-  },
-  feeModalCustom: {
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  feeModalCustomText: {
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  createButton: {
-    marginVertical: 16,
-    marginHorizontal: 20,
-    alignContent: 'center',
-    minHeight: 48,
-  },
-  select: {
-    marginBottom: 24,
-    marginHorizontal: 24,
-    alignItems: 'center',
-  },
-  selectTouch: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  selectText: {
-    color: '#23262F',
-    fontSize: 14,
-    marginRight: 8,
-  },
-  selectWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 4,
-  },
-  selectLabel: {
-    fontSize: 12,
-  },
-  of: {
-    alignSelf: 'flex-end',
-    marginRight: 18,
-    marginVertical: 8,
-  },
-  memo: {
-    flexDirection: 'row',
-    borderWidth: 2,
-    height: 48,
-    marginHorizontal: 20,
-    alignItems: 'center',
-    marginVertical: 8,
-    borderRadius: 12,
-  },
-  memoText: {
-    flex: 1,
-    marginHorizontal: 8,
-    minHeight: 33,
-    color: '#23262F',
-  },
-  fee: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  feeLabel: {
-    fontSize: 12,
-  },
-  feeRow: {
-    minWidth: 40,
-    height: 25,
-    borderRadius: 4,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-  },
-  advancedOptions: {
-    minWidth: 40,
-    height: 40,
-    justifyContent: 'center',
-  },
-  frozenContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 8,
-  },
-});
 
 SendDetails.navigationOptions = navigationStyleTx({}, options => ({
   ...options,

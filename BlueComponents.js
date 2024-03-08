@@ -113,10 +113,10 @@ export const BitcoinButton = props => {
       <View
         style={{
           //height: 54,
-          borderColor: (props.active && colors.primary) || '#0A3263',
+          borderColor: (props.active && colors.primary) || colors.card,
           borderWidth: 1.5,
           borderRadius: 30,
-          backgroundColor: '#0A3263',
+          backgroundColor: colors.card,
           minWidth: props.style.width,
           minHeight: props.style.height,
           height: props.style.height,
@@ -155,10 +155,10 @@ export const VaultButton = props => {
     <TouchableOpacity accessibilityRole="button" testID={props.testID} onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.foreground) || '#0A3263',
+          borderColor: (props.active && colors.foreground) || colors.card,
           borderWidth: 1.5,
           borderRadius: 30,
-          backgroundColor: '#0A3263',
+          backgroundColor: colors.card,
           minWidth: props.style.width,
           minHeight: props.style.height,
           height: props.style.height,
@@ -203,10 +203,10 @@ export const LightningButton = props => {
     <TouchableOpacity accessibilityRole="button" onPress={props.onPress}>
       <View
         style={{
-          borderColor: (props.active && colors.secondary) || '#0A3263',
+          borderColor: (props.active && colors.secondary) || colors.card,
           borderWidth: 1.5,
           borderRadius: 30,
-          backgroundColor: '#0A3263',
+          backgroundColor: colors.card,
           minWidth: props.style.width,
           minHeight: props.style.height,
           height: props.style.height,
@@ -465,7 +465,7 @@ export const BlueListItem = React.memo(props => {
           />}
           {props.rightIcon && <Avatar icon={props.rightIcon} />}
           {props.switch && <Switch {...props.switch} accessibilityLabel={props.title} accessible accessibilityRole="switch" 
-            trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}
+            trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}
             />}
           {props.checkmark && <ListItem.CheckBox iconType="octaicon" checkedColor="#0070FF" checkedIcon="check" checked />}
         </>
@@ -546,7 +546,7 @@ export const BlueFormInput = props => {
         borderRadius: 28,
         //backgroundColor: colors.element,
         color: colors.foreground,
-        backgroundColor: '#08264A',
+        backgroundColor: colors.element,
       }}
       placeholderTextColor={colors.foregroundInactive}
       //onChangeText={onChangeInput}

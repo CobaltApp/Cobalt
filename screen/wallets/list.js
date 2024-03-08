@@ -481,7 +481,7 @@ const WalletsList = () => {
                   onPress={onScanButtonPressed}
                   onLongPress={sendButtonLongPress}
                 >
-                  <Icon name="grid" type="feather" size={32} color={'#FFFFFF'} />
+                  <Icon name="grid" type="feather" size={32} color={colors.white} />
                 </TouchableOpacity>
       );
     } else {
@@ -637,7 +637,7 @@ const WalletsList = () => {
       <View style={{ gap: 16, marginBottom: 24 }}>
       <Text
         style={{
-          color: '#FFFFFF',
+          color: colors.foreground,
           fontFamily: 'Poppins',
           fontSize: 20,
           marginLeft: 24,

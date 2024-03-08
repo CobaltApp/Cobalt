@@ -5,17 +5,6 @@ import { useTheme } from '@react-navigation/native';
 import { Theme } from './themes';
 import loc from '../loc';
 
-const styles = StyleSheet.create({
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 44,
-    width: 44,
-    borderRadius: 22,
-    backgroundColor: '#0A3263',
-  },
-});
-
 type NavigationOptions = {
   headerStyle?: {
     borderBottomWidth: number;
@@ -66,7 +55,14 @@ const navigationStyle = (
           <TouchableOpacity
             accessibilityRole="button"
             accessibilityLabel={loc._.close}
-            style={styles.button}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 44,
+              width: 44,
+              borderRadius: 22,
+              backgroundColor: theme.colors.card,
+            }}
             onPress={handleClose}
             testID="NavigationCloseButton"
           >
@@ -92,13 +88,20 @@ const navigationStyle = (
           <TouchableOpacity
           accessibilityRole="button"
             accessibilityLabel={loc._.close}
-          style={styles.button}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 44,
+            width: 44,
+            borderRadius: 22,
+            backgroundColor: theme.colors.card,
+          }}
           onPress={() => {
             Keyboard.dismiss();
             navigation.goBack(null);
           }}
         >
-          <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+          <Icon name="arrow-left" type="feather" size={24} color={theme.colors.foreground} />
         </TouchableOpacity>
         ),
         headerRight,
@@ -144,14 +147,14 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
             height: 44,
             width: 44,
             borderRadius: 22,
-            backgroundColor: '#0A3263',
+            backgroundColor: theme.colors.card,
           }}
           onPress={() => {
             Keyboard.dismiss();
             navigation.goBack(null);
           }}
         >
-          <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+          <Icon name="arrow-left" type="feather" size={24} color={theme.colors.foreground} />
         </TouchableOpacity>
         ),
         ...opts,

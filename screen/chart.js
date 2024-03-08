@@ -77,7 +77,7 @@ const Chart = () => {
         gap: 3,
         height: 56,
         borderRadius: 30,
-        backgroundColor: '#030D19',
+        backgroundColor: colors.dark,
     },
     dateButton: {
         display: 'flex',
@@ -104,7 +104,7 @@ const Chart = () => {
         backgroundColor: colors.primary,
     },
     buttonText: {
-        color: '#FFFFFF',
+        color: colors.white,
         fontFamily: 'Poppins',
         fontWeight: '600',
         fontSize: 16,
@@ -145,7 +145,7 @@ const Chart = () => {
         fontSize: 14,
     },
     textInactive: {
-        color: '#A6A6A6',
+        color: colors.foregroundInactive,
         fontFamily: 'Poppins',
         fontWeight: '500',
         fontSize: 14,
@@ -154,6 +154,11 @@ const Chart = () => {
   const [ price, setPrice] = useState();
   const [ change, setChange ] = useState();
   const [ cap, setCap ] = useState();
+  const [ data24H, setData24H ] = useState([]);
+  const [ data1W, setData1W ] = useState([]);
+  const [ data1M, setData1M ] = useState([]);
+  const [ data1Y, setData1Y ] = useState([]);
+  const [ dataALL, setDataALL ] = useState([]);
   const [ chartData, setChartData ] = useState([]);
 
   const navigateHome = () => {
@@ -189,19 +194,98 @@ const Chart = () => {
 };
 
 const fetchChart = async () => {
-    let json;
+    let daily;
+    let weekly;
+    let monthly;
+    let yearly;
+    let all;
     let ticker = 'bitcoin';
-    const data = [];
-    try {
-      const res = await fetch(`https://api.coingecko.com/api/v3/coins/${ticker}/market_chart?vs_currency=usd&days=${periodList[currentPeriod].days}`);
-      json = await res.json();
-    } catch (e) {
-      throw new Error(`Could not update rate for USD: ${e.message}`);
-    }
-    for (i = 0; i < json?.prices.length; i++) {
-        data.push(json?.prices[i][1])
-    }
-    setChartData(data);
+    // const data = [[]];
+    // const daily = [];
+    // const weekly = [];
+    // const monthly = [];
+    // const yearly = [];
+    // const all = [];
+    // for (i = 0; i < 5; i++) {
+        try {
+            const res = await fetch(`https://api.coingecko.com/api/v3/coins/${ticker}/market_chart?vs_currency=usd&days=1`);
+            daily = await res.json();
+        } catch (e) {
+            throw new Error(`Could not update rate for USD: ${e.message}`);
+        }
+        try {
+            const res = await fetch(`https://api.coingecko.com/api/v3/coins/${ticker}/market_chart?vs_currency=usd&days=7`);
+            weekly = await res.json();
+        } catch (e) {
+            throw new Error(`Could not update rate for USD: ${e.message}`);
+        }
+        try {
+            const res = await fetch(`https://api.coingecko.com/api/v3/coins/${ticker}/market_chart?vs_currency=usd&days=30`);
+            monthly = await res.json();
+        } catch (e) {
+            throw new Error(`Could not update rate for USD: ${e.message}`);
+        }
+        try {
+            const res = await fetch(`https://api.coingecko.com/api/v3/coins/${ticker}/market_chart?vs_currency=usd&days=365`);
+            yearly = await res.json();
+        } catch (e) {
+            throw new Error(`Could not update rate for USD: ${e.message}`);
+        }
+        try {
+            const res = await fetch(`https://api.coingecko.com/api/v3/coins/${ticker}/market_chart?vs_currency=usd&days=max`);
+            all = await res.json();
+        } catch (e) {
+            throw new Error(`Could not update rate for USD: ${e.message}`);
+        }
+        //const list = [];
+        //const data = json?.prices;
+        const dailyData = [];
+        for (i = 0; i < daily?.prices.length; i++) {
+            dailyData.push(daily?.prices[i][1])
+        }
+        const weeklyData = [];
+        for (i = 0; i < weekly?.prices.length; i++) {
+            weeklyData.push(weekly?.prices[i][1])
+        }
+        const monthlyData = [];
+        for (i = 0; i < monthly?.prices.length; i++) {
+            monthlyData.push(monthly?.prices[i][1])
+        }
+        const yearlyData = [];
+        for (i = 0; i < yearly?.prices.length; i++) {
+            yearlyData.push(yearly?.prices[i][1])
+        }
+        const allData = [];
+        for (i = 0; i < all?.prices.length; i++) {
+            allData.push(all?.prices[i][1])
+        }
+        //setChartData(list)
+        // for (j = 0; j < json?.prices.length; j++) {
+        //     //data[i].push(json?.prices[j][1])
+        //     switch(i) {
+        //         case 0:
+        //           daily.push(json?.prices[j][1])
+        //           break;
+        //         case 1:
+        //           weekly.push(json?.prices[j][1])
+        //           break;
+        //         case 1:
+        //           monthly.push(json?.prices[j][1])
+        //           break;
+        //         case 1:
+        //           yearly.push(json?.prices[j][1])
+        //           break;
+        //         default:
+        //           all.push(json?.prices[j][1])
+        //       }
+        // }
+    // }
+    setData24H(dailyData);
+    setData1W(weeklyData);
+    setData1M(monthlyData);
+    setData1Y(yearlyData);
+    setDataALL(allData);
+    setChartData(dailyData);
 };
 
     useEffect(() => {
@@ -211,7 +295,23 @@ const fetchChart = async () => {
 
     const changePeriod = async (period) => {
         setCurrentPeriod(period)
-        fetchChart();
+        switch(period) {
+            case 0:
+              setChartData(data24H);
+              break;
+            case 1:
+                setChartData(data1W);
+              break;
+            case 1:
+                setChartData(data1M);
+              break;
+            case 1:
+              setChartData(data1Y);
+              break;
+            default:
+              setChartData(dataALL);
+          }
+        //fetchChart();
     }
 
   return isLoading ? (null
@@ -219,7 +319,7 @@ const fetchChart = async () => {
     //   <BlueLoading />
     // </SafeBlueArea>
   ) : (
-    <View style={{ flex: 1, backgroundColor: '#051931' }}>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
         <View style={styles.chartContainer}>
             <View style={{ alignItems: 'center' }}>
                 <Text style={styles.price}>
@@ -233,12 +333,12 @@ const fetchChart = async () => {
             {periodList.map((x, index) => (
                 <TouchableOpacity
                     key={index}
-                    style={[styles.dateButton, { backgroundColor: currentPeriod === index ? '#0A3263' : 'transparent' }]}
+                    style={[styles.dateButton, { backgroundColor: currentPeriod === index ? colors.card : 'transparent' }]}
                     onPress={() => {
                         changePeriod(index)
                     }}
                 >
-                    <Text style={[styles.dateText, { color: currentPeriod === index ? colors.foreground : '#A6A6A6' }]}>
+                    <Text style={[styles.dateText, { color: currentPeriod === index ? colors.foreground : colors.foregroundInactive }]}>
                         {x.name}
                     </Text>
                 </TouchableOpacity>

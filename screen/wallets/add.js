@@ -96,7 +96,7 @@ const WalletsAdd = () => {
       fontSize: 14,
     },
     subtitle: {
-      color: '#A6A6A6',
+      color: colors.foregroundInactive,
       fontFamily: 'Poppins',
       fontWeight: '500',
       fontSize: 12
@@ -111,7 +111,7 @@ const WalletsAdd = () => {
       padding: 12,
       alignItems: 'center',
       borderRadius: 25,
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
     },
     textInputCommon: {
       flex: 1,
@@ -125,7 +125,7 @@ const WalletsAdd = () => {
       padding: 16,
       gap: 16,
       borderRadius: 25,
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
     },
     button: {
       display: 'flex',
@@ -140,7 +140,7 @@ const WalletsAdd = () => {
       backgroundColor: colors.primary,
     },
     buttonText: {
-      color: '#FFFFFF',
+      color: colors.white,
       fontFamily: 'Poppins',
       fontWeight: '500',
       fontSize: 12,
@@ -155,7 +155,7 @@ const WalletsAdd = () => {
       paddingHorizontal: 24,
       gap: 24,
       borderRadius: 40,
-      backgroundColor: '#08264A',
+      backgroundColor: colors.element,
     },
     advancedText: {
       fontWeight: '500',
@@ -357,7 +357,7 @@ const WalletsAdd = () => {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: '#051931' }}>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={styles.modal}>
       {/* <StatusBar
         barStyle={Platform.select({ ios: 'light-content', default: useColorScheme() === 'dark' ? 'light-content' : 'dark-content' })}
@@ -411,7 +411,7 @@ const WalletsAdd = () => {
             >
               <View>
               {selectedWalletType === ButtonSelected.ONCHAIN ? ( 
-                <Icon name="check" type="feather" size={12} color={'#FFFFFF'}/>
+                <Icon name="check" type="feather" size={12} color={colors.white}/>
               ): (null)}
               </View>
               <Text style={styles.buttonText}>
@@ -441,7 +441,7 @@ const WalletsAdd = () => {
             >
               <View>
               {selectedWalletType === ButtonSelected.OFFCHAIN ? ( 
-                <Icon name="check" type="feather" size={12} color={'#FFFFFF'}/>
+                <Icon name="check" type="feather" size={12} color={colors.white}/>
               ): (null)}
               </View>
               <Text style={styles.buttonText}>
@@ -471,7 +471,7 @@ const WalletsAdd = () => {
             >
               <View>
               {selectedWalletType === ButtonSelected.VAULT ? ( 
-                <Icon name="check" type="feather" size={12} color={'#FFFFFF'}/>
+                <Icon name="check" type="feather" size={12} color={colors.white}/>
               ): (null)}
               </View>
               <Text style={styles.buttonText}>
@@ -514,7 +514,7 @@ const WalletsAdd = () => {
               </Text>
             </View>
             </View>
-            <Switch value={selectedIndex === 0} onValueChange={() => setSelectedIndex(0)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+            <Switch value={selectedIndex === 0} onValueChange={() => setSelectedIndex(0)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
           </View>
           <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
           <View style={styles.row}>
@@ -532,7 +532,7 @@ const WalletsAdd = () => {
               </Text>
             </View>
             </View>
-            <Switch value={selectedIndex === 1} onValueChange={() => setSelectedIndex(1)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+            <Switch value={selectedIndex === 1} onValueChange={() => setSelectedIndex(1)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
           </View>
           <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
           <View style={styles.row}>
@@ -550,7 +550,7 @@ const WalletsAdd = () => {
               </Text>
             </View>
             </View>
-            <Switch value={selectedIndex === 2} onValueChange={() => setSelectedIndex(2)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+            <Switch value={selectedIndex === 2} onValueChange={() => setSelectedIndex(2)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
           </View>
         </View>
             ) : (
@@ -592,7 +592,7 @@ const WalletsAdd = () => {
               >
                 <Text
                   style={{
-                    color: '#FFFFFF',
+                    color: colors.white,
                     fontFamily: 'Poppins',
                     fontWeight: 600,
                     fontSize: 16,
@@ -640,7 +640,7 @@ const WalletsAdd = () => {
 WalletsAdd.navigationOptions = navigationStyleTx(
   {
     headerStyle: {
-      backgroundColor: '#051931',
+      backgroundColor: colors.background,
     },
   },
   opts => ({ ...opts, title: loc.wallets.add_title }),

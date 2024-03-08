@@ -40,11 +40,11 @@ const Discover = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(FiatUnit.USD);
   //const [currencyRate, setCurrencyRate] = useState({ LastUpdated: null, Rate: 1234 });
   const [ currencyRate, setCurrencyRate ] = useState(null);
+  const [ priceList, setPriceList ] = useState([]);
   const [ itemList, setItemList ] = useState([
     {
       icon: require('../img/coins/bitcoin.png'),
       name: 'Bitcoin',
-      ticker: 'bitcoin',
       price: 0,
       change: null,
       cap: null,
@@ -52,7 +52,6 @@ const Discover = () => {
     {
       icon: require('../img/coins/monero.png'),
       name: 'Ethereum',
-      ticker: 'ethereum',
       price: 0,
       change: null,
       cap: null,
@@ -60,7 +59,6 @@ const Discover = () => {
     {
       icon: require('../img/coins/monero.png'),
       name: 'Monero',
-      ticker: 'monero',
       price: 0,
       change: null,
       cap: null,
@@ -68,7 +66,6 @@ const Discover = () => {
     {
       icon: require('../img/coins/monero.png'),
       name: 'Litecoin',
-      ticker: 'litecoin',
       price: 0,
       change: null,
       cap: null,
@@ -76,7 +73,6 @@ const Discover = () => {
     {
       icon: require('../img/coins/monero.png'),
       name: 'Ripple',
-      ticker: 'ripple',
       price: 0,
       change: null,
       cap: null,
@@ -84,17 +80,11 @@ const Discover = () => {
     {
       icon: require('../img/coins/monero.png'),
       name: 'Dogecoin',
-      ticker: 'dogecoin',
       price: 0,
       change: null,
       cap: null,
     },
   ]);
-
-  const count = 4;
-  //const { data: cryptosList } = useGetCryptosQuery(count);
-  //const [ cryptos, setCryptos ] = useState();
-  const [ changes, setChanges ] = useState();
   const styles = StyleSheet.create({
     header: {
       color: colors.foreground,
@@ -111,7 +101,7 @@ const Discover = () => {
       height: 56,
       gap: 12,
       borderRadius: 25,
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
     },
     categoryContainer: {
       display: 'flex',
@@ -127,7 +117,7 @@ const Discover = () => {
       justifyContent: 'center',
       padding: 16,
       borderRadius: 25,
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
     },
     categoryText: {
       color: colors.foreground,
@@ -149,7 +139,7 @@ const Discover = () => {
       fontSize: 18,
     },
     rowSubtitle: {
-      color: '#A6A6A6',
+      color: colors.foregroundInactive,
       fontFamily: 'Poppins',
       fontWeight: '500',
       fontSize: 14,
@@ -160,38 +150,8 @@ const Discover = () => {
     fetchCurrency();
     }, [])
 
-//   useEffect(() => {
-//     setCryptos(cryptosList?.data?.coins);
-//   }, [cryptosList]);
-
-//   <div className={cn(className, styles.cards)}>
-//       {cryptos?.map((x, index) => (
-//         <Link className={styles.card} key={index} to={x.url}>
-//           <div className={styles.icon}>
-//             <img src={x.iconUrl} alt="Currency" />
-//           </div>
-//           <div className={styles.details}>
-//           <div className={styles.title}>{x.symbol}</div>
-//             <div className={styles.line}>
-//               <div className={styles.price}>${millify(x.price)}</div>
-//               {x.change >= 0 && (
-//                 <div className={styles.positive}>
-//                   +{x.change}%
-//                 </div>
-//               )}
-//               {x.change < 0 && (
-//                 <div className={styles.negative}>
-//                   {x.change}%
-//                 </div>
-//               )}
-//             </div>
-//             <div className={styles.coin}>{x.name}</div>
-//           </div>
-//         </Link>
-//       ))}
-//     </div>
-
   const fetchCurrency = async () => {
+    const array = [];
     for (let i = 0; i < itemList.length; i++) {
       let json;
       let ticker = itemList[i].name.toLowerCase();
@@ -202,44 +162,23 @@ const Discover = () => {
         throw new Error(`Could not update rate for USD: ${e.message}`);
       }
       const data = json?.market_data;
-      itemList[i].price = Math.round(data.current_price.usd * 100) / 100;
-      itemList[i].cap = data.market_cap.usd;
-      itemList[i].change = Math.round(data.price_change_percentage_24h * 100) / 100;
+      const mcap = Math.round(json?.market_data.price_change_percentage_24h * 100) / 100;
+      array.push({
+        icon: itemList[i].icon,
+        name: itemList[i].name,
+        price: Math.round(data.current_price.usd * 100) / 100,
+        change: data.market_cap.usd,
+        cap: mcap,
+      })
+      //const data = json?.market_data;
+      //prices.push(Math.round(json?.market_data.current_price.usd * 100) / 100)
+      //itemList[i].price = Math.round(data.current_price.usd * 100) / 100;
+      //itemList[i].cap = data.market_cap.usd;
+      //itemList[i].change = Math.round(data.price_change_percentage_24h * 100) / 100;
       //setRates([...rates, {rate}]);
     }
+    setItemList(data)
   };
-
-  // const fetchCurrency = async () => {
-  //   let preferredCurrency = FiatUnit.USD;
-  //   try {
-  //     preferredCurrency = await currency.getPreferredCurrency();
-  //     if (preferredCurrency === null) {
-  //       throw Error();
-  //     }
-  //     setSelectedCurrency(preferredCurrency);
-  //   } catch (_error) {
-  //     setSelectedCurrency(preferredCurrency);
-  //   }
-  //   const mostRecentFetchedRate = await currency.mostRecentFetchedRate();
-  //   setCurrencyRate(mostRecentFetchedRate);
-  // };
-
-  // useLayoutEffect(() => {
-  //   // setOptions({
-  //   //   searchBar: {
-  //   //     onChangeText: event => setSearch(event.nativeEvent.text),
-  //   //   },
-  //   // });
-  //   fetchCurrency();
-  // }, [setCategory]);
-
-  // useEffect(() => {
-  //   // if (showTickers) {
-  //   //   tickerList.current.scrollToIndex({ animated: false, index: 0 });
-  //   // }
-  //   fetchCurrency();
-  // }, [setCategory]);
-
 
   const data =
     search.length > 0 ? tickers.filter(item => item.address.toLowerCase().includes(search.toLowerCase())) : tickers;
@@ -261,11 +200,11 @@ const Discover = () => {
               </Text>
               <View style={{ gap: 16 }}>
                 <View style={styles.search}>
-                  <Icon name="search" type="feather" size={24} color={'#A6A6A6'}/>
+                  <Icon name="search" type="feather" size={24} color={colors.foregroundInactive}/>
                   <TextInput
                     testID="SearchInput"
                     placeholder="Search"
-                    placeholderTextColor={'#A6A6A6'}
+                    placeholderTextColor={colors.foregroundInactive}
                     style={{
                       flex: 1,
                       color: colors.foreground,
@@ -346,8 +285,8 @@ const Discover = () => {
                     </View>
                   </TouchableOpacity>
                 )
-              }}  
-              keyExtractor={(item, index) => index}
+              }}
+              keyExtractor={(item, index) => index.toString()}
             />
       </View>
     </View>

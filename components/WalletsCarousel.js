@@ -70,7 +70,7 @@ const NewWalletPanel = () => {
         height: 200,
         marginLeft: 20,
         marginRight: 88,
-        backgroundColor: colors.element,
+        backgroundColor: colors.card,
         borderRadius: 25,
       }}
     >
@@ -91,7 +91,7 @@ const NewWalletPanel = () => {
         >
           <Text
             style={{
-              color: '#FFFFFF',
+              color: colors.white,
               fontFamily: 'Poppins',
               fontSize: 16,
             }}
@@ -230,11 +230,11 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
         }}
       >
         {/* backgroundColor={WalletGradient.gradientsFor(item.type)} */}
-        <View backgroundColor={'#0A3263'} style={iStyles.grad}>
+        <View backgroundColor={colors.card} style={iStyles.grad}>
           <Image source={image} style={iStyles.image} />
           <Text
             style={{
-              color: '#CACACA',
+              color: colors.foregroundInactive,
               fontFamily: 'Poppins',
               fontWeight: 500,
               fontSize: 14,
@@ -250,7 +250,7 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
               key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
               adjustsFontSizeToFit
               style={{
-                color: '#FFFFFF',
+                color: colors.foreground,
                 fontFamily: 'Poppins',
                 fontWeight: 600,
                 fontSize: 32,
@@ -260,10 +260,10 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
               {balance}
             </Text>
           )}
-          <Text numberOfLines={1} style={[iStyles.latestTx, { color: '#CACACA' }]}>
+          <Text numberOfLines={1} style={[iStyles.latestTx, { color: colors.foregroundInactive }]}>
             {loc.wallets.list_latest_transaction}
           </Text>
-          <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: '#FFFFFF' }]}>
+          <Text numberOfLines={1} style={[iStyles.latestTxTime, { color: colors.foreground }]}>
             {latestTransactionText}
           </Text>
         </View>

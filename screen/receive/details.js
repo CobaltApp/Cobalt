@@ -95,7 +95,7 @@ const ReceiveDetails = () => {
       alignItems: 'center',
       alignSelf: 'center',
       padding: 24,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: colors.white,
     },
     button: {
       display: 'flex',
@@ -106,7 +106,7 @@ const ReceiveDetails = () => {
       backgroundColor: colors.primary,
     },
     buttonText: {
-      color: '#FFFFFF',
+      color: colors.white,
       fontFamily: 'Poppins',
       fontWeight: '600',
       fontSize: 16,
@@ -120,10 +120,10 @@ const ReceiveDetails = () => {
       paddingRight: 12,
       minHeight: 56,
       borderRadius: 30,
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
     },
     address: {
-      color: '#A6A6A6',
+      color: colors.foregroundInactive,
       fontFamily: 'Poppins',
       fontWeight: '400',
       fontSize: 16,
@@ -135,7 +135,7 @@ const ReceiveDetails = () => {
       padding: 20,
       gap: 16,
       borderRadius: 25,
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
     },
     row: {
       display: 'flex',
@@ -147,7 +147,7 @@ const ReceiveDetails = () => {
 
 
     rootBackgroundColor: {
-      backgroundColor: '#051931',
+      backgroundColor: colors.background,
     },
     modalContent: {
       padding: 22,
@@ -210,7 +210,7 @@ const ReceiveDetails = () => {
       fontWeight: '700',
     },
     customAmountText: {
-      color: '#A6A6A6',
+      color: colors.foregroundInactive,
       fontFamily: 'Poppins',
       fontWeight: '400',
       fontSize: 16,
@@ -449,7 +449,7 @@ const ReceiveDetails = () => {
             />
             <TextInput
               onChangeText={setCustomLabel}
-              placeholderTextColor={'#A6A6A6'}
+              placeholderTextColor={colors.foregroundInactive}
               placeholder={'Message'}
               value={customLabel|| ''}
               numberOfLines={1}
@@ -468,7 +468,7 @@ const ReceiveDetails = () => {
             />
             <TextInput
               onChangeText={setCustomAmount}
-              placeholderTextColor={'#A6A6A6'}
+              placeholderTextColor={colors.foregroundInactive}
               placeholder={'Amount'}
               value={customAmount || ''}
               numberOfLines={1}

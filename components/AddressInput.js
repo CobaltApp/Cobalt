@@ -50,17 +50,23 @@ const AddressInput = ({
   return (
     <View 
       style={{
-        borderColor: colors.element,
+        display: 'flex',
         flexDirection: 'row',
-        borderWidth: 2,
-        minHeight: 48,
-        height: 54,
-        marginHorizontal: 32,
         alignItems: 'center',
-        marginBottom: 8,
-        borderRadius: 12,
-        padding: 16,
+        justifyContent: 'space-between',
       }}
+      // style={{
+      //   borderColor: colors.element,
+      //   flexDirection: 'row',
+      //   borderWidth: 2,
+      //   minHeight: 48,
+      //   height: 54,
+      //   marginHorizontal: 32,
+      //   alignItems: 'center',
+      //   marginBottom: 8,
+      //   borderRadius: 12,
+      //   padding: 16,
+      // }}
     >
       <TextInput
         testID="AddressInput"
@@ -70,10 +76,9 @@ const AddressInput = ({
         value={address}
         style={{
           flex: 1,
-          //marginHorizontal: 20,
-          //minHeight: 56,
           color: colors.foreground,
-          fontFamily: 'Poppins-Regular',
+          fontFamily: 'Poppins',
+          fontWeight: '500',
           fontSize: 14,
         }}
         editable={!isLoading && editable}
@@ -107,22 +112,40 @@ const AddressInput = ({
           }}
           accessibilityRole="button"
           style={{
-            height: 36,
+            display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            borderRadius: 12,
-            //paddingVertical: 4,
-            //paddingHorizontal: 8,
-            //marginHorizontal: 4,
+            justifyContent: 'flex-start',
+            maxWidth: 116,
+            paddingLeft: 4,
+            paddingRight: 12,
+            paddingVertical: 4,
+            gap: 4,
+            borderRadius: 25,
+            backgroundColor: colors.card,
           }}
           accessibilityLabel={loc.send.details_scan}
           accessibilityHint={loc.send.details_scan_hint}
         >
-          <Icon name="grid" type="feather" size={24} color={colors.foregroundInactive} />
+          <Image
+            source={require('../img/icons/copy.png')}
+            style={{
+              width: 32,
+              height: 32,
+            }}
+          />
+          {/* <Icon name="grid" type="feather" size={24} color={colors.foregroundInactive} /> */}
           {/* <Text style={[styles.scanText, stylesHook.scanText]} accessible={false}>
             {loc.send.details_scan}
           </Text> */}
+          <Text style={{
+            color: colors.foreground,
+            fontFamily: 'Poppins',
+            fontWeight: '500',
+            fontSize: 14,
+          }}>
+            Scan
+          </Text>
         </TouchableOpacity>
       ) : null}
     </View>

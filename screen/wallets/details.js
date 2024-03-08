@@ -48,80 +48,6 @@ import { BitcoinUnit, Chain } from '../../models/bitcoinUnits';
 import { writeFileAndExport } from '../../blue_modules/fs';
 
 const prompt = require('../../helpers/prompt');
-const styles = StyleSheet.create({
-  scrollViewContent: {
-    flexGrow: 1,
-  },
-  address: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  textLabel1: {
-    fontFamily: 'Poppins',
-    fontWeight: '500',
-    fontSize: 16,
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  },
-  textLabel2: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  },
-  textValue: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    //marginBottom: 12,
-  },
-  input: {
-    flexDirection: 'row',
-    minHeight: 55,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 24,
-    borderRadius: 25,
-    marginBottom: 24,
-    backgroundColor: '#0A3263',
-  },
-  inputText: {
-    flex: 1,
-    marginHorizontal: 8,
-    minHeight: 33,
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  },
-  hardware: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: -8,
-    marginBottom: 18,
-  },
-  delete: {
-    color: "#FFFFFF",
-    fontFamily: 'Poppins-Regular',
-    fontSize: 16,
-    textAlign: 'center',
-    marginLeft: 12,
-  },
-  column: {
-    flexDirection: 'column',
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 24,
-  },
-  save: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 80,
-    borderRadius: 8,
-    height: 34,
-  },
-  saveText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 15,
-  },
-});
 
 const WalletDetails = () => {
   const { saveToDisk, wallets, deleteWallet, setSelectedWallet, txMetadata } = useContext(BlueStorageContext);
@@ -157,25 +83,84 @@ const WalletDetails = () => {
       });
     }
   }, [isAdvancedModeEnabledRender, wallet]);
-  const stylesHook = StyleSheet.create({
+  const styles = StyleSheet.create({
+    scrollViewContent: {
+      flexGrow: 1,
+    },
+    address: {
+      alignItems: 'center',
+      flex: 1,
+    },
     textLabel1: {
       color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 16,
+      writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
     },
     textLabel2: {
       color: colors.foreground,
+      fontFamily: 'Poppins-Regular',
+      fontSize: 14,
+      writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
     },
     textValue: {
       color: colors.foregroundInactive,
+      fontFamily: 'Poppins-Regular',
+      fontSize: 14,
+      //marginBottom: 12,
     },
     input: {
+      flexDirection: 'row',
+      minHeight: 55,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      paddingHorizontal: 24,
+      borderRadius: 25,
+      marginBottom: 24,
       borderColor: colors.element,
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
+    },
+    inputText: {
+      flex: 1,
+      marginHorizontal: 8,
+      minHeight: 33,
+      writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+    },
+    hardware: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: -8,
+      marginBottom: 18,
+    },
+    delete: {
+      color: "#FFFFFF",
+      fontFamily: 'Poppins-Regular',
+      fontSize: 16,
+      textAlign: 'center',
+      marginLeft: 12,
+    },
+    column: {
+      flexDirection: 'column',
+    },
+    row: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 24,
     },
     save: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 80,
+      borderRadius: 8,
+      height: 34,
       backgroundColor: colors.primary,
     },
     saveText: {
       color: colors.background,
+      fontFamily: 'Poppins-Regular',
+      fontSize: 15,
     },
   });
   useEffect(() => {
@@ -229,13 +214,13 @@ const WalletDetails = () => {
           height: 44,
           width: 44,
           borderRadius: 22,
-          backgroundColor: '#0A3263',
+          backgroundColor: colors.card,
         }}
         onPress={() =>
           goBack()
         }
       >
-        <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+        <Icon name="arrow-left" type="feather" size={24} color={colors.foreground} />
       </TouchableOpacity>
       ),
       // headerRight: () => (
@@ -550,8 +535,8 @@ const WalletDetails = () => {
                 ) {
                   return (
                     <>
-                      <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.details_address.toLowerCase()}</Text>
-                      <Text style={[styles.textValue, stylesHook.textValue]}>{wallet.getAddress()}</Text>
+                      <Text style={styles.textLabel1}>{loc.wallets.details_address.toLowerCase()}</Text>
+                      <Text style={styles.textValue}>{wallet.getAddress()}</Text>
                     </>
                   );
                 }
@@ -562,9 +547,9 @@ const WalletDetails = () => {
                   marginBottom: 24,
                 }}
               >
-              <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.add_wallet_name}</Text>
+              <Text style={styles.textLabel1}>{loc.wallets.add_wallet_name}</Text>
               <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
-                <View style={[styles.input, stylesHook.input]}>
+                <View style={styles.input}>
                   <TextInput
                     value={walletName}
                     onChangeText={setWalletName}
@@ -589,8 +574,8 @@ const WalletDetails = () => {
               </View>
               {/* <BlueSpacing20 /> */}
               <View style={{ gap: 12, marginBottom: 24 }}>
-                <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.details_type}</Text>
-                <View style={[styles.input, stylesHook.input]}>
+                <Text style={styles.textLabel1}>{loc.wallets.details_type}</Text>
+                <View style={styles.input}>
                   <Text 
                     style={{
                       color: colors.foregroundInactive,
@@ -603,7 +588,7 @@ const WalletDetails = () => {
               </View>
               {wallet.type === LightningLdkWallet.type && (
                 <>
-                  <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.identity_pubkey}</Text>
+                  <Text style={styles.textLabel2}>{loc.wallets.identity_pubkey}</Text>
                   {lightningWalletInfo?.identityPubkey ? (
                     <>
                       <BlueText>{lightningWalletInfo.identityPubkey}</BlueText>
@@ -615,7 +600,7 @@ const WalletDetails = () => {
               )}
               {wallet.type === MultisigHDWallet.type && (
                 <>
-                  <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.details_multisig_type}</Text>
+                  <Text style={styles.textLabel2}>{loc.wallets.details_multisig_type}</Text>
                   <BlueText>
                     {`${wallet.getM()} / ${wallet.getN()} (${
                       wallet.isNativeSegwit() ? 'native segwit' : wallet.isWrappedSegwit() ? 'wrapped segwit' : 'legacy'
@@ -625,21 +610,21 @@ const WalletDetails = () => {
               )}
               {wallet.type === MultisigHDWallet.type && (
                 <>
-                  <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.multisig.how_many_signatures_can_bluewallet_make}</Text>
+                  <Text style={styles.textLabel2}>{loc.multisig.how_many_signatures_can_bluewallet_make}</Text>
                   <BlueText>{wallet.howManySignaturesCanWeMake()}</BlueText>
                 </>
               )}
 
               {wallet.type === LightningCustodianWallet.type && (
                 <>
-                  <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.details_connected_to}</Text>
+                  <Text style={styles.textLabel1}>{loc.wallets.details_connected_to}</Text>
                   <BlueText>{wallet.getBaseURI()}</BlueText>
                 </>
               )}
 
               {wallet.type === HDAezeedWallet.type && (
                 <>
-                  <Text style={[styles.textLabel1, stylesHook.textLabel1]}>{loc.wallets.identity_pubkey}</Text>
+                  <Text style={styles.textLabel1}>{loc.wallets.identity_pubkey}</Text>
                   <BlueText>{wallet.getIdentityPubkey()}</BlueText>
                 </>
               )}
@@ -649,7 +634,7 @@ const WalletDetails = () => {
                 gap: 12,
                 marginBottom: 24,
               }}>
-                <Text onPress={purgeTransactions} style={[styles.textLabel1, stylesHook.textLabel1]}>
+                <Text onPress={purgeTransactions} style={styles.textLabel1}>
                   {loc.transactions.transactions_count}
                 </Text>
               </View>
@@ -660,7 +645,7 @@ const WalletDetails = () => {
                 gap: 24,
                 borderRadius: 25,
                 marginBottom: 24,
-                backgroundColor: '#0A3263',
+                backgroundColor: colors.card,
               }}>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Text
@@ -675,7 +660,7 @@ const WalletDetails = () => {
                   </Text>
                 {/* <BlueText style={[styles.textValue, stylesHook.textValue]}>{wallet.getTransactions().length}</BlueText> */}
                 {/* <BlueText style={[styles.textLabel1, stylesHook.textLabel1]} onPress={() => setBackdoorBip47Pressed(prevState => prevState + 1)}>{loc.wallets.details_display}</BlueText> */}
-                  <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+                  <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Text
@@ -702,7 +687,7 @@ const WalletDetails = () => {
               </View>
               {backdoorBip47Pressed >= 10 && wallet.allowBIP47() ? (
                 <>
-                  <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.bip47.payment_code}</Text>
+                  <Text style={styles.textLabel2}>{loc.bip47.payment_code}</Text>
                   <View style={styles.hardware}>
                     <BlueText>{loc.bip47.purpose}</BlueText>
                     <Switch value={isBIP47Enabled} onValueChange={setIsBIP47Enabled} />
@@ -714,7 +699,7 @@ const WalletDetails = () => {
                 {wallet.type === WatchOnlyWallet.type && wallet.isHd() && (
                   <>
                     {/* <BlueSpacing10 /> */}
-                    <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.details_advanced.toLowerCase()}</Text>
+                    <Text style={styles.textLabel2}>{loc.wallets.details_advanced.toLowerCase()}</Text>
                     <View style={styles.hardware}>
                       <BlueText>{loc.wallets.details_use_with_hardware_wallet}</BlueText>
                       <Switch value={useWithHardwareWallet} onValueChange={setUseWithHardwareWallet} />
@@ -725,16 +710,16 @@ const WalletDetails = () => {
                   <View style={styles.column}>
                     {wallet.allowMasterFingerprint() && (
                       <View style={styles.row}>
-                        <Text style={[styles.textLabel2, stylesHook.textLabel2]}>
+                        <Text style={styles.textLabel2}>
                           {loc.wallets.details_master_fingerprint}
                         </Text>
-                        <BlueText style={[styles.textValue, stylesHook.textValue]}>{masterFingerprint ?? <ActivityIndicator />}</BlueText>
+                        <BlueText style={styles.textValue}>{masterFingerprint ?? <ActivityIndicator />}</BlueText>
                       </View>
                     )}
                     {derivationPath && (
                       <View style={styles.row}>
-                        <Text style={[styles.textLabel2, stylesHook.textLabel2]}>{loc.wallets.details_derivation_path}</Text>
-                        <BlueText style={[styles.textValue, stylesHook.textValue]} testID="DerivationPath">{derivationPath}</BlueText>
+                        <Text style={styles.textLabel2}>{loc.wallets.details_derivation_path}</Text>
+                        <BlueText style={styles.textValue} testID="DerivationPath">{derivationPath}</BlueText>
                       </View>
                     )}
                   </View>

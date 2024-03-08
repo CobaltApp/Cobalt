@@ -38,7 +38,7 @@ const About = () => {
       backgroundColor: colors.primary,
     },
     cardTitle: {
-      color: '#FFFFFF',
+      color: colors.white,
       fontFamily: 'Poppins',
       fontWeight: '600',
       fontSize: 18,
@@ -50,11 +50,11 @@ const About = () => {
       marginTop: 16,
       paddingVertical: 8,
       borderRadius: 24,
-      backgroundColor: '#051931',
+      backgroundColor: colors.background,
       maxWidth: (width - 80) / 2,
     },
     cardButtonText: {
-      color: '#FFFFFF',
+      color: colors.white,
       fontFamily: 'Poppins',
       fontWeight: '600',
       fontSize: 14,
@@ -75,7 +75,7 @@ const About = () => {
       padding: 16,
       gap: 16,
       borderRadius: 32,
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
     },
     buttonText: {
       color: colors.foreground,

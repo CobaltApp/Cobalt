@@ -88,7 +88,7 @@ const NotificationSettings = () => {
     },
     uri: {
       flexDirection: 'row',
-      backgroundColor: '#0A3263',
+      backgroundColor: colors.card,
       height: 56,
       alignItems: 'center',
       justifyContent: 'flex-start',
@@ -98,7 +98,7 @@ const NotificationSettings = () => {
     },
     uriText: {
       flex: 1,
-      color: '#A6A6A6',
+      color: colors.foregroundInactive,
       fontFamily: 'Poppins',
       fontWeight: '400',
       fontSize: 14,
@@ -135,7 +135,7 @@ const NotificationSettings = () => {
           <Text style={styles.rowText}>
             Push Notifications
           </Text>
-          <Switch value={isNotificationsEnabled} onValueChange={onNotificationsSwitch} trackColor={{false: colors.element, true: colors.primary}} thumbColor={'#030D19'}/>
+          <Switch value={isNotificationsEnabled} onValueChange={onNotificationsSwitch} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
         </View>
         {isNotificationsEnabled ? (
           <View style={{ display: 'flex', flex: 1, gap: 24 }}>
@@ -181,7 +181,7 @@ const NotificationSettings = () => {
           >
             <Text
               style={{
-                color: '#FFFFFF',
+                color: colors.white,
                 fontFamily: 'Poppins',
                 fontWeight: '600',
                 fontSize: 16,
@@ -208,7 +208,7 @@ const NotificationSettings = () => {
           >
             <Text
               style={{
-                color: '#FFFFFF',
+                color: colors.white,
                 fontFamily: 'Poppins',
                 fontWeight: '600',
                 fontSize: 16,

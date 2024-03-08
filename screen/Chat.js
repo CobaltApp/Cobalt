@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { StatusBar, ScrollView, View, TouchableOpacity, Text, TextInput, Image, ImageBackground, StyleSheet } from 'react-native';
 import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/native';
-import { Icon} from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import Obscure from 'react-native-obscure';
+//import { BlurView } from "@react-native-community";
 
 import navigationStyle from '../components/navigationStyle';
 import { BlueLoading, BlueFormInput, BlueButton, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
@@ -16,6 +17,66 @@ const Chat = () => {
   const { navigate } = useNavigation();
   const { colors } = useTheme();
   const [isActive, setActive] = useState(false);
+  const styles = StyleSheet.create({
+    blurOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: ScreenWidth,
+      height: ScreenHeight,
+      //backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    lockedCard: {
+        display: 'flex',
+        alignItems: 'center',
+        marginHorizontal: 24,
+        padding: 24,
+        paddingTop: 160,
+        borderRadius: 25,
+        gap: 16,
+        backgroundColor: colors.card,
+    },
+    row: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 16,
+    },
+    lockedTitle: {
+        color: colors.foreground,
+        fontFamily: 'Poppins',
+        fontWeight: '600',
+        fontSize: 18,
+    },
+    lockedBody: {
+        color: colors.foregroundInactive,
+        fontFamily: 'Poppins',
+        fontWeight: '500',
+        fontSize: 14,
+    },
+    button: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 48,
+        paddingVertical: 16,
+        borderRadius: 40,
+        backgroundColor: colors.button,
+    },
+    buttonText: {
+        color: colors.white,
+        fontFamily: 'Poppins',
+        fontWeight: '600',
+        fontSize: 16,
+    },
+    header: {
+        color: colors.foreground,
+        fontFamily: 'Poppins',
+        fontWeight: '600',
+        fontSize: 32,
+    },
+});
 
   const navigateHome = () => {
     navigate('Home');
@@ -126,89 +187,63 @@ const Chat = () => {
                 left: 0,
                 bottom: 0,
                 right: 0,
-                zIndex: 100
+                zIndex: 100,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)'
             }}
         >
-                <ImageBackground
+                {/* <Image
+                source={require('../img/Rectangle.png')}
                 style={{
                     flex: 1,
+                    position: 'absolute',
                     width: ScreenWidth,
                     height: ScreenHeight,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    zIndex: 100,
+                    //opacity: 0.1,
+                    //backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    //zIndex: 100,
                 }}
-                >
+                /> */}
+                {/* <BlurView 
+                    style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+                    reducedTransparencyFallbackColor="gray"
+                    blurType="light"
+                    blurAmount={20}
+                /> */}
                     <Image
                         style={{
-                            position: 'absolute',
+                            //position: 'absolute',
                             alignSelf: 'center',
                             top: -80,
+                            marginBottom: -250,
                             zIndex: 101,
                         }}
                         source={require('../img/Illustrations/locked.png')}
                     />
-                    <View
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginHorizontal: 24,
-                            padding: 24,
-                            paddingTop: 160,
-                            borderRadius: 25,
-                            gap: 16,
-                            backgroundColor: '#0A3263',
-                        }}
-                    >
-                        <Text
-                            style={{
-                                color: colors.foreground,
-                                fontFamily: 'Poppins',
-                                fontWeight: '600',
-                                fontSize: 18,
-                            }}
-                        >
-                            This feature is locked
-                        </Text>
-                        <Text
-                            style={{
-                                color: '#9395A4',
-                                fontFamily: 'Poppins',
-                                fontWeight: '500',
-                                fontSize: 14,
-                            }}
-                        >
-                        Chat is only available for premium members. Subscribe to our premium membership to live chat with Colby, get discounted rates, and much more!
-                        </Text>
-                        <TouchableOpacity
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                paddingHorizontal: 48,
-                                paddingVertical: 16,
-                                borderRadius: 40,
-                                backgroundColor: colors.primary,
-                            }}
-                        >
-                            <Text
+                    <View style={styles.lockedCard}>
+                        <View style={styles.row}>
+                            <Image
+                                source={require('../img/icons/lock-nobg.png')}
                                 style={{
-                                    color: colors.foreground,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: '600',
-                                    fontSize: 16,
+                                    width: 32,
+                                    height: 32,
                                 }}
-                            >
+                            />
+                            <Text style={styles.lockedTitle}>
+                                This feature is locked
+                            </Text>
+                        </View>
+                        <Text style={styles.lockedBody}>
+                            Chat is only available for premium members. Subscribe to our premium membership to live chat with Colby, get discounted rates, and much more!
+                        </Text>
+                        <TouchableOpacity style={styles.button}>
+                            <Text style={styles.buttonText}>
                                 Try Now
                             </Text>
                         </TouchableOpacity>
-                        
-
                     </View>
-                    </ImageBackground>
-                    </View>
+                </View>
             }
         <View
             style={{
@@ -217,54 +252,11 @@ const Chat = () => {
                 paddingHorizontal: 24,
             }}
         >
-            <View
-                style={{ paddingVertical: 32, backgroundColor: colors.background }}
-            >
-                {/* <Image 
-                    source={require('../img/profile.png')}
-                    style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: colors.background}}
-                /> */}
-                <Text 
-                    style={{
-                        color: colors.foreground,
-                        fontFamily: 'Poppins',
-                        fontWeight: 600,
-                        fontSize: 32,
-                    }}
-                >
+            <View style={{ paddingVertical: 32 }}>
+                <Text style={styles.header}>
                     Chat
                 </Text>
             </View>
-            {/* <View
-                style={{
-                    display: 'flex',
-                    padding: 24,
-                    borderRadius: 25,
-                    backgroundColor: colors.primary,
-                }}
-            >
-                <Text
-                    style={{
-                        width: 180,
-                        color: '#FFFFFF',
-                        fontFamily: 'Poppins',
-                        fontWeight: 600,
-                        fontSize: 18,
-                    }}
-                >
-                    Chat is under construction, check back later
-                </Text>
-                <Image 
-                    source={require('../img/Illustrations/robot-head-19.png')}
-                    style={{
-                        width: 195,
-                        height: 172,
-                        position: 'absolute',
-                        right: -16,
-                        bottom: 16,
-                    }}
-                />
-            </View> */}
         <ScrollView>
             <View
                 style={{
@@ -297,18 +289,6 @@ const Chat = () => {
 //         handleSubmit(e)
 //     }
 // })
-
-const styles = StyleSheet.create({
-    blurOverlay: {
-      ...StyleSheet.absoluteFillObject,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: ScreenWidth,
-      height: ScreenHeight,
-      //backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-});
 
 export default Chat;
 

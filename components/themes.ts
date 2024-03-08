@@ -20,15 +20,6 @@ import { Appearance } from 'react-native';
 // Anti-Flash White #F4F5F6
 // White #FCFCFD
 
-//Crypto Whale
-//Background: '#F4F9FE',
-//Primary: '#0059E7',
-//Secondary: '#E0E4F5',
-//textPrimary: '#FFFFFF',
-//textSecondary: '#5A6274',
-//Green: '#06B966',
-//Red: '#FC3044',
-
 export const BlueDefaultTheme = {
   ...DefaultTheme,
   closeImage: require('../img/close.png'),
@@ -43,17 +34,14 @@ export const BlueDefaultTheme = {
     accent: '#1AEDF7', //Fluorescent Blue
     positive: '#1AF793', //Medium Spring Green
     negative: '#F71A7E', //Electric Pink
-    //Dark Blue: #251AF7
-    //Yellow: #EDF71A
-    background: '#FFFFFF', //Cultured
-    foreground: '#0F0F0F', //Smoky Black
-    foregroundInactive: '#747792', //Quick Silver
-    //foregroundLabel: '#717171', //Dark Silver
-    card: '#0A3263',
-    element: '#F5F5F5', //Cultured
-    //element: '#EDEDED', //Bright Gray
-    //tab: '#DBDBDB', //Gainsboro
+    background: '#F3F5F6',
+    foreground: '#2E2E2E',
+    foregroundInactive: '#A6A6A6',
+    card: '#FFFFFF',
+    element: '#F9F9F9',
+    button: '#030D19',
     white: '#FFFFFF',
+    dark: '#EBEFF1',
     shadow: '#000000',
   },
 };
@@ -69,12 +57,13 @@ export const BlueDarkTheme: Theme = {
   colors: {
     ...BlueDefaultTheme.colors,
     ...DarkTheme.colors,
-    background: '#030D19', //Chinese Black
-    foreground: '#F5F5F5', //Cultured
-    foregroundInactive: '#717171', //Dark Silver
-    //foregroundLabel: '#A6A6A6', //Quick Silver
-    element: '#08264A', //Eerie Black //card
-    //border: '#2E2E2E', //Dark Charcoal
+    background: '#051931',
+    foreground: '#FFFFFF',
+    foregroundInactive: '#CACACA',
+    element: '#08264A',
+    card: '#0A3263',
+    button: '#1A7EF7',
+    dark: '#030D19',
   },
 };
 

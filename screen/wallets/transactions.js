@@ -63,7 +63,7 @@ const WalletTransactions = ({ navigation }) => {
 
   const stylesHook = StyleSheet.create({
     listHeaderText: {
-      color: '#CACACA',
+      color: colors.foregroundInactive,
     },
     browserButton2: {
       backgroundColor: colors.element,
@@ -133,13 +133,13 @@ const WalletTransactions = ({ navigation }) => {
           height: 44,
           width: 44,
           borderRadius: 22,
-          backgroundColor: '#0A3263',
+          backgroundColor: colors.card,
         }}
         onPress={() =>
           navigation.pop()
         }
       >
-        <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
+        <Icon name="arrow-left" type="feather" size={24} color={colors.foreground} />
       </TouchableOpacity>
       ),
     });
@@ -578,7 +578,7 @@ const WalletTransactions = ({ navigation }) => {
                 height: 64,
                 width: 64,
                 borderRadius: 32,
-                backgroundColor: '#0A3263',
+                backgroundColor: colors.card,
               }}
               onLongPress={sendButtonLongPress}
               onPress={sendButtonPress}
@@ -637,7 +637,7 @@ const WalletTransactions = ({ navigation }) => {
               height: 64,
               width: 64,
               borderRadius: 32,
-              backgroundColor: '#0A3263',
+              backgroundColor: colors.card,
             }}
             onPress={() => {
               if (wallet.chain === Chain.OFFCHAIN) {
@@ -780,7 +780,7 @@ WalletTransactions.navigationOptions = navigationStyle({}, (options, { theme, na
           height: 44,
           width: 44,
           borderRadius: 22,
-          backgroundColor: '#0A3263',
+          backgroundColor: colors.card,
         }}
         onPress={() =>
           navigation.navigate('WalletDetails', {
@@ -788,7 +788,7 @@ WalletTransactions.navigationOptions = navigationStyle({}, (options, { theme, na
           })
         }
       >
-        <Icon name="more-horizontal" type="feather" size={24} color={'#FFFFFF'} />
+        <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
       </TouchableOpacity>
     ),
   };
