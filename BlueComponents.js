@@ -465,7 +465,7 @@ export const BlueListItem = React.memo(props => {
           />}
           {props.rightIcon && <Avatar icon={props.rightIcon} />}
           {props.switch && <Switch {...props.switch} accessibilityLabel={props.title} accessible accessibilityRole="switch" 
-            trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}
+            trackColor={{true: colors.primary}} thumbColor={colors.card}
             />}
           {props.checkmark && <ListItem.CheckBox iconType="octaicon" checkedColor="#0070FF" checkedIcon="check" checked />}
         </>

@@ -27,18 +27,12 @@ import { isDesktop, isTablet } from '../../blue_modules/environment';
 import BlueClipboard from '../../blue_modules/clipboard';
 import navigationStyle from '../../components/navigationStyle';
 import { TransactionListItem } from '../../components/TransactionListItem';
-
-import PlusIcon from '../../components/icons/PlusIcon';
-
-import ReceiveDetails from '../receive/details';
-//import LinearGradient from 'react-native-linear-gradient';
+import { defaultStyles } from '../../components/defaultStyles';
 
 const scanqrHelper = require('../../helpers/scan-qr');
 const A = require('../../blue_modules/analytics');
 const fs = require('../../blue_modules/fs');
 const WalletsListSections = { HEADER: 'HEADER', CAROUSEL: 'CAROUSEL', BUTTONS: 'BUTTONS', TRANSACTIONS: 'TRANSACTIONS' };
-
-
 
 const WalletsList = () => {
   const { logoImage } = useTheme();
@@ -61,23 +55,6 @@ const WalletsList = () => {
 
   const { walletID } = useRoute();
   const wallet = useRef(wallets.find(w => w.getID() === walletID)).current;
-
- 
-  
-
-  const stylesHook = StyleSheet.create({
-    walletsListWrapper: {
-      flex: 1,
-    },
-    listHeaderBack: {
-    },
-    listHeaderText: {
-      color: colors.foreground,
-      fontFamily: 'Poppins',
-      fontWeight: '500',
-      fontSize: 20,
-    },
-  });
 
   useFocusEffect(
     useCallback(() => {
@@ -151,14 +128,6 @@ const WalletsList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
 
-  const navigateToNotifications = () => {
-    navigate('Notifications');
-  };
-
-  const navigateToSettings = () => {
-    navigate('Settings');
-  };
-
   /**
    * Forcefully fetches TXs and balance for ALL wallets.
    * Triggered manually by user on pull-to-refresh.
@@ -205,15 +174,15 @@ const WalletsList = () => {
     }
   };
 
-  const renderListHeaderComponent = () => {
-    return (
-      <View style={[styles.listHeaderBack, stylesHook.listHeaderBack]}>
-        <Text textBreakStrategy="simple" style={[styles.listHeaderText, stylesHook.listHeaderText]}>
-          {`${loc.transactions.list_title}${'  '}`}
-        </Text>
-      </View>
-    );
-  };
+  // const renderListHeaderComponent = () => {
+  //   return (
+  //     <View style={[styles.listHeaderBack, stylesHook.listHeaderBack]}>
+  //       <Text textBreakStrategy="simple" style={[styles.listHeaderText, stylesHook.listHeaderText]}>
+  //         {`${loc.transactions.list_title}${'  '}`}
+  //       </Text>
+  //     </View>
+  //   );
+  // };
 
   const handleLongPress = () => {
     if (wallets.length > 1) {
@@ -247,73 +216,73 @@ const WalletsList = () => {
     );
   };
 
-  const renderButtons = () => {
-    const buttonsRef = useRef();
-    return (
-      <View 
-      style={{
-        height: 68,
-        marginTop: 24,
-        justifyContent: 'center',
-        flexDirection: "row",
-      }}
-      >
-    <TouchableOpacity 
-      accessibilityRole="button" 
-      style={{
-        backgroundColor: colors.primary,
-        height: 68,
-        width: 146,
-        borderRadius: 12,
-        paddingLeft: 18,
-        marginEnd: 14,
-        flexDirection: 'row',
-        alignItems: 'center',
-        overflow: 'hidden',
-      }}
-      onPress={onScanButtonPressed}
-      onLongPress={sendButtonLongPress}
-      >
-      <Icon name="arrow-up-circle" type="feather" size={32} color={colors.background} />
-      <Text style={{
-        color: colors.background,
-        fontSize: 16,
-        fontWeight: '600',
-        marginLeft: 18,
-        }}
-      >
-        Send
-      </Text>
-    </TouchableOpacity>
-    <TouchableOpacity 
-      accessibilityRole="button" 
-      style={{
-        backgroundColor: colors.secondary,
-        height: 68,
-        width: 146,
-        borderRadius: 12,
-        paddingLeft: 18,
-        flexDirection: 'row',
-        alignItems: 'center',
-        //justifyContent: 'center',
-        overflow: 'hidden',
-      }}
-      onPress={onReceiveButtonPressed}
-      >
-      <Icon name="arrow-down-circle" type="feather" size={32} color={colors.background} />
-      <Text style={{
-        color: colors.background,
-        fontSize: 16,
-        fontWeight: '600',
-        marginLeft: 18,
-        }}
-      >
-        Receive
-      </Text>
-      </TouchableOpacity>
-      </View>
-    );
-  };
+  // const renderButtons = () => {
+  //   const buttonsRef = useRef();
+  //   return (
+  //     <View 
+  //     style={{
+  //       height: 68,
+  //       marginTop: 24,
+  //       justifyContent: 'center',
+  //       flexDirection: "row",
+  //     }}
+  //     >
+  //   <TouchableOpacity 
+  //     accessibilityRole="button" 
+  //     style={{
+  //       backgroundColor: colors.primary,
+  //       height: 68,
+  //       width: 146,
+  //       borderRadius: 12,
+  //       paddingLeft: 18,
+  //       marginEnd: 14,
+  //       flexDirection: 'row',
+  //       alignItems: 'center',
+  //       overflow: 'hidden',
+  //     }}
+  //     onPress={onScanButtonPressed}
+  //     onLongPress={sendButtonLongPress}
+  //     >
+  //     <Icon name="arrow-up-circle" type="feather" size={32} color={colors.background} />
+  //     <Text style={{
+  //       color: colors.background,
+  //       fontSize: 16,
+  //       fontWeight: '600',
+  //       marginLeft: 18,
+  //       }}
+  //     >
+  //       Send
+  //     </Text>
+  //   </TouchableOpacity>
+  //   <TouchableOpacity 
+  //     accessibilityRole="button" 
+  //     style={{
+  //       backgroundColor: colors.secondary,
+  //       height: 68,
+  //       width: 146,
+  //       borderRadius: 12,
+  //       paddingLeft: 18,
+  //       flexDirection: 'row',
+  //       alignItems: 'center',
+  //       //justifyContent: 'center',
+  //       overflow: 'hidden',
+  //     }}
+  //     onPress={onReceiveButtonPressed}
+  //     >
+  //     <Icon name="arrow-down-circle" type="feather" size={32} color={colors.background} />
+  //     <Text style={{
+  //       color: colors.background,
+  //       fontSize: 16,
+  //       fontWeight: '600',
+  //       marginLeft: 18,
+  //       }}
+  //     >
+  //       Receive
+  //     </Text>
+  //     </TouchableOpacity>
+  //     </View>
+  //   );
+  // };
 
   const renderSectionItem = item => {
     switch (item.section.key) {
@@ -325,103 +294,6 @@ const WalletsList = () => {
         return renderButtons();
       case WalletsListSections.TRANSACTIONS:
         return renderTransactionListsRow(item);
-      default:
-        return null;
-    }
-  };
-
-  const renderSectionHeader = section => {
-    switch (section.section.key) {
-      case WalletsListSections.HEADER:
-        return isLargeScreen ? null : (
-          <View
-            style={{
-              //backgroundColor: colors.primary,
-              //borderWidth: 0,
-              //borderBottomRightRadius: 40,
-              //borderBottomLeftRadius: 40,
-              paddingTop: 24,
-              paddingBottom: 36,
-            }}
-          >
-            {/* <Image 
-              source={require('../../img/logodark-2048x1024.png')} 
-              style={{
-                width: 2048,
-                height: 1024,
-                position: 'absolute',
-                bottom: -170,
-                left: 10,
-                opacity: 0.25,
-              }} 
-            /> */}
-            <View 
-              style={{
-                flexDirection: 'row',
-                marginLeft: 24, 
-                marginBottom: 0,
-              }}
-            >
-              <Image
-                source={require('../../img/icons/profile_picture.png')}
-                style={{ width: 52, height: 52, borderRadius: 20, backgroundColor: colors.secondary}}
-              />
-              <Text
-                style={{
-                  marginTop: 15,
-                  marginLeft: 10,
-                  color: colors.foreground,
-                  fontSize: 18,
-                  fontWeight: '700',
-                  writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-                }}
-              > </Text>
-              {/* <TouchableOpacity
-                accessibilityRole="button"
-                accessibilityLabel={loc._.more}
-                testID="SettingsButton"
-                style={{
-                  position: 'absolute',
-                  right: 20,
-                  marginRight: 20,
-                  height: 40,
-                  width: 40,
-                  backgroundColor: "#6694FF",
-                  borderRadius: 15,
-                }}
-                onPress={navigateToNotifications}
-              >
-                <Icon size={22} name="bell" type="feather" color={"#C0C9EA"} style={{marginTop: 8}}/>
-              </TouchableOpacity> */}
-            </View>
-            {/* <Text
-              style={{
-                color: colors.background,
-                fontSize: 24,
-                fontWeight: '400',
-                marginHorizontal: 48,
-                writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-              }}
-            >Total Balance</Text>
-            <Text
-              style={{
-                color: colors.background,
-                fontSize: 32,
-                fontWeight: '700',
-                marginHorizontal: 48,
-                writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-              }}
-            >$2,385.60</Text> */}
-          </View>
-        );
-      case WalletsListSections.CAROUSEL:
-        //return null;
-        return <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
-        isLargeScreen ? null : (
-          <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} />
-        );
-      case WalletsListSections.TRANSACTIONS:
-        return renderListHeaderComponent();
       default:
         return null;
     }
@@ -451,7 +323,6 @@ const WalletsList = () => {
                   
                 }}
               >{loc.wallets.list_empty_txs1}</Text>
-              {/* <Text style={styles.footerStart}>{loc.wallets.list_empty_txs2}</Text> */}
             </View>
           );
         } else {
@@ -462,32 +333,32 @@ const WalletsList = () => {
     }
   };
 
-  const renderScanButton = () => {
-    if (wallets.length > 0) {
-      return (
-        <TouchableOpacity
-                  style={{
-                    display: 'flex',
-                    position: 'absolute',
-                    alignSelf: 'center',
-                    bottom: 100,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: 64,
-                    width: 64,
-                    borderRadius: 32,
-                    backgroundColor: colors.primary,
-                  }}
-                  onPress={onScanButtonPressed}
-                  onLongPress={sendButtonLongPress}
-                >
-                  <Icon name="grid" type="feather" size={32} color={colors.white} />
-                </TouchableOpacity>
-      );
-    } else {
-      return null;
-    }
-  };
+  // const renderScanButton = () => {
+  //   if (wallets.length > 0) {
+  //     return (
+  //       <TouchableOpacity
+  //                 style={{
+  //                   display: 'flex',
+  //                   position: 'absolute',
+  //                   alignSelf: 'center',
+  //                   bottom: 100,
+  //                   alignItems: 'center',
+  //                   justifyContent: 'center',
+  //                   height: 64,
+  //                   width: 64,
+  //                   borderRadius: 32,
+  //                   backgroundColor: colors.primary,
+  //                 }}
+  //                 onPress={onScanButtonPressed}
+  //                 onLongPress={sendButtonLongPress}
+  //               >
+  //                 <Icon name="grid" type="feather" size={32} color={colors.white} />
+  //               </TouchableOpacity>
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // };
 
   const sectionListKeyExtractor = (item, index) => {
     return `${item}${index}}`;
@@ -595,10 +466,6 @@ const WalletsList = () => {
       style={{
         flex: 1, 
         paddingTop: 20,
-        //paddingVertical: 68,
-        // paddingLeft: 32,
-        // paddingRight: 16,
-        //marginLeft: 32,
       }}
     >
       {/* <StatusBar barStyle={barStyle} backgroundColor="transparent" translucent animated /> */}
@@ -611,40 +478,16 @@ const WalletsList = () => {
           paddingBottom: 16,
         }}
       >
-        {/* <Icon
-          color={colors.foreground}
-          name="grid"
-          type="feather"
-          width={24}
-          height={24}
-        /> */}
-        {/* <PlusIcon
-          accessibilityRole="button"
-          accessibilityLabel={loc.wallets.add_title}
-          onPress={handleClick}
-          Component={TouchableOpacity}
-        /> */}
-        <Text
-          style={{
-            color: colors.foreground,
-            fontFamily: 'Poppins-SemiBold',
-            fontSize: 32,
-          }}
-        >
+        <Text style={defaultStyles.h1}>
           Home
         </Text>
       </View>
       <View style={{ gap: 16, marginBottom: 24 }}>
-      <Text
-        style={{
-          color: colors.foreground,
-          fontFamily: 'Poppins',
-          fontSize: 20,
-          marginLeft: 24,
-        }}
-      >
-        Wallets
-      </Text>
+        <View style={{ marginLeft: 24 }}>
+          <Text style={defaultStyles.h2}>
+            Wallets
+          </Text>
+        </View>
         {/* <BlueHeaderDefaultMain leftText={loc.wallets.list_title} onNewWalletPress={() => navigate('AddWalletRoot')} /> */}
         <WalletsCarousel
           data={wallets.concat(false)}
@@ -668,7 +511,7 @@ const WalletsList = () => {
           backgroundColor: colors.element,
         }}
       >
-        <Text style={stylesHook.listHeaderText}>
+        <Text style={defaultStyles.h2}>
           {`${loc.transactions.list_title}${''}`}
         </Text>
         <SectionList
@@ -719,31 +562,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     //marginHorizontal: 16,
   },
-  listHeaderText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    fontWeight: '500',
-    fontSize: 20,
-    //marginTop: 44,
-  },
   footerRoot: {
     //top: 80,
     //height: 100,
     //marginTop: 16,
     //marginBottom: 80,
     alignItems: "center",
-  },
-  footerEmpty: {
-    fontSize: 18,
-    color: '#9aa0aa',
-    textAlign: 'center',
-  },
-  footerStart: {
-    fontSize: 18,
-    color: '#9aa0aa',
-    textAlign: 'center',
-    fontWeight: '600',
   },
   transaction: {
     marginHorizontal: 0,

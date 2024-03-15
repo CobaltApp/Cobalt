@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { ScrollView, TouchableWithoutFeedback, I18nManager, StyleSheet, Switch, Linking, View, Text, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
@@ -11,8 +11,11 @@ import Notifications from '../../blue_modules/notifications';
 import alert from '../../components/Alert';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
+import { defaultStyles } from '../../components/defaultStyles';
+import { BlueStorageContext } from '../../blue_modules/storage-context';
 
 const NotificationSettings = () => {
+  const { isAdvancedModeEnabled } = useContext(BlueStorageContext);
   const [isLoading, setIsLoading] = useState(true);
   const [isNotificationsEnabled, setNotificationsEnabled] = useState(false);
   const [isShowTokenInfo, setShowTokenInfo] = useState(0);
@@ -132,12 +135,12 @@ const NotificationSettings = () => {
     <View style={styles.root}>
       <View style={styles.modal}>
         <View style={styles.row}>
-          <Text style={styles.rowText}>
+          <Text style={defaultStyles.h4}>
             Push Notifications
           </Text>
           <Switch value={isNotificationsEnabled} onValueChange={onNotificationsSwitch} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
         </View>
-        {isNotificationsEnabled ? (
+        {isNotificationsEnabled && isAdvancedModeEnabled && (
           <View style={{ display: 'flex', flex: 1, gap: 24 }}>
             <Text
               style={{
@@ -218,8 +221,6 @@ const NotificationSettings = () => {
             </Text>
           </TouchableOpacity>
           </View>
-          ) : (
-          null
         )}
 
       {/* <BlueCard>

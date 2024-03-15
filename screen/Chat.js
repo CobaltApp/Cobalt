@@ -11,6 +11,7 @@ import loc from '../loc';
 import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
 //import { TextInput } from 'react-native-gesture-handler';
 const prompt = require('../helpers/prompt');
+import { defaultStyles } from '../components/defaultStyles';
 
 const Chat = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,12 +44,6 @@ const Chat = () => {
         alignItems: 'center',
         gap: 16,
     },
-    lockedTitle: {
-        color: colors.foreground,
-        fontFamily: 'Poppins',
-        fontWeight: '600',
-        fontSize: 18,
-    },
     lockedBody: {
         color: colors.foregroundInactive,
         fontFamily: 'Poppins',
@@ -69,12 +64,6 @@ const Chat = () => {
         fontFamily: 'Poppins',
         fontWeight: '600',
         fontSize: 16,
-    },
-    header: {
-        color: colors.foreground,
-        fontFamily: 'Poppins',
-        fontWeight: '600',
-        fontSize: 32,
     },
 });
 
@@ -223,14 +212,8 @@ const Chat = () => {
                     />
                     <View style={styles.lockedCard}>
                         <View style={styles.row}>
-                            <Image
-                                source={require('../img/icons/lock-nobg.png')}
-                                style={{
-                                    width: 32,
-                                    height: 32,
-                                }}
-                            />
-                            <Text style={styles.lockedTitle}>
+                            <Icon name="lock" type="feather" size={32} colors={colors.foreground}/>
+                            <Text style={defaultStyles.h3}>
                                 This feature is locked
                             </Text>
                         </View>
@@ -253,7 +236,7 @@ const Chat = () => {
             }}
         >
             <View style={{ paddingVertical: 32 }}>
-                <Text style={styles.header}>
+                <Text style={defaultStyles.h1}>
                     Chat
                 </Text>
             </View>

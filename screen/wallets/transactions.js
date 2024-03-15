@@ -36,6 +36,7 @@ import { TransactionListItem } from '../../components/TransactionListItem';
 import alert from '../../components/Alert';
 import PropTypes from 'prop-types';
 import { Button } from 'react-native-elements';
+import { defaultStyles } from '../../components/defaultStyles';
 
 const fs = require('../../blue_modules/fs');
 const BlueElectrum = require('../../blue_modules/BlueElectrum');
@@ -101,10 +102,10 @@ const WalletTransactions = ({ navigation }) => {
     };
   }, []);
 
-  useEffect(() => {
-    setOptions({ headerTitle: wallet.getLabel() });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [walletTransactionUpdateStatus]);
+  // useEffect(() => {
+  //   setOptions({ headerTitle: wallet.getLabel() });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [walletTransactionUpdateStatus]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -116,34 +117,28 @@ const WalletTransactions = ({ navigation }) => {
     setSelectedWallet(wallet.getID());
     setDataSource(wallet.getTransactions(15));
     setOptions({
-      headerStyle: {
-        backgroundColor: colors.background,
-      },
-      headerTitleStyle: {
-        fontFamily: 'Poppins',
-        fontWeight: '500',
-        fontSize: 18,
-        color: colors.foreground,
-      },
-      headerLeft: () => (
+      headerTitle: wallet.getLabel(),
+      headerRight: () => (
         <TouchableOpacity
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: 44,
-          width: 44,
-          borderRadius: 22,
-          backgroundColor: colors.card,
-        }}
-        onPress={() =>
-          navigation.pop()
-        }
-      >
-        <Icon name="arrow-left" type="feather" size={24} color={colors.foreground} />
-      </TouchableOpacity>
+          accessibilityRole="button"
+          testID="WalletDetails"
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 44,
+            width: 44,
+            borderRadius: 22,
+            backgroundColor: colors.card,
+          }}
+          onPress={() =>
+            navigate('WalletDetails', { walletID: walletID })
+          }
+        >
+          <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
+        </TouchableOpacity>
       ),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletID]);
 
   useEffect(() => {
@@ -282,14 +277,7 @@ const WalletTransactions = ({ navigation }) => {
             justifyContent: 'space-between',
           }}
         >
-          <Text 
-            style={{
-              color: colors.foreground,
-              fontFamily: 'Poppins',
-              fontWeight: '500',
-              fontSize: 20,
-            }}
-          >
+          <Text style={defaultStyles.h2}>
             {loc.transactions.list_title}
           </Text>
           <TouchableOpacity
@@ -345,23 +333,21 @@ const WalletTransactions = ({ navigation }) => {
           return alert(Err.message);
         }
       }
-      navigate('SendDetailsRoot', {
-        screen: 'SendDetails',
-        params: {
+      navigate('SendDetails',
+        {
           memo: loc.lnd.refill_lnd_balance,
           address: toAddress,
           walletID: selectedWallet.getID(),
         },
-      });
+      );
     }
   };
   const navigateToSendScreen = () => {
-    navigate('SendDetailsRoot', {
-      screen: 'SendDetails',
-      params: {
+    navigate('SendDetails',
+      {
         walletID: wallet.getID(),
       },
-    });
+    );
   };
 
   const renderItem = item => (
@@ -376,7 +362,7 @@ const WalletTransactions = ({ navigation }) => {
         uri: ret.data ? ret.data : ret,
       };
       if (wallet.chain === Chain.ONCHAIN) {
-        navigate('SendDetailsRoot', { screen: 'SendDetails', params });
+        navigate('SendDetails', params);
       } else {
         navigate('ScanLndInvoiceRoot', { screen: 'ScanLndInvoice', params });
       }
@@ -504,12 +490,7 @@ const WalletTransactions = ({ navigation }) => {
       }
     } else if (id === actionKeys.RefillWithExternalWallet) {
       if (wallet.getUserHasSavedExport()) {
-        navigate('ReceiveDetailsRoot', {
-          screen: 'ReceiveDetails',
-          params: {
-            walletID: wallet.getID(),
-          },
-        });
+        navigate('ReceiveDetailsRoot', { walletID: wallet.getID() });
       }
     }
   };
@@ -643,7 +624,7 @@ const WalletTransactions = ({ navigation }) => {
               if (wallet.chain === Chain.OFFCHAIN) {
                 navigate('LNDCreateInvoiceRoot', { screen: 'LNDCreateInvoice', params: { walletID: wallet.getID() } });
               } else {
-                navigate('ReceiveDetailsRoot', { screen: 'ReceiveDetails', params: { walletID: wallet.getID() } });
+                navigate('ReceiveDetailsRoot', { walletID: wallet.getID() } );
               }
             }}
           >
@@ -767,32 +748,30 @@ const WalletTransactions = ({ navigation }) => {
 
 export default WalletTransactions;
 
-WalletTransactions.navigationOptions = navigationStyle({}, (options, { theme, navigation, route }) => {
-  return {
-    headerRight: () => (
-      <TouchableOpacity
-        accessibilityRole="button"
-        testID="WalletDetails"
-        disabled={route.params.isLoading === true}
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: 44,
-          width: 44,
-          borderRadius: 22,
-          backgroundColor: colors.card,
-        }}
-        onPress={() =>
-          navigation.navigate('WalletDetails', {
-            walletID: route.params.walletID,
-          })
-        }
-      >
-        <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
-      </TouchableOpacity>
-    ),
-  };
-});
+WalletTransactions.navigationOptions = navigationStyle({}, opts => ({ ...opts }));
+// navigationStyle({}, (options, { theme, navigation, route }) => {
+//   return {
+//     // headerRight: () => (
+//     //   <TouchableOpacity
+//     //     accessibilityRole="button"
+//     //     testID="WalletDetails"
+//     //     style={{
+//     //       justifyContent: 'center',
+//     //       alignItems: 'center',
+//     //       height: 44,
+//     //       width: 44,
+//     //       borderRadius: 22,
+//     //       backgroundColor: colors.card,
+//     //     }}
+//     //     onPress={() =>
+//     //       navigation.navigate('WalletDetails', { walletID: route.params.walletID })
+//     //     }
+//     //   >
+//     //     <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
+//     //   </TouchableOpacity>
+//     // ),
+//   };
+// });
 
 WalletTransactions.propTypes = {
   navigation: PropTypes.shape(),

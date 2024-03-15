@@ -26,7 +26,7 @@ import {
   BlueButtonLink,
   BlueSpacing20,
 } from '../../BlueComponents';
-import navigationStyleTx from '../../components/navigationStyle';
+import navigationStyle from '../../components/navigationStyle';
 import { HDSegwitBech32Wallet, SegwitP2SHWallet, HDSegwitP2SHWallet, LightningCustodianWallet, LightningLdkWallet } from '../../class';
 import { Icon, colors } from 'react-native-elements';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -38,6 +38,7 @@ import { LdkButton } from '../../components/LdkButton';
 import alert from '../../components/Alert';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
+import { defaultStyles } from '../../components/defaultStyles';
 const BlueApp = require('../../BlueApp');
 const AppStorage = BlueApp.AppStorage;
 const A = require('../../blue_modules/analytics');
@@ -49,12 +50,49 @@ const ButtonSelected = Object.freeze({
   LDK: 'LDK',
 });
 
+const types = [
+  {
+    icon: require('../../img/coins/bitcoin.png'),
+    name: 'Bitcoin',
+    desc: 'Simple and powerful',
+  },
+  {
+    icon: require('../../img/coins/lightning.png'),
+    name: 'Lightning',
+    desc: 'Instant transactions',
+  },
+  {
+    icon: require('../../img/coins/vault.png'),
+    name: 'Vault',
+    desc: 'Secure for larger sums',
+  },
+];
+
+const options = [
+  {
+    icon: require('../../img/icons/value.png'),
+    name: 'HD SegWit (Bech32 Native)',
+    desc: 'Streamlined, secure transactions',
+  },
+  {
+    icon: require('../../img/coins/vault.png'),
+    name: 'HD SegWit (P2SH)',
+    desc: 'Enhanced security',
+  },
+  {
+    icon: require('../../img/icons/calculator.png'),
+    name: 'SegWit',
+    desc: 'Efficient and secure',
+  },
+];
+
 const WalletsAdd = () => {
   const { colors } = useTheme();
   const { addWallet, saveToDisk, isAdvancedModeEnabled, wallets } = useContext(BlueStorageContext);
   const [isLoading, setIsLoading] = useState(true);
   const [walletBaseURI, setWalletBaseURI] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(0);
   const [label, setLabel] = useState('');
   const [advancedMode, setadvancedMode] = useState(false);
   const [selectedWalletType, setSelectedWalletType] = useState(false);
@@ -135,9 +173,8 @@ const WalletsAdd = () => {
       minWidth: 83,
       paddingVertical: 10,
       paddingHorizontal: 16,
-      gap: 8,
       borderRadius: 40,
-      backgroundColor: colors.primary,
+      backgroundColor: colors.button,
     },
     buttonText: {
       color: colors.white,
@@ -148,12 +185,9 @@ const WalletsAdd = () => {
     modal: {
       display: 'flex',
       flex: 1,
-      minHeight: ScreenHeight - 148,
-      alignSelf: 'stretch',
       marginTop: 32,
       paddingVertical: 32,
       paddingHorizontal: 24,
-      gap: 24,
       borderRadius: 40,
       backgroundColor: colors.element,
     },
@@ -325,45 +359,55 @@ const WalletsAdd = () => {
     });
   };
 
-  const navigateToEntropy = () => {
-    navigate('ProvideEntropy', { onGenerated: entropyGenerated });
-  };
+  // const navigateToEntropy = () => {
+  //   navigate('ProvideEntropy', { onGenerated: entropyGenerated });
+  // };
 
   const navigateToImportWallet = () => {
     navigate('ImportWallet');
   };
 
-  const handleOnVaultButtonPressed = () => {
+  const selectType = index => {
     Keyboard.dismiss();
-    setSelectedWalletType(ButtonSelected.VAULT);
-  };
+    setSelectedIndex(index)
+    switch (index) {
+      case 0: {
+        setSelectedWalletType(ButtonSelected.ONCHAIN);
+        break;
+      }
+      case 1: {
+        setBackdoorPressed(prevState => {
+          return prevState + 1;
+        });
+        setSelectedWalletType(ButtonSelected.OFFCHAIN);
+        break;
+      }
+      case 2: {
+        setSelectedWalletType(ButtonSelected.VAULT);
+        break;
+      }
+      case 3: {
+        setSelectedWalletType(ButtonSelected.LDK);
+        break;
+      }
+      default:
+        break;
+    }
 
-  const handleOnBitcoinButtonPressed = () => {
-    Keyboard.dismiss();
-    setSelectedWalletType(ButtonSelected.ONCHAIN);
-  };
-
-  const handleOnLightningButtonPressed = () => {
-    setBackdoorPressed(prevState => {
-      return prevState + 1;
-    });
-    Keyboard.dismiss();
-    setSelectedWalletType(ButtonSelected.OFFCHAIN);
-  };
-
-  const handleOnLdkButtonPressed = async () => {
-    Keyboard.dismiss();
-    setSelectedWalletType(ButtonSelected.LDK);
   };
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={styles.modal}>
-      {/* <StatusBar
-        barStyle={Platform.select({ ios: 'light-content', default: useColorScheme() === 'dark' ? 'light-content' : 'dark-content' })}
-      /> */}
+        <View 
+          style={{
+            display: 'flex',
+            flex: 1,
+            gap: 24,
+            marginBottom: 24,
+          }}
+        >
       {/* <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? 'padding' : null} keyboardVerticalOffset={62}> */}
-        {/* <BlueFormLabel>{loc.wallets.add_wallet_name}</BlueFormLabel> */}
         <View style={styles.headerContainer}>
           <Icon name="type" type="feather" size={24} color={colors.foreground}/>
           <Text style={styles.header}>
@@ -388,106 +432,71 @@ const WalletsAdd = () => {
             Type
           </Text>
         </View>
-        {/* <BlueFormLabel>{loc.wallets.add_wallet_type}</BlueFormLabel> */}
         <View style={styles.buttons}>
-          <View style={styles.row}>
-            <View style={styles.titleContainer}>
-            <Image
-              style={{ width: 32, height: 32 }}
-              source={require('../../img/coins/bitcoin.png')}
-            />
-            <View>
-              <Text style={styles.title}>
-                Bitcoin
-              </Text>
-              <Text style={styles.subtitle}>
-                Simple and powerful
-              </Text>
-            </View>
-            </View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleOnBitcoinButtonPressed}
-            >
+          {types.map((x, index) => index ? (
+          <View style={{ gap: 16}}>
+            <View style={defaultStyles.divider}/>
+            <View style={styles.row}>
+              <View style={styles.titleContainer}>
+              <Image
+                style={{ width: 32, height: 32 }}
+                source={x.icon}
+              />
               <View>
-              {selectedWalletType === ButtonSelected.ONCHAIN ? ( 
-                <Icon name="check" type="feather" size={12} color={colors.white}/>
-              ): (null)}
+                <Text style={styles.title}>
+                  {x.name}
+                </Text>
+                <Text style={styles.subtitle}>
+                  {x.desc}
+                </Text>
               </View>
-              <Text style={styles.buttonText}>
-                {selectedWalletType === ButtonSelected.ONCHAIN ? 'Selected' : 'Select'}
-              </Text>
-            </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => selectType(index)}
+              >
+                <View>
+                {selectedIndex == index ? ( 
+                  <Icon name="check" type="feather" size={12} color={colors.white} style={{marginRight: 8}}/>
+                ): (null)}
+                </View>
+                <Text style={styles.buttonText}>
+                  {selectedIndex == index ? 'Selected' : 'Select'}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
-          <View style={styles.row}>
-            <View style={styles.titleContainer}>
-            <Image
-              style={{ width: 32, height: 32 }}
-              source={require('../../img/coins/lightning.png')}
-            />
-            <View>
-              <Text style={styles.title}>
-                Lightning
-              </Text>
-              <Text style={styles.subtitle}>
-                Instant transactions
-              </Text>
-            </View>
-            </View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleOnLightningButtonPressed}
-            >
+          ) : (
+            <View style={styles.row}>
+              <View style={styles.titleContainer}>
+              <Image
+                style={{ width: 32, height: 32 }}
+                source={x.icon}
+              />
               <View>
-              {selectedWalletType === ButtonSelected.OFFCHAIN ? ( 
-                <Icon name="check" type="feather" size={12} color={colors.white}/>
-              ): (null)}
+                <Text style={styles.title}>
+                  {x.name}
+                </Text>
+                <Text style={styles.subtitle}>
+                  {x.desc}
+                </Text>
               </View>
-              <Text style={styles.buttonText}>
-                {selectedWalletType === ButtonSelected.OFFCHAIN ? 'Selected' : 'Select'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
-          <View style={styles.row}>
-            <View style={styles.titleContainer}>
-            <Image
-              style={{ width: 32, height: 32 }}
-              source={require('../../img/coins/vault.png')}
-            />
-            <View>
-              <Text style={styles.title}>
-                Vault
-              </Text>
-              <Text style={styles.subtitle}>
-                Secure for larger sums
-              </Text>
-            </View>
-            </View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleOnVaultButtonPressed}
-            >
-              <View>
-              {selectedWalletType === ButtonSelected.VAULT ? ( 
-                <Icon name="check" type="feather" size={12} color={colors.white}/>
-              ): (null)}
               </View>
-              <Text style={styles.buttonText}>
-                {selectedWalletType === ButtonSelected.VAULT ? 'Selected' : 'Select'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          {backdoorPressed > 100 ? (
-            <LdkButton
-              active={selectedWalletType === ButtonSelected.LDK}
-              onPress={handleOnLdkButtonPressed}
-              style={styles.button}
-              subtext={LightningLdkWallet.getPackageVersion()}
-              text="LDK"
-            />
-          ) : null}
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => selectType(index)}
+              >
+                <View>
+                {selectedIndex == index ? ( 
+                  <Icon name="check" type="feather" size={12} color={colors.white} style={{marginRight: 8}}/>
+                ): (null)}
+                </View>
+                <Text style={styles.buttonText}>
+                  {selectedIndex == index ? 'Selected' : 'Select'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
         {selectedWalletType != ButtonSelected.VAULT && advancedMode ? (
         <View>
@@ -498,60 +507,47 @@ const WalletsAdd = () => {
             </Text>
           </View>
           {selectedWalletType === ButtonSelected.ONCHAIN ? (
-          <View style={[styles.buttons, { marginBottom: 66 }]}>
+          <View style={styles.buttons}>
+            {options.map((x, index) => index ? (
+            <View style={{ gap: 16}}>
+              <View style={defaultStyles.divider}/>
+              <View style={styles.row}>
+                <View style={styles.titleContainer}>
+                <Image
+                  style={{ width: 32, height: 32 }}
+                  source={x.icon}
+                />
+                <View>
+                  <Text style={styles.title}>
+                    {x.name}
+                  </Text>
+                  <Text style={styles.subtitle}>
+                    {x.desc}
+                  </Text>
+                </View>
+                </View>
+                <Switch value={selectedOption === index} onValueChange={() => setSelectedOption(index)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
+              </View>
+            </View>
+            ) : (
             <View style={styles.row}>
-            <View style={styles.titleContainer}>
-            <Image
-              style={{ width: 32, height: 32 }}
-              source={require('../../img/coins/bitcoin.png')}
-            />
-            <View>
-              <Text style={styles.title}>
-                HD SegWit (Bech32 Native)
-              </Text>
-              <Text style={styles.subtitle}>
-                Streamlined, secure transactions
-              </Text>
+                <View style={styles.titleContainer}>
+                <Image
+                  style={{ width: 32, height: 32 }}
+                  source={x.icon}
+                />
+                <View>
+                  <Text style={styles.title}>
+                    {x.name}
+                  </Text>
+                  <Text style={styles.subtitle}>
+                    {x.desc}
+                  </Text>
+                </View>
+                </View>
+                <Switch value={selectedOption === index} onValueChange={() => setSelectedOption(index)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
             </View>
-            </View>
-            <Switch value={selectedIndex === 0} onValueChange={() => setSelectedIndex(0)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
-          </View>
-          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
-          <View style={styles.row}>
-            <View style={styles.titleContainer}>
-            <Image
-              style={{ width: 32, height: 32 }}
-              source={require('../../img/coins/lightning.png')}
-            />
-            <View>
-              <Text style={styles.title}>
-                HD SegWit (P2SH)
-              </Text>
-              <Text style={styles.subtitle}>
-                Enhanced security
-              </Text>
-            </View>
-            </View>
-            <Switch value={selectedIndex === 1} onValueChange={() => setSelectedIndex(1)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
-          </View>
-          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
-          <View style={styles.row}>
-            <View style={styles.titleContainer}>
-            <Image
-              style={{ width: 32, height: 32 }}
-              source={require('../../img/coins/vault.png')}
-            />
-            <View>
-              <Text style={styles.title}>
-                SegWit
-              </Text>
-              <Text style={styles.subtitle}>
-                Efficient and secure
-              </Text>
-            </View>
-            </View>
-            <Switch value={selectedIndex === 2} onValueChange={() => setSelectedIndex(2)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
-          </View>
+          ))}
         </View>
             ) : (
               <View style={styles.input}>
@@ -577,28 +573,15 @@ const WalletsAdd = () => {
           {/* {advancedMode && selectedWalletType === ButtonSelected.ONCHAIN && !isLoading && (
             <BlueButtonLink style={styles.import} title={entropyButtonText} onPress={navigateToEntropy} />
           )} */}
-        <View style={{ position: 'absolute', bottom: 48, width: ScreenWidth, gap: 16, paddingHorizontal: 24,}}>
+        </View>
+        <View style={{ gap: 16 }}>
             {!isLoading ? (
               <TouchableOpacity
                 testID="Create"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: 16,
-                  borderRadius: 30,
-                  backgroundColor: colors.primary,
-                }}
+                style={defaultStyles.btn}
                 onPress={createWallet}
               >
-                <Text
-                  style={{
-                    color: colors.white,
-                    fontFamily: 'Poppins',
-                    fontWeight: 600,
-                    fontSize: 16,
-
-                  }}
-                >
+                <Text style={defaultStyles.btnText}>
                   Create
                 </Text>
               </TouchableOpacity>
@@ -608,24 +591,10 @@ const WalletsAdd = () => {
           {!isLoading && (
             <TouchableOpacity
               testID="ImportWallet"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: 16,
-                  borderRadius: 30,
-                  backgroundColor: '#0B376C',
-                }}
+                style={defaultStyles.btnSecondary}
                 onPress={navigateToImportWallet}
               >
-                <Text
-                  style={{
-                    color: colors.primary,
-                    fontFamily: 'Poppins',
-                    fontWeight: 600,
-                    fontSize: 16,
-
-                  }}
-                >
+                <Text style={defaultStyles.btnSecondaryText}>
                   Import Wallet
                 </Text>
               </TouchableOpacity>
@@ -637,13 +606,6 @@ const WalletsAdd = () => {
   );
 };
 
-WalletsAdd.navigationOptions = navigationStyleTx(
-  {
-    headerStyle: {
-      backgroundColor: colors.background,
-    },
-  },
-  opts => ({ ...opts, title: loc.wallets.add_title }),
-);
+WalletsAdd.navigationOptions = navigationStyle({}, opts => ({ ...opts, title: loc.wallets.add_title }));
 
 export default WalletsAdd;

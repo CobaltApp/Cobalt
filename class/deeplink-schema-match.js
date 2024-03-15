@@ -52,23 +52,16 @@ class DeeplinkSchemaMatch {
         if (wallet.chain === Chain.ONCHAIN) {
           if (action === 'openSend') {
             completionHandler([
-              'SendDetailsRoot',
-              {
-                screen: 'SendDetails',
-                params: {
+              'SendDetails',
+                {
                   walletID: wallet.getID(),
                 },
-              },
             ]);
           } else if (action === 'openReceive') {
             completionHandler([
-              'ReceiveDetailsRoot',
-              {
-                screen: 'ReceiveDetails',
-                params: {
+              'ReceiveDetails',{
                   walletID: wallet.getID(),
                 },
-              },
             ]);
           }
         } else if (wallet.chain === Chain.OFFCHAIN) {
@@ -123,13 +116,10 @@ class DeeplinkSchemaMatch {
       ]);
     } else if (DeeplinkSchemaMatch.isBitcoinAddress(event.url)) {
       completionHandler([
-        'SendDetailsRoot',
-        {
-          screen: 'SendDetails',
-          params: {
+        'SendDetails',
+          {
             uri: event.url.replace('://', ':'),
           },
-        },
       ]);
     } else if (DeeplinkSchemaMatch.isLightningInvoice(event.url)) {
       completionHandler([
@@ -321,15 +311,11 @@ class DeeplinkSchemaMatch {
 
   static isBothBitcoinAndLightningOnWalletSelect(wallet, uri) {
     if (wallet.chain === Chain.ONCHAIN) {
-      return [
-        'SendDetailsRoot',
-        {
-          screen: 'SendDetails',
-          params: {
+      return ['SendDetails',
+          {
             uri: uri.bitcoin,
             walletID: wallet.getID(),
           },
-        },
       ];
     } else if (wallet.chain === Chain.OFFCHAIN) {
       return [

@@ -24,6 +24,7 @@ import { BlueStorageContext } from '../blue_modules/storage-context';
 import { isHandset, isTablet, isDesktop } from '../blue_modules/environment';
 import { Button } from 'react-native-elements';
 import { navigationRef } from '../NavigationService';
+import { defaultStyles } from '../components/defaultStyles';
 
 const nStyles = StyleSheet.create({
   container: {
@@ -136,12 +137,6 @@ const iStyles = StyleSheet.create({
   br: {
     backgroundColor: 'transparent',
   },
-  label: {
-    backgroundColor: 'transparent',
-    fontSize: 18,
-    fontWeight: 400,
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  },
   balance: {
     marginTop: 6,
     backgroundColor: 'transparent',
@@ -249,13 +244,7 @@ const WalletCarouselItem = ({ item, index, onPress, handleLongPress, isSelectedW
             <Text
               key={balance} // force component recreation on balance change. To fix right-to-left languages, like Farsi
               adjustsFontSizeToFit
-              style={{
-                color: colors.foreground,
-                fontFamily: 'Poppins',
-                fontWeight: 600,
-                fontSize: 32,
-                writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-              }}
+              style={defaultStyles.h1}
             >
               {balance}
             </Text>

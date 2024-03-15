@@ -143,9 +143,8 @@ const LdkOpenChannel = (props: any) => {
       }
 
       psbtOpenChannelStartedTs.current = +new Date();
-      navigate('SendDetailsRoot', {
-        screen: 'SendDetails',
-        params: {
+      navigate('SendDetails',
+        {
           memo: 'open channel',
           address: fundingAddressTemp,
           walletID: fundingWalletID,
@@ -156,7 +155,7 @@ const LdkOpenChannel = (props: any) => {
           launchedBy: name,
           isEditable: false,
         },
-      });
+      );
     } catch (error: any) {
       ReactNativeHapticFeedback.trigger('notificationError', { ignoreAndroidSystemSettings: false });
       alert(error.message);

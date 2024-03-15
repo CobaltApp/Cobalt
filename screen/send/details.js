@@ -42,6 +42,7 @@ import InputAccessoryAllFunds from '../../components/InputAccessoryAllFunds';
 import { AbstractHDElectrumWallet } from '../../class/wallets/abstract-hd-electrum-wallet';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
 import ToolTipMenu from '../../components/TooltipMenu';
+import { defaultStyles } from '../../components/defaultStyles';
 const currency = require('../../blue_modules/currency');
 const prompt = require('../../helpers/prompt');
 const fs = require('../../blue_modules/fs');
@@ -949,7 +950,18 @@ const SendDetails = () => {
             onPressMenuItem={headerRightOnPress}
             actions={headerRightActions()}
           >
-            <Icon size={22} name="more-horizontal" type="feather" color={colors.foreground} style={styles.advancedOptions} />
+            <TouchableOpacity
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 44,
+                width: 44,
+                borderRadius: 22,
+                backgroundColor: colors.card,
+              }}
+            >
+              <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
+            </TouchableOpacity>
           </ToolTipMenu>
         ),
         // eslint-disable-next-line react/no-unstable-nested-components
@@ -1039,6 +1051,7 @@ const SendDetails = () => {
       flex: 1,
       justifyContent: 'space-between',
       paddingHorizontal: 24,
+      paddingBottom: 32,
       backgroundColor: colors.background,
     },
     scrollViewContent: {
@@ -1116,9 +1129,9 @@ const SendDetails = () => {
       minHeight: 48,
     },
     select: {
-      marginBottom: 24,
-      marginHorizontal: 24,
-      alignItems: 'center',
+      //marginBottom: 24,
+      //marginHorizontal: 24,
+      //alignItems: 'center',
     },
     selectTouch: {
       flexDirection: 'row',
@@ -1210,7 +1223,10 @@ const SendDetails = () => {
       padding: 24,
       gap: 16,
       borderRadius: 25,
-      backgroundColor: colors.element,
+      backgroundColor: colors.card,
+      shadowColor: '#000000',
+          shadowOpacity: 0.05,
+          shadowRadius: 8,
     },
     buttonOption: {
       display: 'flex',
@@ -1219,7 +1235,10 @@ const SendDetails = () => {
       justifyContent: 'space-between',
       borderRadius: 25,
       padding: 24,
-      backgroundColor: colors.card
+      backgroundColor: colors.card,
+      shadowColor: '#000000',
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
     },
     row: {
       flexDirection: 'row',
@@ -1237,21 +1256,6 @@ const SendDetails = () => {
       fontFamily: 'Poppins',
       fontWeight: '500',
       fontSize: 20,
-    },
-    button: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: 56,
-      marginBottom: 36,
-      borderRadius: 30,
-      backgroundColor: colors.primary,
-    },
-    buttonText: {
-      color: colors.white,
-      fontFamily: 'Poppins',
-      fontWeight: '600',
-      fontSize: 16,
     },
   });
 
@@ -1360,11 +1364,7 @@ const SendDetails = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <Text 
-                    style={{
-                      color: disabled ? colors.foregroundInactive : colors.foreground
-                    }}
-                  >
+                  <Text style={{ color: disabled ? colors.foregroundInactive : colors.foreground }}>
                     {fee && formatFee(fee)}
                   </Text>
                   <Text
@@ -1675,27 +1675,22 @@ const SendDetails = () => {
             launchedBy={name}
             editable={isEditable}
           />
-          <View style={{borderWidth: 0.5, borderColor: '#535770'}}/>
+          <View style={defaultStyles.divider}/>
           <TextInput
             onChangeText={setTransactionMemo}
             placeholder={loc.send.details_note_placeholder}
             placeholderTextColor={colors.foregroundInactive}
             value={transactionMemo}
             numberOfLines={1}
-            style={{
-              color: colors.foreground,
-              fontFamily: 'Poppins',
-              fontWeight: '500',
-              fontSize: 14,
-            }}
+            style={defaultStyles.inputText}
             editable={!isLoading}
             onSubmitEditing={Keyboard.dismiss}
             inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
           />
         </View>
-        {addresses.length > 1 && (
+        {/* {addresses.length > 1 && (
           <Text style={styles.of}>{loc.formatString(loc._.of, { number: index + 1, total: addresses.length })}</Text>
-        )}
+        )} */}
       </View>
     );
   };
@@ -1710,7 +1705,6 @@ const SendDetails = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.root} onLayout={e => setWidth(e.nativeEvent.layout.width)}>
-        <StatusBar barStyle="light-content" />
           <KeyboardAvoidingView enabled={!Platform.isPad} behavior="position">
             <View style={{ gap: 24 }}>
             <FlatList
@@ -1794,11 +1788,11 @@ const SendDetails = () => {
           ),
         })}
         <TouchableOpacity
-          style={styles.button}
+          style={defaultStyles.btn}
           onPress={createTransaction}
           testID="CreateTransactionButton"
         >
-          <Text style={styles.buttonText}>
+          <Text style={defaultStyles.btnText}>
             Next
           </Text>
         </TouchableOpacity>

@@ -46,6 +46,7 @@ import { AbstractHDElectrumWallet } from '../../class/wallets/abstract-hd-electr
 import alert from '../../components/Alert';
 import { BitcoinUnit, Chain } from '../../models/bitcoinUnits';
 import { writeFileAndExport } from '../../blue_modules/fs';
+import { defaultStyles } from '../../components/defaultStyles';
 
 const prompt = require('../../helpers/prompt');
 
@@ -660,7 +661,7 @@ const WalletDetails = () => {
                   </Text>
                 {/* <BlueText style={[styles.textValue, stylesHook.textValue]}>{wallet.getTransactions().length}</BlueText> */}
                 {/* <BlueText style={[styles.textLabel1, stylesHook.textLabel1]} onPress={() => setBackdoorBip47Pressed(prevState => prevState + 1)}>{loc.wallets.details_display}</BlueText> */}
-                  <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
+                  <Switch value={hideTransactionsInWalletsList} onValueChange={setHideTransactionsInWalletsList} trackColor={{true: colors.primary}} thumbColor={colors.card}/>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Text
@@ -698,7 +699,6 @@ const WalletDetails = () => {
               <View>
                 {wallet.type === WatchOnlyWallet.type && wallet.isHd() && (
                   <>
-                    {/* <BlueSpacing10 /> */}
                     <Text style={styles.textLabel2}>{loc.wallets.details_advanced.toLowerCase()}</Text>
                     <View style={styles.hardware}>
                       <BlueText>{loc.wallets.details_use_with_hardware_wallet}</BlueText>
@@ -732,25 +732,10 @@ const WalletDetails = () => {
                 accessibilityRole="button"
                 testID="Save"
                 disabled={isLoading}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginTop: 24,
-                  minHeight: 56,
-                  borderRadius: 30,
-                  backgroundColor: colors.primary,
-                }}
+                style={defaultStyles.btn}
                 onPress={save}
               >
-                <Text 
-                  style={{
-                    fontFamily: 'Poppins',
-                    fontWeight: '600',
-                    fontSize: 16,
-                    color: colors.white,
-                  }}
-                >
+                <Text style={defaultStyles.btnText}>
                   {loc.wallets.details_save}
                 </Text>
               </TouchableOpacity>
@@ -758,21 +743,18 @@ const WalletDetails = () => {
             {wallet.allowBIP47() && isBIP47Enabled && <BlueListItem onPress={navigateToPaymentCodes} title="Show payment codes" chevron />}
             <BlueCard style={styles.address}>
               <View>
-                {/* <BlueSpacing20 /> */}
                 <View style={{flexDirection: 'row', alignItems: 'center',}}>
                   <Icon name="upload" type="feather" color={colors.foreground} size={20}/>
                   <SecondButton onPress={navigateToWalletExport} testID="WalletExport" title={loc.wallets.details_export_backup} />
                 </View>
                 {walletTransactionsLength > 0 && (
                   <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                    {/* <BlueSpacing20 /> */}
                     <Icon name="book-open" type="feather" color={colors.foreground} size={20}/>
                     <SecondButton onPress={onExportHistoryPressed} title={loc.wallets.details_export_history} />
                   </View>
                 )}
                 {wallet.type === MultisigHDWallet.type && (
                   <>
-                    {/* <BlueSpacing20 /> */}
                     <SecondButton
                       onPress={navigateToMultisigCoordinationSetup}
                       testID="MultisigCoordinationSetup"

@@ -34,14 +34,14 @@ export const BlueDefaultTheme = {
     accent: '#1AEDF7', //Fluorescent Blue
     positive: '#1AF793', //Medium Spring Green
     negative: '#F71A7E', //Electric Pink
-    background: '#F3F5F6',
+    background: '#F4F4F4',
     foreground: '#2E2E2E',
     foregroundInactive: '#A6A6A6',
     card: '#FFFFFF',
-    element: '#F9F9F9',
+    element: '#FAFAFA',
     button: '#030D19',
     white: '#FFFFFF',
-    dark: '#EBEFF1',
+    dark: '#EDEDED',
     shadow: '#000000',
   },
 };

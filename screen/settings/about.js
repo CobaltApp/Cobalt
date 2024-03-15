@@ -40,7 +40,7 @@ const About = () => {
     cardTitle: {
       color: colors.white,
       fontFamily: 'Poppins',
-      fontWeight: '600',
+      fontWeight: '500',
       fontSize: 18,
       maxWidth: (width - 80) / 2,
     },
@@ -50,11 +50,11 @@ const About = () => {
       marginTop: 16,
       paddingVertical: 8,
       borderRadius: 24,
-      backgroundColor: colors.background,
+      backgroundColor: colors.dark,
       maxWidth: (width - 80) / 2,
     },
     cardButtonText: {
-      color: colors.white,
+      color: colors.foreground,
       fontFamily: 'Poppins',
       fontWeight: '600',
       fontSize: 14,

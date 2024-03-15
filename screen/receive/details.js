@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   BackHandler,
   InteractionManager,
   Image,
@@ -29,7 +30,7 @@ import {
   BlueCard,
   BlueSpacing40,
 } from '../../BlueComponents';
-import navigationStyle from '../../components/navigationStyle';
+import { navigationStyle } from '../../components/navigationStyle';
 import BottomModal from '../../components/BottomModal';
 import { Chain, BitcoinUnit } from '../../models/bitcoinUnits';
 import HandoffComponent from '../../components/handoff';
@@ -46,6 +47,7 @@ const currency = require('../../blue_modules/currency');
 import { Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
+import { defaultStyles } from '../../components/defaultStyles';
 
 const ReceiveDetails = () => {
   const { walletID, address } = useRoute().params;
@@ -97,20 +99,6 @@ const ReceiveDetails = () => {
       padding: 24,
       backgroundColor: colors.white,
     },
-    button: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: 56,
-      borderRadius: 40,
-      backgroundColor: colors.primary,
-    },
-    buttonText: {
-      color: colors.white,
-      fontFamily: 'Poppins',
-      fontWeight: '600',
-      fontSize: 16,
-    },
     addressContainer:{
       display: 'flex',
       flexDirection: 'row',
@@ -141,7 +129,6 @@ const ReceiveDetails = () => {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'flex-start',
       gap: 20,
     },
 
@@ -380,37 +367,14 @@ const ReceiveDetails = () => {
         style={styles.modal}
         keyboardShouldPersistTaps="always"
       >
-        <View style={styles.headerContainer}>
+        {/* <View style={styles.headerContainer}>
           <Icon name="credit-card" type="feather" size={24} color={colors.foreground}/>
           <Text style={styles.header}>
             Address
           </Text>
-        </View>
+        </View> */}
         <View style={styles.qrcode}>
-          {/* {isCustom && (
-            <>
-              {getDisplayAmount() && (
-                <BlueText testID="CustomAmountText" style={styles.amount} numberOfLines={1}>
-                  {getDisplayAmount()}
-                </BlueText>
-              )}
-              {customLabel?.length > 0 && (
-                <BlueText testID="CustomAmountDescriptionText" style={styles.label} numberOfLines={1}>
-                  {customLabel}
-                </BlueText>
-              )}
-            </>
-          )} */}
-
           <QRCodeComponent value={bip21encoded} />
-          {/* <BlueCopyTextToClipboard text={isCustom ? bip21encoded : address} /> */}
-        
-            {/* <BlueButtonLink
-              style={styles.link}
-              testID="SetCustomAmountButton"
-              title={loc.receive.details_setAmount}
-              onPress={showCustomAmountModal}
-            /> */}
         </View>
         <View style={styles.addressContainer}>
           <Text style={styles.address}>
@@ -421,24 +385,80 @@ const ReceiveDetails = () => {
             )}
           </Text>
           <TouchableOpacity
-            onPress={Clipboard.setString(address)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              paddingHorizontal: 12,
+              paddingVertical: 4,
+              borderRadius: 25,
+              backgroundColor: colors.button,
+            }}
+            onPress={handleShareButtonPressed}
           >
-            <Image
-              source={require('../../img/icons/copy.png')}
+            <Text 
               style={{
-                width: 56,
-                height: 56,
+                color: colors.white,
+                fontFamily: 'Poppins',
+                fontWeight: '500',
+                fontSize: 14,
               }}
-            />
+            >
+            Share
+          </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.headerContainer}>
           <Icon name="settings" type="feather" size={24} color={colors.foreground}/>
           <Text style={styles.header}>
-            Advanced Options
+            Advanced Options {customAmount}
           </Text>
         </View>
+        <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
         <View style={styles.advancedContainer}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.row}>
+              <Image
+                source={require('../../img/icons/value.png')}
+                style={{
+                  width: 32,
+                  height: 32,
+                }}
+              />
+              <TextInput
+                onChangeText={setCustomAmount}
+                placeholderTextColor={colors.foregroundInactive}
+                placeholder={'Amount'}
+                value={customAmount || ''}
+                numberOfLines={1}
+                style={styles.customAmountText}
+                testID="CustomAmount"
+              />
+            </View>
+            {/* <TouchableOpacity
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                paddingHorizontal: 12,
+                paddingVertical: 4,
+                borderRadius: 25,
+                backgroundColor: colors.button,
+              }}
+              onPress={setCustomUnit()}
+            >
+              <Text 
+                style={{
+                  color: colors.white,
+                  fontFamily: 'Poppins',
+                  fontWeight: '500',
+                  fontSize: 14,
+                }}
+              >
+                {getUnit()}
+            </Text>
+            </TouchableOpacity> */}
+            {/* <AmountInput unit={customUnit} amount={customAmount || ''} onChangeText={setCustomAmount} onAmountUnitChange={setCustomUnit} /> */}
+          </View>
+          <View style={defaultStyles.divider}/>
           <View style={styles.row}>
           <Image
               source={require('../../img/icons/email.png')}
@@ -457,62 +477,19 @@ const ReceiveDetails = () => {
               testID="CustomAmountDescription"
             />
           </View>
-          <View style={{ borderWidth: 0.5, borderColor: '#535770' }}/>
-          <View style={styles.row}>
-            <Image
-              source={require('../../img/icons/value.png')}
-              style={{
-                width: 32,
-                height: 32,
-              }}
-            />
-            <TextInput
-              onChangeText={setCustomAmount}
-              placeholderTextColor={colors.foregroundInactive}
-              placeholder={'Amount'}
-              value={customAmount || ''}
-              numberOfLines={1}
-              style={styles.customAmountText}
-              testID="CustomAmount"
-            />
-          </View>
         </View>
+        </KeyboardAvoidingView>
         <TouchableOpacity 
-          style={styles.button}
-          onPress={handleShareButtonPressed}
+          style={defaultStyles.btn}
+          onPress={createCustomAmountAddress}
         >
-          <Text style={styles.buttonText}>
-            Share
+          <Text style={defaultStyles.btnText}>
+            Use Custom Amount
           </Text>
         </TouchableOpacity>
-        {renderCustomAmountModal()}
-        {/* <Text
-          style={{
-            marginHorizontal: 32,
-            marginVertical: 24,
-            fontFamily: 'Poppins-Regular',
-            fontSize: 14,
-            alignSelf: 'center',
-            textAlign: 'center',
-          }}
-        >
-          Use this address to receive bitcoin from other Cobalt users.
-        </Text> */}
       </View>
     );
   };
-
-  // <View style={styles.share}>
-  //         <BlueCard>
-  //           <BlueButtonLink
-  //             style={styles.link}
-  //             testID="SetCustomAmountButton"
-  //             title={loc.receive.details_setAmount}
-  //             onPress={showCustomAmountModal}
-  //           />
-  //           <BlueButton onPress={handleShareButtonPressed} title={loc.receive.details_share} />
-  //         </BlueCard>
-  //       </View>
 
   const obtainWalletAddress = useCallback(async () => {
     console.log('receive/details - componentDidMount');
@@ -664,6 +641,18 @@ const ReceiveDetails = () => {
   /**
    * @returns {string} BTC amount, accounting for current `customUnit` and `customUnit`
    */
+
+  const getUnit = () => {
+    switch (customUnit) {
+      case BitcoinUnit.BTC:
+        return 'BTC';
+      case BitcoinUnit.SATS:
+        return 'SAT';
+      case BitcoinUnit.LOCAL_CURRENCY:
+        return 'USD';
+    }
+  };
+
   const getDisplayAmount = () => {
     if (Number(customAmount) > 0) {
       switch (customUnit) {
@@ -687,28 +676,21 @@ const ReceiveDetails = () => {
         justifyContent: 'space-between',
       }}
     >
-      <StatusBar barStyle="light-content" />
       {address !== undefined && showAddress && (
         <HandoffComponent title={loc.send.details_address} type={HandoffComponent.activityTypes.ReceiveOnchain} userInfo={{ address }} />
       )}
       {showConfirmedBalance ? renderConfirmedBalance() : null}
       {showPendingBalance ? renderPendingBalance() : null}
       {showAddress ? renderReceiveDetails() : null}
-      {!showAddress && !showPendingBalance && !showConfirmedBalance ? <BlueLoading /> : null}
+      {!showAddress && !showPendingBalance && !showConfirmedBalance ? (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <ActivityIndicator />
+        </View>
+      ) : null }
     </View>
   );
 };
 
-ReceiveDetails.navigationOptions = navigationStyle(
-  {
-    closeButton: false,
-    headerHideBackButton: true,
-    // headerTitleStyle: {
-    //   fontFamily: 'Poppins-Regular',
-    //   //color: colors.foreground,
-    // },
-  },
-  opts => ({ ...opts, title: loc.receive.header }),
-);
-
 export default ReceiveDetails;
+
+//ReceiveDetails.navigationOptions = navigationStyle({}, options => ({ ...options, title: loc.receive.header }));

@@ -7,6 +7,7 @@ import navigationStyle from '../components/navigationStyle';
 import { BlueLoading, BlueButton, BlueHeaderDefaultMain, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 const prompt = require('../helpers/prompt');
+import { defaultStyles } from '../components/defaultStyles';
 
 import { FiatUnit, FiatUnitSource, getFiatRate } from '../models/fiatUnit';
 const currency = require('../blue_modules/currency');
@@ -86,12 +87,6 @@ const Discover = () => {
     },
   ]);
   const styles = StyleSheet.create({
-    header: {
-      color: colors.foreground,
-      fontFamily: 'Poppins',
-      fontWeight: '600',
-      fontSize: 32,
-    },
     search: {
       display: 'flex',
       flexDirection: 'row',
@@ -131,12 +126,6 @@ const Discover = () => {
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingVertical: 12,
-    },
-    rowTitle: {
-      color: colors.foreground,
-      fontFamily: 'Poppins',
-      fontWeight: '500',
-      fontSize: 18,
     },
     rowSubtitle: {
       color: colors.foregroundInactive,
@@ -195,7 +184,7 @@ const Discover = () => {
           }}
         >
             <View style={{ gap: 32 }}>
-              <Text style={styles.header}>
+              <Text style={defaultStyles.h1}>
                 Market
               </Text>
               <View style={{ gap: 16 }}>
@@ -259,7 +248,7 @@ const Discover = () => {
                         source={item.icon}
                       />
                       <View>
-                        <Text style={styles.rowTitle}>
+                        <Text style={defaultStyles.h3}>
                           {item.name}
                         </Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -276,7 +265,7 @@ const Discover = () => {
                       </View>
                     </View>
                     <View style={{ alignItems: 'flex-end' }}>
-                      <Text style={styles.rowTitle}>
+                      <Text style={defaultStyles.h3}>
                         {item.price}
                       </Text>
                       <Text style={styles.rowSubtitle}>

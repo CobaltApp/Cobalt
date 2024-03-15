@@ -6,6 +6,7 @@ import { Theme } from './themes';
 import loc from '../loc';
 
 type NavigationOptions = {
+  headerHideShadow?: true;
   headerStyle?: {
     borderBottomWidth: number;
     elevation: number;
@@ -72,6 +73,7 @@ const navigationStyle = (
       }
 
       let options: NavigationOptions = {
+        headerHideShadow: true,
         headerStyle: {
           borderBottomWidth: 0,
           elevation: 0,
@@ -87,7 +89,7 @@ const navigationStyle = (
         headerLeft: () => (
           <TouchableOpacity
           accessibilityRole="button"
-            accessibilityLabel={loc._.close}
+          accessibilityLabel={loc._.close}
           style={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -135,6 +137,7 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
           fontWeight: '500',
           color: theme.colors.foreground,
         },
+        headerHideShadow: true,
         headerBackTitleVisible: false,
         headerTintColor: theme.colors.foreground,
         headerLeft: () => (

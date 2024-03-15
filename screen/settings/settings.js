@@ -10,6 +10,7 @@ import { Icon } from 'react-native-elements';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
 import RadialGradient from 'react-native-radial-gradient';
+import { defaultStyles } from '../../components/defaultStyles';
 
 const items = [
   {
@@ -27,11 +28,11 @@ const items = [
     iconUrl: require('../../img/icons/lock.png'),
     title: 'Security',
   },
-  {
-    page: 'NotificationSettings',
-    iconUrl: require('../../img/icons/alert.png'),
-    title: 'Notifications',
-  },
+  // {
+  //   page: 'NotificationSettings',
+  //   iconUrl: require('../../img/icons/alert.png'),
+  //   title: 'Notifications',
+  // },
   {
     page: 'About',
     iconUrl: require('../../img/icons/help.png'),
@@ -56,12 +57,6 @@ const Settings = () => {
       flex: 1,
       paddingTop: 20,
     },
-    header: {
-      color: colors.foreground,
-      fontFamily: 'Poppins',
-      fontWeight: 600,
-      fontSize: 32,
-    },
     modal: {
       display: 'flex',
       flex: 1,
@@ -78,18 +73,12 @@ const Settings = () => {
       alignItems: 'center',
       justifyContent: 'space-between',
     },
-    itemText: {
-      color: colors.foreground,
-      fontFamily: 'Poppins',
-      fontWeight: '500',
-      fontSize: 18,
-    },
   });
 
   return (
       <View style={styles.root}>
         <View style={{paddingHorizontal: 24, paddingTop: 32, paddingBottom: 24}}>
-          <Text style={styles.header}>
+          <Text style={defaultStyles.h1}>
             Settings
           </Text>
         </View>
@@ -172,14 +161,14 @@ const Settings = () => {
                   height: 32,
                 }}
               />
-              <Text style={styles.itemText}>
+              <Text style={defaultStyles.h3}>
                 {x.title}
               </Text>
             </View>
             <Icon name="chevron-right" type="feather" size={24} color={colors.foregroundInactive} />
           </TouchableOpacity>
         ))}
-          <BlueListItem leftIcon={{ name: 'dollar-sign', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.currency} onPress={() => navigate('Currency')} testID="Currency" />
+          {/* <BlueListItem leftIcon={{ name: 'dollar-sign', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.currency} onPress={() => navigate('Currency')} testID="Currency" /> */}
           {/* <BlueListItem leftIcon={{ name: 'globe', size: 24, type: 'feather', color: colors.foreground }} title={loc.settings.language} onPress={() => navigate('Language')} testID="Language" /> */}
           {/* <BlueListItem leftIcon={{ name: 'lock', size: 24, type: 'feather', color: colors.foreground }} title='Security' onPress={() => navigate('SettingsPrivacy')} testID="Security" chevron/> */}
           {/* <BlueListItem leftIcon={{ name: 'lock', size: 32, type: 'feather', color: colors.foreground }} title={loc.settings.encrypt_title} onPress={() => navigate('EncryptStorage')} testID="Password" chevron/> */}
