@@ -31,6 +31,7 @@ export const defaultStyles = StyleSheet.create({
     fontSize: 16,
   },
   inputText: {
+    flex: 1,
     minHeight: 40,
     color: BlueCurrentTheme.colors.foreground,
     fontFamily: 'Poppins',

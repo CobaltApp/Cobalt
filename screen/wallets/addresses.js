@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useContext, useRef, useEffect, useLayoutEffect } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View, StatusBar } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View, StatusBar, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { useFocusEffect, useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import Privacy from '../../blue_modules/Privacy';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
@@ -52,42 +53,31 @@ export const filterByAddressType = (type, isInternal, currentType) => {
 
 const WalletAddresses = () => {
   const [showAddresses, setShowAddresses] = useState(false);
-
   const [addresses, setAddresses] = useState([]);
-
-  const [currentTab, setCurrentTab] = useState(TABS.EXTERNAL);
-
+  const [currentTab, setCurrentTab] = useState(TABS.INTERNAL);
   const { wallets } = useContext(BlueStorageContext);
-
   const { walletID } = useRoute().params;
-
   const addressList = useRef();
-
   const wallet = wallets.find(w => w.getID() === walletID);
-
   const balanceUnit = wallet.getPreferredBalanceUnit();
-
   const isWatchOnly = wallet.type === WatchOnlyWallet.type;
-
   const walletInstance = isWatchOnly ? wallet._hdWalletInstance : wallet;
-
   const allowSignVerifyMessage = 'allowSignVerifyMessage' in wallet && wallet.allowSignVerifyMessage();
-
   const { colors } = useTheme();
-
   const { setOptions } = useNavigation();
-
   const [search, setSearch] = React.useState('');
-
-  const stylesHook = StyleSheet.create({
+  const styles = StyleSheet.create({
     root: {
+      //flex: 1,
       backgroundColor: colors.background,
+      marginHorizontal: 24,
+      gap: 12,
     },
   });
 
   // computed property
   const filteredAddresses = addresses
-    .filter(address => filterByAddressType(TABS.INTERNAL, address.isInternal, currentTab))
+    // .filter(address => filterByAddressType(TABS.INTERNAL, address.isInternal, currentTab))
     .sort(sortByAddressIndex);
 
   useEffect(() => {
@@ -101,6 +91,23 @@ const WalletAddresses = () => {
       searchBar: {
         onChangeText: event => setSearch(event.nativeEvent.text),
       },
+      headerRight: () => (
+        <TouchableOpacity
+          accessibilityRole="button"
+          testID="WalletDetails"
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 44,
+            width: 44,
+            borderRadius: 22,
+            backgroundColor: colors.card,
+          }}
+          //onPress={}
+        >
+          <Icon name="search" type="feather" size={24} color={colors.foreground} />
+        </TouchableOpacity>
+      ),
     });
   }, [setOptions]);
 
@@ -126,9 +133,7 @@ const WalletAddresses = () => {
   useFocusEffect(
     useCallback(() => {
       Privacy.enableBlur();
-
       getAddresses();
-
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
@@ -141,10 +146,10 @@ const WalletAddresses = () => {
   };
 
   return (
-    <View style={[styles.root, stylesHook.root]}>
-      <StatusBar barStyle="default" />
+    <View>
+      {/* <StatusBar barStyle="default" /> */}
       <FlatList
-        contentContainerStyle={stylesHook.root}
+        contentContainerStyle={styles.root}
         ref={addressList}
         data={data}
         extraData={data}
@@ -153,7 +158,7 @@ const WalletAddresses = () => {
         ListEmptyComponent={search.length > 0 ? null : <ActivityIndicator />}
         centerContent={!showAddresses}
         contentInsetAdjustmentBehavior="automatic"
-        ListHeaderComponent={<AddressTypeTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />}
+        // ListHeaderComponent={<AddressTypeTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />}
       />
     </View>
   );
@@ -164,9 +169,3 @@ WalletAddresses.navigationOptions = navigationStyle({
 });
 
 export default WalletAddresses;
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});

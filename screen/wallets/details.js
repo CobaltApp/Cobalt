@@ -47,6 +47,7 @@ import alert from '../../components/Alert';
 import { BitcoinUnit, Chain } from '../../models/bitcoinUnits';
 import { writeFileAndExport } from '../../blue_modules/fs';
 import { defaultStyles } from '../../components/defaultStyles';
+import TooltipMenu from '../../components/TooltipMenu';
 
 const prompt = require('../../helpers/prompt');
 
@@ -65,28 +66,30 @@ const WalletDetails = () => {
   const [hideTransactionsInWalletsList, setHideTransactionsInWalletsList] = useState(!wallet.getHideTransactionsInWalletsList());
   const { goBack, navigate, setOptions, popToTop } = useNavigation();
   const { colors } = useTheme();
+  const menuRef = useRef();
   const [masterFingerprint, setMasterFingerprint] = useState();
   const walletTransactionsLength = useMemo(() => wallet.getTransactions().length, [wallet]);
-  const derivationPath = useMemo(() => {
-    try {
-      const path = wallet.getDerivationPath();
-      return path.length > 0 ? path : null;
-    } catch (e) {
-      return null;
-    }
-  }, [wallet]);
+  // const derivationPath = useMemo(() => {
+  //   try {
+  //     const path = wallet.getDerivationPath();
+  //     return path.length > 0 ? path : null;
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }, [wallet]);
   const [lightningWalletInfo, setLightningWalletInfo] = useState({});
 
-  useEffect(() => {
-    if (isAdvancedModeEnabledRender && wallet.allowMasterFingerprint()) {
-      InteractionManager.runAfterInteractions(() => {
-        setMasterFingerprint(wallet.getMasterFingerprintHex());
-      });
-    }
-  }, [isAdvancedModeEnabledRender, wallet]);
+  // useEffect(() => {
+  //   if (isAdvancedModeEnabledRender && wallet.allowMasterFingerprint()) {
+  //     InteractionManager.runAfterInteractions(() => {
+  //       setMasterFingerprint(wallet.getMasterFingerprintHex());
+  //     });
+  //   }
+  // }, [isAdvancedModeEnabledRender, wallet]);
   const styles = StyleSheet.create({
     scrollViewContent: {
-      flexGrow: 1,
+      //flexGrow: 1,
+      flex: 1,
     },
     address: {
       alignItems: 'center',
@@ -193,6 +196,107 @@ const WalletDetails = () => {
       });
   };
 
+  const headerRightOnPress = id => {
+    if (id === WalletDetails.actionKeys.ShowAddresses) {
+      navigateToAddresses();
+    } else if (id === WalletDetails.actionKeys.WalletExport) {
+      navigateToWalletExport();
+    } else if (id === WalletDetails.actionKeys.ExportHistory) {
+      onExportHistoryPressed();
+    } else if (id === WalletDetails.actionKeys.MultisigCoordination) {
+      navigateToMultisigCoordinationSetup();
+    } else if (id === WalletDetails.actionKeys.EditCosigners) {
+      navigateToViewEditCosigners();
+    } else if (id === WalletDetails.actionKeys.XPub) {
+      navigateToXPub();
+    } else if (id === WalletDetails.actionKeys.SignVerify) {
+      navigateToSignVerify();
+    } else if (id === WalletDetails.actionKeys.LdkLogs) {
+      navigateToLdkViewLogs();
+    } else if (id === WalletDetails.actionKeys.DeleteButton) {
+      handleDeleteButtonTapped();
+    }
+  };
+
+  const headerRightActions = () => {
+    const actions = [];
+    if (wallet instanceof AbstractHDElectrumWallet || (wallet.type === WatchOnlyWallet.type && wallet.isHd())) {
+      actions.push(
+        {
+          id: WalletDetails.actionKeys.ShowAddresses,
+          text: loc.wallets.details_show_addresses,
+          icon: WalletDetails.actionIcons.Address,
+        },
+      );
+    }
+    actions.push(
+      {
+        id: WalletDetails.actionKeys.WalletExport,
+        text: loc.wallets.details_export_backup,
+        icon: WalletDetails.actionIcons.Export,
+      },
+    );
+    if (walletTransactionsLength > 0) {
+      actions.push(
+        {
+          id: WalletDetails.actionKeys.ExportHistory,
+          text: loc.wallets.details_export_history,
+          icon: WalletDetails.actionIcons.History,
+        },
+      );
+    }
+    if (wallet.type === MultisigHDWallet.type) {
+      actions.push(
+        {
+          id: WalletDetails.actionKeys.MultisigCoordination,
+          text: loc.multisig.export_coordination_setup.replace(/^\w/, c => c.toUpperCase()),
+          icon: WalletDetails.actionIcons.Multisig,
+        },
+        {
+          id: WalletDetails.actionKeys.EditCosigners,
+          text: loc.multisig.view_edit_cosigners,
+          icon: WalletDetails.actionIcons.EditMultisig,
+        },
+      );
+    }
+    if (wallet.allowXpub()) {
+      actions.push(
+        {
+          id: WalletDetails.actionKeys.XPub,
+          text: loc.wallets.details_show_xpub,
+          icon: WalletDetails.actionIcons.XPub,
+        },
+      );
+    }
+    if (wallet.allowSignVerifyMessage()) {
+      actions.push(
+        {
+          id: WalletDetails.actionKeys.SignVerify,
+          text: loc.addresses.sign_title,
+          icon: WalletDetails.actionIcons.Sign,
+        },
+      );
+    }
+    if (wallet.type === LightningLdkWallet.type) {
+      actions.push(
+        {
+          id: WalletDetails.actionKeys.LdkLogs,
+          text: loc.lnd.view_logs,
+          icon: WalletDetails.actionIcons.LdkLogs,
+        },
+      );
+    }
+    actions.push(
+      {
+        id: WalletDetails.actionKeys.DeleteButton,
+        text: loc.wallets.details_delete,
+        icon: WalletDetails.actionIcons.Delete,
+      },
+    );
+
+    return actions;
+  };
+
   useLayoutEffect(() => {
     isAdvancedModeEnabled().then(setIsAdvancedModeEnabledRender);
 
@@ -224,25 +328,29 @@ const WalletDetails = () => {
         <Icon name="arrow-left" type="feather" size={24} color={colors.foreground} />
       </TouchableOpacity>
       ),
-      // headerRight: () => (
-      //   <TouchableOpacity
-      //     accessibilityRole="button"
-      //     testID="Save"
-      //     disabled={isLoading}
-      //     style={[styles.save, stylesHook.save]}
-      //     onPress={save}
-      //   >
-      //     <Text 
-      //       style={{
-      //         fontFamily: 'Poppins-Regular',
-      //         fontSize: 14,
-      //         color: colors.white,
-      //       }}
-      //     >
-      //       {loc.wallets.details_save}
-      //     </Text>
-      //   </TouchableOpacity>
-      // ),
+      headerRight: () => (
+        <TooltipMenu
+          isButton
+          isMenuPrimaryAction
+          onPressMenuItem={headerRightOnPress}
+            actions={headerRightActions()}
+          //onPressMenuItem={onToolTipPress}
+        >
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 44,
+              width: 44,
+              borderRadius: 22,
+              backgroundColor: colors.card,
+            }}
+            //onPress={onToolTipPress}
+          >
+            <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
+          </TouchableOpacity>
+        </TooltipMenu>
+      ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, colors, walletName, useWithHardwareWallet, hideTransactionsInWalletsList, isBIP47Enabled]);
@@ -508,7 +616,7 @@ const WalletDetails = () => {
 
   return (
     <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
+      // contentInsetAdjustmentBehavior="automatic"
       centerContent={isLoading}
       contentContainerStyle={styles.scrollViewContent}
       testID="WalletDetailsScroll"
@@ -516,18 +624,20 @@ const WalletDetails = () => {
       {isLoading ? (
         <BlueLoading />
       ) : (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View>
-            <View
-              style={{
-                display: 'flex',
-                marginTop: 32,
-                paddingTop: 32,
-                paddingHorizontal: 24,
-                borderRadius: 40,
-                backgroundColor: colors.element,
-              }}
-            >
+        // <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View
+            style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'space-between',
+              marginTop: 32,
+              paddingVertical: 32,
+              paddingHorizontal: 24,
+              borderRadius: 40,
+              backgroundColor: colors.element,
+            }}
+          >
+            <View>
               <StatusBar barStyle="default" />
               {(() => {
                 if (
@@ -573,7 +683,6 @@ const WalletDetails = () => {
                 </View>
               </KeyboardAvoidingView>
               </View>
-              {/* <BlueSpacing20 /> */}
               <View style={{ gap: 12, marginBottom: 24 }}>
                 <Text style={styles.textLabel1}>{loc.wallets.details_type}</Text>
                 <View style={styles.input}>
@@ -629,13 +738,14 @@ const WalletDetails = () => {
                   <BlueText>{wallet.getIdentityPubkey()}</BlueText>
                 </>
               )}
-              {/* <BlueSpacing20 /> */}
-              
               <View style={{
                 gap: 12,
                 marginBottom: 24,
               }}>
-                <Text onPress={purgeTransactions} style={styles.textLabel1}>
+                <Text 
+                  //onPress={purgeTransactions} 
+                  style={styles.textLabel1}
+                >
                   {loc.transactions.transactions_count}
                 </Text>
               </View>
@@ -696,38 +806,19 @@ const WalletDetails = () => {
                 </>
               ) : null}
 
-              <View>
-                {wallet.type === WatchOnlyWallet.type && wallet.isHd() && (
-                  <>
-                    <Text style={styles.textLabel2}>{loc.wallets.details_advanced.toLowerCase()}</Text>
-                    <View style={styles.hardware}>
-                      <BlueText>{loc.wallets.details_use_with_hardware_wallet}</BlueText>
-                      <Switch value={useWithHardwareWallet} onValueChange={setUseWithHardwareWallet} />
-                    </View>
-                  </>
-                )}
-                {isAdvancedModeEnabledRender && (
-                  <View style={styles.column}>
-                    {wallet.allowMasterFingerprint() && (
-                      <View style={styles.row}>
-                        <Text style={styles.textLabel2}>
-                          {loc.wallets.details_master_fingerprint}
-                        </Text>
-                        <BlueText style={styles.textValue}>{masterFingerprint ?? <ActivityIndicator />}</BlueText>
+                <View>
+                  {wallet.type === WatchOnlyWallet.type && wallet.isHd() && (
+                    <>
+                      <Text style={styles.textLabel2}>{loc.wallets.details_advanced.toLowerCase()}</Text>
+                      <View style={styles.hardware}>
+                        <BlueText>{loc.wallets.details_use_with_hardware_wallet}</BlueText>
+                        <Switch value={useWithHardwareWallet} onValueChange={setUseWithHardwareWallet} />
                       </View>
-                    )}
-                    {derivationPath && (
-                      <View style={styles.row}>
-                        <Text style={styles.textLabel2}>{loc.wallets.details_derivation_path}</Text>
-                        <BlueText style={styles.textValue} testID="DerivationPath">{derivationPath}</BlueText>
-                      </View>
-                    )}
-                  </View>
-                )}
-              </View>
-              {(wallet instanceof AbstractHDElectrumWallet || (wallet.type === WatchOnlyWallet.type && wallet.isHd())) && (
-              <BlueListItem onPress={navigateToAddresses} title={loc.wallets.details_show_addresses} chevron />
-            )}
+                    </>
+                  )}
+                </View>
+            </View>
+            <View>
               <TouchableOpacity
                 accessibilityRole="button"
                 testID="Save"
@@ -741,93 +832,35 @@ const WalletDetails = () => {
               </TouchableOpacity>
             </View>
             {wallet.allowBIP47() && isBIP47Enabled && <BlueListItem onPress={navigateToPaymentCodes} title="Show payment codes" chevron />}
-            <BlueCard style={styles.address}>
-              <View>
-                <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                  <Icon name="upload" type="feather" color={colors.foreground} size={20}/>
-                  <SecondButton onPress={navigateToWalletExport} testID="WalletExport" title={loc.wallets.details_export_backup} />
-                </View>
-                {walletTransactionsLength > 0 && (
-                  <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                    <Icon name="book-open" type="feather" color={colors.foreground} size={20}/>
-                    <SecondButton onPress={onExportHistoryPressed} title={loc.wallets.details_export_history} />
-                  </View>
-                )}
-                {wallet.type === MultisigHDWallet.type && (
-                  <>
-                    <SecondButton
-                      onPress={navigateToMultisigCoordinationSetup}
-                      testID="MultisigCoordinationSetup"
-                      title={loc.multisig.export_coordination_setup.replace(/^\w/, c => c.toUpperCase())}
-                    />
-                  </>
-                )}
-
-                {wallet.type === MultisigHDWallet.type && (
-                  <>
-                    {/* <BlueSpacing20 /> */}
-                    <SecondButton
-                      onPress={navigateToViewEditCosigners}
-                      testID="ViewEditCosigners"
-                      title={loc.multisig.view_edit_cosigners}
-                    />
-                  </>
-                )}
-
-                {wallet.allowXpub() && (
-                  <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                    {/* <BlueSpacing20 /> */}
-                    <Icon name="hash" type="feather" color={colors.foreground} size={20}/>
-                    <SecondButton onPress={navigateToXPub} testID="XPub" title={loc.wallets.details_show_xpub} />
-                  </View>
-                )}
-                {wallet.allowSignVerifyMessage() && (
-                  <TouchableOpacity accessibilityRole="button" onPress={navigateToSignVerify} testID="SignVerify" 
-                  style={{
-                    backgroundColor: colors.foreground,
-                    padding: 8,
-                    minHeight: 45,
-                    borderRadius: 25,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexGrow: 1,
-                    flexDirection: 'row',
-                  }}
-                >
-                  <Icon name="edit-3" type="feather" color="#FFFFFF" size={20}/>
-                  <Text textBreakStrategy="simple" style={styles.delete}>{`${loc.addresses.sign_title}${'  '}`}</Text>
-                </TouchableOpacity>
-                )}
-                {wallet.type === LightningLdkWallet.type && (
-                  <>
-                    {/* <BlueSpacing20 /> */}
-                    <SecondButton onPress={navigateToLdkViewLogs} testID="LdkLogs" title={loc.lnd.view_logs} />
-                  </>
-                )}
-                {/* <BlueSpacing20 />
-                <BlueSpacing20 /> */}
-                <TouchableOpacity accessibilityRole="button" onPress={handleDeleteButtonTapped} testID="DeleteButton"
-                  style={{
-                    backgroundColor: colors.negative,
-                    padding: 8,
-                    minHeight: 45,
-                    borderRadius: 25,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexGrow: 1,
-                    flexDirection: 'row',
-                  }}
-                >
-                  <Icon name="trash" type="feather" color="#FFFFFF" size={20}/>
-                  <Text textBreakStrategy="simple" style={styles.delete}>{`${loc.wallets.details_delete}${'  '}`}</Text>
-                </TouchableOpacity>
-              </View>
-            </BlueCard>
           </View>
-        </TouchableWithoutFeedback>
+        // </TouchableWithoutFeedback>
       )}
     </ScrollView>
   );
+};
+
+WalletDetails.actionKeys = {
+  ShowAddresses: 'ShowAddresses',
+  WalletExport: 'WalletExport',
+  ExportHistory: 'ExportHistory',
+  MultisigCoordination: 'MultisigCoordination',
+  EditCosigners: 'EditCosigners',
+  XPub: 'XPub',
+  SignVerify: 'SignVerify',
+  LdkLogs: 'LdkLogs',
+  DeleteButton: 'DeleteButton',
+};
+
+WalletDetails.actionIcons = {
+  Address: { iconType: 'SYSTEM', iconValue: 'creditcard' },
+  Export: { iconType: 'SYSTEM', iconValue: 'square.and.arrow.up' },
+  History: { iconType: 'SYSTEM', iconValue: 'clock' },
+  Multisig: { iconType: 'SYSTEM', iconValue: 'person.2.fill' },
+  EditMultsig: { iconType: 'SYSTEM', iconValue: 'person.fill.checkmark' },
+  XPub: { iconType: 'SYSTEM', iconValue: 'qrcode.viewfinder' },
+  Sign: { iconType: 'SYSTEM', iconValue: 'signature' },
+  LdkLogs: { iconType: 'SYSTEM', iconValue: 'doc.text' },
+  Delete: { iconType: 'SYSTEM', iconValue: 'trash' },
 };
 
 WalletDetails.navigationOptions = navigationStyle({}, opts => ({ ...opts, headerTitle: 'Wallet Settings'}));

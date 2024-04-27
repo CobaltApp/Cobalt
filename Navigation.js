@@ -60,6 +60,7 @@ import AztecoRedeem from './screen/receive/aztecoRedeem';
 
 import SendDetails from './screen/send/details';
 import ScanQRCode from './screen/send/ScanQRCode';
+import FeeSelect from './screen/send/fee';
 import SendCreate from './screen/send/create';
 import Confirm from './screen/send/confirm';
 import PsbtWithHardwareWallet from './screen/send/psbtWithHardwareWallet';
@@ -688,10 +689,10 @@ const InitRoot = () => {
       component={WalletDetails}
       options={WalletDetails.navigationOptions(theme)}
     />
-    <InitStack.Screen //TODO: Re-style address list
+    <InitStack.Screen //TODO: Change searchbar style
       name="WalletAddresses" 
-      component={WalletAddresses} 
-      options={WalletAddresses.navigationOptions(theme)} 
+      component={WalletAddresses}
+      options={WalletAddresses.navigationOptions(theme)}
     />
     <InitStack.Screen //TODO: Add header style
       name="ReceiveDetailsRoot" 
@@ -710,6 +711,11 @@ const InitRoot = () => {
         headerShown: false, 
         stackPresentation: 'fullScreenModal',
       }}
+    />
+    <InitStack.Screen //TODO: Edit functionality
+      name="FeeSelect"
+      component={FeeSelect} 
+      options={FeeSelect.navigationOptions(theme)} 
     />
     <InitStack.Screen //TODO: Edit this screen
       name="SelectWallet" 

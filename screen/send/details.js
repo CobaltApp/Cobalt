@@ -71,7 +71,8 @@ const SendDetails = () => {
   const [transactionMemo, setTransactionMemo] = useState('');
   const [networkTransactionFees, setNetworkTransactionFees] = useState(new NetworkTransactionFee(3, 2, 1));
   const [networkTransactionFeesIsLoading, setNetworkTransactionFeesIsLoading] = useState(false);
-  const [customFee, setCustomFee] = useState(null);
+  //const [customFee, setCustomFee] = useState(null);
+  const customFee = useRoute().params;
   const [feePrecalc, setFeePrecalc] = useState({ current: null, slowFee: null, mediumFee: null, fastestFee: null });
   const [feeUnit, setFeeUnit] = useState();
   const [amountUnit, setAmountUnit] = useState();
@@ -855,11 +856,12 @@ const SendDetails = () => {
   // Header Right Button
 
   const headerRightOnPress = id => {
-    if (id === SendDetails.actionKeys.AddRecipient) {
-      handleAddRecipient();
-    } else if (id === SendDetails.actionKeys.RemoveRecipient) {
-      handleRemoveRecipient();
-    } else if (id === SendDetails.actionKeys.SignPSBT) {
+    // if (id === SendDetails.actionKeys.AddRecipient) {
+    //   handleAddRecipient();
+    // } else if (id === SendDetails.actionKeys.RemoveRecipient) {
+    //   handleRemoveRecipient();
+    // } else 
+    if (id === SendDetails.actionKeys.SignPSBT) {
       handlePsbtSign();
     } else if (id === SendDetails.actionKeys.SendMax) {
       onUseAllPressed();
@@ -1744,7 +1746,8 @@ const SendDetails = () => {
             <TouchableOpacity
               testID="chooseFee"
               accessibilityRole="button"
-              onPress={() => setIsFeeSelectionModalVisible(true)}
+              onPress={() => navigation.navigate('FeeSelect')}
+                //() => setIsFeeSelectionModalVisible(true)}
               disabled={isLoading}
               style={styles.buttonOption}
             >
@@ -1806,8 +1809,8 @@ export default SendDetails;
 SendDetails.actionKeys = {
   SignPSBT: 'SignPSBT',
   SendMax: 'SendMax',
-  AddRecipient: 'AddRecipient',
-  RemoveRecipient: 'RemoveRecipient',
+  // AddRecipient: 'AddRecipient',
+  // RemoveRecipient: 'RemoveRecipient',
   AllowRBF: 'AllowRBF',
   ImportTransaction: 'ImportTransaction',
   ImportTransactionMultsig: 'ImportTransactionMultisig',
@@ -1819,8 +1822,8 @@ SendDetails.actionKeys = {
 SendDetails.actionIcons = {
   SignPSBT: { iconType: 'SYSTEM', iconValue: 'signature' },
   SendMax: 'SendMax',
-  AddRecipient: { iconType: 'SYSTEM', iconValue: 'person.badge.plus' },
-  RemoveRecipient: { iconType: 'SYSTEM', iconValue: 'person.badge.minus' },
+  // AddRecipient: { iconType: 'SYSTEM', iconValue: 'person.badge.plus' },
+  // RemoveRecipient: { iconType: 'SYSTEM', iconValue: 'person.badge.minus' },
   AllowRBF: 'AllowRBF',
   ImportTransaction: { iconType: 'SYSTEM', iconValue: 'square.and.arrow.down' },
   ImportTransactionMultsig: { iconType: 'SYSTEM', iconValue: 'square.and.arrow.down.on.square' },

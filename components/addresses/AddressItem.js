@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { ListItem } from 'react-native-elements';
 import PropTypes from 'prop-types';
@@ -8,29 +9,34 @@ import loc, { formatBalance } from '../../loc';
 import TooltipMenu from '../TooltipMenu';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Share from 'react-native-share';
+import { ScreenWidth } from 'react-native-elements/dist/helpers';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) => {
   const { colors } = useTheme();
+  const address = item.address;
 
   const hasTransactions = item.transactions > 0;
 
-  const stylesHook = StyleSheet.create({
+  const styles = StyleSheet.create({
     container: {
-      borderBottomColor: colors.element,
-      backgroundColor: colors.background,
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
     },
-    list: {
-      color: colors.element,
-    },
-    index: {
+    address: {
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 16,
       color: colors.foreground,
     },
     balance: {
-      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '400',
       fontSize: 14,
-    },
-    address: {
-      color: hasTransactions ? colors.element : colors.foreground,
+      color: colors.foreground,
     },
   });
 
@@ -43,7 +49,7 @@ const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) =>
       screen: 'ReceiveDetails',
       params: {
         walletID,
-        address: item.address,
+        address: address,
       },
     });
   };
@@ -54,7 +60,7 @@ const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) =>
       screen: 'SignVerify',
       params: {
         walletID,
-        address: item.address,
+        address: address,
       },
     });
   };
@@ -62,11 +68,11 @@ const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) =>
   const balance = formatBalance(item.balance, balanceUnit, true);
 
   const handleCopyPress = () => {
-    Clipboard.setString(item.address);
+    Clipboard.setString(address);
   };
 
   const handleSharePress = () => {
-    Share.open({ message: item.address }).catch(error => console.log(error));
+    Share.open({ message: address }).catch(error => console.log(error));
   };
 
   const onToolTipPress = id => {
@@ -104,41 +110,72 @@ const AddressItem = ({ item, balanceUnit, walletID, allowSignVerifyMessage }) =>
     return actions;
   };
 
-  const render = () => {
+  // const render = () => {
     return (
-      <TooltipMenu
-        title={item.address}
-        ref={menuRef}
-        actions={getAvailableActions()}
-        onPressMenuItem={onToolTipPress}
-        previewQRCode
-        previewValue={item.address}
+      // <TooltipMenu
+      //   title={item.address}
+      //   ref={menuRef}
+      //   actions={getAvailableActions()}
+      //   onPressMenuItem={onToolTipPress}
+      //   previewQRCode
+      //   previewValue={item.address}
+      //   onPress={navigateToReceive}
+      // >
+      <TouchableOpacity
+        key={item.key}
+        style={styles.container}
         onPress={navigateToReceive}
       >
-        <ListItem key={item.key} containerStyle={stylesHook.container}>
-          <ListItem.Content style={stylesHook.list}>
-            <ListItem.Title style={stylesHook.list} numberOfLines={1} ellipsizeMode="middle">
-              <Text style={[styles.index, stylesHook.index]}>{item.index + 1}</Text>{' '}
-              <Text style={[stylesHook.address, styles.address]}>{item.address}</Text>
-            </ListItem.Title>
-            <View style={styles.subtitle}>
-              <Text style={[stylesHook.list, styles.balance, stylesHook.balance]}>{balance}</Text>
-            </View>
-          </ListItem.Content>
-          <View style={{
-            marginBottom: 24,
+        <View 
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 48,
+            width: 48,
+            borderRadius: 24,
+            backgroundColor: item.isInternal ? 'rgba(247,147,26,0.1)': 'rgba(26,247,147,0.1)',
           }}>
-            <AddressTypeBadge isInternal={item.isInternal} hasTransactions={hasTransactions} />
-            {/* <Text style={[stylesHook.list, styles.balance, stylesHook.balance]}>
-              {loc.addresses.transactions}: {item.transactions}
-            </Text> */}
-          </View>
-        </ListItem>
-      </TooltipMenu>
+          {item.isInternal ? 
+          (<Icon name={'repeat'} size={24} type="feather" color={colors.secondary}/>) : 
+          (<Icon name={'arrow-down'} size={24} type="feather" color={colors.positive}/>)}
+        </View>
+        <View>
+          <Text style={styles.address}>
+            {(address.slice(0, Math.round(ScreenWidth / 32)) + '...' + address.slice(address.length - (Math.round(ScreenWidth / 32) + 1), address.length))}
+          </Text>
+          <Text style={styles.balance}>{balance}</Text>
+        </View>
+      </TouchableOpacity>
+        // <ListItem key={item.key} containerStyle={styles.container}>
+        //   <ListItem.Content style={styles.list}>
+        //     <View style={styles.iconReceive}>
+        //       <Image
+        //         source={require('')}
+        //       />
+        //     </View>
+        //     <ListItem.Title style={styles.list} numberOfLines={1} ellipsizeMode="middle">
+        //       {/* <Text style={styles.index}>{item.index + 1}</Text>{' '} */}
+        //       <Text style={styles.address}>{item.address}</Text>
+        //     </ListItem.Title>
+        //     <View style={styles.subtitle}>
+        //       <Text style={styles.balance}>{balance}</Text>
+        //     </View>
+        //   </ListItem.Content>
+        //   <View style={{
+        //     marginBottom: 24,
+        //   }}>
+        //     <AddressTypeBadge isInternal={item.isInternal} hasTransactions={hasTransactions} />
+        //     <Text style={[stylesHook.list, styles.balance, stylesHook.balance]}>
+        //       {loc.addresses.transactions}: {item.transactions}
+        //     </Text>
+        //   </View>
+        // </ListItem>
+      // {/* </TooltipMenu> */}
     );
-  };
+  //};
 
-  return render();
+  // return render();
 };
 
 AddressItem.actionKeys = {
@@ -161,27 +198,6 @@ AddressItem.actionIcons = {
     iconValue: 'doc.on.doc',
   },
 };
-
-const styles = StyleSheet.create({
-  address: {
-    fontWeight: '500',
-    fontSize: 16,
-    marginHorizontal: 40,
-  },
-  index: {
-    fontSize: 14,
-  },
-  balance: {
-    marginTop: 8,
-    marginLeft: 14,
-  },
-  subtitle: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-});
 
 AddressItem.propTypes = {
   item: PropTypes.shape({
