@@ -56,11 +56,11 @@ const types = [
     name: 'Bitcoin',
     desc: 'Simple and powerful',
   },
-  {
-    icon: require('../../img/coins/lightning.png'),
-    name: 'Lightning',
-    desc: 'Instant transactions',
-  },
+  // {
+  //   icon: require('../../img/coins/lightning.png'),
+  //   name: 'Lightning',
+  //   desc: 'Instant transactions',
+  // },
   {
     icon: require('../../img/coins/vault.png'),
     name: 'Vault',

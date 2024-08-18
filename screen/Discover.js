@@ -5,7 +5,7 @@ import { Icon} from 'react-native-elements';
 import { TickerItem } from '../components/tickerItem';
 import navigationStyle from '../components/navigationStyle';
 import { BlueLoading, BlueButton, BlueHeaderDefaultMain, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
-import { ScreenHeight } from 'react-native-elements/dist/helpers';
+import { ScreenWidth, ScreenHeight } from 'react-native-elements/dist/helpers';
 const prompt = require('../helpers/prompt');
 import { defaultStyles } from '../components/defaultStyles';
 
@@ -133,6 +133,23 @@ const Discover = () => {
       fontWeight: '500',
       fontSize: 14,
     },
+    lockedCard: {
+      display: 'flex',
+      alignItems: 'center',
+      top: 200,
+      marginHorizontal: 24,
+      padding: 24,
+      paddingTop: 100,
+      borderRadius: 25,
+      gap: 16,
+      backgroundColor: colors.card,
+    },
+    lockedBody: {
+      color: colors.foregroundInactive,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 14,
+    },
   });
 
   useEffect(() => {
@@ -175,6 +192,70 @@ const Discover = () => {
   return isLoading ? (
       <BlueLoading />
   ) : (
+    <View>
+      <View
+            style={{
+                flex: 1,
+                position: 'absolute',
+                width: ScreenWidth,
+                height: ScreenHeight,
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                zIndex: 100,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)'
+            }}
+        >
+                {/* <Image
+                source={require('../img/Rectangle.png')}
+                style={{
+                    flex: 1,
+                    position: 'absolute',
+                    width: ScreenWidth,
+                    height: ScreenHeight,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    //opacity: 0.1,
+                    //backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    //zIndex: 100,
+                }}
+                /> */}
+                {/* <BlurView 
+                    style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+                    reducedTransparencyFallbackColor="gray"
+                    blurType="light"
+                    blurAmount={20}
+                /> */}
+                    <Image
+                        style={{
+                            //position: 'absolute',
+                            alignSelf: 'center',
+                            top: 280,
+                            width: 162,
+                            height: 142,
+                            zIndex: 101,
+                        }}
+                        source={require('../img/Illustrations/robot-head-19.png')}
+                    />
+                    <View style={styles.lockedCard}>
+                        {/* <View style={styles.row}>
+                            <Icon name="lock" type="feather" size={32} colors={colors.foreground}/>
+                            <Text style={defaultStyles.h3}>
+                                This feature is under development
+                            </Text>
+                        </View> */}
+                        <Text style={defaultStyles.h3}>
+                          This feature is under development
+                        </Text>
+                        <Text style={styles.lockedBody}>
+                          Explore market insights, track trends, and make informed decisions with real-time data. Coming soon to Cobalt!
+                        </Text>
+                        {/* <Text style={styles.lockedBody}>
+                            Chat is only available for premium members. Subscribe to our premium membership to live chat with Colby, get discounted rates, and much more!
+                        </Text> */}
+                    </View>
+                </View>
         <View 
           style={{
             display: 'flex',
@@ -278,6 +359,7 @@ const Discover = () => {
               keyExtractor={(item, index) => index.toString()}
             />
       </View>
+    </View>
     </View>
   );
 };

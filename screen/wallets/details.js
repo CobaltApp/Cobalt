@@ -187,7 +187,6 @@ const WalletDetails = () => {
     }
     saveToDisk()
       .then(() => {
-        alert(loc.wallets.details_wallet_updated);
         goBack();
       })
       .catch(error => {
@@ -455,98 +454,6 @@ const WalletDetails = () => {
       },
     });
 
-  const exportInternals = async () => {
-    if (backdoorPressed < 10) return setBackdoorPressed(backdoorPressed + 1);
-    setBackdoorPressed(0);
-    if (wallet.type !== HDSegwitBech32Wallet.type) return;
-    const fileName = 'wallet-externals.json';
-    const contents = JSON.stringify(
-      {
-        _balances_by_external_index: wallet._balances_by_external_index,
-        _balances_by_internal_index: wallet._balances_by_internal_index,
-        _txs_by_external_index: wallet._txs_by_external_index,
-        _txs_by_internal_index: wallet._txs_by_internal_index,
-        _utxo: wallet._utxo,
-        next_free_address_index: wallet.next_free_address_index,
-        next_free_change_address_index: wallet.next_free_change_address_index,
-        internal_addresses_cache: wallet.internal_addresses_cache,
-        external_addresses_cache: wallet.external_addresses_cache,
-        _xpub: wallet._xpub,
-        gap_limit: wallet.gap_limit,
-        label: wallet.label,
-        _lastTxFetch: wallet._lastTxFetch,
-        _lastBalanceFetch: wallet._lastBalanceFetch,
-      },
-      null,
-      2,
-    );
-    if (Platform.OS === 'ios') {
-      const filePath = RNFS.TemporaryDirectoryPath + `/${fileName}`;
-      await RNFS.writeFile(filePath, contents);
-      Share.open({
-        url: 'file://' + filePath,
-        saveToFiles: isDesktop,
-      })
-        .catch(error => {
-          console.log(error);
-          alert(error.message);
-        })
-        .finally(() => {
-          RNFS.unlink(filePath);
-        });
-    } else if (Platform.OS === 'android') {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
-        title: loc.send.permission_storage_title,
-        message: loc.send.permission_storage_message,
-        buttonNeutral: loc.send.permission_storage_later,
-        buttonNegative: loc._.cancel,
-        buttonPositive: loc._.ok,
-      });
-
-      if (granted === PermissionsAndroid.RESULTS.GRANTED || Platform.Version >= 33) {
-        console.log('Storage Permission: Granted');
-        const filePath = RNFS.DownloadDirectoryPath + `/${fileName}`;
-        try {
-          await RNFS.writeFile(filePath, contents);
-          alert(loc.formatString(loc.send.txSaved, { filePath: fileName }));
-        } catch (e) {
-          console.log(e);
-          alert(e.message);
-        }
-      } else {
-        console.log('Storage Permission: Denied');
-        Alert.alert(loc.send.permission_storage_title, loc.send.permission_storage_denied_message, [
-          {
-            text: loc.send.open_settings,
-            onPress: () => {
-              Linking.openSettings();
-            },
-            style: 'default',
-          },
-          { text: loc._.cancel, onPress: () => {}, style: 'cancel' },
-        ]);
-      }
-    }
-  };
-
-  const purgeTransactions = async () => {
-    if (backdoorPressed < 10) return setBackdoorPressed(backdoorPressed + 1);
-    setBackdoorPressed(0);
-    const msg = 'Transactions purged. Pls go to main screen and back to rerender screen';
-
-    if (wallet.type === HDSegwitBech32Wallet.type) {
-      wallet._txs_by_external_index = {};
-      wallet._txs_by_internal_index = {};
-      alert(msg);
-    }
-
-    if (wallet._hdWalletInstance) {
-      wallet._hdWalletInstance._txs_by_external_index = {};
-      wallet._hdWalletInstance._txs_by_internal_index = {};
-      alert(msg);
-    }
-  };
-
   const walletNameTextInputOnBlur = () => {
     if (walletName.trim().length === 0) {
       const walletLabel = wallet.getLabel();
@@ -616,7 +523,6 @@ const WalletDetails = () => {
 
   return (
     <ScrollView
-      // contentInsetAdjustmentBehavior="automatic"
       centerContent={isLoading}
       contentContainerStyle={styles.scrollViewContent}
       testID="WalletDetailsScroll"
@@ -624,7 +530,6 @@ const WalletDetails = () => {
       {isLoading ? (
         <BlueLoading />
       ) : (
-        // <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View
             style={{
               display: 'flex',
@@ -742,10 +647,7 @@ const WalletDetails = () => {
                 gap: 12,
                 marginBottom: 24,
               }}>
-                <Text 
-                  //onPress={purgeTransactions} 
-                  style={styles.textLabel1}
-                >
+                <Text style={styles.textLabel1}>
                   {loc.transactions.transactions_count}
                 </Text>
               </View>
@@ -833,7 +735,6 @@ const WalletDetails = () => {
             </View>
             {wallet.allowBIP47() && isBIP47Enabled && <BlueListItem onPress={navigateToPaymentCodes} title="Show payment codes" chevron />}
           </View>
-        // </TouchableWithoutFeedback>
       )}
     </ScrollView>
   );

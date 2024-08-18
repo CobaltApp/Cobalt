@@ -31,9 +31,10 @@ const Chat = () => {
     lockedCard: {
         display: 'flex',
         alignItems: 'center',
+        top: 200,
         marginHorizontal: 24,
         padding: 24,
-        paddingTop: 160,
+        paddingTop: 100,
         borderRadius: 25,
         gap: 16,
         backgroundColor: colors.card,
@@ -204,27 +205,35 @@ const Chat = () => {
                         style={{
                             //position: 'absolute',
                             alignSelf: 'center',
-                            top: -80,
-                            marginBottom: -250,
+                            top: 280,
+                            width: 162,
+                            height: 142,
+                            //marginBottom: -250,
                             zIndex: 101,
                         }}
-                        source={require('../img/Illustrations/locked.png')}
+                        source={require('../img/Illustrations/robot-head-19.png')}
                     />
                     <View style={styles.lockedCard}>
-                        <View style={styles.row}>
+                        {/* <View style={styles.row}>
                             <Icon name="lock" type="feather" size={32} colors={colors.foreground}/>
                             <Text style={defaultStyles.h3}>
-                                This feature is locked
+                                This feature is under development
                             </Text>
-                        </View>
-                        <Text style={styles.lockedBody}>
-                            Chat is only available for premium members. Subscribe to our premium membership to live chat with Colby, get discounted rates, and much more!
+                        </View> */}
+                        <Text style={defaultStyles.h3}>
+                            This feature is under development
                         </Text>
-                        <TouchableOpacity style={styles.button}>
+                        <Text style={styles.lockedBody}>
+                            Chat with Colby, your AI financial assistant, for personalized insights and expert advice on your investment journey. Coming soon to Cobalt!
+                        </Text>
+                        {/* <Text style={styles.lockedBody}>
+                            Chat is only available for premium members. Subscribe to our premium membership to live chat with Colby, get discounted rates, and much more!
+                        </Text> */}
+                        {/* <TouchableOpacity style={styles.button}>
                             <Text style={styles.buttonText}>
                                 Try Now
                             </Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
             }

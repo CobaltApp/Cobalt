@@ -56,6 +56,7 @@ const SendDetails = () => {
   const scrollView = useRef();
   const scrollIndex = useRef(0);
   const { colors } = useTheme();
+  const [ selectedIndex, setSelectedIndex ] = useState(0);
 
   // state
   const [width, setWidth] = useState(Dimensions.get('window').width);
@@ -71,8 +72,8 @@ const SendDetails = () => {
   const [transactionMemo, setTransactionMemo] = useState('');
   const [networkTransactionFees, setNetworkTransactionFees] = useState(new NetworkTransactionFee(3, 2, 1));
   const [networkTransactionFeesIsLoading, setNetworkTransactionFeesIsLoading] = useState(false);
-  //const [customFee, setCustomFee] = useState(null);
-  const customFee = useRoute().params;
+  const [customFee, setCustomFee] = useState(null);
+  //const customFee = useRoute().params;
   const [feePrecalc, setFeePrecalc] = useState({ current: null, slowFee: null, mediumFee: null, fastestFee: null });
   const [feeUnit, setFeeUnit] = useState();
   const [amountUnit, setAmountUnit] = useState();
@@ -102,10 +103,39 @@ const SendDetails = () => {
     return initialFee;
   }, [customFee, feePrecalc, networkTransactionFees]);
 
+  const feeOptions = [
+    {
+      icon: require('../../img/icons/value.png'),
+      label: loc.send.fee_fast,
+      time: loc.send.fee_10m,
+      fee: feePrecalc.fastestFee,
+      rate: networkTransactionFees.fastestFee,
+      active: Number(feeRate) === networkTransactionFees.fastestFee,
+    },
+    {
+      icon: require('../../img/coins/vault.png'),
+      label: loc.send.fee_medium,
+      time: loc.send.fee_3h,
+      fee: feePrecalc.mediumFee,
+      rate: networkTransactionFees.mediumFee,
+      active: Number(feeRate) === networkTransactionFees.mediumFee,
+      disabled: networkTransactionFees.mediumFee === networkTransactionFees.fastestFee,
+    },
+    {
+      icon: require('../../img/icons/calculator.png'),
+      label: loc.send.fee_slow,
+      time: loc.send.fee_1d,
+      fee: feePrecalc.slowFee,
+      rate: networkTransactionFees.slowFee,
+      active: Number(feeRate) === networkTransactionFees.slowFee,
+      disabled: networkTransactionFees.slowFee === networkTransactionFees.mediumFee || networkTransactionFees.slowFee === networkTransactionFees.fastestFee,
+    },
+  ];
+
   useLayoutEffect(() => {
-    if (wallet) {
-      setHeaderRightOptions();
-    }
+    // if (wallet) {
+    //   setHeaderRightOptions();
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors, wallet, isTransactionReplaceable, balance, addresses, isEditable, isLoading]);
 
@@ -875,9 +905,10 @@ const SendDetails = () => {
       importTransactionMultisig();
     } else if (id === SendDetails.actionKeys.CoSignTransaction) {
       importTransactionMultisigScanQr();
-    } else if (id === SendDetails.actionKeys.CoinControl) {
-      handleCoinControl();
-    }
+    } 
+    // else if (id === SendDetails.actionKeys.CoinControl) {
+    //   handleCoinControl();
+    // }
   };
 
   const headerRightActions = () => {
@@ -940,51 +971,51 @@ const SendDetails = () => {
 
     return actions;
   };
-  const setHeaderRightOptions = () => {
-    navigation.setOptions({
-      headerRight: Platform.select({
-        // eslint-disable-next-line react/no-unstable-nested-components
-        ios: () => (
-          <ToolTipMenu
-            disabled={isLoading}
-            isButton
-            isMenuPrimaryAction
-            onPressMenuItem={headerRightOnPress}
-            actions={headerRightActions()}
-          >
-            <TouchableOpacity
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 44,
-                width: 44,
-                borderRadius: 22,
-                backgroundColor: colors.card,
-              }}
-            >
-              <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
-            </TouchableOpacity>
-          </ToolTipMenu>
-        ),
-        // eslint-disable-next-line react/no-unstable-nested-components
-        default: () => (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel={loc._.more}
-            disabled={isLoading}
-            style={styles.advancedOptions}
-            onPress={() => {
-              Keyboard.dismiss();
-              setOptionsVisible(true);
-            }}
-            testID="advancedOptionsMenuButton"
-          >
-            <Icon size={22} name="more-horizontal" type="feather" color={colors.foreground} />
-          </TouchableOpacity>
-        ),
-      }),
-    });
-  };
+  // const setHeaderRightOptions = () => {
+  //   navigation.setOptions({
+  //     headerRight: Platform.select({
+  //       // eslint-disable-next-line react/no-unstable-nested-components
+  //       ios: () => (
+  //         <ToolTipMenu
+  //           disabled={isLoading}
+  //           isButton
+  //           isMenuPrimaryAction
+  //           onPressMenuItem={headerRightOnPress}
+  //           actions={headerRightActions()}
+  //         >
+  //           <TouchableOpacity
+  //             style={{
+  //               justifyContent: 'center',
+  //               alignItems: 'center',
+  //               height: 44,
+  //               width: 44,
+  //               borderRadius: 22,
+  //               backgroundColor: colors.card,
+  //             }}
+  //           >
+  //             <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
+  //           </TouchableOpacity>
+  //         </ToolTipMenu>
+  //       ),
+  //       // eslint-disable-next-line react/no-unstable-nested-components
+  //       default: () => (
+  //         <TouchableOpacity
+  //           accessibilityRole="button"
+  //           accessibilityLabel={loc._.more}
+  //           disabled={isLoading}
+  //           style={styles.advancedOptions}
+  //           onPress={() => {
+  //             Keyboard.dismiss();
+  //             setOptionsVisible(true);
+  //           }}
+  //           testID="advancedOptionsMenuButton"
+  //         >
+  //           <Icon size={22} name="more-horizontal" type="feather" color={colors.foreground} />
+  //         </TouchableOpacity>
+  //       ),
+  //     }),
+  //   });
+  // };
 
   const onReplaceableFeeSwitchValueChanged = value => {
     setIsTransactionReplaceable(value);
@@ -1242,10 +1273,77 @@ const SendDetails = () => {
       shadowOpacity: 0.05,
       shadowRadius: 8,
     },
+    containerFee: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      borderRadius: 25,
+      padding: 24,
+      backgroundColor: colors.card,
+      shadowColor: '#000000',
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
+    },
+    button: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minWidth: 83,
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      borderRadius: 40,
+      backgroundColor: colors.button,
+    },
+    buttonText: {
+      color: colors.white,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 12,
+    },
+    advancedText: {
+      fontWeight: '500',
+    },
+    header: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 16,
+    },
+    headerContainer: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      gap: 20,
+    },
+    titleContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 16,
+    },
+    title: {
+      color: colors.foreground,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 14,
+    },
+    subtitle: {
+      color: colors.foregroundInactive,
+      fontFamily: 'Poppins',
+      fontWeight: '500',
+      fontSize: 12
+    },
     row: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 24,
+    },
+    rowFee: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
     textInactive: {
       color: colors.foregroundInactive,
@@ -1593,6 +1691,7 @@ const SendDetails = () => {
 
   const renderBitcoinTransactionInfoFields = params => {
     const { item, index } = params;
+    const disableSendMax = balance === 0 || addresses.some(element => element.amount === BitcoinUnit.MAX);
     return (
       <View testID={'Transaction' + index}>
         <AmountInput
@@ -1647,7 +1746,28 @@ const SendDetails = () => {
           disabled={!isEditable}
           inputAccessoryViewID={InputAccessoryAllFunds.InputAccessoryViewID}
         />
-
+        <TouchableOpacity
+          testID="sendMaxButton"
+          disabled={disableSendMax}
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 48,
+            display: 'flex',
+            alignItems: "center",
+            justifyContent: "center",
+            paddingHorizontal: 16,
+            minHeight: 40,
+            borderRadius: 20,
+            backgroundColor: colors.button,
+            opacity: disableSendMax ? 0.5 : 1,
+          }}
+          onPress={onUseAllPressed}
+        >
+          <Text style={defaultStyles.btnText}>
+            Max
+          </Text>
+        </TouchableOpacity>
         {frozenBalance > 0 && (
           <TouchableOpacity accessibilityRole="button" style={styles.frozenContainer} onPress={handleCoinControl}>
             <BlueText>
@@ -1743,7 +1863,7 @@ const SendDetails = () => {
                 inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
               /> */}
             {renderWalletSelectionOrCoinsSelected()}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               testID="chooseFee"
               accessibilityRole="button"
               onPress={() => navigation.navigate('FeeSelect')}
@@ -1778,7 +1898,49 @@ const SendDetails = () => {
                   color={colors.foregroundInactive}
                 />
               )}
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <View style={styles.containerFee}>
+              <View style={{ gap: 16 }}>
+              {feeOptions.map((x, index) => (
+                <View>
+                  {(index != 0 && (<View style={[defaultStyles.divider, {marginBottom: 16}]}/>))}
+                  <View style={styles.rowFee}>
+                    <View style={styles.titleContainer}>
+                        <Image
+                          style={{ width: 32, height: 32 }}
+                          source={x.icon}
+                        />
+                        <View>
+                          <Text style={styles.title}>
+                            {x.label}
+                          </Text>
+                          <Text style={styles.subtitle}>
+                            {x.rate} {loc.units.sat_vbyte}
+                          </Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                          setFeePrecalc(fp => ({ ...fp, current: x.fee }));
+                          setCustomFee(x.rate.toString());
+                          setSelectedIndex(index);
+                        }}
+                      >
+                        <View>
+                        {selectedIndex == index ? ( 
+                          <Icon name="check" type="feather" size={12} color={colors.white} style={{marginRight: 8}}/>
+                        ) : (null)}
+                        </View>
+                        <Text style={styles.buttonText}>
+                          {selectedIndex == index ? 'Selected' : 'Select'}
+                        </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                ))}
+              </View>
+            </View>
             {renderFeeSelectionModal()}
             {renderOptionsModal()}
             </View>
@@ -1807,31 +1969,31 @@ const SendDetails = () => {
 export default SendDetails;
 
 SendDetails.actionKeys = {
-  SignPSBT: 'SignPSBT',
-  SendMax: 'SendMax',
+  // SignPSBT: 'SignPSBT',
+  // SendMax: 'SendMax',
   // AddRecipient: 'AddRecipient',
   // RemoveRecipient: 'RemoveRecipient',
-  AllowRBF: 'AllowRBF',
+  // AllowRBF: 'AllowRBF',
   ImportTransaction: 'ImportTransaction',
   ImportTransactionMultsig: 'ImportTransactionMultisig',
   ImportTransactionQR: 'ImportTransactionQR',
-  CoinControl: 'CoinControl',
-  CoSignTransaction: 'CoSignTransaction',
+  // CoinControl: 'CoinControl',
+  // CoSignTransaction: 'CoSignTransaction',
 };
 
 SendDetails.actionIcons = {
-  SignPSBT: { iconType: 'SYSTEM', iconValue: 'signature' },
-  SendMax: 'SendMax',
+  // SignPSBT: { iconType: 'SYSTEM', iconValue: 'signature' },
+  // SendMax: 'SendMax',
   // AddRecipient: { iconType: 'SYSTEM', iconValue: 'person.badge.plus' },
   // RemoveRecipient: { iconType: 'SYSTEM', iconValue: 'person.badge.minus' },
-  AllowRBF: 'AllowRBF',
+  // AllowRBF: 'AllowRBF',
   ImportTransaction: { iconType: 'SYSTEM', iconValue: 'square.and.arrow.down' },
   ImportTransactionMultsig: { iconType: 'SYSTEM', iconValue: 'square.and.arrow.down.on.square' },
   ImportTransactionQR: { iconType: 'SYSTEM', iconValue: 'qrcode.viewfinder' },
-  CoinControl: { iconType: 'SYSTEM', iconValue: 'switch.2' },
+  //CoinControl: { iconType: 'SYSTEM', iconValue: 'switch.2' },
 };
 
 SendDetails.navigationOptions = navigationStyleTx({}, options => ({
   ...options,
-  title: loc.send.header,
+  title: loc.receive.header,
 }));

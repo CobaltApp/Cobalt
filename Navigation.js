@@ -595,38 +595,6 @@ const ReorderWalletsStackRoot = () => {
   );
 };
 
-// const Drawer = createDrawerNavigator();
-// const DrawerRoot = () => {
-//   const dimensions = useWindowDimensions();
-//   const isLargeScreen = useMemo(() => {
-//     return Platform.OS === 'android' ? isTablet() : (dimensions.width >= Dimensions.get('screen').width / 2 && isTablet()) || isDesktop;
-//   }, [dimensions.width]);
-//   const drawerStyle = useMemo(() => ({ width: isLargeScreen ? 320 : '0%' }), [isLargeScreen]);
-//   const drawerContent = useCallback(props => (isLargeScreen ? <DrawerList {...props} /> : null), [isLargeScreen]);
-
-//   return (
-//     <Drawer.Navigator
-//       drawerStyle={drawerStyle}
-//       drawerType={isLargeScreen ? 'permanent' : null}
-//       drawerContent={drawerContent}
-//       drawerPosition={I18nManager.isRTL ? 'right' : 'left'}
-//     >
-//       <Drawer.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false, gestureEnabled: false }} />
-//     </Drawer.Navigator>
-//   );
-// };
-
-// const ReceiveDetailsStack = createNativeStackNavigator();
-// const ReceiveDetailsStackRoot = () => {
-//   const theme = useTheme();
-
-//   return (
-//     <ReceiveDetailsStack.Navigator name="ReceiveDetailsRoot" screenOptions={{ headerHideShadow: true }} initialRouteName="ReceiveDetails">
-//       <ReceiveDetailsStack.Screen name="ReceiveDetails" component={ReceiveDetails} options={ReceiveDetails.navigationOptions(theme)} />
-//     </ReceiveDetailsStack.Navigator>
-//   );
-// };
-
 const WalletXpubStack = createNativeStackNavigator();
 const WalletXpubStackRoot = () => {
   const theme = useTheme();
@@ -696,8 +664,8 @@ const InitRoot = () => {
     />
     <InitStack.Screen //TODO: Add header style
       name="ReceiveDetailsRoot" 
-      component={ReceiveDetails} 
-      //options={ReceiveDetails.navigationOptions(theme)}
+      component={ReceiveDetails}
+      options={ReceiveDetails.navigationOptions(theme)}
     />
     <InitStack.Screen //TODO: Edit functionality
       name="SendDetails"
@@ -769,7 +737,7 @@ const InitRoot = () => {
     />
 
     <InitStack.Screen 
-      name="SignVerify" 
+      name="SignVerifyRoot" 
       component={SignVerify} 
       options={SignVerify.navigationOptions(theme)} 
     />
@@ -778,6 +746,10 @@ const InitRoot = () => {
       component={WalletExport} 
       options={WalletExport.navigationOptions(theme)} 
     />
+    <InitStack.Screen 
+      name="WalletXpubRoot" 
+      component={WalletXpub}
+      options={WalletXpub.navigationOptions(theme)} />
     <InitStack.Screen 
       name="LappBrowserRoot" 
       component={LappBrowser} 

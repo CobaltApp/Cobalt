@@ -30,7 +30,7 @@ import {
   BlueCard,
   BlueSpacing40,
 } from '../../BlueComponents';
-import { navigationStyle } from '../../components/navigationStyle';
+import { navigationStyleTx } from '../../components/navigationStyle';
 import BottomModal from '../../components/BottomModal';
 import { Chain, BitcoinUnit } from '../../models/bitcoinUnits';
 import HandoffComponent from '../../components/handoff';
@@ -692,5 +692,12 @@ const ReceiveDetails = () => {
 };
 
 export default ReceiveDetails;
+
+//ReceiveDetails.navigationOptions = navigationStyle({}, options => ({ ...options, title: loc.receive.header }));
+
+ReceiveDetails.navigationOptions = navigationStyleTx({}, options => ({
+  ...options,
+  title: loc.send.header,
+}));
 
 //ReceiveDetails.navigationOptions = navigationStyle({}, options => ({ ...options, title: loc.receive.header }));
