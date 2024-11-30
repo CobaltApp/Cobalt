@@ -35,7 +35,7 @@ export const BlueDefaultTheme = {
     positive: '#1AF793', //Medium Spring Green
     negative: '#F71A7E', //Electric Pink
     background: '#F4F4F4',
-    foreground: '#2E2E2E',
+    foreground: '#363636',
     foregroundInactive: '#A6A6A6',
     card: '#FFFFFF',
     element: '#FAFAFA',

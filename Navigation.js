@@ -25,7 +25,7 @@ import NetworkSettings from './screen/settings/NetworkSettings';
 import NotificationSettings from './screen/settings/notificationSettings';
 import DefaultView from './screen/settings/defaultView';
 
-import WalletsList from './screen/wallets/list';
+import Home from './screen/home';
 import WalletTransactions from './screen/wallets/transactions';
 import AddWallet from './screen/wallets/add';
 import WalletsAddMultisig from './screen/wallets/addMultisig';
@@ -96,6 +96,8 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import Notifications from './screen/Notifications';
 import Chat from './screen/Chat';
+import Card from './screen/card';
+import CardFAQ from './screen/card/faq';
 
 import Discover from './screen/Discover';
 import Chart from './screen/chart';
@@ -133,34 +135,31 @@ function TabNavigator() {
 
   return (
     <Tab.Navigator 
-      initialRouteName="Home" 
+      initialRouteName="Home"
       screenOptions={{
         tabBarShowLabel: false, 
         tabBarStyle: { 
           backgroundColor: colors.card, 
           borderTopWidth: 0,
-          height: 100, 
-          borderTopLeftRadius: 40,
-          borderTopRightRadius: 40,
-          paddingVertical: 32,
-          paddingHorizontal: 24,
+          minHeight: 100,
+          paddingTop: 16,
+          paddingBottom: 36,
+          paddingHorizontal: 12,
+          justifyContent: 'space-between',
           position: 'absolute',
-          shadowColor: '#000000',
-          shadowOpacity: 0.05,
-          shadowRadius: 8,
         },
       }}
     >
       <Tab.Screen 
         name="Home"
-        component={WalletsList}
+        component={Home}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.foregroundInactive }
-              name="home"
-              type="feather"
+              color={colors.foreground}
+              name={ focused ? "home" : "home-outline" }
+              type="ionicon"
               width={24}
               height={24}
             />
@@ -174,9 +173,9 @@ function TabNavigator() {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.foregroundInactive }
-              name="bar-chart-2"
-              type="feather"
+              color={colors.foreground}
+              name={ focused ? "bar-chart" : "bar-chart-outline" }
+              type="ionicon"
               width={24}
               height={24}
             />
@@ -189,26 +188,25 @@ function TabNavigator() {
         options={{
           headerShown: false,
           tabBarButton: () => (
-            <View style={{ marginTop: -16, width: 100, alignItems: 'center' }}>
+            <View style={{ width: 100, alignItems: 'center', justifyContent: 'center' }}>
                 <TouchableOpacity
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height: 64,
-                    width: 64,
-                    borderRadius: 32,
+                    padding: 12,
+                    borderRadius: 16,
                     backgroundColor: colors.primary,
                   }}
                   onPress={onScanButtonPressed}
                   onLongPress={sendButtonLongPress}
                 >
-                  <Image
-                    style={{
-                      height: 56,
-                      width: 56,
-                    }}
-                    source={require('./img/icons/swap.png')}
+                  <Icon
+                    color={ colors.background }
+                    name="plus"
+                    type="feather"
+                    width={24}
+                    height={24}
                   />
                 </TouchableOpacity>
             </View>
@@ -216,15 +214,15 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Chat"
-        component={Chat}
+        name="Card"
+        component={Card}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.foregroundInactive }
-              name="message-square"
-              type="feather" 
+              color={colors.foreground}
+              name={ focused ? "card" : "card-outline"}
+              type="ionicon"
               width={24}
               height={24}
             />
@@ -238,9 +236,9 @@ function TabNavigator() {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              color={ focused ? colors.foreground : colors.foregroundInactive }
-              name="user"
-              type="feather" 
+              color={colors.foreground}
+              name={focused ? "person" : "person-outline"}
+              type="ionicon"
               width={24}
               height={24}
             />
@@ -633,14 +631,19 @@ const InitRoot = () => {
       }} 
     />
     <InitStack.Screen //TODO: Test transactions
-      name="WalletsList" 
-      component={WalletsList} 
-      options={WalletsList.navigationOptions(theme)}
+      name="Home" 
+      component={Home}
+      options={Home.navigationOptions(theme)}
     />
     <WalletsStack.Screen 
       name="Chart" 
       component={Chart}
       //options={Chart.navigationOptions(theme)}
+    />
+    <InitStack.Screen //TODO: Test transactions
+      name="Card" 
+      component={Card}
+      options={Card.navigationOptions(theme)}
     />
     {/* <InitStack.Screen
       name="ReceiveDetailsRoot" 

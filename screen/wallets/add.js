@@ -5,36 +5,22 @@ import {
   ActivityIndicator,
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
   View,
   Image,
   StatusBar,
   TextInput,
   StyleSheet,
   Switch,
-  useColorScheme,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  BlueText,
-  BlueListItem,
-  LightningButton,
-  BitcoinButton,
-  VaultButton,
-  BlueFormLabel,
-  BlueButton,
-  BlueButtonLink,
-  BlueSpacing20,
-} from '../../BlueComponents';
 import navigationStyle from '../../components/navigationStyle';
 import { HDSegwitBech32Wallet, SegwitP2SHWallet, HDSegwitP2SHWallet, LightningCustodianWallet, LightningLdkWallet } from '../../class';
-import { Icon, colors } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { useTheme, useNavigation } from '@react-navigation/native';
 import { Chain } from '../../models/bitcoinUnits';
 import loc from '../../loc';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
-import { LdkButton } from '../../components/LdkButton';
 import alert from '../../components/Alert';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
@@ -91,7 +77,7 @@ const WalletsAdd = () => {
   const { addWallet, saveToDisk, isAdvancedModeEnabled, wallets } = useContext(BlueStorageContext);
   const [isLoading, setIsLoading] = useState(true);
   const [walletBaseURI, setWalletBaseURI] = useState('');
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [selectedOption, setSelectedOption] = useState(0);
   const [label, setLabel] = useState('');
   const [advancedMode, setadvancedMode] = useState(false);
@@ -99,7 +85,7 @@ const WalletsAdd = () => {
   const [backdoorPressed, setBackdoorPressed] = useState(1);
   const { navigate, goBack } = useNavigation();
   const [entropy, setEntropy] = useState();
-  const [entropyButtonText, setEntropyButtonText] = useState(loc.wallets.add_entropy_provide);
+  const [ hideOptions, setHideOptions ] = useState(true);
 
   const styles = StyleSheet.create({
     headerContainer: {
@@ -138,10 +124,6 @@ const WalletsAdd = () => {
       fontFamily: 'Poppins',
       fontWeight: '500',
       fontSize: 12
-    },
-  
-    createButton: {
-      flex: 1,
     },
     input: {
       flexDirection: 'row',
@@ -185,31 +167,12 @@ const WalletsAdd = () => {
     modal: {
       display: 'flex',
       flex: 1,
+      justifyContent: 'space-between',
       marginTop: 32,
       paddingVertical: 32,
       paddingHorizontal: 24,
       borderRadius: 40,
       backgroundColor: colors.element,
-    },
-    advancedText: {
-      fontWeight: '500',
-    },
-    lndUri: {
-      flexDirection: 'row',
-      borderWidth: 1,
-      borderBottomWidth: 0.5,
-      minHeight: 44,
-      height: 44,
-      alignItems: 'center',
-      marginVertical: 16,
-      borderRadius: 4,
-    },
-    import: {
-      marginBottom: 0,
-      marginTop: 24,
-    },
-    noPadding: {
-      paddingHorizontal: 0,
     },
   });
 
@@ -222,24 +185,6 @@ const WalletsAdd = () => {
       .finally(() => setIsLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advancedMode]);
-
-  const entropyGenerated = newEntropy => {
-    let entropyTitle;
-    if (!newEntropy) {
-      entropyTitle = loc.wallets.add_entropy_provide;
-    } else if (newEntropy.length < 32) {
-      entropyTitle = loc.formatString(loc.wallets.add_entropy_remain, {
-        gen: newEntropy.length,
-        rem: 32 - newEntropy.length,
-      });
-    } else {
-      entropyTitle = loc.formatString(loc.wallets.add_entropy_generated, {
-        gen: newEntropy.length,
-      });
-    }
-    setEntropy(newEntropy);
-    setEntropyButtonText(entropyTitle);
-  };
 
   const createWallet = async () => {
     setIsLoading(true);
@@ -359,10 +304,6 @@ const WalletsAdd = () => {
     });
   };
 
-  // const navigateToEntropy = () => {
-  //   navigate('ProvideEntropy', { onGenerated: entropyGenerated });
-  // };
-
   const navigateToImportWallet = () => {
     navigate('ImportWallet');
   };
@@ -373,142 +314,64 @@ const WalletsAdd = () => {
     switch (index) {
       case 0: {
         setSelectedWalletType(ButtonSelected.ONCHAIN);
+        setHideOptions(!advancedMode);
         break;
       }
+      // case 1: {
+      //   setBackdoorPressed(prevState => {
+      //     return prevState + 1;
+      //   });
+      //   setSelectedWalletType(ButtonSelected.OFFCHAIN);
+      //   break;
+      // }
       case 1: {
-        setBackdoorPressed(prevState => {
-          return prevState + 1;
-        });
-        setSelectedWalletType(ButtonSelected.OFFCHAIN);
-        break;
-      }
-      case 2: {
         setSelectedWalletType(ButtonSelected.VAULT);
         break;
       }
-      case 3: {
-        setSelectedWalletType(ButtonSelected.LDK);
-        break;
-      }
+      // case 2: {
+      //   setSelectedWalletType(ButtonSelected.LDK);
+      //   break;
+      // }
       default:
         break;
     }
-
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+    //<ScrollView style={{ display: 'flex', flex: 1, backgroundColor: colors.background }}>
       <View style={styles.modal}>
         <View 
           style={{
-            display: 'flex',
-            flex: 1,
             gap: 24,
             marginBottom: 24,
           }}
         >
-      {/* <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? 'padding' : null} keyboardVerticalOffset={62}> */}
-        <View style={styles.headerContainer}>
-          <Icon name="type" type="feather" size={24} color={colors.foreground}/>
-          <Text style={styles.header}>
-            Name
-          </Text>
-        </View>
-        <View style={styles.input}>
-          <TextInput
-            testID="WalletNameInput"
-            value={label}
-            placeholderTextColor="#A6A6A6"
-            placeholder={loc.wallets.add_placeholder}
-            onChangeText={setLabel}
-            style={styles.textInputCommon}
-            editable={!isLoading}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-        <View style={styles.headerContainer}>
-          <Icon name="credit-card" type="feather" size={24} color={colors.foreground}/>
-          <Text style={styles.header}>
-            Type
-          </Text>
-        </View>
-        <View style={styles.buttons}>
-          {types.map((x, index) => index ? (
-          <View style={{ gap: 16}}>
-            <View style={defaultStyles.divider}/>
-            <View style={styles.row}>
-              <View style={styles.titleContainer}>
-              <Image
-                style={{ width: 32, height: 32 }}
-                source={x.icon}
-              />
-              <View>
-                <Text style={styles.title}>
-                  {x.name}
-                </Text>
-                <Text style={styles.subtitle}>
-                  {x.desc}
-                </Text>
-              </View>
-              </View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => selectType(index)}
-              >
-                <View>
-                {selectedIndex == index ? ( 
-                  <Icon name="check" type="feather" size={12} color={colors.white} style={{marginRight: 8}}/>
-                ): (null)}
-                </View>
-                <Text style={styles.buttonText}>
-                  {selectedIndex == index ? 'Selected' : 'Select'}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          ) : (
-            <View style={styles.row}>
-              <View style={styles.titleContainer}>
-              <Image
-                style={{ width: 32, height: 32 }}
-                source={x.icon}
-              />
-              <View>
-                <Text style={styles.title}>
-                  {x.name}
-                </Text>
-                <Text style={styles.subtitle}>
-                  {x.desc}
-                </Text>
-              </View>
-              </View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => selectType(index)}
-              >
-                <View>
-                {selectedIndex == index ? ( 
-                  <Icon name="check" type="feather" size={12} color={colors.white} style={{marginRight: 8}}/>
-                ): (null)}
-                </View>
-                <Text style={styles.buttonText}>
-                  {selectedIndex == index ? 'Selected' : 'Select'}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
-        {selectedWalletType != ButtonSelected.VAULT && advancedMode ? (
-        <View>
-          <View style={[styles.headerContainer, { marginBottom: 24 }]}>
-            <Icon name="settings" type="feather" size={24} color={colors.foreground}/>
+          <View style={styles.headerContainer}>
+            <Icon name="type" type="feather" size={24} color={colors.foreground}/>
             <Text style={styles.header}>
-              Advanced Options
+              Name
             </Text>
           </View>
-          {selectedWalletType === ButtonSelected.ONCHAIN ? (
+          <View style={styles.input}>
+            <TextInput
+              testID="WalletNameInput"
+              value={label}
+              placeholderTextColor="#A6A6A6"
+              placeholder={loc.wallets.add_placeholder}
+              onChangeText={setLabel}
+              style={styles.textInputCommon}
+              editable={!isLoading}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+          <View style={styles.headerContainer}>
+            <Icon name="credit-card" type="feather" size={24} color={colors.foreground}/>
+            <Text style={styles.header}>
+              Type
+            </Text>
+          </View>
           <View style={styles.buttons}>
-            {options.map((x, index) => index ? (
+            {types.map((x, index) => index ? (
             <View style={{ gap: 16}}>
               <View style={defaultStyles.divider}/>
               <View style={styles.row}>
@@ -526,11 +389,23 @@ const WalletsAdd = () => {
                   </Text>
                 </View>
                 </View>
-                <Switch value={selectedOption === index} onValueChange={() => setSelectedOption(index)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => selectType(index)}
+                >
+                  <View>
+                  {selectedIndex == index ? ( 
+                    <Icon name="check" type="feather" size={12} color={colors.white} style={{marginRight: 8}}/>
+                  ): (null)}
+                  </View>
+                  <Text style={styles.buttonText}>
+                    {selectedIndex == index ? 'Selected' : 'Select'}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
             ) : (
-            <View style={styles.row}>
+              <View style={styles.row}>
                 <View style={styles.titleContainer}>
                 <Image
                   style={{ width: 32, height: 32 }}
@@ -545,34 +420,93 @@ const WalletsAdd = () => {
                   </Text>
                 </View>
                 </View>
-                <Switch value={selectedOption === index} onValueChange={() => setSelectedOption(index)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
-            </View>
-          ))}
-        </View>
-            ) : (
-              <View style={styles.input}>
-                    <TextInput
-                      value={walletBaseURI}
-                      onChangeText={setWalletBaseURI}
-                      onSubmitEditing={Keyboard.dismiss}
-                      placeholder={loc.wallets.add_lndhub_placeholder}
-                      clearButtonMode="while-editing"
-                      autoCapitalize="none"
-                      textContentType="URL"
-                      autoCorrect={false}
-                      placeholderTextColor="#A6A6A6"
-                      style={styles.textInputCommon}
-                      editable={!isLoading}
-                      underlineColorAndroid="transparent"
-                    />
-                </View>
-            ) }
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => selectType(index)}
+                >
+                  <View>
+                  {selectedIndex == index ? ( 
+                    <Icon name="check" type="feather" size={12} color={colors.white} style={{marginRight: 8}}/>
+                  ): (null)}
+                  </View>
+                  <Text style={styles.buttonText}>
+                    {selectedIndex == index ? 'Selected' : 'Select'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ))}
           </View>
-        ) : null }
-
-          {/* {advancedMode && selectedWalletType === ButtonSelected.ONCHAIN && !isLoading && (
-            <BlueButtonLink style={styles.import} title={entropyButtonText} onPress={navigateToEntropy} />
-          )} */}
+          {!hideOptions ? (
+          <View>
+            <View style={[styles.headerContainer, { marginBottom: 24 }]}>
+              <Icon name="settings" type="feather" size={24} color={colors.foreground}/>
+              <Text style={styles.header}>
+                Advanced Options
+              </Text>
+            </View>
+            {selectedWalletType === ButtonSelected.ONCHAIN ? (
+            <View style={styles.buttons}>
+              {options.map((x, index) => index ? (
+              <View style={{ gap: 16}}>
+                <View style={defaultStyles.divider}/>
+                <View style={styles.row}>
+                  <View style={styles.titleContainer}>
+                  <Image
+                    style={{ width: 32, height: 32 }}
+                    source={x.icon}
+                  />
+                  <View>
+                    <Text style={styles.title}>
+                      {x.name}
+                    </Text>
+                    <Text style={styles.subtitle}>
+                      {x.desc}
+                    </Text>
+                  </View>
+                  </View>
+                  <Switch value={selectedOption === index} onValueChange={() => setSelectedOption(index)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
+                </View>
+              </View>
+              ) : (
+              <View style={styles.row}>
+                  <View style={styles.titleContainer}>
+                  <Image
+                    style={{ width: 32, height: 32 }}
+                    source={x.icon}
+                  />
+                  <View>
+                    <Text style={styles.title}>
+                      {x.name}
+                    </Text>
+                    <Text style={styles.subtitle}>
+                      {x.desc}
+                    </Text>
+                  </View>
+                  </View>
+                  <Switch value={selectedOption === index} onValueChange={() => setSelectedOption(index)} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
+              </View>
+            ))}
+          </View>
+              ) : (null
+                // <View style={styles.input}>
+                //       <TextInput
+                //         value={walletBaseURI}
+                //         onChangeText={setWalletBaseURI}
+                //         onSubmitEditing={Keyboard.dismiss}
+                //         placeholder={loc.wallets.add_lndhub_placeholder}
+                //         clearButtonMode="while-editing"
+                //         autoCapitalize="none"
+                //         textContentType="URL"
+                //         autoCorrect={false}
+                //         placeholderTextColor="#A6A6A6"
+                //         style={styles.textInputCommon}
+                //         editable={!isLoading}
+                //         underlineColorAndroid="transparent"
+                //       />
+                //   </View>
+              ) }
+            </View>
+          ) : null }
         </View>
         <View style={{ gap: 16 }}>
             {!isLoading ? (
@@ -599,10 +533,9 @@ const WalletsAdd = () => {
                 </Text>
               </TouchableOpacity>
           )}
-          </View>
         </View>
-      {/* </KeyboardAvoidingView> */}
-    </ScrollView>
+        </View>
+    //</ScrollView>
   );
 };
 

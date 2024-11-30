@@ -20,18 +20,10 @@ import { Icon } from 'react-native-elements';
 import Share from 'react-native-share';
 import QRCodeComponent from '../../components/QRCodeComponent';
 import {
-  BlueLoading,
-  BlueCopyTextToClipboard,
-  BlueButton,
-  BlueButtonLink,
   BlueText,
-  BlueSpacing20,
   BlueAlertWalletExportReminder,
-  BlueCard,
-  BlueSpacing40,
 } from '../../BlueComponents';
 import { navigationStyleTx } from '../../components/navigationStyle';
-import BottomModal from '../../components/BottomModal';
 import { Chain, BitcoinUnit } from '../../models/bitcoinUnits';
 import HandoffComponent from '../../components/handoff';
 import AmountInput from '../../components/AmountInput';
@@ -44,10 +36,11 @@ import { TransactionPendingIconBig } from '../../components/TransactionPendingIc
 import * as BlueElectrum from '../../blue_modules/BlueElectrum';
 import { SuccessView } from '../send/success';
 const currency = require('../../blue_modules/currency');
-import { Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import { defaultStyles } from '../../components/defaultStyles';
+
+import Button from '../../components/buttonPrimary'
 
 const ReceiveDetails = () => {
   const { walletID, address } = useRoute().params;
@@ -75,6 +68,7 @@ const ReceiveDetails = () => {
       flex: 1,
       marginTop: 24,
       paddingTop: 32,
+      paddingBottom: 24,
       paddingHorizontal: 24,
       gap: 24,
       borderRadius: 40,
@@ -131,38 +125,8 @@ const ReceiveDetails = () => {
       alignItems: 'center',
       gap: 20,
     },
-
-
     rootBackgroundColor: {
       backgroundColor: colors.background,
-    },
-    modalContent: {
-      padding: 22,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderTopLeftRadius: 16,
-      borderTopRightRadius: 16,
-      minHeight: 350,
-      height: 350,
-      //backgroundColor: colors.background,
-    },
-    customAmount: {
-      flexDirection: 'row',
-      borderWidth: 1.0,
-      borderBottomWidth: 0.5,
-      minHeight: 44,
-      height: 44,
-      marginHorizontal: 20,
-      alignItems: 'center',
-      marginVertical: 8,
-      borderRadius: 4,
-      borderColor: colors.background,
-      //backgroundColor: colors.background,
-    },
-    root: {
-      flexGrow: 1,
-      justifyContent: 'space-between',
-      //backgroundColor: colors.background,
     },
     scrollBody: {
       marginTop: 32,
@@ -170,31 +134,10 @@ const ReceiveDetails = () => {
       alignItems: 'center',
       paddingHorizontal: 16,
     },
-    share: {
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      marginBottom: 8,
-    },
-    link: {
-      marginBottom: 16,
-      paddingHorizontal: 32,
-    },
-    amount: {
-      fontWeight: '500',
-      fontSize: 36,
-      textAlign: 'center',
-      color: colors.foreground,
-    },
     label: {
       fontWeight: '700',
       textAlign: 'center',
       color: colors.foreground,
-    },
-    modalButton: {
-      paddingHorizontal: 70,
-      maxWidth: '80%',
-      borderRadius: 50,
-      fontWeight: '700',
     },
     customAmountText: {
       color: colors.foregroundInactive,
@@ -367,12 +310,6 @@ const ReceiveDetails = () => {
         style={styles.modal}
         keyboardShouldPersistTaps="always"
       >
-        {/* <View style={styles.headerContainer}>
-          <Icon name="credit-card" type="feather" size={24} color={colors.foreground}/>
-          <Text style={styles.header}>
-            Address
-          </Text>
-        </View> */}
         <View style={styles.qrcode}>
           <QRCodeComponent value={bip21encoded} />
         </View>
@@ -407,6 +344,7 @@ const ReceiveDetails = () => {
           </Text>
           </TouchableOpacity>
         </View>
+        <View style={{ flex: 1, gap: 24 }}>
         <View style={styles.headerContainer}>
           <Icon name="settings" type="feather" size={24} color={colors.foreground}/>
           <Text style={styles.header}>
@@ -434,29 +372,6 @@ const ReceiveDetails = () => {
                 testID="CustomAmount"
               />
             </View>
-            {/* <TouchableOpacity
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                paddingHorizontal: 12,
-                paddingVertical: 4,
-                borderRadius: 25,
-                backgroundColor: colors.button,
-              }}
-              onPress={setCustomUnit()}
-            >
-              <Text 
-                style={{
-                  color: colors.white,
-                  fontFamily: 'Poppins',
-                  fontWeight: '500',
-                  fontSize: 14,
-                }}
-              >
-                {getUnit()}
-            </Text>
-            </TouchableOpacity> */}
-            {/* <AmountInput unit={customUnit} amount={customAmount || ''} onChangeText={setCustomAmount} onAmountUnitChange={setCustomUnit} /> */}
           </View>
           <View style={defaultStyles.divider}/>
           <View style={styles.row}>
@@ -479,14 +394,17 @@ const ReceiveDetails = () => {
           </View>
         </View>
         </KeyboardAvoidingView>
-        <TouchableOpacity 
+        <View style={{ flex: 1 }}/>
+        {/* <TouchableOpacity 
           style={defaultStyles.btn}
           onPress={createCustomAmountAddress}
         >
           <Text style={defaultStyles.btnText}>
             Use Custom Amount
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Button title={"Use Custom Amount"} action={createCustomAmountAddress}/>
+        </View>
       </View>
     );
   };
@@ -570,15 +488,6 @@ const ReceiveDetails = () => {
     }, [wallet]),
   );
 
-  const dismissCustomAmountModal = () => {
-    Keyboard.dismiss();
-    setIsCustomModalVisible(false);
-  };
-
-  const showCustomAmountModal = () => {
-    setIsCustomModalVisible(true);
-  };
-
   const createCustomAmountAddress = () => {
     setIsCustom(true);
     setIsCustomModalVisible(false);
@@ -601,37 +510,6 @@ const ReceiveDetails = () => {
     }
     setBip21encoded(DeeplinkSchemaMatch.bip21encode(address, { amount, label: customLabel }));
     setShowAddress(true);
-  };
-
-  const renderCustomAmountModal = () => {
-    return (
-      <BottomModal isVisible={isCustomModalVisible} onClose={dismissCustomAmountModal}>
-        <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
-          <View style={styles.modalContent}>
-            <AmountInput unit={customUnit} amount={customAmount || ''} onChangeText={setCustomAmount} onAmountUnitChange={setCustomUnit} />
-            <View style={styles.customAmount}>
-              <TextInput
-                onChangeText={setCustomLabel}
-                placeholderTextColor={"#81868e"}
-                placeholder={loc.receive.details_label}
-                value={customLabel || ''}
-                numberOfLines={1}
-                style={styles.customAmountText}
-                testID="CustomAmountDescription"
-              />
-            </View>
-            <View>
-              <BlueButton
-                testID="CustomAmountSaveButton"
-                style={styles.modalButton}
-                title={loc.receive.details_create}
-                onPress={createCustomAmountAddress}
-              />
-            </View>
-          </View>
-        </KeyboardAvoidingView>
-      </BottomModal>
-    );
   };
 
   const handleShareButtonPressed = () => {
@@ -673,7 +551,6 @@ const ReceiveDetails = () => {
     <View 
       style={{
         flexGrow: 1,
-        justifyContent: 'space-between',
       }}
     >
       {address !== undefined && showAddress && (
@@ -693,11 +570,7 @@ const ReceiveDetails = () => {
 
 export default ReceiveDetails;
 
-//ReceiveDetails.navigationOptions = navigationStyle({}, options => ({ ...options, title: loc.receive.header }));
-
 ReceiveDetails.navigationOptions = navigationStyleTx({}, options => ({
   ...options,
-  title: loc.send.header,
+  title: loc.receive.header,
 }));
-
-//ReceiveDetails.navigationOptions = navigationStyle({}, options => ({ ...options, title: loc.receive.header }));

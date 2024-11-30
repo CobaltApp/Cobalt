@@ -1,18 +1,10 @@
-import React, { useContext, useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { ScrollView, View, TouchableOpacity, Text, Image, TextInput, ActivityIndicator, FlatList, StyleSheet} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TouchableOpacity, Text, Image, TextInput, FlatList, StyleSheet} from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { Icon} from 'react-native-elements';
-import { TickerItem } from '../components/tickerItem';
-import navigationStyle from '../components/navigationStyle';
-import { BlueLoading, BlueButton, BlueHeaderDefaultMain, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
+import { BlueLoading } from '../BlueComponents';
 import { ScreenWidth, ScreenHeight } from 'react-native-elements/dist/helpers';
-const prompt = require('../helpers/prompt');
 import { defaultStyles } from '../components/defaultStyles';
-
-import { FiatUnit, FiatUnitSource, getFiatRate } from '../models/fiatUnit';
-const currency = require('../blue_modules/currency');
-
-// import { useGetCryptosQuery } from '../services/cryptoapi';
 
 const categories = [
   {
@@ -27,21 +19,11 @@ const categories = [
 ];
 
 const Discover = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [tickers, setTickers] = useState([]);
   const [search, setSearch] = React.useState('');
   const { navigate } = useNavigation();
   const { colors } = useTheme();
   const editable = true;
-  //const tickerList = useRef();
-  const [showTickers, setShowTickers] = useState(false);
-  const [tickers, setTickers] = useState([]);
-  const [category, setCategory] = useState(0);
-
-  const { setOptions } = useNavigation();
-  const [selectedCurrency, setSelectedCurrency] = useState(FiatUnit.USD);
-  //const [currencyRate, setCurrencyRate] = useState({ LastUpdated: null, Rate: 1234 });
-  const [ currencyRate, setCurrencyRate ] = useState(null);
-  const [ priceList, setPriceList ] = useState([]);
   const [ itemList, setItemList ] = useState([
     {
       icon: require('../img/coins/bitcoin.png'),
@@ -176,12 +158,6 @@ const Discover = () => {
         change: data.market_cap.usd,
         cap: mcap,
       })
-      //const data = json?.market_data;
-      //prices.push(Math.round(json?.market_data.current_price.usd * 100) / 100)
-      //itemList[i].price = Math.round(data.current_price.usd * 100) / 100;
-      //itemList[i].cap = data.market_cap.usd;
-      //itemList[i].change = Math.round(data.price_change_percentage_24h * 100) / 100;
-      //setRates([...rates, {rate}]);
     }
     setItemList(data)
   };
@@ -207,29 +183,8 @@ const Discover = () => {
                 backgroundColor: 'rgba(0, 0, 0, 0.5)'
             }}
         >
-                {/* <Image
-                source={require('../img/Rectangle.png')}
-                style={{
-                    flex: 1,
-                    position: 'absolute',
-                    width: ScreenWidth,
-                    height: ScreenHeight,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    //opacity: 0.1,
-                    //backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    //zIndex: 100,
-                }}
-                /> */}
-                {/* <BlurView 
-                    style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-                    reducedTransparencyFallbackColor="gray"
-                    blurType="light"
-                    blurAmount={20}
-                /> */}
                     <Image
                         style={{
-                            //position: 'absolute',
                             alignSelf: 'center',
                             top: 280,
                             width: 162,
@@ -303,16 +258,6 @@ const Discover = () => {
                   ))}
                 </View>
               </View>
-            {/* <FlatList
-                ref={tickerList}
-                //data={data}
-                //extraData={data}
-                initialNumToRender={10}
-                renderItem={renderRow}
-                //ListEmptyComponent={search.length > 0 ? null : <ActivityIndicator />}
-                //centerContent={!showTickers}
-                //contentInsetAdjustmentBehavior="automatic"
-            /> */}
             <FlatList
               data={itemList}
               contentContainerStyle={{ minHeight: (ScreenHeight / 1.5) }}

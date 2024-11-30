@@ -26,7 +26,7 @@ import RNFS from 'react-native-fs';
 import BigNumber from 'bignumber.js';
 import * as bitcoin from 'bitcoinjs-lib';
 
-import { BlueButton, BlueDismissKeyboardInputAccessory, BlueListItem, BlueLoading, BlueText } from '../../BlueComponents';
+import { BlueDismissKeyboardInputAccessory, BlueLoading, BlueText } from '../../BlueComponents';
 import { navigationStyleTx } from '../../components/navigationStyle';
 import NetworkTransactionFees, { NetworkTransactionFee } from '../../models/networkTransactionFees';
 import { BitcoinUnit, Chain } from '../../models/bitcoinUnits';
@@ -35,13 +35,11 @@ import DocumentPicker from 'react-native-document-picker';
 import DeeplinkSchemaMatch from '../../class/deeplink-schema-match';
 import loc, { formatBalance, formatBalanceWithoutSuffix } from '../../loc';
 import CoinsSelected from '../../components/CoinsSelected';
-import BottomModal from '../../components/BottomModal';
 import AddressInput from '../../components/AddressInput';
 import AmountInput from '../../components/AmountInput';
 import InputAccessoryAllFunds from '../../components/InputAccessoryAllFunds';
 import { AbstractHDElectrumWallet } from '../../class/wallets/abstract-hd-electrum-wallet';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
-import ToolTipMenu from '../../components/TooltipMenu';
 import { defaultStyles } from '../../components/defaultStyles';
 const currency = require('../../blue_modules/currency');
 const prompt = require('../../helpers/prompt');
@@ -62,7 +60,6 @@ const SendDetails = () => {
   const [width, setWidth] = useState(Dimensions.get('window').width);
   const [isLoading, setIsLoading] = useState(false);
   const [wallet, setWallet] = useState(null);
-  //const [walletSelectionOrCoinsSelectedHidden, setWalletSelectionOrCoinsSelectedHidden] = useState(false);
   const [isAmountToolbarVisibleForAndroid, setIsAmountToolbarVisibleForAndroid] = useState(false);
   const [isFeeSelectionModalVisible, setIsFeeSelectionModalVisible] = useState(false);
   const [optionsVisible, setOptionsVisible] = useState(false);
@@ -73,7 +70,6 @@ const SendDetails = () => {
   const [networkTransactionFees, setNetworkTransactionFees] = useState(new NetworkTransactionFee(3, 2, 1));
   const [networkTransactionFeesIsLoading, setNetworkTransactionFeesIsLoading] = useState(false);
   const [customFee, setCustomFee] = useState(null);
-  //const customFee = useRoute().params;
   const [feePrecalc, setFeePrecalc] = useState({ current: null, slowFee: null, mediumFee: null, fastestFee: null });
   const [feeUnit, setFeeUnit] = useState();
   const [amountUnit, setAmountUnit] = useState();
@@ -133,21 +129,16 @@ const SendDetails = () => {
   ];
 
   useLayoutEffect(() => {
-    // if (wallet) {
-    //   setHeaderRightOptions();
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors, wallet, isTransactionReplaceable, balance, addresses, isEditable, isLoading]);
 
   // keyboad effects
   useEffect(() => {
     const _keyboardDidShow = () => {
-      //setWalletSelectionOrCoinsSelectedHidden(true);
       setIsAmountToolbarVisibleForAndroid(true);
     };
 
     const _keyboardDidHide = () => {
-      //setWalletSelectionOrCoinsSelectedHidden(false);
       setIsAmountToolbarVisibleForAndroid(false);
     };
 
@@ -883,145 +874,9 @@ const SendDetails = () => {
     setOptionsVisible(false);
   };
 
-  // Header Right Button
-
-  const headerRightOnPress = id => {
-    // if (id === SendDetails.actionKeys.AddRecipient) {
-    //   handleAddRecipient();
-    // } else if (id === SendDetails.actionKeys.RemoveRecipient) {
-    //   handleRemoveRecipient();
-    // } else 
-    if (id === SendDetails.actionKeys.SignPSBT) {
-      handlePsbtSign();
-    } else if (id === SendDetails.actionKeys.SendMax) {
-      onUseAllPressed();
-    } else if (id === SendDetails.actionKeys.AllowRBF) {
-      onReplaceableFeeSwitchValueChanged(!isTransactionReplaceable);
-    } else if (id === SendDetails.actionKeys.ImportTransaction) {
-      importTransaction();
-    } else if (id === SendDetails.actionKeys.ImportTransactionQR) {
-      importQrTransaction();
-    } else if (id === SendDetails.actionKeys.ImportTransactionMultsig) {
-      importTransactionMultisig();
-    } else if (id === SendDetails.actionKeys.CoSignTransaction) {
-      importTransactionMultisigScanQr();
-    } 
-    // else if (id === SendDetails.actionKeys.CoinControl) {
-    //   handleCoinControl();
-    // }
-  };
-
-  const headerRightActions = () => {
-    const actions = [];
-    if (isEditable) {
-      const isSendMaxUsed = addresses.some(element => element.amount === BitcoinUnit.MAX);
-
-      actions.push([{ id: SendDetails.actionKeys.SendMax, text: loc.send.details_adv_full, disabled: balance === 0 || isSendMaxUsed }]);
-      if (wallet.type === HDSegwitBech32Wallet.type) {
-        actions.push([{ id: SendDetails.actionKeys.AllowRBF, text: loc.send.details_adv_fee_bump, menuStateOn: isTransactionReplaceable }]);
-      }
-      const transactionActions = [];
-      if (wallet.type === WatchOnlyWallet.type && wallet.isHd()) {
-        transactionActions.push(
-          {
-            id: SendDetails.actionKeys.ImportTransaction,
-            text: loc.send.details_adv_import,
-            icon: SendDetails.actionIcons.ImportTransaction,
-          },
-          {
-            id: SendDetails.actionKeys.ImportTransactionQR,
-            text: loc.send.details_adv_import_qr,
-            icon: SendDetails.actionIcons.ImportTransactionQR,
-          },
-        );
-      }
-      if (wallet.type === MultisigHDWallet.type) {
-        transactionActions.push({
-          id: SendDetails.actionKeys.ImportTransactionMultsig,
-          text: loc.send.details_adv_import,
-          icon: SendDetails.actionIcons.ImportTransactionMultsig,
-        });
-      }
-      if (wallet.type === MultisigHDWallet.type && wallet.howManySignaturesCanWeMake() > 0) {
-        transactionActions.push({
-          id: SendDetails.actionKeys.CoSignTransaction,
-          text: loc.multisig.co_sign_transaction,
-          icon: SendDetails.actionIcons.SignPSBT,
-        });
-      }
-      if (wallet.allowCosignPsbt()) {
-        transactionActions.push({ id: SendDetails.actionKeys.SignPSBT, text: loc.send.psbt_sign, icon: SendDetails.actionIcons.SignPSBT });
-      }
-      actions.push(transactionActions, [
-        {
-          id: SendDetails.actionKeys.AddRecipient,
-          text: loc.send.details_add_rec_add,
-          icon: SendDetails.actionIcons.AddRecipient,
-        },
-        {
-          id: SendDetails.actionKeys.RemoveRecipient,
-          text: loc.send.details_add_rec_rem,
-          disabled: addresses.length < 2,
-          icon: SendDetails.actionIcons.RemoveRecipient,
-        },
-      ]);
-    }
-
-    actions.push({ id: SendDetails.actionKeys.CoinControl, text: loc.cc.header, icon: SendDetails.actionIcons.CoinControl });
-
-    return actions;
-  };
-  // const setHeaderRightOptions = () => {
-  //   navigation.setOptions({
-  //     headerRight: Platform.select({
-  //       // eslint-disable-next-line react/no-unstable-nested-components
-  //       ios: () => (
-  //         <ToolTipMenu
-  //           disabled={isLoading}
-  //           isButton
-  //           isMenuPrimaryAction
-  //           onPressMenuItem={headerRightOnPress}
-  //           actions={headerRightActions()}
-  //         >
-  //           <TouchableOpacity
-  //             style={{
-  //               justifyContent: 'center',
-  //               alignItems: 'center',
-  //               height: 44,
-  //               width: 44,
-  //               borderRadius: 22,
-  //               backgroundColor: colors.card,
-  //             }}
-  //           >
-  //             <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
-  //           </TouchableOpacity>
-  //         </ToolTipMenu>
-  //       ),
-  //       // eslint-disable-next-line react/no-unstable-nested-components
-  //       default: () => (
-  //         <TouchableOpacity
-  //           accessibilityRole="button"
-  //           accessibilityLabel={loc._.more}
-  //           disabled={isLoading}
-  //           style={styles.advancedOptions}
-  //           onPress={() => {
-  //             Keyboard.dismiss();
-  //             setOptionsVisible(true);
-  //           }}
-  //           testID="advancedOptionsMenuButton"
-  //         >
-  //           <Icon size={22} name="more-horizontal" type="feather" color={colors.foreground} />
-  //         </TouchableOpacity>
-  //       ),
-  //     }),
-  //   });
-  // };
-
   const onReplaceableFeeSwitchValueChanged = value => {
     setIsTransactionReplaceable(value);
   };
-
-  //
 
   // because of https://github.com/facebook/react-native/issues/21718 we use
   // onScroll for android and onMomentumScrollEnd for iOS
@@ -1087,168 +942,12 @@ const SendDetails = () => {
       paddingBottom: 32,
       backgroundColor: colors.background,
     },
-    scrollViewContent: {
-      flexDirection: 'row',
-    },
-    scrollViewIndicator: {
-      top: 0,
-      //left: 16,
-      bottom: 0,
-      //right: 16,
-    },
-    modalContent: {
-      padding: 22,
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-      minHeight: 200,
-      backgroundColor: colors.element,
-      borderTopColor: colors.element,
-      borderWidth: colors.elementWidth,
-    },
-    optionsContent: {
-      padding: 22,
-      borderTopLeftRadius: 14,
-      borderTopRightRadius: 14,
-      minHeight: 130,
-      backgroundColor: colors.element,
-      borderTopColor: colors.element,
-      borderWidth: colors.elementWidth,
-    },
-    feeModalItem: {
-      paddingHorizontal: 16,
-      paddingVertical: 8,
-      marginBottom: 10,
-      backgroundColor: colors.positive,
-    },
-    feeModalItemActive: {
-      borderRadius: 8,
-    },
-    feeModalRow: {
-      justifyContent: 'space-between',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    feeModalLabel: {
-      fontSize: 22,
-      fontWeight: '700',
-      color: colors.foreground,
-    },
-    feeModalTime: {
-      borderRadius: 12,
-      paddingHorizontal: 6,
-      paddingVertical: 3,
-      backgroundColor: colors.positive,
-    },
-    feeModalTimeText: {
-      color: colors.background,
-    },
-    feeModalValue: {
-      color: colors.positive,
-    },
-    feeModalCustom: {
-      height: 60,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    feeModalCustomText: {
-      fontSize: 15,
-      fontWeight: '700',
-      color: colors.foreground,
-    },
-    createButton: {
-      marginVertical: 16,
-      marginHorizontal: 20,
-      alignContent: 'center',
-      minHeight: 48,
-    },
-    select: {
-      //marginBottom: 24,
-      //marginHorizontal: 24,
-      //alignItems: 'center',
-    },
-    selectTouch: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    selectText: {
-      color: '#23262F',
-      fontSize: 14,
-      marginRight: 8,
-    },
-    selectWrap: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginVertical: 4,
-    },
-    selectLabel: {
-      fontSize: 12,
-      color: colors.foreground,
-    },
-    of: {
-      alignSelf: 'flex-end',
-      marginRight: 18,
-      marginVertical: 8,
-      color: colors.element,
-    },
-    memo: {
-      flexDirection: 'row',
-      borderWidth: 2,
-      height: 48,
-      marginHorizontal: 20,
-      alignItems: 'center',
-      marginVertical: 8,
-      borderRadius: 12,
-      borderColor: colors.element,
-      borderBottomColor: colors.element,
-      backgroundColor: colors.element,
-    },
-    memoText: {
-      flex: 1,
-      marginHorizontal: 8,
-      minHeight: 33,
-      color: '#23262F',
-    },
-    fee: {
-      flexDirection: 'row',
-      marginHorizontal: 20,
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    feeLabel: {
-      fontSize: 12,
-      color: colors.element,
-    },
-    feeRow: {
-      minWidth: 40,
-      height: 25,
-      borderRadius: 4,
-      justifyContent: 'space-between',
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: 10,
-      backgroundColor: colors.positive,
-    },
-    feeValue: {
-      color: colors.background,
-    },
-    feeModalItemDisabled: {
-      backgroundColor: colors.element,
-    },
-    feeModalItemTextDisabled: {
-      color: colors.foregroundInactive,
-    },
-    advancedOptions: {
-      minWidth: 40,
-      height: 40,
-      justifyContent: 'center',
-    },
     frozenContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       marginVertical: 8,
     },
-
     addressBox: {
       display: 'flex',
       alignItems: 'stretch',
@@ -1258,10 +957,10 @@ const SendDetails = () => {
       borderRadius: 25,
       backgroundColor: colors.card,
       shadowColor: '#000000',
-          shadowOpacity: 0.05,
-          shadowRadius: 8,
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
     },
-    buttonOption: {
+    buttonWalletSelect: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
@@ -1299,22 +998,6 @@ const SendDetails = () => {
       fontFamily: 'Poppins',
       fontWeight: '500',
       fontSize: 12,
-    },
-    advancedText: {
-      fontWeight: '500',
-    },
-    header: {
-      color: colors.foreground,
-      fontFamily: 'Poppins',
-      fontWeight: '500',
-      fontSize: 16,
-    },
-    headerContainer: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "flex-start",
-      gap: 20,
     },
     titleContainer: {
       display: 'flex',
@@ -1359,287 +1042,11 @@ const SendDetails = () => {
     },
   });
 
-  const renderFeeSelectionModal = () => {
-    const nf = networkTransactionFees;
-
-    const feeColor = [
-      colors.positive,
-      colors.secondary,
-      colors.negative
-    ];
-
-    const options = [
-      {
-        label: loc.send.fee_fast,
-        time: loc.send.fee_10m,
-        fee: feePrecalc.fastestFee,
-        rate: nf.fastestFee,
-        active: Number(feeRate) === nf.fastestFee,
-      },
-      {
-        label: loc.send.fee_medium,
-        time: loc.send.fee_3h,
-        fee: feePrecalc.mediumFee,
-        rate: nf.mediumFee,
-        active: Number(feeRate) === nf.mediumFee,
-        disabled: nf.mediumFee === nf.fastestFee,
-      },
-      {
-        label: loc.send.fee_slow,
-        time: loc.send.fee_1d,
-        fee: feePrecalc.slowFee,
-        rate: nf.slowFee,
-        active: Number(feeRate) === nf.slowFee,
-        disabled: nf.slowFee === nf.mediumFee || nf.slowFee === nf.fastestFee,
-      },
-    ];
-
-    return (
-      <BottomModal
-        deviceWidth={width + width / 2}
-        isVisible={isFeeSelectionModalVisible}
-        onClose={() => setIsFeeSelectionModalVisible(false)}
-      >
-        <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
-          <View 
-            style={{
-              padding: 22,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              minHeight: 200,
-              backgroundColor: colors.background,
-            }}
-          >
-            {options.map(({ label, time, fee, rate, active, disabled }, index) => (
-              <TouchableOpacity
-                accessibilityRole="button"
-                key={label}
-                disabled={disabled}
-                onPress={() => {
-                  setFeePrecalc(fp => ({ ...fp, current: fee }));
-                  setIsFeeSelectionModalVisible(false);
-                  setCustomFee(rate.toString());
-                }}
-                style={{
-                  paddingHorizontal: 16,
-                  paddingVertical: 8,
-                  marginBottom: 10,
-                  borderWidth: 1,
-                  borderRadius: 13,
-                  borderColor: active ? colors.primary : colors.background,
-                }}
-                //style={[styles.feeModalItem, active && styles.feeModalItemActive, active && !disabled && stylesHook.feeModalItemActive]}
-              >
-                <View 
-                  style={{
-                    flexDirection: 'row', 
-                    alignItems: 'center',
-                    marginBottom: 4,
-                  }}
-                >
-                  <Text 
-                    style={{
-                      fontFamily: 'Poppins-Regular',
-                      fontSize: 16,
-                      color: disabled ? colors.foregroundInactive : colors.foreground,
-                      marginRight: 12,
-                    }}
-                  >
-                    {label}
-                  </Text>
-                  <View 
-                    style={{
-                      backgroundColor: disabled ? colors.foregroundInactive : feeColor[index],
-                      borderRadius: 15,
-                      paddingHorizontal: 12,
-                      paddingVertical: 4,
-                    }}
-                  >
-                    <Text style={{fontFamily: 'Poppins-Regular', fontSize: 14, color: colors.background}}>{time}</Text>
-                  </View>
-                </View>
-                <View 
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Text style={{ color: disabled ? colors.foregroundInactive : colors.foreground }}>
-                    {fee && formatFee(fee)}
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: 'Poppins-Regular',
-                      fontSize: 14,
-                      color: disabled ? colors.foregroundInactive : colors.foreground
-                    }}
-                  >
-                    {rate} {loc.units.sat_vbyte}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-            <TouchableOpacity
-              testID="feeCustom"
-              accessibilityRole="button"
-              style={{
-                height: 60,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onPress={async () => {
-                let error = loc.send.fee_satvbyte;
-                while (true) {
-                  let fee;
-
-                  try {
-                    fee = await prompt(loc.send.create_fee, error, true, 'numeric');
-                  } catch (_) {
-                    return;
-                  }
-
-                  if (!/^\d+$/.test(fee)) {
-                    error = loc.send.details_fee_field_is_not_valid;
-                    continue;
-                  }
-
-                  if (fee < 1) fee = '1';
-                  fee = Number(fee).toString(); // this will remove leading zeros if any
-                  setCustomFee(fee);
-                  setIsFeeSelectionModalVisible(false);
-                  return;
-                }
-              }}
-            >
-              <Text 
-                style={{
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 14,
-                }}
-              >
-                {loc.send.fee_custom}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
-      </BottomModal>
-    );
-  };
-
-  const renderOptionsModal = () => {
-    const isSendMaxUsed = addresses.some(element => element.amount === BitcoinUnit.MAX);
-
-    return (
-      <BottomModal deviceWidth={width + width / 2} isVisible={optionsVisible} onClose={hideOptions}>
-        <KeyboardAvoidingView enabled={!Platform.isPad} behavior={Platform.OS === 'ios' ? 'position' : null}>
-          <View style={styles.optionsContent}>
-            {isEditable && (
-              <BlueListItem
-                testID="sendMaxButton"
-                disabled={balance === 0 || isSendMaxUsed}
-                title={loc.send.details_adv_full}
-                hideChevron
-                component={TouchableOpacity}
-                onPress={onUseAllPressed}
-              />
-            )}
-            {wallet.type === HDSegwitBech32Wallet.type && isEditable && (
-              <BlueListItem
-                title={loc.send.details_adv_fee_bump}
-                Component={TouchableWithoutFeedback}
-                switch={{ value: isTransactionReplaceable, onValueChange: onReplaceableFeeSwitchValueChanged }}
-              />
-            )}
-            {wallet.type === WatchOnlyWallet.type && wallet.isHd() && (
-              <BlueListItem title={loc.send.details_adv_import} hideChevron component={TouchableOpacity} onPress={importTransaction} />
-            )}
-            {wallet.type === WatchOnlyWallet.type && wallet.isHd() && (
-              <BlueListItem
-                testID="ImportQrTransactionButton"
-                title={loc.send.details_adv_import_qr}
-                hideChevron
-                component={TouchableOpacity}
-                onPress={importQrTransaction}
-              />
-            )}
-            {wallet.type === MultisigHDWallet.type && isEditable && (
-              <BlueListItem
-                title={loc.send.details_adv_import}
-                hideChevron
-                component={TouchableOpacity}
-                onPress={importTransactionMultisig}
-              />
-            )}
-            {wallet.type === MultisigHDWallet.type && wallet.howManySignaturesCanWeMake() > 0 && isEditable && (
-              <BlueListItem
-                title={loc.multisig.co_sign_transaction}
-                hideChevron
-                component={TouchableOpacity}
-                onPress={importTransactionMultisigScanQr}
-              />
-            )}
-            {isEditable && (
-              <>
-                <BlueListItem
-                  testID="AddRecipient"
-                  title={loc.send.details_add_rec_add}
-                  hideChevron
-                  component={TouchableOpacity}
-                  onPress={handleAddRecipient}
-                />
-                <BlueListItem
-                  testID="RemoveRecipient"
-                  title={loc.send.details_add_rec_rem}
-                  hideChevron
-                  disabled={addresses.length < 2}
-                  component={TouchableOpacity}
-                  onPress={handleRemoveRecipient}
-                />
-              </>
-            )}
-            <BlueListItem testID="CoinControl" title={loc.cc.header} hideChevron component={TouchableOpacity} onPress={handleCoinControl} />
-            {wallet.allowCosignPsbt() && isEditable && (
-              <BlueListItem
-                testID="PsbtSign"
-                title={loc.send.psbt_sign}
-                hideChevron
-                component={TouchableOpacity}
-                onPress={handlePsbtSign}
-              />
-            )}
-          </View>
-        </KeyboardAvoidingView>
-      </BottomModal>
-    );
-  };
-
-  const renderCreateButton = () => {
-    return (
-      <View 
-        style={{
-          marginVertical: 16,
-          marginHorizontal: 32,
-          alignContent: 'center',
-          minHeight: 48,
-          width: 311,
-          position: 'absolute',
-          bottom: 20,
-        }}
-      >
-        {isLoading ? (
-          <ActivityIndicator />
-        ) : (
-          <BlueButton onPress={createTransaction} title={loc.send.details_next} testID="CreateTransactionButton" />
-        )}
-      </View>
-    );
-  };
-
   const renderWalletSelectionOrCoinsSelected = () => {
     //if (walletSelectionOrCoinsSelectedHidden) return null;
     if (utxo !== null) {
       return (
-        <View style={styles.select}>
+        <View>
           <CoinsSelected
             number={utxo.length}
             onContainerPress={handleCoinControl}
@@ -1657,7 +1064,7 @@ const SendDetails = () => {
         {!isLoading && isEditable && (
           <TouchableOpacity
             accessibilityRole="button"
-            style={styles.buttonOption}
+            style={styles.buttonWalletSelect}
             onPress={() => navigation.navigate('SelectWallet', { onWalletSelect, chainType: Chain.ONCHAIN })}
           >
             <View style={styles.row}>
@@ -1810,9 +1217,6 @@ const SendDetails = () => {
             inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
           />
         </View>
-        {/* {addresses.length > 1 && (
-          <Text style={styles.of}>{loc.formatString(loc._.of, { number: index + 1, total: addresses.length })}</Text>
-        )} */}
       </View>
     );
   };
@@ -1832,73 +1236,17 @@ const SendDetails = () => {
             <FlatList
               keyboardShouldPersistTaps="always"
               scrollEnabled={false}
-              //{addresses.length > 1}
               data={addresses}
               renderItem={renderBitcoinTransactionInfoFields}
               ref={scrollView}
-              //horizontal
               //pagingEnabled
               removeClippedSubviews={false}
               onMomentumScrollBegin={Keyboard.dismiss}
               onMomentumScrollEnd={handleRecipientsScrollEnds}
               onScroll={handleRecipientsScroll}
               scrollEventThrottle={200}
-              //scrollIndicatorInsets={styles.scrollViewIndicator}
-              //contentContainerStyle={styles.scrollViewContent}
             />
-              {/* <TextInput
-                onChangeText={setTransactionMemo}
-                placeholder={loc.send.details_note_placeholder}
-                placeholderTextColor={colors.foregroundInactive}
-                value={transactionMemo}
-                numberOfLines={1}
-                style={{
-                  flex: 1,
-                  marginHorizontal: 8,
-                  minHeight: 33,
-                  color: colors.foreground,
-                }}
-                editable={!isLoading}
-                onSubmitEditing={Keyboard.dismiss}
-                inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
-              /> */}
             {renderWalletSelectionOrCoinsSelected()}
-            {/* <TouchableOpacity
-              testID="chooseFee"
-              accessibilityRole="button"
-              onPress={() => navigation.navigate('FeeSelect')}
-                //() => setIsFeeSelectionModalVisible(true)}
-              disabled={isLoading}
-              style={styles.buttonOption}
-            >
-              <View style={styles.row}>
-                <Image
-                  source={require('../../img/icons/calculator.png')}
-                  style={{
-                    width: 32,
-                    height: 32,
-                  }}
-                />
-                <View>
-                  <Text style={styles.textInactive}>
-                    {loc.send.create_fee}
-                  </Text>
-                  <Text style={styles.textTitle}>
-                    {feePrecalc.current ? formatFee(feePrecalc.current) : feeRate + ' ' + loc.units.sat_vbyte}
-                  </Text>
-                </View>
-              </View>
-              {networkTransactionFeesIsLoading ? (
-                <ActivityIndicator />
-              ) : (
-                <Icon 
-                  name={'chevron-right'}
-                  size={24} 
-                  type="feather" 
-                  color={colors.foregroundInactive}
-                />
-              )}
-            </TouchableOpacity> */}
             <View style={styles.containerFee}>
               <View style={{ gap: 16 }}>
               {feeOptions.map((x, index) => (
@@ -1941,9 +1289,7 @@ const SendDetails = () => {
                 ))}
               </View>
             </View>
-            {renderFeeSelectionModal()}
-            {renderOptionsModal()}
-            </View>
+          </View>
           </KeyboardAvoidingView>
         <BlueDismissKeyboardInputAccessory />
         {Platform.select({
@@ -1969,31 +1315,18 @@ const SendDetails = () => {
 export default SendDetails;
 
 SendDetails.actionKeys = {
-  // SignPSBT: 'SignPSBT',
-  // SendMax: 'SendMax',
-  // AddRecipient: 'AddRecipient',
-  // RemoveRecipient: 'RemoveRecipient',
-  // AllowRBF: 'AllowRBF',
   ImportTransaction: 'ImportTransaction',
   ImportTransactionMultsig: 'ImportTransactionMultisig',
   ImportTransactionQR: 'ImportTransactionQR',
-  // CoinControl: 'CoinControl',
-  // CoSignTransaction: 'CoSignTransaction',
 };
 
 SendDetails.actionIcons = {
-  // SignPSBT: { iconType: 'SYSTEM', iconValue: 'signature' },
-  // SendMax: 'SendMax',
-  // AddRecipient: { iconType: 'SYSTEM', iconValue: 'person.badge.plus' },
-  // RemoveRecipient: { iconType: 'SYSTEM', iconValue: 'person.badge.minus' },
-  // AllowRBF: 'AllowRBF',
   ImportTransaction: { iconType: 'SYSTEM', iconValue: 'square.and.arrow.down' },
   ImportTransactionMultsig: { iconType: 'SYSTEM', iconValue: 'square.and.arrow.down.on.square' },
   ImportTransactionQR: { iconType: 'SYSTEM', iconValue: 'qrcode.viewfinder' },
-  //CoinControl: { iconType: 'SYSTEM', iconValue: 'switch.2' },
 };
 
 SendDetails.navigationOptions = navigationStyleTx({}, options => ({
   ...options,
-  title: loc.receive.header,
+  title: loc.send.header,
 }));

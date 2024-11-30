@@ -17,16 +17,14 @@ import {
   I18nManager,
   Image,
 } from 'react-native';
-import { Icon, colors } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { useRoute, useNavigation, useTheme, useFocusEffect } from '@react-navigation/native';
 import { Chain } from '../../models/bitcoinUnits';
 import { BlueAlertWalletExportReminder } from '../../BlueComponents';
-import WalletGradient from '../../class/wallet-gradient';
 import navigationStyle from '../../components/navigationStyle';
 import { LightningCustodianWallet, LightningLdkWallet, MultisigHDWallet, WatchOnlyWallet } from '../../class';
 import ActionSheet from '../ActionSheet';
 import loc from '../../loc';
-import { FContainer, FButton } from '../../components/FloatButtons';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
 import { isDesktop } from '../../blue_modules/environment';
 import BlueClipboard from '../../blue_modules/clipboard';
@@ -35,16 +33,10 @@ import TransactionsNavigationHeader, { actionKeys } from '../../components/Trans
 import { TransactionListItem } from '../../components/TransactionListItem';
 import alert from '../../components/Alert';
 import PropTypes from 'prop-types';
-import { Button } from 'react-native-elements';
 import { defaultStyles } from '../../components/defaultStyles';
 
 const fs = require('../../blue_modules/fs');
 const BlueElectrum = require('../../blue_modules/BlueElectrum');
-
-const buttonFontSize =
-  PixelRatio.roundToNearestPixel(Dimensions.get('window').width / 26) > 22
-    ? 22
-    : PixelRatio.roundToNearestPixel(Dimensions.get('window').width / 13);
 
 const WalletTransactions = ({ navigation }) => {
   const { wallets, saveToDisk, setSelectedWallet, walletTransactionUpdateStatus, isElectrumDisabled } = useContext(BlueStorageContext);
@@ -62,18 +54,46 @@ const WalletTransactions = ({ navigation }) => {
   const [lnNodeInfo, setLnNodeInfo] = useState({ canReceive: 0, canSend: 0 });
   const walletActionButtonsRef = useRef();
 
-  const stylesHook = StyleSheet.create({
-    listHeaderText: {
-      color: colors.foregroundInactive,
+  const styles = StyleSheet.create({
+    flex: {
+      flex: 1,
     },
     browserButton2: {
+      borderRadius: 9,
+      minHeight: 49,
+      paddingHorizontal: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+      alignSelf: 'auto',
+      flexGrow: 1,
+      marginHorizontal: 4,
       backgroundColor: colors.element,
     },
     marketpalceText1: {
+      fontSize: 18,
       color: colors.foreground,
     },
     list: {
       backgroundColor: colors.background,
+    },
+    emptyTxsLightning: {
+      fontSize: 18,
+      color: '#9aa0aa',
+      textAlign: 'center',
+      fontWeight: '600',
+    },
+    scrollViewContent: {
+      flex: 1,
+      justifyContent: 'center',
+      paddingHorizontal: 32,
+      paddingBottom: 40,
+    },
+    marginHorizontal18: {
+      marginHorizontal: 18,
+    },
+    activityIndicator: {
+      marginVertical: 20,
     },
   });
 
@@ -101,11 +121,6 @@ const WalletTransactions = ({ navigation }) => {
       clearInterval(interval);
     };
   }, []);
-
-  // useEffect(() => {
-  //   setOptions({ headerTitle: wallet.getLabel() });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [walletTransactionUpdateStatus]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -261,9 +276,10 @@ const WalletTransactions = ({ navigation }) => {
             justifyContent: 'space-around',
           }}
         >
-          {wallet.chain === Chain.OFFCHAIN && renderLappBrowserButton()}</View>
+          {wallet.chain === Chain.OFFCHAIN && renderLappBrowserButton()}
+        </View>
           {wallet.type === LightningLdkWallet.type && (lnNodeInfo.canSend > 0 || lnNodeInfo.canReceive > 0) && (
-          <View style={[styles.marginHorizontal18, styles.marginBottom18]}>
+          <View style={styles.marginHorizontal18}>
             <LNNodeBar canSend={lnNodeInfo.canSend} canReceive={lnNodeInfo.canReceive} itemPriceUnit={itemPriceUnit} />
           </View>
         )}
@@ -307,9 +323,9 @@ const WalletTransactions = ({ navigation }) => {
             },
           });
         }}
-        style={[styles.browserButton2, stylesHook.browserButton2]}
+        style={styles.browserButton2}
       >
-        <Text style={[styles.marketpalceText1, stylesHook.marketpalceText1]}>{loc.wallets.list_ln_browser}</Text>
+        <Text style={styles.marketpalceText1}>{loc.wallets.list_ln_browser}</Text>
       </TouchableOpacity>
     );
   };
@@ -543,11 +559,9 @@ const WalletTransactions = ({ navigation }) => {
       <View 
         ref={walletActionButtonsRef}
         style={{
-          //alignSelf: 'center',
           flexDirection: 'row',
           justifyContent: 'space-around',
           paddingHorizontal: 48,
-          //overflow: 'hidden',
         }}
       >
         {(wallet.allowSend() || (wallet.type === WatchOnlyWallet.type && wallet.isHd())) && (
@@ -582,32 +596,6 @@ const WalletTransactions = ({ navigation }) => {
               Send
             </Text>
           </View>
-          // <Button
-          //   onLongPress={sendButtonLongPress}
-          //   onPress={sendButtonPress}
-          //   text={loc.send.header}
-          //   testID="SendButton"
-          //   icon={{
-          //       name: "arrow-up",
-          //       size: 24,
-          //       type: "feather",
-          //       color: colors.background,
-          //   }}
-          //   titleStyle={{ 
-          //     fontFamily: 'Poppins-Regular',
-          //     fontSize: 16,
-          //     color: colors.background,
-          //   }}
-          //   title="Send"
-          //   buttonStyle={{
-          //     backgroundColor: colors.primary,
-          //     height: 56,
-          //     width: 150,
-          //     borderRadius: 15,
-          //     padding: 16,
-          //     marginRight: 12,
-          //   }}
-          // />
         )}
         {wallet.allowReceive() && (
           <View style={{ alignItems: 'center', gap: 12 }}>
@@ -646,37 +634,6 @@ const WalletTransactions = ({ navigation }) => {
               Receive
             </Text>
           </View>
-          // <Button
-          //   testID="ReceiveButton"
-          //   text={loc.receive.header}
-          //   onPress={() => {
-          //     if (wallet.chain === Chain.OFFCHAIN) {
-          //       navigate('LNDCreateInvoiceRoot', { screen: 'LNDCreateInvoice', params: { walletID: wallet.getID() } });
-          //     } else {
-          //       navigate('ReceiveDetailsRoot', { screen: 'ReceiveDetails', params: { walletID: wallet.getID() } });
-          //     }
-          //   }}
-          //   icon={{
-          //     name: "arrow-down",
-          //     size: 24,
-          //     type: "feather",
-          //     color: colors.foreground,
-          // }}
-          //   titleStyle={{ 
-          //     fontFamily: 'Poppins-Regular',
-          //     fontSize: 16,
-          //     color: colors.foreground,
-          //   }}
-          //   title="Receive"
-          //   //color={colors.foreground}
-          //   buttonStyle={{
-          //     backgroundColor: colors.element,
-          //     height: 56,
-          //     width: 150,
-          //     borderRadius: 15,
-          //     padding: 16,
-          //   }}
-          // />
         )}
       </View>
       <View 
@@ -740,8 +697,6 @@ const WalletTransactions = ({ navigation }) => {
           contentInset={{ top: 0, left: 0, bottom: 92, right: 0 }}
         />
       </View>
-
-      
     </View>
   );
 };
@@ -749,106 +704,7 @@ const WalletTransactions = ({ navigation }) => {
 export default WalletTransactions;
 
 WalletTransactions.navigationOptions = navigationStyle({}, opts => ({ ...opts }));
-// navigationStyle({}, (options, { theme, navigation, route }) => {
-//   return {
-//     // headerRight: () => (
-//     //   <TouchableOpacity
-//     //     accessibilityRole="button"
-//     //     testID="WalletDetails"
-//     //     style={{
-//     //       justifyContent: 'center',
-//     //       alignItems: 'center',
-//     //       height: 44,
-//     //       width: 44,
-//     //       borderRadius: 22,
-//     //       backgroundColor: colors.card,
-//     //     }}
-//     //     onPress={() =>
-//     //       navigation.navigate('WalletDetails', { walletID: route.params.walletID })
-//     //     }
-//     //   >
-//     //     <Icon name="more-horizontal" type="feather" size={24} color={colors.foreground} />
-//     //   </TouchableOpacity>
-//     // ),
-//   };
-// });
 
 WalletTransactions.propTypes = {
   navigation: PropTypes.shape(),
 };
-
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 32,
-    paddingBottom: 40,
-  },
-  marginHorizontal18: {
-    marginHorizontal: 18,
-  },
-  marginBottom18: {
-    marginBottom: 18,
-  },
-  activityIndicator: {
-    marginVertical: 20,
-  },
-  listHeader: {
-    //marginLeft: 16,
-    //marginRight: 16,
-    //marginVertical: 16,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  listHeaderTextRow: {
-    flex: 1,
-    marginHorizontal: 32,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  listHeaderText: {
-    marginTop: 8,
-    marginBottom: 8,
-    fontWeight: 'bold',
-    fontSize: 24,
-  },
-  browserButton2: {
-    borderRadius: 9,
-    minHeight: 49,
-    paddingHorizontal: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    alignSelf: 'auto',
-    flexGrow: 1,
-    marginHorizontal: 4,
-  },
-  marketpalceText1: {
-    fontSize: 18,
-  },
-  list: {
-    flex: 1,
-  },
-  emptyTxs: {
-    fontSize: 18,
-    color: '#9aa0aa',
-    textAlign: 'center',
-    marginVertical: 16,
-  },
-  emptyTxsLightning: {
-    fontSize: 18,
-    color: '#9aa0aa',
-    textAlign: 'center',
-    fontWeight: '600',
-  },
-  sendIcon: {
-    //transform: [{ rotate: I18nManager.isRTL ? '-225deg' : '225deg' }],
-  },
-  receiveIcon: {
-    //transform: [{ rotate: I18nManager.isRTL ? '45deg' : '-45deg' }],
-  },
-});

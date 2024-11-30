@@ -1,15 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { StatusBar, ScrollView, View, TouchableOpacity, Text, TextInput, Image, ImageBackground, StyleSheet } from 'react-native';
-import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/native';
-import { Icon } from 'react-native-elements';
-import Obscure from 'react-native-obscure';
-//import { BlurView } from "@react-native-community";
+import React, { useState } from 'react';
+import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 import navigationStyle from '../components/navigationStyle';
-import { BlueLoading, BlueFormInput, BlueButton, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
+import { BlueLoading, BlueFormInput, SafeBlueArea } from '../BlueComponents';
 import loc from '../loc';
 import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
-//import { TextInput } from 'react-native-gesture-handler';
 const prompt = require('../helpers/prompt');
 import { defaultStyles } from '../components/defaultStyles';
 
@@ -26,7 +22,6 @@ const Chat = () => {
       left: 0,
       width: ScreenWidth,
       height: ScreenHeight,
-      //backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     lockedCard: {
         display: 'flex',
@@ -181,59 +176,23 @@ const Chat = () => {
                 backgroundColor: 'rgba(0, 0, 0, 0.5)'
             }}
         >
-                {/* <Image
-                source={require('../img/Rectangle.png')}
-                style={{
-                    flex: 1,
-                    position: 'absolute',
-                    width: ScreenWidth,
-                    height: ScreenHeight,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    //opacity: 0.1,
-                    //backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    //zIndex: 100,
-                }}
-                /> */}
-                {/* <BlurView 
-                    style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-                    reducedTransparencyFallbackColor="gray"
-                    blurType="light"
-                    blurAmount={20}
-                /> */}
                     <Image
                         style={{
-                            //position: 'absolute',
                             alignSelf: 'center',
                             top: 280,
                             width: 162,
                             height: 142,
-                            //marginBottom: -250,
                             zIndex: 101,
                         }}
                         source={require('../img/Illustrations/robot-head-19.png')}
                     />
                     <View style={styles.lockedCard}>
-                        {/* <View style={styles.row}>
-                            <Icon name="lock" type="feather" size={32} colors={colors.foreground}/>
-                            <Text style={defaultStyles.h3}>
-                                This feature is under development
-                            </Text>
-                        </View> */}
                         <Text style={defaultStyles.h3}>
                             This feature is under development
                         </Text>
                         <Text style={styles.lockedBody}>
                             Chat with Colby, your AI financial assistant, for personalized insights and expert advice on your investment journey. Coming soon to Cobalt!
                         </Text>
-                        {/* <Text style={styles.lockedBody}>
-                            Chat is only available for premium members. Subscribe to our premium membership to live chat with Colby, get discounted rates, and much more!
-                        </Text> */}
-                        {/* <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>
-                                Try Now
-                            </Text>
-                        </TouchableOpacity> */}
                     </View>
                 </View>
             }
@@ -274,13 +233,6 @@ const Chat = () => {
     </View>
   );
 };
-
-// form.addEventListener('submit', handleSubmit)
-// form.addEventListener('keyup', (e) => {
-//     if (e.keyCode === 13) {
-//         handleSubmit(e)
-//     }
-// })
 
 export default Chat;
 

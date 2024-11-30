@@ -28,6 +28,14 @@
     "enter_amount": "Enter amount",
     "qr_custom_input_button": "Tap 10 times to enter custom input"
   },
+  "home":{
+    "header": "Home"
+  },
+  "card":{
+    "header": "Card",
+    "title": "Unlock the Future of Banking",
+    "subtitle": "Pre-order your Cobalt Card today!"
+  },
   "alert": {
     "default": "Alert"
   },
