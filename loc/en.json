@@ -26,7 +26,8 @@
     "pick_image": "Choose image from library",
     "pick_file": "Choose a file",
     "enter_amount": "Enter amount",
-    "qr_custom_input_button": "Tap 10 times to enter custom input"
+    "qr_custom_input_button": "Tap 10 times to enter custom input",
+    "search_placeholder": "Search anything"
   },
   "home":{
     "header": "Home"
@@ -614,5 +615,47 @@
     "who_can_pay_me": "Who can pay me:",
     "purpose": "Reusable and shareable code (BIP47)",
     "not_found": "Payment code not found"
-  }
+  },
+  "faq": [
+    {
+      "title": "What is the Cobalt Card?",
+      "body": "The Cobalt Card is a Bitcoin-powered payment card that works seamlessly with the Lightning Network, allowing instant, low-cost transactions anywhere Lightning payments are accepted."
+    },
+    {
+      "title": "How does the pre-order process work?",
+      "body": "When you pre-order a Cobalt Card, you reserve your spot in line for the first batch of cards. Once production is complete, we'll notify you via email about shipping timelines."
+    },
+    {
+      "title": "When will I receive my Cobalt Card?",
+      "body": "We estimate that the cards will be ready to ship within 12 months of pre-order. We’ll keep you updated throughout the process."
+    },
+    {
+      "title": "Can I cancel my pre-order?",
+      "body": "Yes, you can cancel your pre-order anytime before shipping begins. To do so, contact our support team at support@cobalt.com."
+    },
+    {
+      "title": "How much does the Cobalt Card cost?",
+      "body": "The cost of the card is $10 (or the Bitcoin equivalent at the time of checkout). This will be charged at the time of pre-order."
+    },
+    {
+      "title": "What are the benefits of using the Cobalt Card?",
+      "body": "• Instant transactions via the Lightning Network\n• Low transaction fees\n• A sleek, futuristic design\n• Easy integration with your Cobalt wallet"
+    },
+    {
+      "title": "Where can I use the Cobalt Card?",
+      "body": "You can use the card for any merchant or service that accepts Lightning Network payments. More compatibility options are planned in the future!"
+    },
+    {
+      "title": "Is the Cobalt Card secure?",
+      "body": "Absolutely. The Cobalt Card uses industry-leading encryption and security protocols to protect your funds and transactions."
+    },
+    {
+      "title": "Can I link multiple wallets to my Cobalt Card?",
+      "body": "Initially, the card will be linked to your primary Cobalt wallet. Future updates may allow multiple wallet connections."
+    },
+    {
+      "title": "What if I lose my Cobalt Card?",
+      "body": "If your card is lost or stolen, you can disable it immediately through the Cobalt app. Replacement cards will be available for a nominal fee."
+    }
+  ]
 }

@@ -1,48 +1,77 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
+import { Icon } from 'react-native-elements';
 
 import navigationStyle from '../../../components/navigationStyle';
-import Header from '../../../components/header'
-import Button from '../../../components/buttonPrimary'
+import SearchBar from '../../../components/searchbar'
 import loc from '../../../loc';
 import { defaultStyles } from '../../../components/defaultStyles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const CardFAQ = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { navigate } = useNavigation();
   const { colors } = useTheme();
-  const [isActive, setActive] = useState(false);
+  const { width } = useWindowDimensions();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const styles = StyleSheet.create({
+    root: {
+        flex: 1,
+        paddingHorizontal: 24,
+        paddingTop: 16,
+    },
+    section: {
+        paddingVertical: 32,
+        gap: 24,
+    },
+    listItem: {
+        display: 'flex',
+        alignItems: 'stretch',
+        gap: 16,
+        paddingBottom: 24,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.foregroundInactive,
+    },
+    header: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+  });
 
   return (
-    <View>
-        <Header title={loc.card.header} icon={'help-circle'} route={'CardFAQ'}/>
-        <View 
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingHorizontal: 24,
-                paddingVertical: 36,
-            }}
+    <View style={styles.root}>
+        <SearchBar/>
+        <ScrollView 
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.section}
         >
-            <Image
-                source={require('../../../img/icons/virtual_card.png')} 
-                style={{
-                  width: 400,
-                  height: 400,
-                }}
-            />
-            <Text style={defaultStyles.h1}>
-                {loc.card.title}
-            </Text>
-            <Text style={defaultStyles.bodyText}>
-                {loc.card.subtitle}
-            </Text>
-        </View>
-        <View style={{paddingHorizontal:24}}>
-            <Button title={"Get Started"}/>
-        </View>
+            {loc.faq.map((x, index) => (
+                <View style={styles.listItem}>
+                    <View style={styles.header}>
+                        <Text style={[defaultStyles.h4, {maxWidth: (width - 72)}]}>
+                            {x.title}
+                        </Text>
+                        <TouchableOpacity
+                            onPress={activeIndex == (index + 1) ? (() => setActiveIndex(0)) : (() => setActiveIndex(index + 1))}
+                        >
+                            <Icon 
+                                color={colors.foregroundInactive}
+                                name={activeIndex == (index + 1) ? 'chevron-down' : 'chevron-right'}
+                                type="feather"
+                                width={24}
+                                height={24}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    {activeIndex == (index + 1) && (
+                        <Text style={defaultStyles.bodyText}>
+                            {x.body}
+                        </Text>
+                    )}
+                </View>
+            ))}
+        </ScrollView>
     </View>
   );
 };

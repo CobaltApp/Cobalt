@@ -15,6 +15,7 @@ type NavigationOptions = {
     backgroundColor: string;
   };
   headerTitleStyle?: {
+    fontSize: number;
     fontFamily: string;
     fontWeight: string;
     color: string;
@@ -59,8 +60,8 @@ const navigationStyle = (
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              height: 44,
-              width: 44,
+              height: 32,
+              width: 32,
               borderRadius: 22,
               backgroundColor: theme.colors.card,
             }}
@@ -82,8 +83,9 @@ const navigationStyle = (
           backgroundColor: theme.colors.background,
         },
         headerTitleStyle: {
+          fontSize: 24,
           fontFamily: 'Poppins',
-          fontWeight: '500',
+          fontWeight: '600',
           color: theme.colors.foreground,
         },
         headerLeft: () => (
@@ -93,17 +95,23 @@ const navigationStyle = (
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            height: 44,
-            width: 44,
+            height: 32,
+            width: 32,
             borderRadius: 22,
             backgroundColor: theme.colors.card,
+            shadowOffset: {
+              width: 0,
+              height: 4,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
           }}
           onPress={() => {
             Keyboard.dismiss();
             navigation.goBack(null);
           }}
         >
-          <Icon name="arrow-left" type="feather" size={24} color={theme.colors.foreground} />
+          <Icon name="chevron-left" type="feather" size={24} color={theme.colors.foreground} />
         </TouchableOpacity>
         ),
         headerRight,
@@ -133,8 +141,9 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
           backgroundColor: theme.colors.background,
         },
         headerTitleStyle: {
+          fontSize: 24,
           fontFamily: 'Poppins',
-          fontWeight: '500',
+          fontWeight: '600',
           color: theme.colors.foreground,
         },
         headerHideShadow: true,
@@ -147,17 +156,23 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            height: 44,
-            width: 44,
+            height: 32,
+            width: 32,
             borderRadius: 22,
             backgroundColor: theme.colors.card,
+            shadowOffset: {
+              width: 0,
+              height: 4,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
           }}
           onPress={() => {
             Keyboard.dismiss();
             navigation.goBack(null);
           }}
         >
-          <Icon name="arrow-left" type="feather" size={24} color={theme.colors.foreground} />
+          <Icon name="chevron-left" type="feather" size={24} color={theme.colors.foreground} />
         </TouchableOpacity>
         ),
         ...opts,

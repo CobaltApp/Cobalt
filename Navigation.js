@@ -645,6 +645,11 @@ const InitRoot = () => {
       component={Card}
       options={Card.navigationOptions(theme)}
     />
+    <InitStack.Screen //TODO: Test transactions
+      name="FAQ"
+      component={CardFAQ}
+      options={CardFAQ.navigationOptions(theme)}
+    />
     {/* <InitStack.Screen
       name="ReceiveDetailsRoot" 
       component={ReceiveDetailsStackRoot} 

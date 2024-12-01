@@ -371,7 +371,7 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <View style={styles.root}>
+      <View style={{flex: 1}}>
         <StatusBar barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'} backgroundColor="transparent" translucent />
         <NavigationContainer ref={navigationRef} theme={colorScheme === 'dark' ? BlueDarkTheme : BlueDefaultTheme}>
           <InitRoot />
@@ -386,11 +386,5 @@ const App = () => {
     </SafeAreaProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
 
 export default App;

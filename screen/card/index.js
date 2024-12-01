@@ -16,7 +16,7 @@ const Card = () => {
 
   return (
     <View>
-        <Header title={loc.card.header} icon={'help-circle'} route={'CardFAQ'}/>
+        <Header title={loc.card.header} icon={'help-circle'} route={'FAQ'}/>
         <View 
             style={{
                 display: 'flex',

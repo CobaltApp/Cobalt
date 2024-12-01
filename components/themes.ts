@@ -34,7 +34,7 @@ export const BlueDefaultTheme = {
     accent: '#1AEDF7', //Fluorescent Blue
     positive: '#1AF793', //Medium Spring Green
     negative: '#F71A7E', //Electric Pink
-    background: '#F4F4F4',
+    background: '#FFFFFF',
     foreground: '#363636',
     foregroundInactive: '#A6A6A6',
     card: '#FFFFFF',
