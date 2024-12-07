@@ -41,41 +41,40 @@ const CardFAQ = () => {
 
   return (
     <View style={styles.root}>
-        <SearchBar/>
-        <ScrollView 
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.section}
-        >
-            {loc.faq.map((x, index) => (
-                <View style={styles.listItem}>
-                    <View style={styles.header}>
-                        <Text style={[defaultStyles.h4, {maxWidth: (width - 72)}]}>
-                            {x.title}
-                        </Text>
-                        <TouchableOpacity
-                            onPress={activeIndex == (index + 1) ? (() => setActiveIndex(0)) : (() => setActiveIndex(index + 1))}
-                        >
-                            <Icon 
-                                color={colors.foregroundInactive}
-                                name={activeIndex == (index + 1) ? 'chevron-down' : 'chevron-right'}
-                                type="feather"
-                                width={24}
-                                height={24}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    {activeIndex == (index + 1) && (
-                        <Text style={defaultStyles.bodyText}>
-                            {x.body}
-                        </Text>
-                    )}
-                </View>
-            ))}
-        </ScrollView>
+      {/* <SearchBar/> */}
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.section}
+      >
+        {loc.faq.map((x, index) => (
+          <View style={styles.listItem}>
+            <TouchableOpacity
+              style={styles.header}
+              onPress={activeIndex == (index + 1) ? (() => setActiveIndex(0)) : (() => setActiveIndex(index + 1))}
+            >
+              <Text style={[defaultStyles.h4, {maxWidth: (width - 72)}]}>
+                {x.title}
+              </Text>
+              <Icon 
+                color={colors.foregroundInactive}
+                name={activeIndex == (index + 1) ? 'chevron-down' : 'chevron-right'}
+                type="feather"
+                width={24}
+                height={24}
+              />
+            </TouchableOpacity>
+            {activeIndex == (index + 1) && (
+              <Text style={defaultStyles.bodyText}>
+                {x.body}
+              </Text>
+            )}
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 };
 
 export default CardFAQ;
 
-CardFAQ.navigationOptions = navigationStyle({});
+CardFAQ.navigationOptions = navigationStyle({headerTitleAlign: 'left',});

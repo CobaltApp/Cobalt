@@ -94,7 +94,7 @@ const WalletAddresses = () => {
       headerRight: () => (
         <TouchableOpacity
           accessibilityRole="button"
-          testID="WalletDetails"
+          testID="WalletSettings"
           style={{
             justifyContent: 'center',
             alignItems: 'center',

@@ -1,5 +1,6 @@
 {
   "_": {
+    "back": "Back",
     "bad_password": "Incorrect password. Please try again.",
     "cancel": "Cancel",
     "continue": "Continue",
@@ -13,6 +14,8 @@
     "yes": "Yes",
     "no": "No",
     "save": "Save",
+    "saved": "Saved",
+    "search_placeholder": "Search anything",
     "seed": "Seed",
     "success": "Success",
     "wallet_key": "Wallet key",
@@ -26,8 +29,10 @@
     "pick_image": "Choose image from library",
     "pick_file": "Choose a file",
     "enter_amount": "Enter amount",
-    "qr_custom_input_button": "Tap 10 times to enter custom input",
-    "search_placeholder": "Search anything"
+    "qr_custom_input_button": "Tap 10 times to enter custom input"
+  },
+  "header":{
+    "wallet_settings": "Wallet Settings"
   },
   "home":{
     "header": "Home"
@@ -396,7 +401,7 @@
     "add_lndhub_placeholder": "Your Node Address",
     "add_placeholder": "my first wallet",
     "add_title": "Add Wallet",
-    "add_wallet_name": "Name",
+    "add_wallet_name": "Display Name",
     "add_wallet_type": "Type",
     "balance": "Balance",
     "clipboard_bitcoin": "You have a Bitcoin address on your clipboard. Would you like to use it for a transaction?",

@@ -4,10 +4,13 @@ import { Icon } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 import { Theme } from './themes';
 import loc from '../loc';
+import { defaultStyles } from './defaultStyles';
+import RoundButton from './button-round';
 
 type NavigationOptions = {
   headerHideShadow?: true;
   headerStyle?: {
+    height: number;
     borderBottomWidth: number;
     elevation: number;
     shadowOpacity?: number;
@@ -60,8 +63,8 @@ const navigationStyle = (
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              height: 32,
-              width: 32,
+              height: 40,
+              width: 40,
               borderRadius: 22,
               backgroundColor: theme.colors.card,
             }}
@@ -76,35 +79,31 @@ const navigationStyle = (
       let options: NavigationOptions = {
         headerHideShadow: true,
         headerStyle: {
+          height: 120,
           borderBottomWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
           shadowOffset: { height: 0, width: 0 },
           backgroundColor: theme.colors.background,
         },
-        headerTitleStyle: {
-          fontSize: 24,
-          fontFamily: 'Poppins',
-          fontWeight: '600',
-          color: theme.colors.foreground,
-        },
+        headerTitleStyle: defaultStyles.h2,
         headerLeft: () => (
           <TouchableOpacity
           accessibilityRole="button"
-          accessibilityLabel={loc._.close}
+            accessibilityLabel={loc._.close}
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            height: 32,
-            width: 32,
+            height: 40,
+            width: 40,
             borderRadius: 22,
             backgroundColor: theme.colors.card,
             shadowOffset: {
               width: 0,
-              height: 4,
+              height: 12,
             },
             shadowOpacity: 0.1,
-            shadowRadius: 4,
+            shadowRadius: 12,
           }}
           onPress={() => {
             Keyboard.dismiss();
@@ -135,17 +134,13 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
     ({ navigation, route }) => {
       let options: NavigationOptions = {
         headerStyle: {
+          height: 120,
           borderBottomWidth: 0,
           elevation: 0,
           shadowOffset: { height: 0, width: 0 },
           backgroundColor: theme.colors.background,
         },
-        headerTitleStyle: {
-          fontSize: 24,
-          fontFamily: 'Poppins',
-          fontWeight: '600',
-          color: theme.colors.foreground,
-        },
+        headerTitleStyle: defaultStyles.h2,
         headerHideShadow: true,
         headerBackTitleVisible: false,
         headerTintColor: theme.colors.foreground,
@@ -156,16 +151,16 @@ export const navigationStyleTx = (opts: NavigationOptions, formatter: OptionsFor
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            height: 32,
-            width: 32,
+            height: 40,
+            width: 40,
             borderRadius: 22,
             backgroundColor: theme.colors.card,
             shadowOffset: {
               width: 0,
-              height: 4,
+              height: 12,
             },
             shadowOpacity: 0.1,
-            shadowRadius: 4,
+            shadowRadius: 12,
           }}
           onPress={() => {
             Keyboard.dismiss();

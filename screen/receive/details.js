@@ -40,7 +40,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import { defaultStyles } from '../../components/defaultStyles';
 
-import Button from '../../components/buttonPrimary'
+import Button from '../../components/button-primary'
 
 const ReceiveDetails = () => {
   const { walletID, address } = useRoute().params;

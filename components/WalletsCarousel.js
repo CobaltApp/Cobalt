@@ -91,7 +91,7 @@ NewWalletPanel.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  root: { paddingLeft: 0, paddingTop: 12, paddingBottom: 40,},
+  root: { marginVertical: 24, paddingLeft: 0 },
   rootLargeDevice: { marginVertical: 20 },
   card: {
     //marginLeft: 32,

@@ -360,7 +360,7 @@ describe('BlueWallet UI Tests - import BIP84 wallet', () => {
   });
 
   it('can do basic wallet-details operations', async () => {
-    const lockFile = '/tmp/travislock.' + hashIt('t_walletdetails');
+    const lockFile = '/tmp/travislock.' + hashIt('t_WalletSettings');
     if (process.env.TRAVIS) {
       if (require('fs').existsSync(lockFile)) return console.warn('skipping as it previously passed on Travis');
     }
@@ -374,7 +374,7 @@ describe('BlueWallet UI Tests - import BIP84 wallet', () => {
     await element(by.text('Imported HD SegWit (BIP84 Bech32 Native)')).tap();
 
     // let's test wallet details screens
-    await element(by.id('WalletDetails')).tap();
+    await element(by.id('WalletSettings')).tap();
 
     // rename test
     await element(by.id('WalletNameInput')).replaceText('testname\n');
@@ -382,7 +382,7 @@ describe('BlueWallet UI Tests - import BIP84 wallet', () => {
     await sup('OK');
     await element(by.text('OK')).tap();
     await expect(element(by.id('WalletLabel'))).toHaveText('testname');
-    await element(by.id('WalletDetails')).tap();
+    await element(by.id('WalletSettings')).tap();
 
     // rename back
     await element(by.id('WalletNameInput')).replaceText('Imported HD SegWit (BIP84 Bech32 Native)\n');
@@ -390,17 +390,17 @@ describe('BlueWallet UI Tests - import BIP84 wallet', () => {
     await sup('OK');
     await element(by.text('OK')).tap();
     await expect(element(by.id('WalletLabel'))).toHaveText('Imported HD SegWit (BIP84 Bech32 Native)');
-    await element(by.id('WalletDetails')).tap();
+    await element(by.id('WalletSettings')).tap();
 
     // wallet export
-    await element(by.id('WalletDetailsScroll')).swipe('up', 'fast', 1);
+    await element(by.id('WalletSettingsScroll')).swipe('up', 'fast', 1);
     await element(by.id('WalletExport')).tap();
     await element(by.id('WalletExportScroll')).swipe('up', 'fast', 1);
     await expect(element(by.id('Secret'))).toHaveText(process.env.HD_MNEMONIC_BIP84);
     await device.pressBack();
 
     // XPUB
-    await element(by.id('WalletDetailsScroll')).swipe('up', 'fast', 1);
+    await element(by.id('WalletSettingsScroll')).swipe('up', 'fast', 1);
     await element(by.id('XPub')).tap();
     await expect(element(by.id('BlueCopyTextToClipboard'))).toBeVisible();
     await device.pressBack();

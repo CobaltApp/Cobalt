@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Keyboard, Platform, useWindowDimensions, Dimensions, I18nManager, View, Image } from 'react-native';
+import { Keyboard, Platform, I18nManager, Text, View, Image, useWindowDimensions } from 'react-native';
 import { useTheme, useNavigation, useRoute } from '@react-navigation/native';
 import { createBottomTabNavigator, useBottomTabBarHeight, BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import { Icon, Button } from 'react-native-elements';
@@ -26,7 +26,7 @@ import NotificationSettings from './screen/settings/notificationSettings';
 import DefaultView from './screen/settings/defaultView';
 
 import Home from './screen/home';
-import WalletTransactions from './screen/wallets/transactions';
+import WalletTransactions from './screen/home/wallet';
 import AddWallet from './screen/wallets/add';
 import WalletsAddMultisig from './screen/wallets/addMultisig';
 import WalletsAddMultisigStep2 from './screen/wallets/addMultisigStep2';
@@ -38,7 +38,7 @@ import ImportWallet from './screen/wallets/import';
 import ImportWalletDiscovery from './screen/wallets/importDiscovery';
 import ImportCustomDerivationPath from './screen/wallets/importCustomDerivationPath';
 import ImportSpeed from './screen/wallets/importSpeed';
-import WalletDetails from './screen/wallets/details';
+import WalletSettings from './screen/home/wallet/settings';
 import WalletExport from './screen/wallets/export';
 import ExportMultisigCoordinationSetup from './screen/wallets/exportMultisigCoordinationSetup';
 import ViewEditMultisigCosigners from './screen/wallets/viewEditMultisigCosigners';
@@ -106,6 +106,10 @@ import { IconConfigKeys } from 'react-native-ios-context-menu';
 import * as NavigationService from './NavigationService';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import RoundButton from './components/button-round';
+
+import { defaultStyles } from './components/defaultStyles';
+
 const WalletsStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -118,6 +122,7 @@ function TabNavigator() {
   const { navigate } = useNavigation();
   const routeName = useRoute().name;
   const walletActionButtonsRef = useRef();
+  const { width } = useWindowDimensions();
 
   const scanButtonRef = useRef();
 
@@ -137,7 +142,14 @@ function TabNavigator() {
     <Tab.Navigator 
       initialRouteName="Home"
       screenOptions={{
-        tabBarShowLabel: false, 
+        headerTitleAlign: 'left',
+        headerStyle: {
+          borderBottomWidth: 0,
+          shadowOffset: { height: 0, width: 0 },
+          backgroundColor: colors.background,
+        },
+        headerTitleStyle: defaultStyles.h2,
+        tabBarShowLabel: false,
         tabBarStyle: { 
           backgroundColor: colors.card, 
           borderTopWidth: 0,
@@ -154,15 +166,19 @@ function TabNavigator() {
         name="Home"
         component={Home}
         options={{
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Icon
-              color={colors.foreground}
-              name={ focused ? "home" : "home-outline" }
-              type="ionicon"
-              width={24}
-              height={24}
-            />
+            <View style={{display: 'flex', alignItems: 'center', paddingTop: (focused ? 24: 0)}}>
+              <Icon
+                color={colors.foreground}
+                name={ focused ? "home" : "home-outline" }
+                type="ionicon"
+                width={24}
+                height={24}
+              />
+              {focused && (
+                <Text style={{fontSize:20}}>•</Text>
+              )}    
+            </View>
           ),
         }}
       />
@@ -188,14 +204,14 @@ function TabNavigator() {
         options={{
           headerShown: false,
           tabBarButton: () => (
-            <View style={{ width: 100, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ width: width/4, alignItems: 'center', justifyContent: 'center' }}>
                 <TouchableOpacity
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: 12,
-                    borderRadius: 16,
+                    padding: 16,
+                    borderRadius: 100,
                     backgroundColor: colors.primary,
                   }}
                   onPress={onScanButtonPressed}
@@ -203,8 +219,8 @@ function TabNavigator() {
                 >
                   <Icon
                     color={ colors.background }
-                    name="plus"
-                    type="feather"
+                    name="qr-code-outline"
+                    type="ionicon"
                     width={24}
                     height={24}
                   />
@@ -217,15 +233,24 @@ function TabNavigator() {
         name="Card"
         component={Card}
         options={{
-          headerShown: false,
+          headerRight: () => (
+            <View style={{ marginRight: 24 }}>
+              <RoundButton size={32} icon="help-circle" route="FAQ" />
+            </View>
+          ),
           tabBarIcon: ({ focused }) => (
-            <Icon
-              color={colors.foreground}
-              name={ focused ? "card" : "card-outline"}
-              type="ionicon"
-              width={24}
-              height={24}
-            />
+            <View style={{display: 'flex', alignItems: 'center', paddingTop: (focused ? 24: 0)}}>
+              <Icon
+                color={colors.foreground}
+                name={ focused ? "card" : "card-outline" }
+                type="ionicon"
+                width={24}
+                height={24}
+              />
+              {focused && (
+                <Text style={{fontSize:20}}>•</Text>
+              )}    
+            </View>
           ),
         }}
       />
@@ -233,15 +258,19 @@ function TabNavigator() {
         name="Settings"
         component={Settings}
         options={{
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Icon
-              color={colors.foreground}
-              name={focused ? "person" : "person-outline"}
-              type="ionicon"
-              width={24}
-              height={24}
-            />
+            <View style={{display: 'flex', alignItems: 'center', paddingTop: (focused ? 24: 0)}}>
+              <Icon
+                color={colors.foreground}
+                name={ focused ? "person" : "person-outline" }
+                type="ionicon"
+                width={24}
+                height={24}
+              />
+              {focused && (
+                <Text style={{fontSize:20}}>•</Text>
+              )}    
+            </View>
           ),
         }}
       />
@@ -302,56 +331,9 @@ const WalletsRoot = () => {
   const theme = useTheme();
   return (
     <WalletsStack.Navigator name="Root" screenOptions={{ headerHideShadow: true, headerShown: true }}>
-      {/* <WalletsStack.Screen name="WalletsList" component={WalletsList} options={WalletsList.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="ReceiveDetails" component={ReceiveDetails} options={ReceiveDetails.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="ReceiveDetailsRoot" component={ReceiveDetailsStackRoot} options={NavigationDefaultOptions} /> */}
-      {/* <WalletsStack.Screen name="WalletTransactions" component={WalletTransactions} options={WalletTransactions.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="LdkOpenChannel" component={LdkOpenChannel} options={LdkOpenChannel.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="LdkInfo" component={LdkInfo} options={LdkInfo.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="WalletDetails" component={WalletDetails} options={WalletDetails.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="LdkViewLogs" component={LdkViewLogs} options={LdkViewLogs.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="TransactionDetails" component={TransactionDetails} options={TransactionDetails.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="TransactionStatus" component={TransactionStatus} options={TransactionStatus.navigationOptions(theme)} /> */}
       <WalletsStack.Screen name="CPFP" component={CPFP} options={CPFP.navigationOptions(theme)} />
       <WalletsStack.Screen name="RBFBumpFee" component={RBFBumpFee} options={RBFBumpFee.navigationOptions(theme)} />
       <WalletsStack.Screen name="RBFCancel" component={RBFCancel} options={RBFCancel.navigationOptions(theme)} />
-      {/* <WalletsStack.Screen name="WalletAddresses" component={WalletAddresses} options={WalletAddresses.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen 
-        name="Chart" 
-        component={Chart} 
-        options={{
-          presentation: 'card',
-        headerShadowVisible: false,
-        title: 'Bitcoin (BTC)',
-        headerStyle: {
-          //backgroundColor: '#051931'
-        },
-        headerTitleStyle: {
-          fontFamily: 'Poppins',
-          fontWeight: '500',
-          fontSize: 18,
-          color: '#FFFFFF',
-        },
-        headerLeft: () => (
-          <TouchableOpacity
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 44,
-            width: 44,
-            borderRadius: 22,
-            //backgroundColor: colors.card,
-          }}
-          onPress={() =>
-            navigation.pop()
-          }
-        >
-          <Icon name="arrow-left" type="feather" size={24} color={'#FFFFFF'} />
-        </TouchableOpacity>
-        ),
-        }}
-        options={NavigationDefaultOptions}
-      /> */}
     </WalletsStack.Navigator>
   );
 };
@@ -421,8 +403,6 @@ const AddWalletRoot = () => {
 
   return (
     <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true, }}>
-      {/* <WalletsStack.Screen name="AddWallet" component={AddWallet} options={AddWallet.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="ImportWallet" component={ImportWallet} options={ImportWallet.navigationOptions(theme)} /> */}
       <WalletsStack.Screen
         name="ImportWalletDiscovery"
         component={ImportWalletDiscovery}
@@ -461,14 +441,12 @@ const AddWalletRoot = () => {
   );
 };
 
-// CreateTransactionStackNavigator === SendDetailsStack
 const SendDetailsStack = createNativeStackNavigator();
 const SendDetailsRoot = () => {
   const theme = useTheme();
 
   return (
     <SendDetailsStack.Navigator screenOptions={{ headerHideShadow: true }}>
-      {/* <SendDetailsStack.Screen name="SendDetails" component={SendDetails} options={SendDetails.navigationOptions(theme)} /> */}
       <SendDetailsStack.Screen name="Confirm" component={Confirm} options={Confirm.navigationOptions(theme)} />
       <SendDetailsStack.Screen
         name="PsbtWithHardwareWallet"
@@ -523,7 +501,6 @@ const LNDCreateInvoiceRoot = () => {
   );
 };
 
-// LightningScanInvoiceStackNavigator === ScanLndInvoiceStack
 const ScanLndInvoiceStack = createNativeStackNavigator();
 const ScanLndInvoiceRoot = () => {
   const theme = useTheme();
@@ -567,20 +544,6 @@ const AztecoRedeemRoot = () => {
     </AztecoRedeemStack.Navigator>
   );
 };
-
-// const ScanQRCodeStack = createNativeStackNavigator();
-// const ScanQRCodeRoot = () => (
-//   <ScanQRCodeStack.Navigator screenOptions={{ headerShown: false, stackPresentation: isDesktop ? 'containedModal' : 'fullScreenModal' }}>
-//     <ScanQRCodeStack.Screen name="ScanQRCode" component={ScanQRCode} />
-//   </ScanQRCodeStack.Navigator>
-// );
-
-// const UnlockWithScreenStack = createNativeStackNavigator();
-// const UnlockWithScreenRoot = () => (
-//   <UnlockWithScreenStack.Navigator name="UnlockWithScreenRoot" screenOptions={{ headerShown: false }}>
-//     <UnlockWithScreenStack.Screen name="UnlockWithScreen" component={UnlockWith} initialParams={{ unlockOnComponentMount: true }} />
-//   </UnlockWithScreenStack.Navigator>
-// );
 
 const ReorderWalletsStack = createNativeStackNavigator();
 const ReorderWalletsStackRoot = () => {
@@ -661,9 +624,9 @@ const InitRoot = () => {
       options={WalletTransactions.navigationOptions(theme)}
     />
     <InitStack.Screen //TODO: Re-style buttons
-      name="WalletDetails"
-      component={WalletDetails}
-      options={WalletDetails.navigationOptions(theme)}
+      name="WalletSettings"
+      component={WalletSettings}
+      options={WalletSettings.navigationOptions(theme)}
     />
     <InitStack.Screen //TODO: Change searchbar style
       name="WalletAddresses" 
@@ -827,7 +790,6 @@ const NavigationDefaultOptions = {
 const Navigation = () => {
   return (
     <RootStack.Navigator initialRouteName="UnlockWithScreenRoot" screenOptions={{ headerHideShadow: true }}>
-      {/* stacks */}
       <RootStack.Screen name="Home" component={TabNavigator} options={NavigationDefaultOptions}/>
       <RootStack.Screen name="WalletsRoot" component={WalletsRoot} options={{ headerShown: false, translucent: false }} />
       <RootStack.Screen name="AddWalletRoot" component={AddWalletRoot} options={NavigationDefaultOptions} />
@@ -835,7 +797,6 @@ const Navigation = () => {
       <RootStack.Screen name="LNDCreateInvoiceRoot" component={LNDCreateInvoiceRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="ScanLndInvoiceRoot" component={ScanLndInvoiceRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="AztecoRedeemRoot" component={AztecoRedeemRoot} options={NavigationDefaultOptions} />
-      {/* screens */}
       <RootStack.Screen name="WalletExportRoot" component={WalletExportStackRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen
         name="ExportMultisigCoordinationSetupRoot"
@@ -846,7 +807,6 @@ const Navigation = () => {
       <RootStack.Screen name="WalletXpubRoot" component={WalletXpubStackRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="SignVerifyRoot" component={SignVerifyStackRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="SelectWallet" component={SelectWallet} />
-      {/* <RootStack.Screen name="ReceiveDetailsRoot" component={ReceiveDetailsStackRoot} options={NavigationDefaultOptions} /> */}
       <RootStack.Screen name="LappBrowserRoot" component={LappBrowserStackRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="LDKOpenChannelRoot" component={LDKOpenChannelRoot} options={NavigationDefaultOptions} />
 

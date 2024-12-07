@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -15,9 +15,9 @@ import { useFocusEffect, useIsFocused, useNavigation, useRoute, useTheme } from 
 import { BlueStorageContext } from '../../blue_modules/storage-context';
 import { isDesktop, isTablet } from '../../blue_modules/environment';
 import navigationStyle from '../../components/navigationStyle';
-import Header from '../../components/header';
-import Transactions from './transactions'
 import loc from '../../loc';
+import RoundButton from '../../components/button-round';
+import TransactionList from '../../components/list-transactions';
 
 const A = require('../../blue_modules/analytics');
 
@@ -60,6 +60,13 @@ const Home = () => {
     if (wallets.some(w => w.getID() === walletID)) {
       setSelectedWallet(walletID);
     }
+    setOptions({
+      headerRight: () => (
+        <View style={{marginRight: 24}}>
+          <RoundButton label="Add Wallet" size={32} icon="plus" action={() => navigate('AddWalletRoot')} />
+        </View>
+      ),
+      })
   }, [wallets, walletID]);
 
   const verifyBalance = () => {
@@ -126,24 +133,24 @@ const Home = () => {
 
   return (
     <View>
-      <Header title={loc.home.header} icon={"plus"} route={'AddWalletRoot'}/>
-      <View>
-        <WalletsCarousel
-          data={wallets.concat(false)}
-          extraData={[wallets]}
-          onPress={handleClick}
-          handleLongPress={handleLongPress}
-          onMomentumScrollEnd={onSnapToItem}
-          ref={walletsCarousel}
-          testID="WalletsList"
-          horizontal
-          scrollEnabled={isFocused}
-        />
-      </View>
-      <Transactions/>
+      <WalletsCarousel
+        data={wallets.concat(false)}
+        extraData={[wallets]}
+        onPress={handleClick}
+        handleLongPress={handleLongPress}
+        onMomentumScrollEnd={onSnapToItem}
+        ref={walletsCarousel}
+        testID="WalletsList"
+        horizontal
+        scrollEnabled={isFocused}
+      />
+      <TransactionList
+        walletID={wallets[currentWalletIndex.current].getID()}
+      />
     </View>
   );
 };
 
 export default Home;
-Home.navigationOptions = navigationStyle({headerShown: false});
+
+Home.navigationOptions = navigationStyle({});
