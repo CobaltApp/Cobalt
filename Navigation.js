@@ -27,11 +27,11 @@ import DefaultView from './screen/settings/defaultView';
 
 import Home from './screen/home';
 import WalletTransactions from './screen/home/wallet';
-import AddWallet from './screen/wallets/add';
+import AddWallet from './screen/home/add';
 import WalletsAddMultisig from './screen/wallets/addMultisig';
 import WalletsAddMultisigStep2 from './screen/wallets/addMultisigStep2';
 import WalletsAddMultisigHelp from './screen/wallets/addMultisigHelp';
-import PleaseBackup from './screen/wallets/pleaseBackup';
+import Backup from './screen/home/add/seed';
 import PleaseBackupLNDHub from './screen/wallets/pleaseBackupLNDHub';
 import PleaseBackupLdk from './screen/wallets/pleaseBackupLdk';
 import ImportWallet from './screen/wallets/import';
@@ -413,8 +413,8 @@ const AddWalletRoot = () => {
         component={ImportCustomDerivationPath}
         options={ImportCustomDerivationPath.navigationOptions(theme)}
       />
-      <WalletsStack.Screen name="ImportSpeed" component={ImportSpeed} options={ImportSpeed.navigationOptions(theme)} />
-      <WalletsStack.Screen name="PleaseBackup" component={PleaseBackup} options={PleaseBackup.navigationOptions(theme)} />
+      {/* <WalletsStack.Screen name="ImportSpeed" component={ImportSpeed} options={ImportSpeed.navigationOptions(theme)} />
+      <WalletsStack.Screen name="PleaseBackup" component={PleaseBackup} options={PleaseBackup.navigationOptions(theme)} /> */}
       <WalletsStack.Screen
         name="PleaseBackupLNDHub"
         component={PleaseBackupLNDHub}
@@ -665,6 +665,11 @@ const InitRoot = () => {
       name="AddWalletRoot" 
       component={AddWallet}
       options={AddWallet.navigationOptions(theme)} 
+    />
+    <InitStack.Screen
+      name="Backup"
+      component={Backup}
+      options={Backup.navigationOptions(theme)}
     />
     <InitStack.Screen //Ldk
       name="LdkOpenChannel"

@@ -403,6 +403,7 @@
     "add_title": "Add Wallet",
     "add_wallet_name": "Display Name",
     "add_wallet_type": "Type",
+    "add_wallet_prompt": "Start by entering a name for your wallet and selecting the type of wallet you want to create.",
     "balance": "Balance",
     "clipboard_bitcoin": "You have a Bitcoin address on your clipboard. Would you like to use it for a transaction?",
     "clipboard_lightning": "You have a Lightning invoice on your clipboard. Would you like to use it for a transaction?",
