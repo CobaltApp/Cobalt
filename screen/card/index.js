@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Linking, ScrollView, View, Text, Image, StyleSheet } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import navigationStyle from '../../components/navigationStyle';
 import Button from '../../components/button-primary'
 import loc from '../../loc';
 import { defaultStyles } from '../../components/defaultStyles';
+import RoundButton from '../../components/button-round';
 
 const Card = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { navigate } = useNavigation();
+  const { navigate, setOptions } = useNavigation();
   const { colors } = useTheme();
   const [isActive, setActive] = useState(false);
+
+  useEffect(() => {
+    setOptions({
+      headerRight: () => (
+        <View style={{ marginRight: 24 }}>
+          <RoundButton label={'FAQ'} size={32} icon="help-circle" action={() => navigate('FAQ')} />
+        </View>
+      ),
+      })
+  }, []);
 
   return (
     <View>
@@ -22,6 +33,7 @@ const Card = () => {
           justifyContent: 'center',
           paddingHorizontal: 24,
           paddingVertical: 36,
+          gap: 12,
         }}
       >
         <Image
@@ -39,7 +51,10 @@ const Card = () => {
         </Text>
       </View>
       <View style={{paddingHorizontal:24}}>
-        <Button title={"Get Started"}/>
+        <Button
+          title={"Get Started"}
+          action={()=>{Linking.openURL('https://docs.google.com/forms/d/e/1FAIpQLSdsdoSlXq9Hc1BO2HJ8B1WfSW8oTCrD-XoE1tFrS8NUJJ3IUw/viewform?usp=dialog')}}
+        />
       </View>
     </View>
   );

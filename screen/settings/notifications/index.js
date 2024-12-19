@@ -1,18 +1,17 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { ScrollView, TouchableWithoutFeedback, I18nManager, StyleSheet, Switch, Linking, View, Text, TextInput } from 'react-native';
+import { StyleSheet, Switch, Linking, View, Text, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { Button } from 'react-native-elements';
 
-import navigationStyle from '../../components/navigationStyle';
-import { BlueButton, BlueCard, BlueCopyToClipboardButton, BlueListItem, BlueLoading, BlueSpacing20, BlueText } from '../../BlueComponents';
-import loc from '../../loc';
-import { BlueCurrentTheme } from '../../components/themes';
-import Notifications from '../../blue_modules/notifications';
-import alert from '../../components/Alert';
+import navigationStyle from '../../../components/navigationStyle';
+import { BlueButton, BlueCard, BlueCopyToClipboardButton, BlueListItem, BlueLoading, BlueSpacing20, BlueText } from '../../../BlueComponents';
+import loc from '../../../loc';
+import Notifications from '../../../blue_modules/notifications';
+import alert from '../../../components/Alert';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers';
-import { defaultStyles } from '../../components/defaultStyles';
-import { BlueStorageContext } from '../../blue_modules/storage-context';
+import { defaultStyles } from '../../../components/defaultStyles';
+import { BlueStorageContext } from '../../../blue_modules/storage-context';
+import ToggleSection from '../../../components/section-toggle';
 
 const NotificationSettings = () => {
   const { isAdvancedModeEnabled } = useContext(BlueStorageContext);
@@ -133,13 +132,13 @@ const NotificationSettings = () => {
     <BlueLoading />
   ) : (
     <View style={styles.root}>
-      <View style={styles.modal}>
-        <View style={styles.row}>
-          <Text style={defaultStyles.h4}>
-            Push Notifications
-          </Text>
-          <Switch value={isNotificationsEnabled} onValueChange={onNotificationsSwitch} trackColor={{false: colors.element, true: colors.primary}} thumbColor={colors.dark}/>
-        </View>
+      <View style={defaultStyles.modal}>
+        <ToggleSection
+          header={'Push Notifications'}
+          body={loc.settings.general_adv_mode_e}
+          input={isNotificationsEnabled}
+          onChange={onNotificationsSwitch}
+        />
         {isNotificationsEnabled && isAdvancedModeEnabled && (
           <View style={{ display: 'flex', flex: 1, gap: 24 }}>
             <Text

@@ -47,7 +47,10 @@ const CardFAQ = () => {
         contentContainerStyle={styles.section}
       >
         {loc.faq.map((x, index) => (
-          <View style={styles.listItem}>
+          <View
+            key={index} 
+            style={styles.listItem}
+          >
             <TouchableOpacity
               style={styles.header}
               onPress={activeIndex == (index + 1) ? (() => setActiveIndex(0)) : (() => setActiveIndex(index + 1))}

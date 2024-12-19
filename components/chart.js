@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View, TouchableOpacity, Text, Image, TextInput,
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-import navigationStyleTx from '../components/navigationStyle';
+import navigationStyleTx from './navigationStyle';
 import { BlueLoading, BlueButton, SafeBlueArea, BlueCard, BlueText, BlueSpacing20 } from '../BlueComponents';
 //import TradingViewWidget from '../components/TradingViewWidget';
 //import TradingViewWidget, { Themes } from 'react-tradingview-widget';
@@ -16,6 +16,9 @@ import loc from '../loc';
 import { Defs, LinearGradient, Stop } from 'react-native-svg'
 import { LineChart, Grid } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
+
+import { defaultStyles } from './defaultStyles';
+import Button from './button-primary';
 
 const periodList = [
     {
@@ -314,12 +317,8 @@ const fetchChart = async () => {
         //fetchChart();
     }
 
-  return isLoading ? (null
-    // <SafeBlueArea>
-    //   <BlueLoading />
-    // </SafeBlueArea>
-  ) : (
-    <View style={{ flex: 1, backgroundColor: colors.background }}>
+  return (
+    <View style={{ flex: 1 }}>
         <View style={styles.chartContainer}>
             <View style={{ alignItems: 'center' }}>
                 <Text style={styles.price}>
@@ -365,13 +364,8 @@ const fetchChart = async () => {
                     />
                 </LineChart>
             </View>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>
-                    Buy Now
-                </Text>
-            </TouchableOpacity>
         </View>
-        <View style={styles.modal}>
+        {/* <View style={styles.modal}>
                 <Text style={styles.header}>
                     Statistics
                 </Text>
@@ -419,7 +413,9 @@ const fetchChart = async () => {
                         </Text>
                     </View>
                 </View>
-            </View>
+            </View> */}
+
+        <Button title={'But Now'} />
     </View>
   );
 };

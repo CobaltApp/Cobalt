@@ -15,18 +15,28 @@ import { defaultStyles } from '../../components/defaultStyles';
 const items = [
   {
     page: 'GeneralSettings',
-    iconUrl: require('../../img/icons/settings.png'),
-    title: 'General',
+    title: 'General Settings',
+  },
+  // {
+  //   page: 'GeneralSettings',
+  //   iconUrl: require('../../img/icons/card.png'),
+  //   title: 'Payment Methods',
+  // },
+  {
+    page: 'DeviceSettings',
+    title: 'Device Settings',
   },
   {
-    page: 'GeneralSettings',
-    iconUrl: require('../../img/icons/card.png'),
-    title: 'Payment Methods',
+    page: 'NotificationSettings',
+    title: 'Notifications',
+  },
+  {
+    page: 'NetworkSettings',
+    title: 'Network Settings',
   },
   {
     page: 'SettingsPrivacy',
-    iconUrl: require('../../img/icons/lock.png'),
-    title: 'Security',
+    title: 'Security Settings',
   },
   // {
   //   page: 'NotificationSettings',
@@ -35,8 +45,7 @@ const items = [
   // },
   {
     page: 'About',
-    iconUrl: require('../../img/icons/help.png'),
-    title: 'About Us',
+    title: 'About Cobalt',
   },
 ];
 
@@ -47,15 +56,15 @@ const Settings = () => {
   const { language } = useContext(BlueStorageContext);
   const { colors } = useTheme();
 
-  const navigateHome = () => {
-    navigate('Home');
-  };
-
   const styles = StyleSheet.create({
     root: {
-      backgroundColor: '#F7931A',
       flex: 1,
-      paddingTop: 20,
+      paddingTop: 16,
+      paddingHorizontal: 24,
+    },
+    section: {
+      paddingVertical: 32,
+      gap: 24,
     },
     modal: {
       display: 'flex',
@@ -72,16 +81,14 @@ const Settings = () => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+      paddingBottom: 18,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.foregroundInactive,
     },
   });
 
   return (
       <View style={styles.root}>
-        <View style={{paddingHorizontal: 24, paddingTop: 32, paddingBottom: 24}}>
-          <Text style={defaultStyles.h1}>
-            Settings
-          </Text>
-        </View>
         {/* <View
           style={{
             display: 'flex',
@@ -138,30 +145,15 @@ const Settings = () => {
                     }}
                 />
         </View> */}
-        <Image 
-          source={require('../../img/Illustrations/ethereum.png')}
-          style={{
-            position: 'absolute',
-            top: 32,
-            right: 0,
-          }}
-        />
-        <View style={styles.modal}>
+        <View style={styles.section}>
         {items.map((x, index) => (
           <TouchableOpacity
             key={index}
-            style={styles.item}
+            style={[styles.item, {borderBottomWidth: (index == 5) ? 0 : 1}]}
             onPress={() => navigate(x.page)}
           >
             <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 20 }}>
-              <Image 
-                source={x.iconUrl}
-                style={{
-                  width: 32,
-                  height: 32,
-                }}
-              />
-              <Text style={defaultStyles.h3}>
+              <Text style={defaultStyles.h4}>
                 {x.title}
               </Text>
             </View>

@@ -189,7 +189,8 @@ const TransactionList = ({ walletID }) => {
             }}
           >
             
-            <Image source={require('../img/Illustrations/question.png')} 
+            <Image 
+              source={require('../img/Illustrations/question.png')} 
               style={{
                 width: 300,
                 height: 300,

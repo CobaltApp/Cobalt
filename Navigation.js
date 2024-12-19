@@ -7,7 +7,7 @@ import { createBottomTabNavigator, useBottomTabBarHeight, BottomTabBarHeightCont
 import { Icon, Button } from 'react-native-elements';
 import { FContainer, FButton } from './components/FloatButtons';
 
-import Settings from './screen/settings/settings';
+import Settings from './screen/settings';
 import About from './screen/settings/about';
 import ReleaseNotes from './screen/settings/releasenotes';
 import Licensing from './screen/settings/licensing';
@@ -20,10 +20,11 @@ import LightningSettings from './screen/settings/lightningSettings';
 import ElectrumSettings from './screen/settings/electrumSettings';
 import TorSettings from './screen/settings/torSettings';
 import Tools from './screen/settings/tools';
-import GeneralSettings from './screen/settings/GeneralSettings';
-import NetworkSettings from './screen/settings/NetworkSettings';
-import NotificationSettings from './screen/settings/notificationSettings';
+import GeneralSettings from './screen/settings/general';
+import NetworkSettings from './screen/settings/network';
+import NotificationSettings from './screen/settings/notifications';
 import DefaultView from './screen/settings/defaultView';
+import DeviceSettings from './screen/settings/device';
 
 import Home from './screen/home';
 import WalletTransactions from './screen/home/wallet';
@@ -84,7 +85,7 @@ import LnurlAuth from './screen/lnd/lnurlAuth';
 import UnlockWith from './UnlockWith';
 import DrawerList from './screen/wallets/drawerList';
 import { isDesktop, isTablet, isHandset } from './blue_modules/environment';
-import SettingsPrivacy from './screen/settings/SettingsPrivacy';
+import SettingsPrivacy from './screen/settings/security';
 import LNDViewAdditionalInvoicePreImage from './screen/lnd/lndViewAdditionalInvoicePreImage';
 import LdkViewLogs from './screen/wallets/ldkViewLogs';
 import PaymentCode from './screen/wallets/paymentCode';
@@ -99,8 +100,10 @@ import Chat from './screen/Chat';
 import Card from './screen/card';
 import CardFAQ from './screen/card/faq';
 
+import News from './screen/news';
+
 import Discover from './screen/Discover';
-import Chart from './screen/chart';
+import Chart from './components/chart';
 import { IconConfigKeys } from 'react-native-ios-context-menu';
 
 import * as NavigationService from './NavigationService';
@@ -148,7 +151,7 @@ function TabNavigator() {
           shadowOffset: { height: 0, width: 0 },
           backgroundColor: colors.background,
         },
-        headerTitleStyle: defaultStyles.h2,
+        headerTitleStyle: [defaultStyles.h2, {marginLeft: 12}],
         tabBarShowLabel: false,
         tabBarStyle: { 
           backgroundColor: colors.card, 
@@ -183,10 +186,9 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Discover"
-        component={Discover}
+        name="News"
+        component={News}
         options={{
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Icon
               color={colors.foreground}
@@ -233,11 +235,6 @@ function TabNavigator() {
         name="Card"
         component={Card}
         options={{
-          headerRight: () => (
-            <View style={{ marginRight: 24 }}>
-              <RoundButton size={32} icon="help-circle" route="FAQ" />
-            </View>
-          ),
           tabBarIcon: ({ focused }) => (
             <View style={{display: 'flex', alignItems: 'center', paddingTop: (focused ? 24: 0)}}>
               <Icon
@@ -657,14 +654,14 @@ const InitRoot = () => {
       options={FeeSelect.navigationOptions(theme)} 
     />
     <InitStack.Screen //TODO: Edit this screen
-      name="SelectWallet" 
-      component={SelectWallet} 
+      name="SelectWallet"
+      component={SelectWallet}
       options={SelectWallet.navigationOptions(theme)}
     />
     <InitStack.Screen //TODO: Finalize screen style
-      name="AddWalletRoot" 
+      name="AddWalletRoot"
       component={AddWallet}
-      options={AddWallet.navigationOptions(theme)} 
+      options={AddWallet.navigationOptions(theme)}
     />
     <InitStack.Screen
       name="Backup"
@@ -706,6 +703,32 @@ const InitRoot = () => {
       component={GeneralSettings} 
       options={GeneralSettings.navigationOptions(theme)} 
     />
+    <InitStack.Screen
+      name="DefaultView"
+      component={DefaultView}
+      options={DefaultView.navigationOptions(theme)}
+    />
+    <InitStack.Screen
+      name="DeviceSettings"
+      component={DeviceSettings}
+      options={DeviceSettings.navigationOptions(theme)}
+    />  
+    <InitStack.Screen
+      name="NotificationSettings"
+      component={NotificationSettings}
+      options={NotificationSettings.navigationOptions(theme)}
+    />
+    <InitStack.Screen
+      name="NetworkSettings"
+      component={NetworkSettings}
+      options={NetworkSettings.navigationOptions(theme)}
+    />
+    <InitStack.Screen
+      name="SettingsPrivacy"
+      component={SettingsPrivacy}
+      options={SettingsPrivacy.navigationOptions(theme)}
+    />
+      
     <InitStack.Screen 
       name="About" 
       component={About} 

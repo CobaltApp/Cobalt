@@ -2,15 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView, View, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, Linking, Platform, Pressable } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
-import navigationStyle from '../../components/navigationStyle';
-import { BlueText, BlueSpacing20, BlueListItem, BlueCard, BlueHeaderDefaultSub } from '../../BlueComponents';
-import loc from '../../loc';
-import DeviceQuickActions from '../../class/quick-actions';
-import BlueClipboard from '../../blue_modules/clipboard';
-import { BlueStorageContext } from '../../blue_modules/storage-context';
-import WidgetCommunication from '../../blue_modules/WidgetCommunication';
+import navigationStyle from '../../../components/navigationStyle';
+import { BlueText, BlueSpacing20, BlueListItem, BlueCard, BlueHeaderDefaultSub } from '../../../BlueComponents';
+import loc from '../../../loc';
+import DeviceQuickActions from '../../../class/quick-actions';
+import BlueClipboard from '../../../blue_modules/clipboard';
+import { BlueStorageContext } from '../../../blue_modules/storage-context';
+import WidgetCommunication from '../../../blue_modules/WidgetCommunication';
+import { defaultStyles } from '../../../components/defaultStyles';
+import ToggleSection from '../../../components/section-toggle';
 
-const A = require('../../blue_modules/analytics');
+const A = require('../../../blue_modules/analytics');
 
 const SettingsPrivacy = () => {
   const { colors } = useTheme();
@@ -118,61 +120,39 @@ const SettingsPrivacy = () => {
   });
 
   return (
-    <ScrollView style={styles.root}>
-      <View
-        style={styles.modal}
-      >
-      <BlueListItem
-        hideChevron
-        title={loc.settings.privacy_read_clipboard}
-        Component={TouchableWithoutFeedback}
-        switch={{ onValueChange, value: isReadClipboardAllowed, disabled: isLoading === sections.ALL, testID: 'ClipboardSwitch' }}
-      />
-      <BlueListItem
-        hideChevron
-        title={loc.settings.privacy_do_not_track}
-        Component={TouchableWithoutFeedback}
-        switch={{ onValueChange: onDoNotTrackValueChange, value: doNotTrackSwitchValue, disabled: isLoading === sections.ALL }}
-      />
-      {!storageIsEncrypted && (
-        <>
-          <BlueListItem
-            hideChevron
-            title={loc.settings.privacy_quickactions}
-            Component={TouchableWithoutFeedback}
-            switch={{
-              onValueChange: onQuickActionsValueChange,
-              value: isQuickActionsEnabled,
-              disabled: isLoading === sections.ALL,
-              testID: 'QuickActionsSwitch',
-            }}
+    <View style={styles.root}>
+      <View style={defaultStyles.modal}>
+        <View style={{gap: 32}}>
+          <ToggleSection
+            header={loc.settings.privacy_read_clipboard}
+            body={loc.settings.privacy_clipboard_explanation}
+            input={isReadClipboardAllowed}
+            onChange={onValueChange}
           />
-        </>
-      )}
-      {Platform.OS === 'ios' && !storageIsEncrypted && (
-        <>
-          <BlueListItem
-            hideChevron
-            title={'Show Total Balance in Widgets'}
-            Component={TouchableWithoutFeedback}
-            switch={{
-              onValueChange: onWidgetsTotalBalanceValueChange,
-              value: isDisplayWidgetBalanceAllowed,
-              disabled: isLoading === sections.ALL,
-            }}
+          <ToggleSection
+            header={loc.settings.privacy_do_not_track}
+            body={loc.settings.privacy_do_not_track_explanation}
+            input={doNotTrackSwitchValue}
+            onChange={onDoNotTrackValueChange}
           />
-        </>
-      )}
-      <BlueListItem
+          {!storageIsEncrypted && (
+            <ToggleSection
+              header={loc.settings.privacy_quickactions}
+              body={loc.settings.privacy_quickactions_explanation}
+              input={isQuickActionsEnabled}
+              onChange={onQuickActionsValueChange}
+            />
+          )}
+          <BlueListItem
             onPress={navigateToPlausibleDeniability}
             title={'Encrypted Storage'}
             chevron
             testID="PlausibleDeniabilityButton"
             Component={TouchableOpacity}
           />
-      <BlueListItem title={loc.settings.privacy_system_settings} chevron onPress={openApplicationSettings} testID="PrivacySystemSettings" />
+        </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

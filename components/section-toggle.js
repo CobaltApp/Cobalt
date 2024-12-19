@@ -1,9 +1,10 @@
-import { Switch, Text, View } from 'react-native';
+import { Switch, Text, View, useWindowDimensions } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { defaultStyles } from './defaultStyles';
 
 const ToggleSection = ({ header, body, input, onChange }) => {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
     
     return (
       <View
@@ -13,7 +14,7 @@ const ToggleSection = ({ header, body, input, onChange }) => {
           justifyContent: 'space-between',
         }}
       >
-        <View style={{ gap: 4 }}>
+        <View style={{ gap: 12, maxWidth: width - 96 }}>
           <Text style={defaultStyles.h4}>
             {header}
           </Text>
@@ -21,12 +22,14 @@ const ToggleSection = ({ header, body, input, onChange }) => {
             {body}
           </Text>
         </View>
-        <Switch 
-          value={input} 
-          onValueChange={onChange} 
-          trackColor={{true: colors.primary}} 
-          thumbColor={colors.card}
-        />
+        <View style={{display: 'flex', flex: 1, alignItems: 'flex-end'}}>
+          <Switch 
+            value={input} 
+            onValueChange={onChange} 
+            trackColor={{true: colors.primary}} 
+            thumbColor={colors.card}
+          />
+        </View>
       </View>
     )
 }

@@ -4,17 +4,17 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 import { getApplicationName, getVersion, getBundleId, getBuildNumber, getUniqueId, hasGmsSync } from 'react-native-device-info';
 import Rate, { AndroidMarket } from 'react-native-rate';
-import { BlueButton, BlueCard, BlueListItem, BlueSpacing20, BlueTextCentered } from '../../BlueComponents';
-import navigationStyle from '../../components/navigationStyle';
-import loc, { formatStringAddTwoWhiteSpaces } from '../../loc';
+import { BlueButton, BlueCard, BlueListItem, BlueSpacing20, BlueTextCentered } from '../../../BlueComponents';
+import navigationStyle from '../../../components/navigationStyle';
+import loc, { formatStringAddTwoWhiteSpaces } from '../../../loc';
 import Clipboard from '@react-native-clipboard/clipboard';
-import { BlueStorageContext } from '../../blue_modules/storage-context';
-import alert from '../../components/Alert';
-import { HDSegwitBech32Wallet } from '../../class';
+import { BlueStorageContext } from '../../../blue_modules/storage-context';
+import alert from '../../../components/Alert';
+import { HDSegwitBech32Wallet } from '../../../class';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
-const A = require('../../blue_modules/analytics');
-const branch = require('../../current-branch.json');
+const A = require('../../../blue_modules/analytics');
+const branch = require('../../../current-branch.json');
 
 const About = () => {
   const { navigate } = useNavigation();
@@ -139,7 +139,7 @@ const About = () => {
             width: 165,
             height: 134,
           }}
-          source={require('../../img/Illustrations/robot-head-3.png')}
+          source={require('../../../img/Illustrations/robot-head-3.png')}
         />
       </View>
       {/* <BlueCard>

@@ -165,9 +165,7 @@ const Discover = () => {
   const data =
     search.length > 0 ? tickers.filter(item => item.address.toLowerCase().includes(search.toLowerCase())) : tickers;
 
-  return isLoading ? (
-      <BlueLoading />
-  ) : (
+  return (
     <View>
       <View
             style={{
@@ -237,7 +235,7 @@ const Discover = () => {
                       fontWeight: '400',
                       fontSize: 16,
                     }}
-                    editable={!isLoading && editable}
+                    editable={editable}
                     multiline={false}
                     clearButtonMode="while-editing"
                     autoCapitalize="none"
