@@ -32,11 +32,15 @@ const items = [
   },
   {
     page: 'NetworkSettings',
-    title: 'Network Settings',
+    title: 'Network',
+  },
+  {
+    page: 'PasswordSettings',
+    title: 'Password'
   },
   {
     page: 'SettingsPrivacy',
-    title: 'Security Settings',
+    title: 'Security',
   },
   // {
   //   page: 'NotificationSettings',
@@ -149,7 +153,7 @@ const Settings = () => {
         {items.map((x, index) => (
           <TouchableOpacity
             key={index}
-            style={[styles.item, {borderBottomWidth: (index == 5) ? 0 : 1}]}
+            style={[styles.item, {borderBottomWidth: (index == items.length - 1) ? 0 : 1}]}
             onPress={() => navigate(x.page)}
           >
             <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 20 }}>

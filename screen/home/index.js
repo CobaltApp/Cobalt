@@ -144,9 +144,9 @@ const Home = () => {
         horizontal
         scrollEnabled={isFocused}
       />
-      <TransactionList
+      {/* <TransactionList
         walletID={wallets[currentWalletIndex.current].getID()}
-      />
+      /> */}
     </View>
   );
 };

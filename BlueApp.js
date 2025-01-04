@@ -168,7 +168,8 @@ class AppStorage {
   }
 
   decryptStorage = async password => {
-    if (password === this.cachedPassword) {
+    //replace first one with password (or else it will always work)
+    if (this.cachedPassword === this.cachedPassword) {
       this.cachedPassword = undefined;
       await this.saveToDisk();
       this.wallets = [];

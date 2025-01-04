@@ -15,32 +15,31 @@ import {
   View,
 } from 'react-native';
 import { useNavigation, useRoute, useTheme, useFocusEffect } from '@react-navigation/native';
-import Clipboard from '@react-native-clipboard/clipboard';
 import { Icon } from 'react-native-elements';
 import Share from 'react-native-share';
-import QRCodeComponent from '../../components/QRCodeComponent';
+import QRCodeComponent from '../../../../components/QRCodeComponent';
 import {
   BlueText,
   BlueAlertWalletExportReminder,
-} from '../../BlueComponents';
-import { navigationStyleTx } from '../../components/navigationStyle';
-import { Chain, BitcoinUnit } from '../../models/bitcoinUnits';
-import HandoffComponent from '../../components/handoff';
-import AmountInput from '../../components/AmountInput';
-import DeeplinkSchemaMatch from '../../class/deeplink-schema-match';
-import loc, { formatBalance } from '../../loc';
-import { BlueStorageContext } from '../../blue_modules/storage-context';
-import Notifications from '../../blue_modules/notifications';
+} from '../../../../BlueComponents';
+import { navigationStyleTx } from '../../../../components/navigationStyle';
+import { Chain, BitcoinUnit } from '../../../../models/bitcoinUnits';
+import HandoffComponent from '../../../../components/handoff';
+import AmountInput from '../../../../components/AmountInput';
+import DeeplinkSchemaMatch from '../../../../class/deeplink-schema-match';
+import loc, { formatBalance } from '../../../../loc';
+import { BlueStorageContext } from '../../../../blue_modules/storage-context';
+import Notifications from '../../../../blue_modules/notifications';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { TransactionPendingIconBig } from '../../components/TransactionPendingIconBig';
-import * as BlueElectrum from '../../blue_modules/BlueElectrum';
-import { SuccessView } from '../send/success';
-const currency = require('../../blue_modules/currency');
+import { TransactionPendingIconBig } from '../../../../components/TransactionPendingIconBig';
+import * as BlueElectrum from '../../../../blue_modules/BlueElectrum';
+import { SuccessView } from '../../../send/success';
+const currency = require('../../../../blue_modules/currency');
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
-import { defaultStyles } from '../../components/defaultStyles';
+import { defaultStyles } from '../../../../components/defaultStyles';
 
-import Button from '../../components/button-primary'
+import Button from '../../../../components/button-primary'
 
 const ReceiveDetails = () => {
   const { walletID, address } = useRoute().params;
@@ -355,13 +354,6 @@ const ReceiveDetails = () => {
         <View style={styles.advancedContainer}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={styles.row}>
-              <Image
-                source={require('../../img/icons/value.png')}
-                style={{
-                  width: 32,
-                  height: 32,
-                }}
-              />
               <TextInput
                 onChangeText={setCustomAmount}
                 placeholderTextColor={colors.foregroundInactive}
@@ -375,13 +367,6 @@ const ReceiveDetails = () => {
           </View>
           <View style={defaultStyles.divider}/>
           <View style={styles.row}>
-          <Image
-              source={require('../../img/icons/email.png')}
-              style={{
-                width: 32,
-                height: 32,
-              }}
-            />
             <TextInput
               onChangeText={setCustomLabel}
               placeholderTextColor={colors.foregroundInactive}

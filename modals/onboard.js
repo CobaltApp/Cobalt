@@ -1,23 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity, StyleSheet, StatusBar, ActivityIndicator, useColorScheme, LayoutAnimation } from 'react-native';
 import { Icon } from 'react-native-elements';
-import Biometric from './class/biometrics';
+import Biometric from '../class/biometrics';
 import LottieView from 'lottie-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackActions, useNavigation, useRoute } from '@react-navigation/native';
-import { BlueStorageContext } from './blue_modules/storage-context';
+import { BlueStorageContext } from '../blue_modules/storage-context';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { isHandset } from './blue_modules/environment';
+import { isHandset } from '../blue_modules/environment';
+import InputSection from '../components/section-input';
+import { defaultStyles } from '../components/defaultStyles';
+import Button from '../components/button-primary';
 
-const UnlockWith = () => {
-  const { setWalletsInitialized, isStorageEncrypted, startAndDecrypt } = useContext(BlueStorageContext);
-  const { dispatch } = useNavigation();
-  const { unlockOnComponentMount } = useRoute().params;
+const Onboard = () => {
+  const { setWalletsInitialized, encryptStorage, isStorageEncrypted, saveToDisk, startAndDecrypt } = useContext(BlueStorageContext);
+  const { setOptions, navigate } = useNavigation();
+  // const { unlockOnComponentMount } = useRoute().params;
   const [biometricType, setBiometricType] = useState(false);
   const [isStorageEncryptedEnabled, setIsStorageEncryptedEnabled] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [animationDidFinish, setAnimationDidFinish] = useState(false);
   const colorScheme = useColorScheme();
+  const [isError, setIsError] = useState(false);
+  const [errorText, setErrorText] = useState();
+  const [username, setUsername] = useState();
+  const [p1, setP1] = useState();
+  const [p2, setP2] = useState();
 
   const initialRender = async () => {
     let bt = false;
@@ -30,7 +38,10 @@ const UnlockWith = () => {
 
   useEffect(() => {
     initialRender();
-    onAnimationFinish();
+    setOptions({
+      headerTitle: '',
+      headerShown: false,
+    });
   }, []);
 
   const successfullyAuthenticated = () => {
@@ -76,13 +87,13 @@ const UnlockWith = () => {
       } else if (biometricType === Biometric.FaceID && !isStorageEncryptedEnabled) {
         return (
           <TouchableOpacity accessibilityRole="button" disabled={isAuthenticating} onPress={unlockWithBiometrics}>
-            <Image
+            {/* <Image
               source={colorScheme === 'dark' ? require('./img/faceid-default.png') : require('./img/faceid-dark.png')}
               style={{
                 width: 64,
                 height: 64,
               }}
-            />
+            /> */}
           </TouchableOpacity>
         );
       } else if (isStorageEncryptedEnabled) {
@@ -95,55 +106,54 @@ const UnlockWith = () => {
     }
   };
 
-  const onAnimationFinish = async () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    if (unlockOnComponentMount) {
-      const storageIsEncrypted = await isStorageEncrypted();
-      setIsStorageEncryptedEnabled(storageIsEncrypted);
-      if (!biometricType || storageIsEncrypted) {
-        unlockWithKey();
-      } else if (typeof biometricType === 'string') unlockWithBiometrics();
+  const onButtonPress = async () => {
+    if (!p1 || !p2) {
+      setIsError(true);
     }
-    setAnimationDidFinish(true);
+    if (p1 === p2) {
+      await encryptStorage(p1);
+      saveToDisk();
+      successfullyAuthenticated();
+    } else {
+      setIsError(true);
+    }
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar barStyle="default" />
-      <View 
-        style={{
-          flex: 1,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        {/* <LottieView 
-          source={require('./img/intro.json')}
-          autoPlay 
-          loop={false} 
-          onAnimationFinish={onAnimationFinish}
-        /> */}
-        <View 
-          style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-            marginBottom: 58,
-          }}
-        >
-          {/* {animationDidFinish &&  */}
-            <View 
-              style={{
-                justifyContent: 'center',
-                flexDirection: 'row',
-              }}
-            >
-              {renderUnlockOptions()}
-            </View>
-          
+    <View style={{flex: 1}}>
+      <View style={defaultStyles.modal}>
+        <View style={{gap: 24}}>
+          <InputSection
+            label={'Username'}
+            placeholderText={'Username'}
+            max={32}
+            input={username}
+            onChange={setUsername}
+          />
+          <InputSection
+            label={'Password'}
+            placeholderText={'Password'}
+            max={32}
+            input={p1}
+            onChange={setP1}
+            error={isError}
+          />
+          <InputSection
+            label={'Confirm Password'}
+            placeholderText={'Confirm Password'}
+            max={32}
+            input={p2}
+            onChange={setP2}
+            error={isError}
+          />
         </View>
+        <Button
+          title={'Continue'}
+          action={onButtonPress}
+        />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default UnlockWith;
+export default Onboard;

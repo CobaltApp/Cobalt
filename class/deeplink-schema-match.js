@@ -4,7 +4,6 @@ import RNFS from 'react-native-fs';
 import URL from 'url';
 import { Chain } from '../models/bitcoinUnits';
 import Lnurl from './lnurl';
-import Azteco from './azteco';
 const bitcoin = require('bitcoinjs-lib');
 const bip21 = require('bip21');
 const BlueApp = require('../BlueApp');
@@ -154,14 +153,6 @@ class DeeplinkSchemaMatch {
           params: {
             uri: event.url,
           },
-        },
-      ]);
-    } else if (Azteco.isRedeemUrl(event.url)) {
-      completionHandler([
-        'AztecoRedeemRoot',
-        {
-          screen: 'AztecoRedeem',
-          params: Azteco.getParamsFromUrl(event.url),
         },
       ]);
     } else if (new WatchOnlyWallet().setSecret(event.url).init().valid()) {

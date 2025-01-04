@@ -4,15 +4,18 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { Text } from 'react-native-elements';
 
-import navigationStyle from '../../components/navigationStyle';
-import { BlueLoading, SafeBlueArea, BlueSpacing20, BlueCard, BlueListItem, BlueHeaderDefaultSub, BlueText, BlueFormLabel, BlueFormInput } from '../../BlueComponents';
-import Biometric from '../../class/biometrics';
-import loc from '../../loc';
-import { BlueStorageContext } from '../../blue_modules/storage-context';
-import alert from '../../components/Alert';
-const prompt = require('../../helpers/prompt');
+import navigationStyle from '../../../components/navigationStyle';
+import { BlueLoading, SafeBlueArea, BlueSpacing20, BlueCard, BlueListItem, BlueHeaderDefaultSub, BlueText, BlueFormLabel, BlueFormInput } from '../../../BlueComponents';
+import Biometric from '../../../class/biometrics';
+import loc from '../../../loc';
+import { BlueStorageContext } from '../../../blue_modules/storage-context';
+import alert from '../../../components/Alert';
+import { defaultStyles } from '../../../components/defaultStyles';
+import ToggleSection from '../../../components/section-toggle';
+import InputSection from '../../../components/section-input';
+const prompt = require('../../../helpers/prompt');
 
-const EncryptStorage = () => {
+const PasswordSettings = () => {
   const { isStorageEncrypted, encryptStorage, decryptStorage, saveToDisk } = useContext(BlueStorageContext);
   const [isLoading, setIsLoading] = useState(true);
   const [biometrics, setBiometrics] = useState({ isDeviceBiometricCapable: false, isBiometricsEnabled: false, biometricsType: '' });
@@ -75,6 +78,7 @@ const EncryptStorage = () => {
         setIsLoading(false);
       });
       if (p1 === p2) {
+        console.log(p1);
         await encryptStorage(p1);
         setIsLoading(false);
         setStorageIsEncryptedSwitchEnabled(await isStorageEncrypted());
@@ -121,14 +125,10 @@ const EncryptStorage = () => {
     navigate('PlausibleDeniability');
   };
 
-  return isLoading ? (
-    <SafeBlueArea>
-      <BlueLoading />
-    </SafeBlueArea>
-  ) : (
-    <SafeBlueArea>
-      <ScrollView contentContainerStyle={styles.root}>
-        {biometrics.isDeviceBiometricCapable && (
+  return (
+    <View style={{flex: 1}}>
+      <ScrollView contentContainerStyle={defaultStyles.modal}>
+        {/* {biometrics.isDeviceBiometricCapable && (
           <>
             <BlueHeaderDefaultSub leftText={loc.settings.biometrics} rightComponent={null} />
             <BlueListItem
@@ -141,29 +141,27 @@ const EncryptStorage = () => {
             </BlueCard>
             <BlueSpacing20 />
           </>
-        )}
-        <BlueHeaderDefaultSub leftText={loc.settings.encrypt_tstorage} rightComponent={null} />
-        <View>
-          <BlueFormLabel>
-            NEW PASSWORD
-          </BlueFormLabel>
-          <BlueFormInput>
-            New password
-          </BlueFormInput>
-          <BlueFormLabel>
-            CONFIRM PASSWORD
-          </BlueFormLabel>
-          <BlueFormInput>
-            New password
-          </BlueFormInput>
+        )} */}
+        {/* <BlueHeaderDefaultSub leftText={loc.settings.encrypt_tstorage} rightComponent={null} /> */}
+        <View style={{gap: 24}}>
+          <ToggleSection
+            header={loc.settings.encrypt_enc_and_pass}
+            input={storageIsEncryptedSwitchEnabled}
+            onChange={onEncryptStorageSwitch}
+          />
+          <InputSection
+            label={'Current Password'}
+            placeholderText={'Current Password'}
+          />
+          <InputSection
+            label={'New Password'}
+            placeholderText={'New Password'}
+          />
+          <InputSection
+            label={'Confirm New Password'}
+            placeholderText={'Confirm New Password'}
+          />
         </View>
-        <BlueListItem
-          testID="EncyptedAndPasswordProtected"
-          hideChevron
-          title={loc.settings.encrypt_enc_and_pass}
-          Component={TouchableWithoutFeedback}
-          switch={{ onValueChange: onEncryptStorageSwitch, value: storageIsEncryptedSwitchEnabled }}
-        />
         {/* {storageIsEncryptedSwitchEnabled && (
           <BlueListItem
             onPress={navigateToPlausibleDeniability}
@@ -174,9 +172,9 @@ const EncryptStorage = () => {
           />
         )} */}
       </ScrollView>
-    </SafeBlueArea>
+    </View>
   );
 };
 
-export default EncryptStorage;
-EncryptStorage.navigationOptions = navigationStyle({}, opts => ({ ...opts, headerTitle: loc.settings.encrypt_title }));
+export default PasswordSettings;
+PasswordSettings.navigationOptions = navigationStyle({}, opts => ({ ...opts, headerTitle: loc.settings.encrypt_title }));

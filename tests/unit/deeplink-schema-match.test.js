@@ -156,30 +156,6 @@ describe.each(['', '//'])('unit - DeepLinkSchemaMatch', function (suffix) {
       },
       {
         argument: {
-          url: 'https://azte.co/?c1=3062&c2=2586&c3=5053&c4=5261',
-        },
-        expected: [
-          'AztecoRedeemRoot',
-          {
-            screen: 'AztecoRedeem',
-            params: { c1: '3062', c2: '2586', c3: '5053', c4: '5261', uri: 'https://azte.co/?c1=3062&c2=2586&c3=5053&c4=5261' },
-          },
-        ],
-      },
-      {
-        argument: {
-          url: 'https://azte.co/?c1=3062&c2=2586&c3=5053&c4=5261',
-        },
-        expected: [
-          'AztecoRedeemRoot',
-          {
-            screen: 'AztecoRedeem',
-            params: { c1: '3062', c2: '2586', c3: '5053', c4: '5261', uri: 'https://azte.co/?c1=3062&c2=2586&c3=5053&c4=5261' },
-          },
-        ],
-      },
-      {
-        argument: {
           url: 'bluewallet:setelectrumserver?server=electrum1.bluewallet.io%3A443%3As',
         },
         expected: [

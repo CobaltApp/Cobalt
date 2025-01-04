@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import React, { createContext, useEffect, useState, useRef } from 'react';
+import { Alert, AppState } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { FiatUnit } from '../models/fiatUnit';
@@ -14,10 +14,12 @@ const currency = require('../blue_modules/currency');
 const A = require('../blue_modules/analytics');
 
 const _lastTimeTriedToRefetchWallet = {}; // hashmap of timestamps we _started_ refetching some wallet
+const LOCK_TIME = 3000;
 
 export const WalletTransactionsStatus = { NONE: false, ALL: true };
 export const BlueStorageContext = createContext();
 export const BlueStorageProvider = ({ children }) => {
+  const appState = useRef(AppState.currentState);
   const [wallets, setWallets] = useState([]);
   const [selectedWallet, setSelectedWallet] = useState('');
   const [walletTransactionUpdateStatus, setWalletTransactionUpdateStatus] = useState(WalletTransactionsStatus.NONE);
@@ -30,6 +32,10 @@ export const BlueStorageProvider = ({ children }) => {
   const [isElectrumDisabled, setIsElectrumDisabled] = useState(true);
   const [isTorDisabled, setIsTorDisabled] = useState(false);
   const [isPrivacyBlurEnabled, setIsPrivacyBlurEnabled] = useState(true);
+  
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', )
+  // });
 
   useEffect(() => {
     BlueElectrum.isDisabled().then(setIsElectrumDisabled);

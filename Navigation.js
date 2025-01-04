@@ -14,7 +14,7 @@ import Licensing from './screen/settings/licensing';
 import Selftest from './screen/selftest';
 import Language from './screen/settings/language';
 import Currency from './screen/settings/currency';
-import EncryptStorage from './screen/settings/encryptStorage';
+import PasswordSettings from './screen/settings/password';
 import PlausibleDeniability from './screen/plausibledeniability';
 import LightningSettings from './screen/settings/lightningSettings';
 import ElectrumSettings from './screen/settings/electrumSettings';
@@ -56,10 +56,9 @@ import CPFP from './screen/transactions/CPFP';
 import RBFBumpFee from './screen/transactions/RBFBumpFee';
 import RBFCancel from './screen/transactions/RBFCancel';
 
-import ReceiveDetails from './screen/receive/details';
-import AztecoRedeem from './screen/receive/aztecoRedeem';
+import ReceiveDetails from './screen/home/wallet/receive';
 
-import SendDetails from './screen/send/details';
+import SendDetails from './screen/send';
 import ScanQRCode from './screen/send/ScanQRCode';
 import FeeSelect from './screen/send/fee';
 import SendCreate from './screen/send/create';
@@ -82,7 +81,10 @@ import LNDViewAdditionalInvoiceInformation from './screen/lnd/lndViewAdditionalI
 import LnurlPay from './screen/lnd/lnurlPay';
 import LnurlPaySuccess from './screen/lnd/lnurlPaySuccess';
 import LnurlAuth from './screen/lnd/lnurlAuth';
-import UnlockWith from './UnlockWith';
+import BlankPage from './modals/blank';
+import Entry from './modals/entry';
+import Unlock from './modals/unlock';
+import Onboard from './modals/onboard';
 import DrawerList from './screen/wallets/drawerList';
 import { isDesktop, isTablet, isHandset } from './blue_modules/environment';
 import SettingsPrivacy from './screen/settings/security';
@@ -530,18 +532,6 @@ const LDKOpenChannelRoot = () => {
   );
 };
 
-const AztecoRedeemStack = createNativeStackNavigator();
-const AztecoRedeemRoot = () => {
-  const theme = useTheme();
-
-  return (
-    <AztecoRedeemStack.Navigator screenOptions={{ headerHideShadow: true }}>
-      <AztecoRedeemStack.Screen name="AztecoRedeem" component={AztecoRedeem} options={AztecoRedeem.navigationOptions(theme)} />
-      <AztecoRedeemStack.Screen name="SelectWallet" component={SelectWallet} />
-    </AztecoRedeemStack.Navigator>
-  );
-};
-
 const ReorderWalletsStack = createNativeStackNavigator();
 const ReorderWalletsStackRoot = () => {
   const theme = useTheme();
@@ -570,10 +560,31 @@ const InitStack = createNativeStackNavigator();
 const InitRoot = () => {
   const theme = useTheme();
   return (
-  <InitStack.Navigator initialRouteName="UnlockWithScreenRoot">
+  <InitStack.Navigator initialRouteName="Entry">
     <InitStack.Screen 
-      name="UnlockWithScreenRoot" 
-      component={UnlockWith}
+      name="Entry"
+      component={Entry}
+      options={{
+        headerShown: false,
+        animation: 'fade',
+      }}
+      initialParams={{ unlockOnComponentMount: true }} 
+    />
+    <InitStack.Screen 
+      name="BlankPage"
+      component={BlankPage}
+      options={{
+        headerShown: false,
+        animation: 'fade',
+      }}
+    />
+    <InitStack.Screen 
+      name="Onboard"
+      component={Onboard}
+    />
+    <InitStack.Screen 
+      name="Unlock"
+      component={Unlock}
       initialParams={{ headerShown: false, unlockOnComponentMount: true }} 
     />
     <InitStack.Screen
@@ -703,11 +714,11 @@ const InitRoot = () => {
       component={GeneralSettings} 
       options={GeneralSettings.navigationOptions(theme)} 
     />
-    <InitStack.Screen
+    {/* <InitStack.Screen
       name="DefaultView"
       component={DefaultView}
       options={DefaultView.navigationOptions(theme)}
-    />
+    /> */}
     <InitStack.Screen
       name="DeviceSettings"
       component={DeviceSettings}
@@ -724,11 +735,15 @@ const InitRoot = () => {
       options={NetworkSettings.navigationOptions(theme)}
     />
     <InitStack.Screen
+      name="PasswordSettings"
+      component={PasswordSettings}
+      options={PasswordSettings.navigationOptions(theme)}
+    />
+    <InitStack.Screen
       name="SettingsPrivacy"
       component={SettingsPrivacy}
       options={SettingsPrivacy.navigationOptions(theme)}
     />
-      
     <InitStack.Screen 
       name="About" 
       component={About} 
@@ -824,7 +839,6 @@ const Navigation = () => {
       <RootStack.Screen name="SendDetailsRoot" component={SendDetailsRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="LNDCreateInvoiceRoot" component={LNDCreateInvoiceRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="ScanLndInvoiceRoot" component={ScanLndInvoiceRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="AztecoRedeemRoot" component={AztecoRedeemRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen name="WalletExportRoot" component={WalletExportStackRoot} options={NavigationDefaultOptions} />
       <RootStack.Screen
         name="ExportMultisigCoordinationSetupRoot"
