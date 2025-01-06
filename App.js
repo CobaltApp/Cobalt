@@ -18,14 +18,13 @@ import { NavigationContainer, CommonActions } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
-import { navigationRef } from './NavigationService';
+import { navigationRef, navigate, canGoBack, goBack, getRoute } from './NavigationService';
 import * as NavigationService from './NavigationService';
 import { Chain } from './models/bitcoinUnits';
 import OnAppLaunch from './class/on-app-launch';
 import DeeplinkSchemaMatch from './class/deeplink-schema-match';
 import loc from './loc';
 import { BlueDefaultTheme, BlueDarkTheme } from './components/themes';
-import InitRoot from './Navigation';
 import BlueClipboard from './blue_modules/clipboard';
 import { isDesktop } from './blue_modules/environment';
 import { BlueStorageContext } from './blue_modules/storage-context';
@@ -38,6 +37,7 @@ import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import ActionSheet from './screen/ActionSheet';
 import HandoffComponent from './components/handoff';
 import Privacy from './blue_modules/Privacy';
+import Layout from './Navigation';
 const A = require('./blue_modules/analytics');
 const currency = require('./blue_modules/currency');
 
@@ -115,8 +115,8 @@ const App = () => {
 
   useEffect(() => {
     return () => {
-      Linking.removeEventListener('url', handleOpenURL);
-      AppState.removeEventListener('change', handleAppStateChange);
+      //Linking.removeEventListener('url', handleOpenURL);
+      //AppState.removeEventListener('change', handleAppStateChange);
       eventEmitter?.removeAllListeners('onNotificationReceived');
       eventEmitter?.removeAllListeners('openSettings');
       eventEmitter?.removeAllListeners('onUserActivityOpen');
@@ -286,8 +286,16 @@ const App = () => {
   };
 
   const handleAppStateChange = async nextAppState => {
-    if (wallets.length === 0) return;
-    if ((appState.current.match(/background/) && nextAppState === 'active') || nextAppState === undefined) {
+    //if (wallets.length === 0) return;
+    if (nextAppState === 'inactive') {
+      navigate('BlankPage');
+    } 
+    else {
+      if (canGoBack()) {
+        navigate('Entry'); //PROBLEM: You might have to enter password twice if you go into app switcher and go home
+      }
+    }
+    if ((appState.current.match(/background/) && nextAppState === 'active')) {
       setTimeout(() => A(A.ENUM.APP_UNSUSPENDED), 2000);
       currency.updateExchangeRate();
       const processed = await processPushNotifications();
@@ -322,9 +330,8 @@ const App = () => {
       }
       clipboardContent.current = clipboard;
     }
-    if (nextAppState) {
-      appState.current = nextAppState;
-    }
+    
+    appState.current = nextAppState;
   };
 
   const handleOpenURL = event => {
@@ -374,8 +381,8 @@ const App = () => {
       <View style={{flex: 1}}>
         <StatusBar barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'} backgroundColor="transparent" translucent />
         <NavigationContainer ref={navigationRef} theme={colorScheme === 'dark' ? BlueDarkTheme : BlueDefaultTheme}>
-          <InitRoot />
-          <Notifications onProcessNotifications={processPushNotifications} />
+            <Layout />
+            <Notifications onProcessNotifications={processPushNotifications} />
         </NavigationContainer>
         {walletsInitialized && !isDesktop && <WatchConnectivity />}
       </View>

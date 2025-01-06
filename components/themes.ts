@@ -28,7 +28,7 @@ export const BlueDefaultTheme = {
   logoImage: require('../img/logolight-2048x1024.png'),
   colors: {
     ...DefaultTheme.colors,
-    primary: '#1A7EF7', //Crayola Blue
+    primary: '#3772FF', //Crayola Blue
     secondary: '#F7931A', //Bitcoin Orange
     tertiary: '#931AF7', //Purple
     accent: '#1AEDF7', //Fluorescent Blue

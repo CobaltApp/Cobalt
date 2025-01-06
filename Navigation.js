@@ -114,6 +114,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import RoundButton from './components/button-round';
 
 import { defaultStyles } from './components/defaultStyles';
+import { InactivityProvider } from './context/inactivity';
 
 const WalletsStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -557,7 +558,7 @@ const WalletXpubStackRoot = () => {
 
 
 const InitStack = createNativeStackNavigator();
-const InitRoot = () => {
+export default function Layout() {
   const theme = useTheme();
   return (
   <InitStack.Navigator initialRouteName="Entry">
@@ -566,7 +567,8 @@ const InitRoot = () => {
       component={Entry}
       options={{
         headerShown: false,
-        animation: 'fade',
+        stackAnimation: 'fade',
+        //animation: 'fade',
       }}
       initialParams={{ unlockOnComponentMount: true }} 
     />
@@ -575,7 +577,7 @@ const InitRoot = () => {
       component={BlankPage}
       options={{
         headerShown: false,
-        animation: 'fade',
+        stackAnimation: 'fade',
       }}
     />
     <InitStack.Screen 
@@ -593,7 +595,7 @@ const InitRoot = () => {
       options={{ headerShown: true, gestureEnabled: false, stackPresentation: isDesktop ? 'containedModal' : 'modal' }}
     />
     <InitStack.Screen //TODO: Make tab navigator disappear when pressing into a screen
-      name='Navigation' 
+      name='Navigation'
       component={TabNavigator}
       options={{ 
         headerShown: false,
@@ -866,4 +868,4 @@ const Navigation = () => {
   );
 };
 
-export default InitRoot;
+// export default InitRoot;

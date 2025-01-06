@@ -19,7 +19,6 @@ const LOCK_TIME = 3000;
 export const WalletTransactionsStatus = { NONE: false, ALL: true };
 export const BlueStorageContext = createContext();
 export const BlueStorageProvider = ({ children }) => {
-  const appState = useRef(AppState.currentState);
   const [wallets, setWallets] = useState([]);
   const [selectedWallet, setSelectedWallet] = useState('');
   const [walletTransactionUpdateStatus, setWalletTransactionUpdateStatus] = useState(WalletTransactionsStatus.NONE);
@@ -32,10 +31,6 @@ export const BlueStorageProvider = ({ children }) => {
   const [isElectrumDisabled, setIsElectrumDisabled] = useState(true);
   const [isTorDisabled, setIsTorDisabled] = useState(false);
   const [isPrivacyBlurEnabled, setIsPrivacyBlurEnabled] = useState(true);
-  
-  // useEffect(() => {
-  //   const subscription = AppState.addEventListener('change', )
-  // });
 
   useEffect(() => {
     BlueElectrum.isDisabled().then(setIsElectrumDisabled);

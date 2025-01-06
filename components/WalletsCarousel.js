@@ -22,7 +22,7 @@ import WalletGradient from '../class/wallet-gradient';
 import { BluePrivateBalance } from '../BlueComponents';
 import { BlueStorageContext } from '../blue_modules/storage-context';
 import { isHandset, isTablet, isDesktop } from '../blue_modules/environment';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import { navigationRef } from '../NavigationService';
 import { defaultStyles } from '../components/defaultStyles';
 
@@ -30,58 +30,63 @@ const NewWalletPanel = () => {
   const { navigate } = useNavigation();
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
-  const itemWidth = width * 0.82 > 375 ? 65 : 48; //65
+  const itemWidth = width * 0.82 > 375 ? 375 : width * 0.82;
+  const itemHeight = width * 0.5;
+  const margins = (width - itemWidth) / 2;
   const isLargeScreen = Platform.OS === 'android' ? isTablet() : (width >= Dimensions.get('screen').width / 2 && isTablet()) || isDesktop;
+
 
   return (
     <View
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: width * 0.74,
-        height: 200,
-        marginLeft: 20,
-        marginRight: 88,
-        backgroundColor: colors.card,
-        borderRadius: 25,
-      }}
+      style={[
+        isLargeScreen ? styles.rootLargeDevice : { ...styles.root, width: width }]}
     >
-      <View style={{ gap: 16 }}>
-        <TouchableOpacity
+      <TouchableOpacity 
+        style={[styles.card, {height: itemHeight, marginHorizontal: margins, borderWidth: 2, borderStyle: 'dashed', borderColor: colors.foreground,}]}
+        accessibilityRole="button"
+        testID="AddWallet"
+        onPress={() => navigate('AddWalletRoot')}
+      >
+        <View
           style={{
+            flex: 1,
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
             alignItems: 'center',
-            marginHorizontal: 18,
-            padding: 16,
-            borderRadius: 40,
-            backgroundColor: colors.primary,
+            justifyContent: 'flex-end',
           }}
-          accessibilityRole="button"
-          testID="CreateAWallet"
-          onPress={() => navigate('AddWalletRoot')}
         >
           <Text
             style={{
-              color: colors.white,
+              color: colors.foreground,
               fontFamily: 'Poppins',
-              fontSize: 16,
+              fontWeight: 600,
+              fontSize: 18,
+              writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr', 
+            }}
+            numberOfLines={1}
+            ellipsizeMode='tail'
+          >
+            Add a Wallet
+          </Text>
+          <View
+            style={{
+              marginTop: 18,
+              marginBottom: itemHeight / 2 - 36,
+              padding: 8,
+              borderRadius: 1000,
+              backgroundColor: colors.foreground,
             }}
           >
-            Add Wallet
-          </Text>
-        </TouchableOpacity>
-        <Text
-          style={{
-            color: colors.foregroundInactive,
-            fontFamily: 'Poppins',
-            fontSize: 14,
-          }}
-        >
-          Add a new wallet to your profile
-        </Text>
-      </View>
+            <Icon
+              name='plus'
+              type={'feather'}
+              size={24}
+              color={colors.background}
+            />
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -293,9 +298,9 @@ const WalletsCarousel = forwardRef((props, ref) => {
           handleLongPress={props.handleLongPress}
           onPress={props.onPress}
         />
-       ) : (null
+       ) : (
         
-      //   <NewWalletPanel onPress={props.onPress} />
+        <NewWalletPanel onPress={props.onPress} />
        ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.horizontal, props.selectedWallet, props.handleLongPress, props.onPress, preferredFiatCurrency, language],
@@ -352,7 +357,7 @@ const WalletsCarousel = forwardRef((props, ref) => {
   ) : (
     <View style={cStyles.contentLargeScreen}>
       {props.data.map((item, index) =>
-        // item ? (
+        item ? (
           <WalletCarouselItem
             isSelectedWallet={!props.horizontal && props.selectedWallet ? props.selectedWallet === item.getID() : undefined}
             item={item}
@@ -361,9 +366,9 @@ const WalletsCarousel = forwardRef((props, ref) => {
             onPress={props.onPress}
             key={index}
           />
-        // ) : (
-        //   <NewWalletPanel key={index} onPress={props.onPress} />
-        // ),
+        ) : (
+          <NewWalletPanel key={index} onPress={props.onPress} />
+        ),
       )}
     </View>
   );

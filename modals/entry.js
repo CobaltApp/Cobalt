@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import Biometric from '../class/biometrics';
 import LottieView from 'lottie-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StackActions, useNavigation, useRoute } from '@react-navigation/native';
+import { StackActions, useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import { BlueStorageContext } from '../blue_modules/storage-context';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { isHandset } from '../blue_modules/environment';
@@ -20,6 +20,7 @@ const Entry = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [animationDidFinish, setAnimationDidFinish] = useState(false);
   const colorScheme = useColorScheme();
+  const { colors } = useTheme();
 
   const initialRender = async () => {
     let bt = false;
@@ -142,6 +143,7 @@ const Entry = () => {
         flex: 1, 
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: colors.primary,
       }}
     >
       
@@ -154,7 +156,7 @@ const Entry = () => {
           {/* {animationDidFinish &&  */}
               {/* {renderUnlockOptions()} */}
               <Image
-                source={require('../img/icon.png')}
+                source={require('../img/icon-borderless.png')}
                 style={{
                   height: 128,
                   width: 128,
