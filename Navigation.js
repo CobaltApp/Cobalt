@@ -102,7 +102,7 @@ import Chat from './screen/Chat';
 import Card from './screen/card';
 import CardFAQ from './screen/card/faq';
 
-import News from './screen/news';
+import Marketplace from './screen/marketplace';
 
 import Discover from './screen/Discover';
 import Chart from './components/chart';
@@ -189,17 +189,22 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="News"
-        component={News}
+        name="Card"
+        component={Card}
         options={{
           tabBarIcon: ({ focused }) => (
-            <Icon
-              color={colors.foreground}
-              name={ focused ? "bar-chart" : "bar-chart-outline" }
-              type="ionicon"
-              width={24}
-              height={24}
-            />
+            <View style={{display: 'flex', alignItems: 'center', paddingTop: (focused ? 24: 0)}}>
+              <Icon
+                color={colors.foreground}
+                name={ focused ? "card" : "card-outline" }
+                type="ionicon"
+                width={24}
+                height={24}
+              />
+              {focused && (
+                <Text style={{fontSize:20}}>•</Text>
+              )}    
+            </View>
           ),
         }}
       />
@@ -235,14 +240,14 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Card"
-        component={Card}
+        name="Marketplace"
+        component={Marketplace}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{display: 'flex', alignItems: 'center', paddingTop: (focused ? 24: 0)}}>
               <Icon
                 color={colors.foreground}
-                name={ focused ? "card" : "card-outline" }
+                name={ focused ? "cart" : "cart-outline" }
                 type="ionicon"
                 width={24}
                 height={24}
@@ -568,7 +573,6 @@ export default function Layout() {
       options={{
         headerShown: false,
         stackAnimation: 'fade',
-        //animation: 'fade',
       }}
       initialParams={{ unlockOnComponentMount: true }} 
     />
@@ -671,10 +675,15 @@ export default function Layout() {
       component={SelectWallet}
       options={SelectWallet.navigationOptions(theme)}
     />
-    <InitStack.Screen //TODO: Finalize screen style
-      name="AddWalletRoot"
+    <InitStack.Screen
+      name="AddWallet"
       component={AddWallet}
       options={AddWallet.navigationOptions(theme)}
+    />
+    <InitStack.Screen
+      name="ImportWallet"
+      component={ImportWallet}
+      options={ImportWallet.navigationOptions(theme)}
     />
     <InitStack.Screen
       name="Backup"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Platform, View, Keyboard, StyleSheet, Switch, TouchableWithoutFeedback } from 'react-native';
+import { Platform, Text, View, Keyboard, StyleSheet, Switch, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
 
 import {
@@ -16,6 +16,9 @@ import navigationStyle from '../../components/navigationStyle';
 import Privacy from '../../blue_modules/Privacy';
 import loc from '../../loc';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
+import InputSection from '../../components/section-input';
+import { defaultStyles } from '../../components/defaultStyles';
+import { Icon } from 'react-native-elements';
 
 const WalletsImport = () => {
   const navigation = useNavigation();
@@ -143,50 +146,112 @@ const WalletsImport = () => {
   );
 
   return (
-    <SafeBlueArea style={styles.root}>
-      <BlueSpacing20 />
-      <TouchableWithoutFeedback accessibilityRole="button" onPress={speedBackdoorTap} testID="SpeedBackdoor">
-        <BlueFormLabel>{loc.wallets.import_explanation}</BlueFormLabel>
-      </TouchableWithoutFeedback>
-      <BlueSpacing20 />
-      <BlueFormMultiInput
-        value={importText}
-        onBlur={onBlur}
-        onChangeText={setImportText}
-        testID="MnemonicInput"
-        inputAccessoryViewID={BlueDoneAndDismissKeyboardInputAccessory.InputAccessoryViewID}
-      />
+    <View style={{ flex: 1 }}>
+      <View style={defaultStyles.modal}>
+        <View>
+          <View style={{ gap: 12 }}>
+            <View style={{display: 'flex', flexDirection: 'row', gap: 8}}>
+              <View
+                style={{
+                  height: 24,
+                  width: 24,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 100,
+                  backgroundColor: colors.foreground
+                }}
+              >
+                <Text style={defaultStyles.btnText}>
+                  1
+                </Text>
+              </View>
+              <Text style={defaultStyles.h4}>
+                Paste Text or Upload File
+              </Text>
+            </View>
+            <Text style={defaultStyles.label}>{loc.wallets.import_explanation}</Text>
+          </View>
+          <View style={{ gap: 32 }}>
+            <InputSection
+              label={''}
+              placeholderText={'Seed phrase, public key, etc.'}
+              lines={8}
+              value={importText}
+              onChange={setImportText}
+            />
+         </View>
+        </View>
+        <TouchableOpacity
+          style={{
+            display: 'flex',
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 32,
+            borderRadius: 24,
+            backgroundColor: '#ffffff'
+          }}
+          onPress={importScan}
+        >
+          <View
+            style={{ maxWidth: 140, gap: 8 }}
+          >
+            <Icon
+              name='file-plus'
+              type={'feather'}
+              color={colors.primary}
+              size={40}
+            />
+            <Text style={[defaultStyles.label, { textAlign: 'center' }]}>
+              .json, .keystore, .dat, .txt, .zip, etc.
+            </Text>
+          </View>
+        </TouchableOpacity>
+        {/* <Button title={"Create"} action={createWallet}/> */}
+        </View>
+    </View>
+    // <SafeBlueArea style={styles.root}>
+    //   <TouchableWithoutFeedback accessibilityRole="button" onPress={speedBackdoorTap} testID="SpeedBackdoor">
+    //     <BlueFormLabel>{loc.wallets.import_explanation}</BlueFormLabel>
+    //   </TouchableWithoutFeedback>
+    //   <BlueFormMultiInput
+    //     value={importText}
+    //     onBlur={onBlur}
+    //     onChangeText={setImportText}
+    //     testID="MnemonicInput"
+    //     inputAccessoryViewID={BlueDoneAndDismissKeyboardInputAccessory.InputAccessoryViewID}
+    //   />
 
-      {Platform.select({ android: !isToolbarVisibleForAndroid && renderOptionsAndImportButton, default: renderOptionsAndImportButton })}
-      {Platform.select({
-        ios: (
-          <BlueDoneAndDismissKeyboardInputAccessory
-            onClearTapped={() => {
-              setImportText('');
-            }}
-            onPasteTapped={text => {
-              setImportText(text);
-              Keyboard.dismiss();
-            }}
-          />
-        ),
-        android: isToolbarVisibleForAndroid && (
-          <BlueDoneAndDismissKeyboardInputAccessory
-            onClearTapped={() => {
-              setImportText('');
-              Keyboard.dismiss();
-            }}
-            onPasteTapped={text => {
-              setImportText(text);
-              Keyboard.dismiss();
-            }}
-          />
-        ),
-      })}
-    </SafeBlueArea>
+    //   {Platform.select({ android: !isToolbarVisibleForAndroid && renderOptionsAndImportButton, default: renderOptionsAndImportButton })}
+    //   {Platform.select({
+    //     ios: (
+    //       <BlueDoneAndDismissKeyboardInputAccessory
+    //         onClearTapped={() => {
+    //           setImportText('');
+    //         }}
+    //         onPasteTapped={text => {
+    //           setImportText(text);
+    //           Keyboard.dismiss();
+    //         }}
+    //       />
+    //     ),
+    //     android: isToolbarVisibleForAndroid && (
+    //       <BlueDoneAndDismissKeyboardInputAccessory
+    //         onClearTapped={() => {
+    //           setImportText('');
+    //           Keyboard.dismiss();
+    //         }}
+    //         onPasteTapped={text => {
+    //           setImportText(text);
+    //           Keyboard.dismiss();
+    //         }}
+    //       />
+    //     ),
+    //   })}
+    // </SafeBlueArea>
   );
 };
 
-WalletsImport.navigationOptions = navigationStyle({}, opts => ({ ...opts, title: loc.wallets.import_title }));
+WalletsImport.navigationOptions = navigationStyle({}, opts => ({ ...opts, title: loc.import_wallet.header }));
 
 export default WalletsImport;

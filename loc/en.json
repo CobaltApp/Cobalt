@@ -47,17 +47,28 @@
   "home":{
     "header": "Home"
   },
-  "add": {
-    "header": "Add Wallet",
+  "add_wallet": {
+    "title": "Add a Wallet",
+    "subtitle": "Create a new wallet or import an existing wallet using a recovery phrase."
+  },
+  "create_wallet": {
+    "title": "Create Wallet",
     "setup_title": "Setup",
     "setup_body": "Start by entering a name for your wallet and selecting the type of wallet you want to create.",
     "name_label": "Display Name",
     "name_placeholder": "Cobalt Wallet"
   },
+  "import_wallet": {
+    "header": "Import Wallet"
+  },
   "card":{
     "header": "Card",
-    "title": "Shape the Future of Banking",
-    "subtitle": "Take our quick survey!"
+    "title": "Take Your Wallet with You",
+    "subtitle": "Take our survey to be waitlisted for the Cobalt Card!"
+  },
+  "marketplace": {
+    "title": "Grow Your Business",
+    "subtitle": "List your business on Cobalt Marketplace!"
   },
   "alert": {
     "default": "Alert"
@@ -142,7 +153,7 @@
     "custom_title": "Custom Amount",
     "amount_placeholder": "Amount",
     "message_placeholder": "Message",
-    
+
     "details_create": "Create",
     "details_label": "Description",
     "details_setAmount": "Receive with amount",
@@ -417,6 +428,7 @@
     "add_wallet_name": "Display Name",
     "add_wallet_type": "Type",
     "add_wallet_prompt": "Start by entering a name for your wallet and selecting the type of wallet you want to create.",
+    "import_wallet_name": "Import Wallet",
     "balance": "Balance",
     "clipboard_bitcoin": "You have a Bitcoin address on your clipboard. Would you like to use it for a transaction?",
     "clipboard_lightning": "You have a Lightning invoice on your clipboard. Would you like to use it for a transaction?",
@@ -450,7 +462,7 @@
     "import_passphrase_title": "Passphrase",
     "import_passphrase_message": "Enter passphrase if you have used any",
     "import_error": "Failed to import. Please make sure that the provided data is valid.",
-    "import_explanation": "Please enter your seed words, public key, WIF, or anything you’ve got. BlueWallet will do its best to guess the correct format and import your wallet.",
+    "import_explanation": "Please enter your seed phrase, public key, WIF, or other wallet information. We’ll automatically detect the format and import your wallet.",
     "import_imported": "Imported",
     "import_scan_qr": "Scan or import a file",
     "import_success": "Your wallet has been successfully imported.",

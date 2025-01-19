@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
+  Modal,
   View,
-  StyleSheet,
   Platform,
   Dimensions,
+  TouchableOpacity,
   useWindowDimensions,
-  findNodeHandle,
-  I18nManager,
+  Text,
 } from 'react-native';
 import WalletsCarousel from '../../components/WalletsCarousel';
 import DeeplinkSchemaMatch from '../../class/deeplink-schema-match';
@@ -18,6 +18,7 @@ import navigationStyle from '../../components/navigationStyle';
 import loc from '../../loc';
 import RoundButton from '../../components/button-round';
 import TransactionList from '../../components/list-transactions';
+import { Image } from 'react-native-elements';
 
 const A = require('../../blue_modules/analytics');
 
@@ -35,6 +36,7 @@ const Home = () => {
     Platform.OS === 'android' ? isTablet() : (width >= Dimensions.get('screen').width / 2 && isTablet()) || isDesktop,
   );
   const walletsCount = useRef(wallets.length);
+  const [ modalVisible, setModalVisible ] = useState(false);
   
   const { walletID } = useRoute();
   
@@ -60,13 +62,10 @@ const Home = () => {
     if (wallets.some(w => w.getID() === walletID)) {
       setSelectedWallet(walletID);
     }
-    setOptions({
-      headerRight: () => (
-        <View style={{marginRight: 24}}>
-          <RoundButton label="Add Wallet" size={32} icon="plus" action={() => navigate('AddWalletRoot')} />
-        </View>
-      ),
-      })
+
+    // if (wallets.length == 0) {
+    //   setModalVisible(true);
+    // }
   }, [wallets, walletID]);
 
   const verifyBalance = () => {
@@ -101,7 +100,7 @@ const Home = () => {
         key: `WalletTransactions-${walletID}`,
       });
     } else {
-      navigate('AddWalletRoot');
+      navigate('AddWallet');
     }
   };
 
@@ -133,6 +132,49 @@ const Home = () => {
 
   return (
     <View>
+      <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+      >
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: 24,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <View>
+          <Image
+            source={require('../../img/Illustrations/hello.png')}
+            style={{
+              width: 320,
+              height: 320,
+            }}
+          />
+          <View
+            style={{
+              padding: 24,
+              borderRadius: 24,
+              backgroundColor: colors.card,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '400',
+                fontFamily: 'Poppins',
+              }}
+            >
+              Welcome to Cobalt! Let’s add your first wallet so you can manage your money on the move.
+            </Text>
+          </View>
+          </View>
+        </TouchableOpacity>
+      </Modal>
       <WalletsCarousel
         data={wallets.concat(false)}
         extraData={[wallets]}

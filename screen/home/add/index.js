@@ -11,6 +11,7 @@ import {
   TextInput,
   StyleSheet,
   Switch,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import navigationStyle from '../../../components/navigationStyle';
@@ -341,7 +342,7 @@ const WalletsAdd = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
       <View style={defaultStyles.modal}>
         <View>
           <View style={{ gap: 12 }}>
@@ -379,8 +380,8 @@ const WalletsAdd = () => {
           </View>
         </View>
         <Button title={"Create"} action={createWallet}/>
-        </View>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
       // <View style={styles.modal}>
       //   <View 
       //     style={{
@@ -580,6 +581,6 @@ const WalletsAdd = () => {
   );
 };
 
-WalletsAdd.navigationOptions = navigationStyle({}, opts => ({ ...opts, title: loc.wallets.add_title }));
+WalletsAdd.navigationOptions = navigationStyle({}, opts => ({ ...opts, title: loc.create_wallet.title }));
 
 export default WalletsAdd;

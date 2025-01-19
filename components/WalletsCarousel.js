@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useImperativeHandle, forwardRef, useContext } from 'react';
+import React, { useRef, useCallback, useImperativeHandle, forwardRef, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Animated,
@@ -13,6 +13,7 @@ import {
   Dimensions,
   FlatList,
   Pressable,
+  Modal,
 } from 'react-native';
 import { useTheme, useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -34,18 +35,155 @@ const NewWalletPanel = () => {
   const itemHeight = width * 0.5;
   const margins = (width - itemWidth) / 2;
   const isLargeScreen = Platform.OS === 'android' ? isTablet() : (width >= Dimensions.get('screen').width / 2 && isTablet()) || isDesktop;
+  const [ modalVisible, setModalVisible ] = useState(false);
 
+  const navigateToAddWallet = () => {
+    setModalVisible(false);
+    navigate('AddWallet');
+  }
+
+  const navigateToImportWallet = () => {
+    setModalVisible(false);
+    navigate('ImportWallet');
+  }
 
   return (
     <View
       style={[
         isLargeScreen ? styles.rootLargeDevice : { ...styles.root, width: width }]}
     >
+      <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+      >
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingHorizontal: 24,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <View
+            style={{
+              display: 'flex',
+              paddingHorizontal: 24,
+              paddingVertical: 32,
+              gap: 32,
+              borderRadius: 32,
+              backgroundColor: colors.card,
+            }}
+          >
+          <View
+            style={{
+              gap: 8,
+              alignItems: 'center',
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                fontFamily: 'Poppins'
+              }}
+            >
+              Add a Wallet
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: '400',
+                fontFamily: 'Poppins',
+                textAlign: 'center',
+              }}
+            >
+              Create a new wallet or import an existing wallet using a recovery phrase.
+            </Text>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              alignItems: 'stretch',
+              justifyContent: 'center',
+              gap: 8,
+            }}
+          >
+          <TouchableOpacity
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              minHeight: 64,
+              padding: 16,
+              borderRadius: 16,
+              backgroundColor: colors.card,
+              shadowOpacity: 0.1,
+              shadowColor: '#000000',
+              shadowRadius: 8,
+              shadowOffset: { height: 0, width: 0}
+            }}
+            onPress={() => navigateToAddWallet()}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: '600',
+                fontFamily: 'Poppins',
+              }}
+            >
+              Create a New Wallet
+            </Text>
+            <Icon
+              name='chevron-right'
+              style={'feather'}
+              size={24}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              minHeight: 64,
+              padding: 16,
+              borderRadius: 16,
+              backgroundColor: colors.card,
+              shadowOpacity: 0.1,
+              shadowColor: '#000000',
+              shadowRadius: 8,
+              shadowOffset: { height: 0, width: 0}
+            }}
+            onPress={() => navigateToImportWallet()}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: '600',
+                fontFamily: 'Poppins',
+              }}
+            >
+              Import a Wallet
+            </Text>
+            <Icon
+              name='chevron-right'
+              style={'feather'}
+              size={24}
+            />
+          </TouchableOpacity>
+          </View>
+          </View>
+        </TouchableOpacity>
+      </Modal>
       <TouchableOpacity 
         style={[styles.card, {height: itemHeight, marginHorizontal: margins, borderWidth: 2, borderStyle: 'dashed', borderColor: colors.foreground,}]}
         accessibilityRole="button"
         testID="AddWallet"
-        onPress={() => navigate('AddWalletRoot')}
+        onPress={() => setModalVisible(true)}
       >
         <View
           style={{
