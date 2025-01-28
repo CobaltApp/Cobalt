@@ -1,4 +1,4 @@
-import Lnurl from '../../class/lnurl';
+import Lnurl from '../../src/class/lnurl';
 const assert = require('assert');
 
 describe('LNURL', function () {

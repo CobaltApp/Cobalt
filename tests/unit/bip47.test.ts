@@ -2,7 +2,7 @@ import BIP47Factory from '@spsina/bip47';
 import ecc from 'tiny-secp256k1';
 import assert from 'assert';
 
-import { HDSegwitBech32Wallet, WatchOnlyWallet } from '../../class';
+import { HDSegwitBech32Wallet, WatchOnlyWallet } from '../../src/class';
 import { ECPairFactory } from 'ecpair';
 const bitcoin = require('bitcoinjs-lib');
 

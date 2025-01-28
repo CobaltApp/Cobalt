@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { SegwitP2SHWallet, SegwitBech32Wallet, HDSegwitP2SHWallet, HDLegacyP2PKHWallet, LegacyWallet } from '../../class';
+import { SegwitP2SHWallet, SegwitBech32Wallet, HDSegwitP2SHWallet, HDLegacyP2PKHWallet, LegacyWallet } from '../../src/class';
 
 describe('P2SH Segwit HD (BIP49)', () => {
   it('can create a wallet', async () => {

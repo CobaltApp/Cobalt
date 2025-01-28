@@ -7,12 +7,12 @@ import {
   usePaired,
   transferCurrentComplicationUserInfo,
 } from 'react-native-watch-connectivity';
-import { Chain } from './models/bitcoinUnits';
-import loc, { formatBalance, transactionTimeToReadable } from './loc';
-import { BlueStorageContext } from './blue_modules/storage-context';
-import Notifications from './blue_modules/notifications';
-import { FiatUnit } from './models/fiatUnit';
-import { MultisigHDWallet } from './class';
+import { Chain } from './src/models/bitcoinUnits';
+import loc, { formatBalance, transactionTimeToReadable } from './src/loc';
+import { BlueStorageContext } from './src/custom-modules/storage-context';
+import Notifications from './src/custom-modules/notifications';
+import { FiatUnit } from './src/models/fiatUnit';
+import { MultisigHDWallet } from './src/class';
 
 function WatchConnectivity() {
   const { walletsInitialized, wallets, fetchWalletTransactions, saveToDisk, txMetadata, preferredFiatCurrency } =

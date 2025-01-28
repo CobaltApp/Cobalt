@@ -15,7 +15,7 @@ if [ -f $FILENAME ]; then
     echo $APTZ
     APPURL=`node -e "let e = JSON.parse('$APTZ'); console.log(e.publicURL + '?device=pixel4');"`
     echo App url: $APPURL
-    PR=`node scripts/appcenter-post-build-get-pr-number.js`
+    PR=`node src/scripts/appcenter-post-build-get-pr-number.js`
     echo PR: $PR
 
     DLOAD_APK="https://lambda-download-android-build.herokuapp.com/download/$BUILD_BUILDID"

@@ -1,4 +1,4 @@
-import { TaprootWallet } from '../../class';
+import { TaprootWallet } from '../../src/class';
 const assert = require('assert');
 
 describe('Taproot wallet', () => {

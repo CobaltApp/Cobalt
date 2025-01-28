@@ -1,4 +1,4 @@
-import { HDSegwitElectrumSeedP2WPKHWallet } from '../../class';
+import { HDSegwitElectrumSeedP2WPKHWallet } from '../../src/class';
 const assert = require('assert');
 
 describe('HDSegwitElectrumSeedP2WPKHWallet', () => {

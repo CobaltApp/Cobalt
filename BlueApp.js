@@ -1,6 +1,6 @@
-import Biometric from './class/biometrics';
+import Biometric from './src/class/biometrics';
 import { Platform } from 'react-native';
-import loc from './loc';
+import loc from './src/loc';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import * as Keychain from 'react-native-keychain';
@@ -22,18 +22,18 @@ import {
   SLIP39SegwitP2SHWallet,
   SLIP39LegacyP2PKHWallet,
   SLIP39SegwitBech32Wallet,
-} from './class/';
-import { randomBytes } from './class/rng';
-import alert from './components/Alert';
+} from './src/class';
+import { randomBytes } from './src/class/rng';
+import alert from './src/components/Alert';
 
-const encryption = require('./blue_modules/encryption');
+const encryption = require('./src/custom-modules/encryption');
 const Realm = require('realm');
 const createHash = require('create-hash');
 let usedBucketNum = false;
 let savingInProgress = 0; // its both a flag and a counter of attempts to write to disk
-const prompt = require('./helpers/prompt');
-const currency = require('./blue_modules/currency');
-const BlueElectrum = require('./blue_modules/BlueElectrum');
+const prompt = require('./src/helpers/prompt');
+const currency = require('./src/custom-modules/currency');
+const BlueElectrum = require('./src/custom-modules/BlueElectrum');
 BlueElectrum.connectMain();
 
 class AppStorage {

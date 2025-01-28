@@ -1,4 +1,4 @@
-import { HDAezeedWallet, WatchOnlyWallet } from '../../class';
+import { HDAezeedWallet, WatchOnlyWallet } from '../../src/class';
 const assert = require('assert');
 
 describe('HDAezeedWallet', () => {

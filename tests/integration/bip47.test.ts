@@ -1,8 +1,8 @@
 // import assert from 'assert';
 import { ECPairFactory } from 'ecpair';
 
-import { HDLegacyP2PKHWallet, HDSegwitBech32Wallet } from '../../class';
-import * as BlueElectrum from '../../blue_modules/BlueElectrum';
+import { HDLegacyP2PKHWallet, HDSegwitBech32Wallet } from '../../src/class';
+import * as BlueElectrum from '../../src/custom-modules/BlueElectrum';
 import BIP47Factory from '@spsina/bip47';
 import assert from 'assert';
 

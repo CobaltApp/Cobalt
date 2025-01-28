@@ -5,121 +5,121 @@ import { Keyboard, Platform, I18nManager, Text, View, Image, useWindowDimensions
 import { useTheme, useNavigation, useRoute } from '@react-navigation/native';
 import { createBottomTabNavigator, useBottomTabBarHeight, BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import { Icon, Button } from 'react-native-elements';
-import { FContainer, FButton } from './components/FloatButtons';
+// import { FContainer, FButton } from './src/components/FloatButtons';
 
-import Settings from './screen/settings';
-import About from './screen/settings/about';
-import ReleaseNotes from './screen/settings/releasenotes';
-import Licensing from './screen/settings/licensing';
-import Selftest from './screen/selftest';
-import Language from './screen/settings/language';
-import Currency from './screen/settings/currency';
-import PasswordSettings from './screen/settings/password';
-import PlausibleDeniability from './screen/plausibledeniability';
-import LightningSettings from './screen/settings/lightningSettings';
-import ElectrumSettings from './screen/settings/electrumSettings';
-import TorSettings from './screen/settings/torSettings';
-import Tools from './screen/settings/tools';
-import GeneralSettings from './screen/settings/general';
-import NetworkSettings from './screen/settings/network';
-import NotificationSettings from './screen/settings/notifications';
-import DefaultView from './screen/settings/defaultView';
-import DeviceSettings from './screen/settings/device';
+import Settings from './src/screens/settings';
+import About from './src/screens/settings/about';
+// import ReleaseNotes from './src/screens/settings/releasenotes';
+// import Licensing from './src/screens/settings/licensing';
+// import Selftest from './src/screens/selftest';
+// import Language from './src/screens/settings/language';
+// import Currency from './src/screens/settings/currency';
+import PasswordSettings from './src/screens/settings/password';
+// import PlausibleDeniability from './src/screens/plausibledeniability';
+// import LightningSettings from './src/screens/settings/lightningSettings';
+// import ElectrumSettings from './src/screens/settings/electrumSettings';
+// import TorSettings from './src/screens/settings/torSettings';
+// import Tools from './src/screens/settings/tools';
+import GeneralSettings from './src/screens/settings/general';
+import NetworkSettings from './src/screens/settings/network';
+import NotificationSettings from './src/screens/settings/notifications';
+// import DefaultView from './src/screens/settings/defaultView';
+import DeviceSettings from './src/screens/settings/device';
 
-import Home from './screen/home';
-import WalletTransactions from './screen/home/wallet';
-import AddWallet from './screen/home/add';
-import WalletsAddMultisig from './screen/wallets/addMultisig';
-import WalletsAddMultisigStep2 from './screen/wallets/addMultisigStep2';
-import WalletsAddMultisigHelp from './screen/wallets/addMultisigHelp';
-import Backup from './screen/home/add/seed';
-import PleaseBackupLNDHub from './screen/wallets/pleaseBackupLNDHub';
-import PleaseBackupLdk from './screen/wallets/pleaseBackupLdk';
-import ImportWallet from './screen/wallets/import';
-import ImportWalletDiscovery from './screen/wallets/importDiscovery';
-import ImportCustomDerivationPath from './screen/wallets/importCustomDerivationPath';
-import ImportSpeed from './screen/wallets/importSpeed';
-import WalletSettings from './screen/home/wallet/settings';
-import WalletExport from './screen/wallets/export';
-import ExportMultisigCoordinationSetup from './screen/wallets/exportMultisigCoordinationSetup';
-import ViewEditMultisigCosigners from './screen/wallets/viewEditMultisigCosigners';
-import WalletXpub from './screen/wallets/xpub';
-import SignVerify from './screen/wallets/signVerify';
-import WalletAddresses from './screen/wallets/addresses';
-import ReorderWallets from './screen/wallets/reorderWallets';
-import SelectWallet from './screen/wallets/selectWallet';
-import ProvideEntropy from './screen/wallets/provideEntropy';
+import Home from './src/screens/home';
+import WalletTransactions from './src/screens/home/wallet';
+import AddWallet from './src/screens/home/add';
+// import WalletsAddMultisig from './src/screens/wallets/addMultisig';
+// import WalletsAddMultisigStep2 from './src/screens/wallets/addMultisigStep2';
+// import WalletsAddMultisigHelp from './src/screens/wallets/addMultisigHelp';
+import Backup from './src/screens/home/add/seed';
+// import PleaseBackupLNDHub from './src/screens/wallets/pleaseBackupLNDHub';
+// import PleaseBackupLdk from './src/screens/wallets/pleaseBackupLdk';
+import ImportWallet from './src/screens/wallets/import';
+// import ImportWalletDiscovery from './src/screens/wallets/importDiscovery';
+// import ImportCustomDerivationPath from './src/screens/wallets/importCustomDerivationPath';
+// import ImportSpeed from './src/screens/wallets/importSpeed';
+import WalletSettings from './src/screens/home/wallet/settings';
+import WalletExport from './src/screens/wallets/export';
+// import ExportMultisigCoordinationSetup from './src/screens/wallets/exportMultisigCoordinationSetup';
+// import ViewEditMultisigCosigners from './src/screens/wallets/viewEditMultisigCosigners';
+import WalletXpub from './src/screens/wallets/xpub';
+import SignVerify from './src/screens/wallets/signVerify';
+import WalletAddresses from './src/screens/wallets/addresses';
+import ReorderWallets from './src/screens/wallets/reorderWallets';
+import SelectWallet from './src/screens/wallets/selectWallet';
+// import ProvideEntropy from './src/screens/wallets/provideEntropy';
 
-import TransactionDetails from './screen/transactions/details';
-import TransactionStatus from './screen/transactions/transactionStatus';
-import CPFP from './screen/transactions/CPFP';
-import RBFBumpFee from './screen/transactions/RBFBumpFee';
-import RBFCancel from './screen/transactions/RBFCancel';
+import TransactionDetails from './src/screens/transactions/details';
+import TransactionStatus from './src/screens/transactions/transactionStatus';
+// import CPFP from './src/screens/transactions/CPFP';
+// import RBFBumpFee from './src/screens/transactions/RBFBumpFee';
+// import RBFCancel from './src/screens/transactions/RBFCancel';
 
-import ReceiveDetails from './screen/home/wallet/receive';
+import ReceiveDetails from './src/screens/home/wallet/receive';
 
-import SendDetails from './screen/send';
-import ScanQRCode from './screen/send/ScanQRCode';
-import FeeSelect from './screen/send/fee';
-import SendCreate from './screen/send/create';
-import Confirm from './screen/send/confirm';
-import PsbtWithHardwareWallet from './screen/send/psbtWithHardwareWallet';
-import PsbtMultisig from './screen/send/psbtMultisig';
-import PsbtMultisigQRCode from './screen/send/psbtMultisigQRCode';
-import Success from './screen/send/success';
-import Broadcast from './screen/send/broadcast';
-import IsItMyAddress from './screen/send/isItMyAddress';
-import CoinControl from './screen/send/coinControl';
+import SendDetails from './src/screens/send';
+import ScanQRCode from './src/screens/send/ScanQRCode';
+import FeeSelect from './src/screens/send/fee';
+// import SendCreate from './src/screens/send/create';
+// import Confirm from './src/screens/send/confirm';
+// import PsbtWithHardwareWallet from './src/screens/send/psbtWithHardwareWallet';
+// import PsbtMultisig from './src/screens/send/psbtMultisig';
+// import PsbtMultisigQRCode from './src/screens/send/psbtMultisigQRCode';
+// import Success from './src/screens/send/success';
+// import Broadcast from './src/screens/send/broadcast';
+// import IsItMyAddress from './src/screens/send/isItMyAddress';
+// import CoinControl from './src/screens/send/coinControl';
 
-import ScanLndInvoice from './screen/lnd/scanLndInvoice';
-import LappBrowser from './screen/lnd/browser';
-import LNDCreateInvoice from './screen/lnd/lndCreateInvoice';
-import LNDViewInvoice from './screen/lnd/lndViewInvoice';
-import LdkOpenChannel from './screen/lnd/ldkOpenChannel';
-import LdkInfo from './screen/lnd/ldkInfo';
-import LNDViewAdditionalInvoiceInformation from './screen/lnd/lndViewAdditionalInvoiceInformation';
-import LnurlPay from './screen/lnd/lnurlPay';
-import LnurlPaySuccess from './screen/lnd/lnurlPaySuccess';
-import LnurlAuth from './screen/lnd/lnurlAuth';
-import BlankPage from './modals/blank';
-import Entry from './modals/entry';
-import Unlock from './modals/unlock';
-import Onboard from './modals/onboard';
-import DrawerList from './screen/wallets/drawerList';
-import { isDesktop, isTablet, isHandset } from './blue_modules/environment';
-import SettingsPrivacy from './screen/settings/security';
-import LNDViewAdditionalInvoicePreImage from './screen/lnd/lndViewAdditionalInvoicePreImage';
-import LdkViewLogs from './screen/wallets/ldkViewLogs';
-import PaymentCode from './screen/wallets/paymentCode';
-import PaymentCodesList from './screen/wallets/paymentCodesList';
-import loc from './loc';
+// import ScanLndInvoice from './src/screens/lnd/scanLndInvoice';
+import LappBrowser from './src/screens/lnd/browser';
+// import LNDCreateInvoice from './src/screens/lnd/lndCreateInvoice';
+// import LNDViewInvoice from './src/screens/lnd/lndViewInvoice';
+import LdkOpenChannel from './src/screens/lnd/ldkOpenChannel';
+import LdkInfo from './src/screens/lnd/ldkInfo';
+// import LNDViewAdditionalInvoiceInformation from './src/screens/lnd/lndViewAdditionalInvoiceInformation';
+// import LnurlPay from './src/screens/lnd/lnurlPay';
+// import LnurlPaySuccess from './src/screens/lnd/lnurlPaySuccess';
+// import LnurlAuth from './src/screens/lnd/lnurlAuth';
+import BlankPage from './src/screens/blank';
+import Entry from './src/screens/entry';
+import Unlock from './src/screens/unlock';
+import Onboard from './src/screens/onboard';
+// import DrawerList from './src/screens/wallets/drawerList';
+import { isDesktop, isTablet, isHandset } from './src/custom-modules/environment';
+import SettingsPrivacy from './src/screens/settings/security';
+// import LNDViewAdditionalInvoicePreImage from './src/screens/lnd/lndViewAdditionalInvoicePreImage';
+import LdkViewLogs from './src/screens/wallets/ldkViewLogs';
+// import PaymentCode from './src/screens/wallets/paymentCode';
+// import PaymentCodesList from './src/screens/wallets/paymentCodesList';
+import loc from './src/loc';
 
-import DeeplinkSchemaMatch from './class/deeplink-schema-match';
+import DeeplinkSchemaMatch from './src/class/deeplink-schema-match';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
-import Notifications from './screen/Notifications';
-import Chat from './screen/Chat';
-import Card from './screen/card';
-import CardFAQ from './screen/card/faq';
+//import Notifications from './src/screens/Notifications';
+//import Chat from './src/screens/Chat';
+import Card from './src/screens/card';
+import CardFAQ from './src/screens/card/faq';
 
-import Marketplace from './screen/marketplace';
+import Marketplace from './src/screens/marketplace';
 
-import Discover from './screen/Discover';
-import Chart from './components/chart';
-import { IconConfigKeys } from 'react-native-ios-context-menu';
+//import Discover from './src/screens/Discover';
+import Chart from './src/components/chart';
+//import { IconConfigKeys } from 'react-native-ios-context-menu';
 
 import * as NavigationService from './NavigationService';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import RoundButton from './components/button-round';
+//import RoundButton from './src/components/button-round';
 
-import { defaultStyles } from './components/defaultStyles';
-import { InactivityProvider } from './context/inactivity';
+import { defaultStyles } from './src/components/defaultStyles';
+//import { InactivityProvider } from './context/inactivity';
 
 const WalletsStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const scanqrHelper = require('./helpers/scan-qr');
+const scanqrHelper = require('./src/helpers/scan-qr');
 //const scanButtonRef = useRef();
 
 function TabNavigator() {
@@ -332,211 +332,211 @@ const sendButtonLongPress = async () => {
   }
 };
 
-const WalletsRoot = () => {
-  const theme = useTheme();
-  return (
-    <WalletsStack.Navigator name="Root" screenOptions={{ headerHideShadow: true, headerShown: true }}>
-      <WalletsStack.Screen name="CPFP" component={CPFP} options={CPFP.navigationOptions(theme)} />
-      <WalletsStack.Screen name="RBFBumpFee" component={RBFBumpFee} options={RBFBumpFee.navigationOptions(theme)} />
-      <WalletsStack.Screen name="RBFCancel" component={RBFCancel} options={RBFCancel.navigationOptions(theme)} />
-    </WalletsStack.Navigator>
-  );
-};
+// const WalletsRoot = () => {
+//   const theme = useTheme();
+//   return (
+//     <WalletsStack.Navigator name="Root" screenOptions={{ headerHideShadow: true, headerShown: true }}>
+//       <WalletsStack.Screen name="CPFP" component={CPFP} options={CPFP.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="RBFBumpFee" component={RBFBumpFee} options={RBFBumpFee.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="RBFCancel" component={RBFCancel} options={RBFCancel.navigationOptions(theme)} />
+//     </WalletsStack.Navigator>
+//   );
+// };
 
-const SettingsRoot = () => {
-  const theme = useTheme();
-  return (
-    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true }}>
-      {/* <WalletsStack.Screen name="Settings" component={Settings} options={Settings.navigationOptions(theme)} /> */}
-      {/* <WalletsStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} /> */}
-      <WalletsStack.Screen name="Currency" component={Currency} options={Currency.navigationOptions(theme)} />
-      {/* <WalletsStack.Screen name="About" component={About} options={About.navigationOptions(theme)} /> */}
-      <WalletsStack.Screen name="ReleaseNotes" component={ReleaseNotes} options={ReleaseNotes.navigationOptions(theme)} />
-      <WalletsStack.Screen name="Selftest" component={Selftest} options={Selftest.navigationOptions(theme)} />
-      <WalletsStack.Screen name="Licensing" component={Licensing} options={Licensing.navigationOptions(theme)} />
-      <WalletsStack.Screen name="DefaultView" component={DefaultView} options={DefaultView.navigationOptions(theme)} />
-      <WalletsStack.Screen name="Language" component={Language} options={Language.navigationOptions(theme)} />
-      <WalletsStack.Screen name="EncryptStorage" component={EncryptStorage} options={EncryptStorage.navigationOptions(theme)} />
-      {/* <WalletsStack.Screen name="GeneralSettings" component={GeneralSettings} options={GeneralSettings.navigationOptions(theme)} /> */}
-      <WalletsStack.Screen name="NetworkSettings" component={NetworkSettings} options={NetworkSettings.navigationOptions(theme)} />
-      <WalletsStack.Screen
-        name="NotificationSettings"
-        component={NotificationSettings}
-        options={NotificationSettings.navigationOptions(theme)}
-      />
-      <WalletsStack.Screen
-        name="PlausibleDeniability"
-        component={PlausibleDeniability}
-        options={PlausibleDeniability.navigationOptions(theme)}
-      />
-      <WalletsStack.Screen name="LightningSettings" component={LightningSettings} options={LightningSettings.navigationOptions(theme)} />
-      <WalletsStack.Screen name="ElectrumSettings" component={ElectrumSettings} options={ElectrumSettings.navigationOptions(theme)} />
-      <WalletsStack.Screen name="TorSettings" component={TorSettings} options={TorSettings.navigationOptions(theme)} />
-      <WalletsStack.Screen name="SettingsPrivacy" component={SettingsPrivacy} options={SettingsPrivacy.navigationOptions(theme)} />
-      <WalletsStack.Screen name="Tools" component={Tools} options={Tools.navigationOptions(theme)} />
-      <WalletsStack.Screen name="LNDViewInvoice" component={LNDViewInvoice} options={LNDViewInvoice.navigationOptions(theme)} />
-      <WalletsStack.Screen
-        name="LNDViewAdditionalInvoiceInformation"
-        component={LNDViewAdditionalInvoiceInformation}
-        options={LNDViewAdditionalInvoiceInformation.navigationOptions(theme)}
-      />
-      <WalletsStack.Screen
-        name="LNDViewAdditionalInvoicePreImage"
-        component={LNDViewAdditionalInvoicePreImage}
-        options={LNDViewAdditionalInvoicePreImage.navigationOptions(theme)}
-      />
-      <WalletsStack.Screen name="Broadcast" component={Broadcast} options={Broadcast.navigationOptions(theme)} />
-      <WalletsStack.Screen name="IsItMyAddress" component={IsItMyAddress} options={IsItMyAddress.navigationOptions(theme)} />
-      <WalletsStack.Screen name="LnurlPay" component={LnurlPay} options={LnurlPay.navigationOptions(theme)} />
-      <WalletsStack.Screen name="LnurlPaySuccess" component={LnurlPaySuccess} options={LnurlPaySuccess.navigationOptions(theme)} />
-      <WalletsStack.Screen name="LnurlAuth" component={LnurlAuth} options={LnurlAuth.navigationOptions(theme)} />
-      <WalletsStack.Screen
-        name="Success"
-        component={Success}
-        options={{
-          headerShown: false,
-          gestureEnabled: false,
-        }}
-      />
-    </WalletsStack.Navigator>
-  );
-};
+// const SettingsRoot = () => {
+//   const theme = useTheme();
+//   return (
+//     <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true }}>
+//       {/* <WalletsStack.Screen name="Settings" component={Settings} options={Settings.navigationOptions(theme)} /> */}
+//       {/* <WalletsStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} /> */}
+//       <WalletsStack.Screen name="Currency" component={Currency} options={Currency.navigationOptions(theme)} />
+//       {/* <WalletsStack.Screen name="About" component={About} options={About.navigationOptions(theme)} /> */}
+//       <WalletsStack.Screen name="ReleaseNotes" component={ReleaseNotes} options={ReleaseNotes.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="Selftest" component={Selftest} options={Selftest.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="Licensing" component={Licensing} options={Licensing.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="DefaultView" component={DefaultView} options={DefaultView.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="Language" component={Language} options={Language.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="EncryptStorage" component={EncryptStorage} options={EncryptStorage.navigationOptions(theme)} />
+//       {/* <WalletsStack.Screen name="GeneralSettings" component={GeneralSettings} options={GeneralSettings.navigationOptions(theme)} /> */}
+//       <WalletsStack.Screen name="NetworkSettings" component={NetworkSettings} options={NetworkSettings.navigationOptions(theme)} />
+//       <WalletsStack.Screen
+//         name="NotificationSettings"
+//         component={NotificationSettings}
+//         options={NotificationSettings.navigationOptions(theme)}
+//       />
+//       <WalletsStack.Screen
+//         name="PlausibleDeniability"
+//         component={PlausibleDeniability}
+//         options={PlausibleDeniability.navigationOptions(theme)}
+//       />
+//       <WalletsStack.Screen name="LightningSettings" component={LightningSettings} options={LightningSettings.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="ElectrumSettings" component={ElectrumSettings} options={ElectrumSettings.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="TorSettings" component={TorSettings} options={TorSettings.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="SettingsPrivacy" component={SettingsPrivacy} options={SettingsPrivacy.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="Tools" component={Tools} options={Tools.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="LNDViewInvoice" component={LNDViewInvoice} options={LNDViewInvoice.navigationOptions(theme)} />
+//       <WalletsStack.Screen
+//         name="LNDViewAdditionalInvoiceInformation"
+//         component={LNDViewAdditionalInvoiceInformation}
+//         options={LNDViewAdditionalInvoiceInformation.navigationOptions(theme)}
+//       />
+//       <WalletsStack.Screen
+//         name="LNDViewAdditionalInvoicePreImage"
+//         component={LNDViewAdditionalInvoicePreImage}
+//         options={LNDViewAdditionalInvoicePreImage.navigationOptions(theme)}
+//       />
+//       <WalletsStack.Screen name="Broadcast" component={Broadcast} options={Broadcast.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="IsItMyAddress" component={IsItMyAddress} options={IsItMyAddress.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="LnurlPay" component={LnurlPay} options={LnurlPay.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="LnurlPaySuccess" component={LnurlPaySuccess} options={LnurlPaySuccess.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="LnurlAuth" component={LnurlAuth} options={LnurlAuth.navigationOptions(theme)} />
+//       <WalletsStack.Screen
+//         name="Success"
+//         component={Success}
+//         options={{
+//           headerShown: false,
+//           gestureEnabled: false,
+//         }}
+//       />
+//     </WalletsStack.Navigator>
+//   );
+// };
 
-const AddWalletStack = createNativeStackNavigator();
-const AddWalletRoot = () => {
-  const theme = useTheme();
+// const AddWalletStack = createNativeStackNavigator();
+// const AddWalletRoot = () => {
+//   const theme = useTheme();
 
-  return (
-    <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true, }}>
-      <WalletsStack.Screen
-        name="ImportWalletDiscovery"
-        component={ImportWalletDiscovery}
-        options={ImportWalletDiscovery.navigationOptions(theme)}
-      />
-      <WalletsStack.Screen
-        name="ImportCustomDerivationPath"
-        component={ImportCustomDerivationPath}
-        options={ImportCustomDerivationPath.navigationOptions(theme)}
-      />
-      {/* <WalletsStack.Screen name="ImportSpeed" component={ImportSpeed} options={ImportSpeed.navigationOptions(theme)} />
-      <WalletsStack.Screen name="PleaseBackup" component={PleaseBackup} options={PleaseBackup.navigationOptions(theme)} /> */}
-      <WalletsStack.Screen
-        name="PleaseBackupLNDHub"
-        component={PleaseBackupLNDHub}
-        options={PleaseBackupLNDHub.navigationOptions(theme)}
-      />
-      <WalletsStack.Screen name="PleaseBackupLdk" component={PleaseBackupLdk} options={PleaseBackupLdk.navigationOptions(theme)} />
-      <WalletsStack.Screen name="ProvideEntropy" component={ProvideEntropy} options={ProvideEntropy.navigationOptions(theme)} />
-      <WalletsStack.Screen
-        name="WalletsAddMultisig"
-        component={WalletsAddMultisig}
-        options={WalletsAddMultisig.navigationOptions(theme)}
-      />
-      <WalletsStack.Screen
-        name="WalletsAddMultisigStep2"
-        component={WalletsAddMultisigStep2}
-        options={WalletsAddMultisigStep2.navigationOptions(theme)}
-      />
-      <WalletsStack.Screen
-        name="WalletsAddMultisigHelp"
-        component={WalletsAddMultisigHelp}
-        options={WalletsAddMultisigHelp.navigationOptions(theme)}
-      />
-    </WalletsStack.Navigator>
-  );
-};
+//   return (
+//     <WalletsStack.Navigator screenOptions={{ headerHideShadow: true, headerShown: true, }}>
+//       <WalletsStack.Screen
+//         name="ImportWalletDiscovery"
+//         component={ImportWalletDiscovery}
+//         options={ImportWalletDiscovery.navigationOptions(theme)}
+//       />
+//       <WalletsStack.Screen
+//         name="ImportCustomDerivationPath"
+//         component={ImportCustomDerivationPath}
+//         options={ImportCustomDerivationPath.navigationOptions(theme)}
+//       />
+//       {/* <WalletsStack.Screen name="ImportSpeed" component={ImportSpeed} options={ImportSpeed.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="PleaseBackup" component={PleaseBackup} options={PleaseBackup.navigationOptions(theme)} /> */}
+//       <WalletsStack.Screen
+//         name="PleaseBackupLNDHub"
+//         component={PleaseBackupLNDHub}
+//         options={PleaseBackupLNDHub.navigationOptions(theme)}
+//       />
+//       <WalletsStack.Screen name="PleaseBackupLdk" component={PleaseBackupLdk} options={PleaseBackupLdk.navigationOptions(theme)} />
+//       <WalletsStack.Screen name="ProvideEntropy" component={ProvideEntropy} options={ProvideEntropy.navigationOptions(theme)} />
+//       <WalletsStack.Screen
+//         name="WalletsAddMultisig"
+//         component={WalletsAddMultisig}
+//         options={WalletsAddMultisig.navigationOptions(theme)}
+//       />
+//       <WalletsStack.Screen
+//         name="WalletsAddMultisigStep2"
+//         component={WalletsAddMultisigStep2}
+//         options={WalletsAddMultisigStep2.navigationOptions(theme)}
+//       />
+//       <WalletsStack.Screen
+//         name="WalletsAddMultisigHelp"
+//         component={WalletsAddMultisigHelp}
+//         options={WalletsAddMultisigHelp.navigationOptions(theme)}
+//       />
+//     </WalletsStack.Navigator>
+//   );
+// };
 
-const SendDetailsStack = createNativeStackNavigator();
-const SendDetailsRoot = () => {
-  const theme = useTheme();
+// const SendDetailsStack = createNativeStackNavigator();
+// const SendDetailsRoot = () => {
+//   const theme = useTheme();
 
-  return (
-    <SendDetailsStack.Navigator screenOptions={{ headerHideShadow: true }}>
-      <SendDetailsStack.Screen name="Confirm" component={Confirm} options={Confirm.navigationOptions(theme)} />
-      <SendDetailsStack.Screen
-        name="PsbtWithHardwareWallet"
-        component={PsbtWithHardwareWallet}
-        options={PsbtWithHardwareWallet.navigationOptions(theme)}
-      />
-      <SendDetailsStack.Screen name="CreateTransaction" component={SendCreate} options={SendCreate.navigationOptions(theme)} />
-      <SendDetailsStack.Screen name="PsbtMultisig" component={PsbtMultisig} options={PsbtMultisig.navigationOptions(theme)} />
-      <SendDetailsStack.Screen
-        name="PsbtMultisigQRCode"
-        component={PsbtMultisigQRCode}
-        options={PsbtMultisigQRCode.navigationOptions(theme)}
-      />
-      <SendDetailsStack.Screen
-        name="Success"
-        component={Success}
-        options={{
-          headerShown: false,
-          gestureEnabled: false,
-        }}
-      />
-      <SendDetailsStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
-      <SendDetailsStack.Screen name="CoinControl" component={CoinControl} options={CoinControl.navigationOptions(theme)} />
-    </SendDetailsStack.Navigator>
-  );
-};
+//   return (
+//     <SendDetailsStack.Navigator screenOptions={{ headerHideShadow: true }}>
+//       <SendDetailsStack.Screen name="Confirm" component={Confirm} options={Confirm.navigationOptions(theme)} />
+//       <SendDetailsStack.Screen
+//         name="PsbtWithHardwareWallet"
+//         component={PsbtWithHardwareWallet}
+//         options={PsbtWithHardwareWallet.navigationOptions(theme)}
+//       />
+//       <SendDetailsStack.Screen name="CreateTransaction" component={SendCreate} options={SendCreate.navigationOptions(theme)} />
+//       <SendDetailsStack.Screen name="PsbtMultisig" component={PsbtMultisig} options={PsbtMultisig.navigationOptions(theme)} />
+//       <SendDetailsStack.Screen
+//         name="PsbtMultisigQRCode"
+//         component={PsbtMultisigQRCode}
+//         options={PsbtMultisigQRCode.navigationOptions(theme)}
+//       />
+//       <SendDetailsStack.Screen
+//         name="Success"
+//         component={Success}
+//         options={{
+//           headerShown: false,
+//           gestureEnabled: false,
+//         }}
+//       />
+//       <SendDetailsStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
+//       <SendDetailsStack.Screen name="CoinControl" component={CoinControl} options={CoinControl.navigationOptions(theme)} />
+//     </SendDetailsStack.Navigator>
+//   );
+// };
 
-const LNDCreateInvoiceStack = createNativeStackNavigator();
-const LNDCreateInvoiceRoot = () => {
-  const theme = useTheme();
+// const LNDCreateInvoiceStack = createNativeStackNavigator();
+// const LNDCreateInvoiceRoot = () => {
+//   const theme = useTheme();
 
-  return (
-    <LNDCreateInvoiceStack.Navigator screenOptions={{ headerHideShadow: true }}>
-      <LNDCreateInvoiceStack.Screen
-        name="LNDCreateInvoice"
-        component={LNDCreateInvoice}
-        options={LNDCreateInvoice.navigationOptions(theme)}
-      />
-      <LNDCreateInvoiceStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
-      <LNDCreateInvoiceStack.Screen name="LNDViewInvoice" component={LNDViewInvoice} options={LNDViewInvoice.navigationOptions(theme)} />
-      <LNDCreateInvoiceStack.Screen
-        name="LNDViewAdditionalInvoiceInformation"
-        component={LNDViewAdditionalInvoiceInformation}
-        options={LNDViewAdditionalInvoiceInformation.navigationOptions(theme)}
-      />
-      <LNDCreateInvoiceStack.Screen
-        name="LNDViewAdditionalInvoicePreImage"
-        component={LNDViewAdditionalInvoicePreImage}
-        options={LNDViewAdditionalInvoicePreImage.navigationOptions(theme)}
-      />
-    </LNDCreateInvoiceStack.Navigator>
-  );
-};
+//   return (
+//     <LNDCreateInvoiceStack.Navigator screenOptions={{ headerHideShadow: true }}>
+//       <LNDCreateInvoiceStack.Screen
+//         name="LNDCreateInvoice"
+//         component={LNDCreateInvoice}
+//         options={LNDCreateInvoice.navigationOptions(theme)}
+//       />
+//       <LNDCreateInvoiceStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
+//       <LNDCreateInvoiceStack.Screen name="LNDViewInvoice" component={LNDViewInvoice} options={LNDViewInvoice.navigationOptions(theme)} />
+//       <LNDCreateInvoiceStack.Screen
+//         name="LNDViewAdditionalInvoiceInformation"
+//         component={LNDViewAdditionalInvoiceInformation}
+//         options={LNDViewAdditionalInvoiceInformation.navigationOptions(theme)}
+//       />
+//       <LNDCreateInvoiceStack.Screen
+//         name="LNDViewAdditionalInvoicePreImage"
+//         component={LNDViewAdditionalInvoicePreImage}
+//         options={LNDViewAdditionalInvoicePreImage.navigationOptions(theme)}
+//       />
+//     </LNDCreateInvoiceStack.Navigator>
+//   );
+// };
 
-const ScanLndInvoiceStack = createNativeStackNavigator();
-const ScanLndInvoiceRoot = () => {
-  const theme = useTheme();
+// const ScanLndInvoiceStack = createNativeStackNavigator();
+// const ScanLndInvoiceRoot = () => {
+//   const theme = useTheme();
 
-  return (
-    <ScanLndInvoiceStack.Navigator screenOptions={{ headerHideShadow: true }}>
-      <ScanLndInvoiceStack.Screen name="ScanLndInvoice" component={ScanLndInvoice} options={ScanLndInvoice.navigationOptions(theme)} />
-      <ScanLndInvoiceStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
-      <ScanLndInvoiceStack.Screen name="Success" component={Success} options={{ headerShown: false, gestureEnabled: false }} />
-      <ScanLndInvoiceStack.Screen name="LnurlPay" component={LnurlPay} options={LnurlPay.navigationOptions(theme)} />
-      <ScanLndInvoiceStack.Screen name="LnurlPaySuccess" component={LnurlPaySuccess} options={LnurlPaySuccess.navigationOptions(theme)} />
-    </ScanLndInvoiceStack.Navigator>
-  );
-};
+//   return (
+//     <ScanLndInvoiceStack.Navigator screenOptions={{ headerHideShadow: true }}>
+//       <ScanLndInvoiceStack.Screen name="ScanLndInvoice" component={ScanLndInvoice} options={ScanLndInvoice.navigationOptions(theme)} />
+//       <ScanLndInvoiceStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
+//       <ScanLndInvoiceStack.Screen name="Success" component={Success} options={{ headerShown: false, gestureEnabled: false }} />
+//       <ScanLndInvoiceStack.Screen name="LnurlPay" component={LnurlPay} options={LnurlPay.navigationOptions(theme)} />
+//       <ScanLndInvoiceStack.Screen name="LnurlPaySuccess" component={LnurlPaySuccess} options={LnurlPaySuccess.navigationOptions(theme)} />
+//     </ScanLndInvoiceStack.Navigator>
+//   );
+// };
 
-const LDKOpenChannelStack = createNativeStackNavigator();
-const LDKOpenChannelRoot = () => {
-  const theme = useTheme();
+// const LDKOpenChannelStack = createNativeStackNavigator();
+// const LDKOpenChannelRoot = () => {
+//   const theme = useTheme();
 
-  return (
-    <LDKOpenChannelStack.Navigator name="LDKOpenChannelRoot" screenOptions={{ headerHideShadow: true }} initialRouteName="SelectWallet">
-      <LDKOpenChannelStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
-      <LDKOpenChannelStack.Screen
-        name="LDKOpenChannelSetAmount"
-        component={LdkOpenChannel}
-        options={LdkOpenChannel.navigationOptions(theme)}
-      />
-      <LDKOpenChannelStack.Screen name="Success" component={Success} options={{ headerShown: false, gestureEnabled: false }} />
-    </LDKOpenChannelStack.Navigator>
-  );
-};
+//   return (
+//     <LDKOpenChannelStack.Navigator name="LDKOpenChannelRoot" screenOptions={{ headerHideShadow: true }} initialRouteName="SelectWallet">
+//       <LDKOpenChannelStack.Screen name="SelectWallet" component={SelectWallet} options={SelectWallet.navigationOptions(theme)} />
+//       <LDKOpenChannelStack.Screen
+//         name="LDKOpenChannelSetAmount"
+//         component={LdkOpenChannel}
+//         options={LdkOpenChannel.navigationOptions(theme)}
+//       />
+//       <LDKOpenChannelStack.Screen name="Success" component={Success} options={{ headerShown: false, gestureEnabled: false }} />
+//     </LDKOpenChannelStack.Navigator>
+//   );
+// };
 
 const ReorderWalletsStack = createNativeStackNavigator();
 const ReorderWalletsStackRoot = () => {
@@ -549,16 +549,16 @@ const ReorderWalletsStackRoot = () => {
   );
 };
 
-const WalletXpubStack = createNativeStackNavigator();
-const WalletXpubStackRoot = () => {
-  const theme = useTheme();
+// const WalletXpubStack = createNativeStackNavigator();
+// const WalletXpubStackRoot = () => {
+//   const theme = useTheme();
 
-  return (
-    <WalletXpubStack.Navigator name="WalletXpubRoot" screenOptions={{ headerHideShadow: true }} initialRouteName="WalletXpub">
-      <WalletXpubStack.Screen name="WalletXpub" component={WalletXpub} options={WalletXpub.navigationOptions(theme)} />
-    </WalletXpubStack.Navigator>
-  );
-};
+//   return (
+//     <WalletXpubStack.Navigator name="WalletXpubRoot" screenOptions={{ headerHideShadow: true }} initialRouteName="WalletXpub">
+//       <WalletXpubStack.Screen name="WalletXpub" component={WalletXpub} options={WalletXpub.navigationOptions(theme)} />
+//     </WalletXpubStack.Navigator>
+//   );
+// };
 
 
 
@@ -783,98 +783,98 @@ export default function Layout() {
   </InitStack.Navigator>
 )};
 
-const ViewEditMultisigCosignersStack = createNativeStackNavigator();
-const ViewEditMultisigCosignersRoot = () => {
-  const theme = useTheme();
+// const ViewEditMultisigCosignersStack = createNativeStackNavigator();
+// const ViewEditMultisigCosignersRoot = () => {
+//   const theme = useTheme();
 
-  return (
-    <ViewEditMultisigCosignersStack.Navigator
-      name="ViewEditMultisigCosignersRoot"
-      initialRouteName="ViewEditMultisigCosigners"
-      screenOptions={{ headerHideShadow: true }}
-    >
-      <ViewEditMultisigCosignersStack.Screen
-        name="ViewEditMultisigCosigners"
-        component={ViewEditMultisigCosigners}
-        options={ViewEditMultisigCosigners.navigationOptions(theme)}
-      />
-    </ViewEditMultisigCosignersStack.Navigator>
-  );
-};
+//   return (
+//     <ViewEditMultisigCosignersStack.Navigator
+//       name="ViewEditMultisigCosignersRoot"
+//       initialRouteName="ViewEditMultisigCosigners"
+//       screenOptions={{ headerHideShadow: true }}
+//     >
+//       <ViewEditMultisigCosignersStack.Screen
+//         name="ViewEditMultisigCosigners"
+//         component={ViewEditMultisigCosigners}
+//         options={ViewEditMultisigCosigners.navigationOptions(theme)}
+//       />
+//     </ViewEditMultisigCosignersStack.Navigator>
+//   );
+// };
 
-const ExportMultisigCoordinationSetupStack = createNativeStackNavigator();
-const ExportMultisigCoordinationSetupRoot = () => {
-  const theme = useTheme();
+// const ExportMultisigCoordinationSetupStack = createNativeStackNavigator();
+// const ExportMultisigCoordinationSetupRoot = () => {
+//   const theme = useTheme();
 
-  return (
-    <ExportMultisigCoordinationSetupStack.Navigator
-      name="ExportMultisigCoordinationSetupRoot"
-      initialRouteName="ExportMultisigCoordinationSetup"
-      screenOptions={{ headerHideShadow: true }}
-    >
-      <ExportMultisigCoordinationSetupStack.Screen
-        name="ExportMultisigCoordinationSetup"
-        component={ExportMultisigCoordinationSetup}
-        options={ExportMultisigCoordinationSetup.navigationOptions(theme)}
-      />
-    </ExportMultisigCoordinationSetupStack.Navigator>
-  );
-};
+//   return (
+//     <ExportMultisigCoordinationSetupStack.Navigator
+//       name="ExportMultisigCoordinationSetupRoot"
+//       initialRouteName="ExportMultisigCoordinationSetup"
+//       screenOptions={{ headerHideShadow: true }}
+//     >
+//       <ExportMultisigCoordinationSetupStack.Screen
+//         name="ExportMultisigCoordinationSetup"
+//         component={ExportMultisigCoordinationSetup}
+//         options={ExportMultisigCoordinationSetup.navigationOptions(theme)}
+//       />
+//     </ExportMultisigCoordinationSetupStack.Navigator>
+//   );
+// };
 
-const PaymentCodeStack = createNativeStackNavigator();
-const PaymentCodeStackRoot = () => {
-  return (
-    <PaymentCodeStack.Navigator name="PaymentCodeRoot" screenOptions={{ headerHideShadow: true }} initialRouteName="PaymentCode">
-      <PaymentCodeStack.Screen name="PaymentCode" component={PaymentCode} options={{ headerTitle: loc.bip47.payment_code }} />
-      <PaymentCodeStack.Screen
-        name="PaymentCodesList"
-        component={PaymentCodesList}
-        options={{ headerTitle: loc.bip47.payment_codes_list }}
-      />
-    </PaymentCodeStack.Navigator>
-  );
-};
+// const PaymentCodeStack = createNativeStackNavigator();
+// const PaymentCodeStackRoot = () => {
+//   return (
+//     <PaymentCodeStack.Navigator name="PaymentCodeRoot" screenOptions={{ headerHideShadow: true }} initialRouteName="PaymentCode">
+//       <PaymentCodeStack.Screen name="PaymentCode" component={PaymentCode} options={{ headerTitle: loc.bip47.payment_code }} />
+//       <PaymentCodeStack.Screen
+//         name="PaymentCodesList"
+//         component={PaymentCodesList}
+//         options={{ headerTitle: loc.bip47.payment_codes_list }}
+//       />
+//     </PaymentCodeStack.Navigator>
+//   );
+// };
 
-const RootStack = createNativeStackNavigator();
-const NavigationDefaultOptions = { 
-  headerShown: false,
-  presentation: 'card',
-};
+// const RootStack = createNativeStackNavigator();
+// const NavigationDefaultOptions = { 
+//   headerShown: false,
+//   presentation: 'card',
+// };
 
-const Navigation = () => {
-  return (
-    <RootStack.Navigator initialRouteName="UnlockWithScreenRoot" screenOptions={{ headerHideShadow: true }}>
-      <RootStack.Screen name="Home" component={TabNavigator} options={NavigationDefaultOptions}/>
-      <RootStack.Screen name="WalletsRoot" component={WalletsRoot} options={{ headerShown: false, translucent: false }} />
-      <RootStack.Screen name="AddWalletRoot" component={AddWalletRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="SendDetailsRoot" component={SendDetailsRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="LNDCreateInvoiceRoot" component={LNDCreateInvoiceRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="ScanLndInvoiceRoot" component={ScanLndInvoiceRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="WalletExportRoot" component={WalletExportStackRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen
-        name="ExportMultisigCoordinationSetupRoot"
-        component={ExportMultisigCoordinationSetupRoot}
-        options={NavigationDefaultOptions}
-      />
-      <RootStack.Screen name="ViewEditMultisigCosignersRoot" component={ViewEditMultisigCosignersRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="WalletXpubRoot" component={WalletXpubStackRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="SignVerifyRoot" component={SignVerifyStackRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="SelectWallet" component={SelectWallet} />
-      <RootStack.Screen name="LappBrowserRoot" component={LappBrowserStackRoot} options={NavigationDefaultOptions} />
-      <RootStack.Screen name="LDKOpenChannelRoot" component={LDKOpenChannelRoot} options={NavigationDefaultOptions} />
+// const Navigation = () => {
+//   return (
+//     <RootStack.Navigator initialRouteName="UnlockWithScreenRoot" screenOptions={{ headerHideShadow: true }}>
+//       <RootStack.Screen name="Home" component={TabNavigator} options={NavigationDefaultOptions}/>
+//       <RootStack.Screen name="WalletsRoot" component={WalletsRoot} options={{ headerShown: false, translucent: false }} />
+//       <RootStack.Screen name="AddWalletRoot" component={AddWalletRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen name="SendDetailsRoot" component={SendDetailsRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen name="LNDCreateInvoiceRoot" component={LNDCreateInvoiceRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen name="ScanLndInvoiceRoot" component={ScanLndInvoiceRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen name="WalletExportRoot" component={WalletExportStackRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen
+//         name="ExportMultisigCoordinationSetupRoot"
+//         component={ExportMultisigCoordinationSetupRoot}
+//         options={NavigationDefaultOptions}
+//       />
+//       <RootStack.Screen name="ViewEditMultisigCosignersRoot" component={ViewEditMultisigCosignersRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen name="WalletXpubRoot" component={WalletXpubStackRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen name="SignVerifyRoot" component={SignVerifyStackRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen name="SelectWallet" component={SelectWallet} />
+//       <RootStack.Screen name="LappBrowserRoot" component={LappBrowserStackRoot} options={NavigationDefaultOptions} />
+//       <RootStack.Screen name="LDKOpenChannelRoot" component={LDKOpenChannelRoot} options={NavigationDefaultOptions} />
 
-      <RootStack.Screen
-        name="ScanQRCodeRoot"
-        component={ScanQRCodeRoot}
-        options={{
-          headerShown: false,
-          stackPresentation: isDesktop ? 'containedModal' : 'fullScreenModal',
-        }}
-      />
+//       <RootStack.Screen
+//         name="ScanQRCodeRoot"
+//         component={ScanQRCodeRoot}
+//         options={{
+//           headerShown: false,
+//           stackPresentation: isDesktop ? 'containedModal' : 'fullScreenModal',
+//         }}
+//       />
 
-      <RootStack.Screen name="PaymentCodeRoot" component={PaymentCodeStackRoot} options={NavigationDefaultOptions} />
-    </RootStack.Navigator>
-  );
-};
+//       <RootStack.Screen name="PaymentCodeRoot" component={PaymentCodeStackRoot} options={NavigationDefaultOptions} />
+//     </RootStack.Navigator>
+//   );
+// };
 
 // export default InitRoot;

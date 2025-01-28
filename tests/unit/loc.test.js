@@ -1,8 +1,8 @@
 import assert from 'assert';
-import { BitcoinUnit } from '../../models/bitcoinUnits';
-import { FiatUnit } from '../../models/fiatUnit';
-import { _leaveNumbersAndDots, formatBalanceWithoutSuffix, formatBalancePlain, formatBalance } from '../../loc';
-const currency = require('../../blue_modules/currency');
+import { BitcoinUnit } from '../../src/models/bitcoinUnits';
+import { FiatUnit } from '../../src/models/fiatUnit';
+import { _leaveNumbersAndDots, formatBalanceWithoutSuffix, formatBalancePlain, formatBalance } from '../../src/loc';
+const currency = require('../../src/custom-modules/currency');
 
 describe('Localization', () => {
   it('internal formatter', () => {

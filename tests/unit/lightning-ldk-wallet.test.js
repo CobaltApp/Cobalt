@@ -1,4 +1,4 @@
-import { HDSegwitBech32Wallet, LightningLdkWallet } from '../../class';
+import { HDSegwitBech32Wallet, LightningLdkWallet } from '../../src/class';
 const assert = require('assert');
 
 describe('', () => {

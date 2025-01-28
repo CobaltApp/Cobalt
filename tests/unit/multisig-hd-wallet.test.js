@@ -1,9 +1,9 @@
 import assert from 'assert';
-import { MultisigHDWallet } from '../../class/';
-import { BlueURDecoder, decodeUR, encodeUR } from '../../blue_modules/ur';
-import { MultisigCosigner } from '../../class/multisig-cosigner';
+import { MultisigHDWallet } from '../../src/class';
+import { BlueURDecoder, decodeUR, encodeUR } from '../../src/custom-modules/ur';
+import { MultisigCosigner } from '../../src/class/multisig-cosigner';
 const bitcoin = require('bitcoinjs-lib');
-const Base43 = require('../../blue_modules/base43');
+const Base43 = require('../../src/custom-modules/base43');
 
 const fp1cobo = 'D37EAD88';
 const Zpub1 = 'Zpub74ijpfhERJNjhCKXRspTdLJV5eoEmSRZdHqDvp9kVtdVEyiXk7pXxRbfZzQvsDFpfDHEHVtVpx4Dz9DGUWGn2Xk5zG5u45QTMsYS2vjohNQ';

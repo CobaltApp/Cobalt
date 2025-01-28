@@ -1,4 +1,4 @@
-import { SegwitP2SHWallet } from '../../class';
+import { SegwitP2SHWallet } from '../../src/class';
 const bitcoin = require('bitcoinjs-lib');
 const assert = require('assert');
 

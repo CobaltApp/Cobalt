@@ -1,9 +1,9 @@
-import { FiatUnit } from '../../models/fiatUnit';
+import { FiatUnit } from '../../src/models/fiatUnit';
 const assert = require('assert');
 
 describe('currency', () => {
   it('formats everything correctly', async () => {
-    const currency = require('../../blue_modules/currency');
+    const currency = require('../../src/custom-modules/currency');
     currency._setExchangeRate('BTC_USD', 10000);
 
     assert.strictEqual(currency.satoshiToLocalCurrency(1), '$0.0001');

@@ -1,5 +1,5 @@
-import { WatchOnlyWallet } from '../../class';
-import { decodeUR, encodeUR, setUseURv1, clearUseURv1, extractSingleWorkload, BlueURDecoder } from '../../blue_modules/ur';
+import { WatchOnlyWallet } from '../../src/class';
+import { decodeUR, encodeUR, setUseURv1, clearUseURv1, extractSingleWorkload, BlueURDecoder } from '../../src/custom-modules/ur';
 import { Psbt } from 'bitcoinjs-lib';
 const assert = require('assert');
 

@@ -1,5 +1,5 @@
-import { LightningLdkWallet } from '../../class';
-import SyncedAsyncStorage from '../../class/synced-async-storage';
+import { LightningLdkWallet } from '../../src/class';
+import SyncedAsyncStorage from '../../src/class/synced-async-storage';
 const assert = require('assert');
 
 describe('', () => {

@@ -20,8 +20,8 @@ process.browser = false;
 //
 // since new TCP/TLS module for React Native has different api from what is expected from nodejs/net & nodejs/tls
 // (or from old module) we wrap this module in adapter:
-global.net = require('./blue_modules/net');
-global.tls = require('./blue_modules/tls');
+global.net = require('./src/custom-modules/net');
+global.tls = require('./src/custom-modules/tls');
 
 // global.location = global.location || { port: 80 }
 const isDev = typeof __DEV__ === 'boolean' && __DEV__;

@@ -1,5 +1,5 @@
 const assert = require('assert');
-const c = require('../../blue_modules/encryption');
+const c = require('../../src/custom-modules/encryption');
 
 describe('unit - encryption', function () {
   it('encrypts and decrypts', function () {

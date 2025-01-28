@@ -1,4 +1,4 @@
-import { SegwitBech32Wallet } from '../../class';
+import { SegwitBech32Wallet } from '../../src/class';
 const bitcoin = require('bitcoinjs-lib');
 const assert = require('assert');
 

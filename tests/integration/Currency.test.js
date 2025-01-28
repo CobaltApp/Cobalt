@@ -1,13 +1,13 @@
 import assert from 'assert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { FiatUnit } from '../../models/fiatUnit';
+import { FiatUnit } from '../../src/models/fiatUnit';
 
 jest.setTimeout(30 * 1000);
 
 describe('currency', () => {
   it('fetches exchange rate and saves to AsyncStorage', async () => {
-    const currency = require('../../blue_modules/currency');
+    const currency = require('../../src/custom-modules/currency');
     await currency.init();
     let cur = await AsyncStorage.getItem(currency.EXCHANGE_RATES);
     cur = JSON.parse(cur);

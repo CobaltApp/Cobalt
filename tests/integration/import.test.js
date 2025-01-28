@@ -13,9 +13,9 @@ import {
   HDAezeedWallet,
   SLIP39SegwitP2SHWallet,
   SLIP39SegwitBech32Wallet,
-} from '../../class';
-import startImport from '../../class/wallet-import';
-import * as BlueElectrum from '../../blue_modules/BlueElectrum';
+} from '../../src/class';
+import startImport from '../../src/class/wallet-import';
+import * as BlueElectrum from '../../src/custom-modules/BlueElectrum';
 
 jest.setTimeout(90 * 1000);
 

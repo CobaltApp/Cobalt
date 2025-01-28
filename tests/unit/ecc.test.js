@@ -1,4 +1,4 @@
-import ecc from '../../blue_modules/noble_ecc';
+import ecc from '../../src/custom-modules/noble_ecc';
 import { ECPairFactory } from 'ecpair';
 const assert = require('assert');
 

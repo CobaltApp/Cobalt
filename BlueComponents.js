@@ -22,12 +22,11 @@ import {
   ImageBackground,
 } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
-import NetworkTransactionFees, { NetworkTransactionFee, NetworkTransactionFeeType } from './models/networkTransactionFees';
+import NetworkTransactionFees, { NetworkTransactionFee, NetworkTransactionFeeType } from './src/models/networkTransactionFees';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@react-navigation/native';
-import { BlueCurrentTheme } from './components/themes';
-import PlusIcon from './components/icons/PlusIcon';
-import loc, { formatStringAddTwoWhiteSpaces } from './loc';
+// import { BlueCurrentTheme } from './src/components/themes';
+import loc, { formatStringAddTwoWhiteSpaces } from './src/loc';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
 const { height, width } = Dimensions.get('window');
@@ -42,7 +41,7 @@ if (aspectRatio > 1.6) {
 export const BlueButton = props => {
   const { colors } = useTheme();
 
-  let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.primary || BlueCurrentTheme.colors.primary;
+  let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.primary;
   let fontColor = props.buttonTextColor || colors.background;
   if (props.disabled === true) {
     backgroundColor = colors.element;
@@ -126,7 +125,7 @@ export const BitcoinButton = props => {
       >
         <View style={{ marginHorizontal: 12, marginVertical: 12, flexDirection: 'row', alignItems: 'center' }}>
           <View>
-            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./img/addWallet/bitcoin.png')} />
+            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./assets/addWallet/bitcoin.png')} />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ color: colors.foreground, fontWeight: '500', fontSize: 14, writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' }}>
@@ -167,7 +166,7 @@ export const VaultButton = props => {
       >
         <View style={{ marginHorizontal: 12, marginVertical: 12, flexDirection: 'row', alignItems: 'center' }}>
           <View>
-            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./img/addWallet/vault.png')} />
+            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./assets/addWallet/vault.png')} />
           </View>
           <View style={{ flex: 1 }}>
             <Text
@@ -216,7 +215,7 @@ export const LightningButton = props => {
       >
         <View style={{ marginHorizontal: 12, marginVertical: 12, flexDirection: 'row', alignItems: 'center' }}>
           <View>
-            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./img/addWallet/lightning.png')} />
+            <Image style={{ width: 32, height: 32, marginRight: 12 }} source={require('./assets/addWallet/lightning.png')} />
           </View>
           <View style={{ flex: 1 }}>
             <Text
@@ -797,24 +796,24 @@ export class BlueReplaceFeeSuggestions extends Component {
               onPress={() => this.onFeeSelected(type)}
               style={[
                 { paddingHorizontal: 16, paddingVertical: 8, marginBottom: 10 },
-                active && { borderRadius: 8, backgroundColor: BlueCurrentTheme.colors.positive, opacity: 0.2, },
+                active && { borderRadius: 8, backgroundColor: '#FFFFFF', opacity: 0.2, },
               ]}
             >
               <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 22, color: BlueCurrentTheme.colors.positive, fontWeight: '600' }}>{label}</Text>
+                <Text style={{ fontSize: 22, color:'#FFFFFF', fontWeight: '600' }}>{label}</Text>
                 <View
                   style={{
-                    backgroundColor: BlueCurrentTheme.colors.positive,
+                    backgroundColor:'#FFFFFF',
                     borderRadius: 5,
                     paddingHorizontal: 6,
                     paddingVertical: 3,
                   }}
                 >
-                  <Text style={{ color: BlueCurrentTheme.colors.background }}>~{time}</Text>
+                  <Text style={{ color: '#FFFFFF' }}>~{time}</Text>
                 </View>
               </View>
               <View style={{ justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: BlueCurrentTheme.colors.positive }}>{rate} sat/byte</Text>
+                <Text style={{ color:'#FFFFFF' }}>{rate} sat/byte</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -825,13 +824,13 @@ export class BlueReplaceFeeSuggestions extends Component {
             { paddingHorizontal: 16, paddingVertical: 8, marginBottom: 10 },
             selectedFeeType === NetworkTransactionFeeType.CUSTOM && {
               borderRadius: 8,
-              backgroundColor: BlueCurrentTheme.colors.positive,
+              backgroundColor: '#FFFFFF',
               opacity: 0.2,
             },
           ]}
         >
           <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ fontSize: 22, color: BlueCurrentTheme.colors.positive, fontWeight: '600' }}>
+            <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: '600' }}>
               {formatStringAddTwoWhiteSpaces(loc.send.fee_custom)}
             </Text>
           </View>
@@ -844,10 +843,10 @@ export class BlueReplaceFeeSuggestions extends Component {
               maxLength={9}
               style={{
                 fontFamily: 'Poppins-Regular',
-                backgroundColor: BlueCurrentTheme.colors.element,
-                borderBottomColor: BlueCurrentTheme.colors.element,
+                backgroundColor: '#FFFFFF',
+                borderBottomColor: '#FFFFFF',
                 borderBottomWidth: 0.5,
-                borderColor: BlueCurrentTheme.colors.element,
+                borderColor: '#FFFFFF',
                 borderRadius: 4,
                 borderWidth: 1.0,
                 color: '#81868e',
@@ -863,10 +862,10 @@ export class BlueReplaceFeeSuggestions extends Component {
               placeholderTextColor="#81868e"
               inputAccessoryViewID={BlueDismissKeyboardInputAccessory.InputAccessoryViewID}
             />
-            <Text style={{ color: BlueCurrentTheme.colors.positive }}>sat/byte</Text>
+            <Text style={{ color: '#FFFFFF' }}>sat/byte</Text>
           </View>
         </TouchableOpacity>
-        <BlueText style={{ color: BlueCurrentTheme.colors.foreground }}>
+        <BlueText style={{ color: '#FFFFFF' }}>
           {loc.formatString(loc.send.fee_replace_minvb, { min: this.props.transactionMinimum })}
         </BlueText>
       </View>
@@ -919,7 +918,7 @@ export const BlueTabs = ({ active, onSwitch, tabs }) => (
         style={[
           tabsStyles.tabRoot,
           active === i && {
-            borderColor: BlueCurrentTheme.colors.foreground,
+            borderColor: '#FFFFFF',
             borderBottomWidth: 2,
           },
         ]}
